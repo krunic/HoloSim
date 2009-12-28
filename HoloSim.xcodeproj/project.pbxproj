@@ -1,0 +1,978 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 42;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		7A0F8A420C5CA8650018DD1F /* ControllerAdapter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7A0F8A3E0C5CA8650018DD1F /* ControllerAdapter.cpp */; };
+		7A0F8A430C5CA8650018DD1F /* MouseAdapter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7A0F8A400C5CA8650018DD1F /* MouseAdapter.cpp */; };
+		7A0F8A440C5CA8650018DD1F /* ControllerAdapter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7A0F8A3E0C5CA8650018DD1F /* ControllerAdapter.cpp */; };
+		7A0F8A450C5CA8650018DD1F /* MouseAdapter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7A0F8A400C5CA8650018DD1F /* MouseAdapter.cpp */; };
+		7A0F8A4A0C5CA8910018DD1F /* AbstractDrawingCode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7A0F8A460C5CA8910018DD1F /* AbstractDrawingCode.cpp */; };
+		7A0F8A4B0C5CA8910018DD1F /* OpenGLDrawingCode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7A0F8A480C5CA8910018DD1F /* OpenGLDrawingCode.cpp */; };
+		7A0F8A4C0C5CA8910018DD1F /* AbstractDrawingCode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7A0F8A460C5CA8910018DD1F /* AbstractDrawingCode.cpp */; };
+		7A0F8A4D0C5CA8910018DD1F /* OpenGLDrawingCode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7A0F8A480C5CA8910018DD1F /* OpenGLDrawingCode.cpp */; };
+		7A0F8A500C5CA8AB0018DD1F /* MathHelper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7A0F8A4E0C5CA8AB0018DD1F /* MathHelper.cpp */; };
+		7A0F8A510C5CA8AB0018DD1F /* MathHelper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7A0F8A4E0C5CA8AB0018DD1F /* MathHelper.cpp */; };
+		7A0F8A580C5CA8C90018DD1F /* AbstractModel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7A0F8A520C5CA8C90018DD1F /* AbstractModel.cpp */; };
+		7A0F8A590C5CA8C90018DD1F /* CheckBoard.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7A0F8A540C5CA8C90018DD1F /* CheckBoard.cpp */; };
+		7A0F8A5A0C5CA8C90018DD1F /* InterpolatedModel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7A0F8A560C5CA8C90018DD1F /* InterpolatedModel.cpp */; };
+		7A0F8A5B0C5CA8C90018DD1F /* AbstractModel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7A0F8A520C5CA8C90018DD1F /* AbstractModel.cpp */; };
+		7A0F8A5C0C5CA8C90018DD1F /* CheckBoard.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7A0F8A540C5CA8C90018DD1F /* CheckBoard.cpp */; };
+		7A0F8A5D0C5CA8C90018DD1F /* InterpolatedModel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7A0F8A560C5CA8C90018DD1F /* InterpolatedModel.cpp */; };
+		7A0F8A650C5CA8EB0018DD1F /* HoloDeckView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 7A0F8A5F0C5CA8EB0018DD1F /* HoloDeckView.mm */; };
+		7A0F8A660C5CA8EB0018DD1F /* HoloSimDocument.mm in Sources */ = {isa = PBXBuildFile; fileRef = 7A0F8A610C5CA8EB0018DD1F /* HoloSimDocument.mm */; };
+		7A0F8A670C5CA8EB0018DD1F /* main.mm in Sources */ = {isa = PBXBuildFile; fileRef = 7A0F8A620C5CA8EB0018DD1F /* main.mm */; };
+		7A0F8A680C5CA8EB0018DD1F /* RoomView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 7A0F8A640C5CA8EB0018DD1F /* RoomView.mm */; };
+		7A0F8A820C5CA9A10018DD1F /* CocoaUnitTests.mm in Sources */ = {isa = PBXBuildFile; fileRef = 7A0F8A810C5CA9A10018DD1F /* CocoaUnitTests.mm */; };
+		7A2002670C5979160039A4F7 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A7FEA54F5311CA2CBB /* Cocoa.framework */; };
+		7A2002680C5979160039A4F7 /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A20023D0C5978930039A4F7 /* SenTestingKit.framework */; };
+		7A2F41C50C75784900FB3B69 /* MathHelperTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7A2F41C20C75784900FB3B69 /* MathHelperTest.cpp */; };
+		7A2F41CC0C75786100FB3B69 /* CheckBoardTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7A2F41C60C75786100FB3B69 /* CheckBoardTest.cpp */; };
+		7A2F41CD0C75786100FB3B69 /* InterpolatedModelTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7A2F41C80C75786100FB3B69 /* InterpolatedModelTest.cpp */; };
+		7A2F41D40C75787C00FB3B69 /* ProjectConfigTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7A2F41CE0C75787C00FB3B69 /* ProjectConfigTest.cpp */; };
+		7A2F41D50C75787C00FB3B69 /* UnitTests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7A2F41D00C75787C00FB3B69 /* UnitTests.cpp */; };
+		7A3E25510C598C2200326103 /* HoloSimIcon.icns in Resources */ = {isa = PBXBuildFile; fileRef = 7A3E25500C598C2200326103 /* HoloSimIcon.icns */; };
+		7A4743A70C5D2150006FEF68 /* SimpleDesignByContract.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7A4743A60C5D2150006FEF68 /* SimpleDesignByContract.cpp */; };
+		7A4743A80C5D2150006FEF68 /* SimpleDesignByContract.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7A4743A60C5D2150006FEF68 /* SimpleDesignByContract.cpp */; };
+		7A4744560C5D3DDF006FEF68 /* libmockpp_cxxtest.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A4744550C5D3DDF006FEF68 /* libmockpp_cxxtest.a */; };
+		7A4BD2B00BCA0DD5004E8E67 /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A4BD2AF0BCA0DD5004E8E67 /* OpenGL.framework */; };
+		7A4BD2B40BCA0DF8004E8E67 /* GLUT.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A4BD2B30BCA0DF8004E8E67 /* GLUT.framework */; };
+		7A76392B0C7803FD00600572 /* HoloSimDocument.mm in Sources */ = {isa = PBXBuildFile; fileRef = 7A0F8A610C5CA8EB0018DD1F /* HoloSimDocument.mm */; };
+		7A76392D0C78041C00600572 /* AbstractModel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7A0F8A520C5CA8C90018DD1F /* AbstractModel.cpp */; };
+		7A76392E0C78041C00600572 /* CheckBoard.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7A0F8A540C5CA8C90018DD1F /* CheckBoard.cpp */; };
+		7A76392F0C78041C00600572 /* InterpolatedModel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7A0F8A560C5CA8C90018DD1F /* InterpolatedModel.cpp */; };
+		7A7639450C7804B500600572 /* ControllerAdapter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7A0F8A3E0C5CA8650018DD1F /* ControllerAdapter.cpp */; };
+		7A7639460C7804B500600572 /* MouseAdapter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7A0F8A400C5CA8650018DD1F /* MouseAdapter.cpp */; };
+		7A7639470C7804B500600572 /* AbstractDrawingCode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7A0F8A460C5CA8910018DD1F /* AbstractDrawingCode.cpp */; };
+		7A7639480C7804B500600572 /* OpenGLDrawingCode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7A0F8A480C5CA8910018DD1F /* OpenGLDrawingCode.cpp */; };
+		7A7639490C7804B500600572 /* MathHelper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7A0F8A4E0C5CA8AB0018DD1F /* MathHelper.cpp */; };
+		7A76394A0C7804B500600572 /* SimpleDesignByContract.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7A4743A60C5D2150006FEF68 /* SimpleDesignByContract.cpp */; };
+		7A76394B0C7804B500600572 /* MathHelperTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7A2F41C20C75784900FB3B69 /* MathHelperTest.cpp */; };
+		7A76394C0C7804B500600572 /* CheckBoardTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7A2F41C60C75786100FB3B69 /* CheckBoardTest.cpp */; };
+		7A76394D0C7804B500600572 /* InterpolatedModelTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7A2F41C80C75786100FB3B69 /* InterpolatedModelTest.cpp */; };
+		7A76394E0C7804B500600572 /* ProjectConfigTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7A2F41CE0C75787C00FB3B69 /* ProjectConfigTest.cpp */; };
+		7A76394F0C7804B500600572 /* UnitTests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7A2F41D00C75787C00FB3B69 /* UnitTests.cpp */; };
+		7A7639780C78056C00600572 /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A4BD2AF0BCA0DD5004E8E67 /* OpenGL.framework */; };
+		7A7639790C78056C00600572 /* GLUT.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A4BD2B30BCA0DF8004E8E67 /* GLUT.framework */; };
+		7A76397B0C78056C00600572 /* libblitz.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7ABEAF600BFF646700C71586 /* libblitz.a */; };
+		7A76397C0C78056C00600572 /* libmockpp_cxxtest.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A4744550C5D3DDF006FEF68 /* libmockpp_cxxtest.a */; };
+		7A7639C10C78099C00600572 /* AbstractDrawingCodeTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7A7639BF0C78099C00600572 /* AbstractDrawingCodeTest.cpp */; };
+		7A99445B0EE61E7B0063D250 /* cppunit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A99445A0EE61E7B0063D250 /* cppunit.framework */; };
+		7A99445C0EE61E7B0063D250 /* cppunit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A99445A0EE61E7B0063D250 /* cppunit.framework */; };
+		7A99445D0EE61E7B0063D250 /* cppunit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A99445A0EE61E7B0063D250 /* cppunit.framework */; };
+		7AA27ABB0C67D19A00BBC250 /* AppController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 7AA27ABA0C67D19A00BBC250 /* AppController.mm */; };
+		7AA27ABC0C67D19A00BBC250 /* AppController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 7AA27ABA0C67D19A00BBC250 /* AppController.mm */; };
+		7ABEAF610BFF646700C71586 /* libblitz.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7ABEAF600BFF646700C71586 /* libblitz.a */; };
+		7ABEAFFF0BFF67BA00C71586 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A7FEA54F5311CA2CBB /* Cocoa.framework */; };
+		7ABEB0000BFF67BA00C71586 /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A4BD2AF0BCA0DD5004E8E67 /* OpenGL.framework */; };
+		7ABEB0010BFF67BA00C71586 /* GLUT.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A4BD2B30BCA0DF8004E8E67 /* GLUT.framework */; };
+		7ABEB0030BFF67BA00C71586 /* libblitz.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7ABEAF600BFF646700C71586 /* libblitz.a */; };
+		8D15AC2C0486D014006FF6A4 /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 2A37F4B9FDCFA73011CA2CEA /* Credits.rtf */; };
+		8D15AC2D0486D014006FF6A4 /* MainMenu.nib in Resources */ = {isa = PBXBuildFile; fileRef = 2A37F4B6FDCFA73011CA2CEA /* MainMenu.nib */; };
+		8D15AC2E0486D014006FF6A4 /* HoloSimDocument.nib in Resources */ = {isa = PBXBuildFile; fileRef = 2A37F4B4FDCFA73011CA2CEA /* HoloSimDocument.nib */; };
+		8D15AC340486D014006FF6A4 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A7FEA54F5311CA2CBB /* Cocoa.framework */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		7ABEB0CF0BFF747400C71586 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 2A37F4A9FDCFA73011CA2CEA /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 7ABEAFB90BFF672A00C71586;
+			remoteInfo = HoloSim_UnitTests;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		089C1660FE840EACC02AAC07 /* English */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = English; path = English.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		1058C7A7FEA54F5311CA2CBB /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
+		13E42FBA07B3F13500E4EEF1 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = /System/Library/Frameworks/CoreData.framework; sourceTree = "<absolute>"; };
+		2A37F4B5FDCFA73011CA2CEA /* English */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = English; path = English.lproj/HoloSimDocument.nib; sourceTree = "<group>"; };
+		2A37F4B7FDCFA73011CA2CEA /* English */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = English; path = English.lproj/MainMenu.nib; sourceTree = "<group>"; };
+		2A37F4BAFDCFA73011CA2CEA /* English */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = English; path = English.lproj/Credits.rtf; sourceTree = "<group>"; };
+		2A37F4C4FDCFA73011CA2CEA /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
+		2A37F4C5FDCFA73011CA2CEA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
+		32DBCF750370BD2300C91783 /* HoloSim_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HoloSim_Prefix.pch; sourceTree = "<group>"; };
+		7A02C2A50C68C021007BD910 /* Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
+		7A0F8A3E0C5CA8650018DD1F /* ControllerAdapter.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; name = ControllerAdapter.cpp; path = Control/ControllerAdapter.cpp; sourceTree = "<group>"; };
+		7A0F8A3F0C5CA8650018DD1F /* ControllerAdapter.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = ControllerAdapter.h; path = Control/ControllerAdapter.h; sourceTree = "<group>"; };
+		7A0F8A400C5CA8650018DD1F /* MouseAdapter.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; name = MouseAdapter.cpp; path = Control/MouseAdapter.cpp; sourceTree = "<group>"; };
+		7A0F8A410C5CA8650018DD1F /* MouseAdapter.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = MouseAdapter.h; path = Control/MouseAdapter.h; sourceTree = "<group>"; };
+		7A0F8A460C5CA8910018DD1F /* AbstractDrawingCode.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; name = AbstractDrawingCode.cpp; path = Graphics/AbstractDrawingCode.cpp; sourceTree = "<group>"; };
+		7A0F8A470C5CA8910018DD1F /* AbstractDrawingCode.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = AbstractDrawingCode.h; path = Graphics/AbstractDrawingCode.h; sourceTree = "<group>"; };
+		7A0F8A480C5CA8910018DD1F /* OpenGLDrawingCode.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; name = OpenGLDrawingCode.cpp; path = Graphics/OpenGLDrawingCode.cpp; sourceTree = "<group>"; };
+		7A0F8A490C5CA8910018DD1F /* OpenGLDrawingCode.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = OpenGLDrawingCode.h; path = Graphics/OpenGLDrawingCode.h; sourceTree = "<group>"; };
+		7A0F8A4E0C5CA8AB0018DD1F /* MathHelper.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; name = MathHelper.cpp; path = Math/MathHelper.cpp; sourceTree = "<group>"; };
+		7A0F8A4F0C5CA8AB0018DD1F /* MathHelper.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = MathHelper.h; path = Math/MathHelper.h; sourceTree = "<group>"; };
+		7A0F8A520C5CA8C90018DD1F /* AbstractModel.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; name = AbstractModel.cpp; path = Model/AbstractModel.cpp; sourceTree = "<group>"; };
+		7A0F8A530C5CA8C90018DD1F /* AbstractModel.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = AbstractModel.h; path = Model/AbstractModel.h; sourceTree = "<group>"; };
+		7A0F8A540C5CA8C90018DD1F /* CheckBoard.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; name = CheckBoard.cpp; path = Model/CheckBoard.cpp; sourceTree = "<group>"; };
+		7A0F8A550C5CA8C90018DD1F /* CheckBoard.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = CheckBoard.h; path = Model/CheckBoard.h; sourceTree = "<group>"; };
+		7A0F8A560C5CA8C90018DD1F /* InterpolatedModel.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; name = InterpolatedModel.cpp; path = Model/InterpolatedModel.cpp; sourceTree = "<group>"; };
+		7A0F8A570C5CA8C90018DD1F /* InterpolatedModel.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = InterpolatedModel.h; path = Model/InterpolatedModel.h; sourceTree = "<group>"; };
+		7A0F8A5E0C5CA8EB0018DD1F /* HoloDeckView.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = HoloDeckView.h; path = Cocoa/HoloDeckView.h; sourceTree = "<group>"; };
+		7A0F8A5F0C5CA8EB0018DD1F /* HoloDeckView.mm */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.objcpp; name = HoloDeckView.mm; path = Cocoa/HoloDeckView.mm; sourceTree = "<group>"; };
+		7A0F8A600C5CA8EB0018DD1F /* HoloSimDocument.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = HoloSimDocument.h; path = Cocoa/HoloSimDocument.h; sourceTree = "<group>"; };
+		7A0F8A610C5CA8EB0018DD1F /* HoloSimDocument.mm */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.objcpp; name = HoloSimDocument.mm; path = Cocoa/HoloSimDocument.mm; sourceTree = "<group>"; };
+		7A0F8A620C5CA8EB0018DD1F /* main.mm */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.objcpp; name = main.mm; path = Cocoa/main.mm; sourceTree = "<group>"; };
+		7A0F8A630C5CA8EB0018DD1F /* RoomView.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = RoomView.h; path = Cocoa/RoomView.h; sourceTree = "<group>"; };
+		7A0F8A640C5CA8EB0018DD1F /* RoomView.mm */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.objcpp; name = RoomView.mm; path = Cocoa/RoomView.mm; sourceTree = "<group>"; };
+		7A0F8A800C5CA9A10018DD1F /* CocoaUnitTests.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = CocoaUnitTests.h; path = UnitTests/OCUnit/CocoaUnitTests.h; sourceTree = "<group>"; };
+		7A0F8A810C5CA9A10018DD1F /* CocoaUnitTests.mm */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.objcpp; name = CocoaUnitTests.mm; path = UnitTests/OCUnit/CocoaUnitTests.mm; sourceTree = "<group>"; };
+		7A20023D0C5978930039A4F7 /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = /System/Library/Frameworks/SenTestingKit.framework; sourceTree = "<absolute>"; };
+		7A2002620C5978F90039A4F7 /* HoloSim_OCUnitTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = HoloSim_OCUnitTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
+		7A2002630C5978F90039A4F7 /* HoloSim_OCUnitTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "HoloSim_OCUnitTests-Info.plist"; sourceTree = "<group>"; };
+		7A2F41C20C75784900FB3B69 /* MathHelperTest.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; name = MathHelperTest.cpp; path = UnitTests/CPPUnit/Math/MathHelperTest.cpp; sourceTree = "<group>"; };
+		7A2F41C30C75784900FB3B69 /* MathHelperTest.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = MathHelperTest.h; path = UnitTests/CPPUnit/Math/MathHelperTest.h; sourceTree = "<group>"; };
+		7A2F41C60C75786100FB3B69 /* CheckBoardTest.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; name = CheckBoardTest.cpp; path = UnitTests/CPPUnit/Model/CheckBoardTest.cpp; sourceTree = "<group>"; };
+		7A2F41C70C75786100FB3B69 /* CheckBoardTest.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = CheckBoardTest.h; path = UnitTests/CPPUnit/Model/CheckBoardTest.h; sourceTree = "<group>"; };
+		7A2F41C80C75786100FB3B69 /* InterpolatedModelTest.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; name = InterpolatedModelTest.cpp; path = UnitTests/CPPUnit/Model/InterpolatedModelTest.cpp; sourceTree = "<group>"; };
+		7A2F41C90C75786100FB3B69 /* InterpolatedModelTest.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = InterpolatedModelTest.h; path = UnitTests/CPPUnit/Model/InterpolatedModelTest.h; sourceTree = "<group>"; };
+		7A2F41CE0C75787C00FB3B69 /* ProjectConfigTest.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; name = ProjectConfigTest.cpp; path = UnitTests/CPPUnit/ProjectConfigTest.cpp; sourceTree = "<group>"; };
+		7A2F41CF0C75787C00FB3B69 /* ProjectConfigTest.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = ProjectConfigTest.h; path = UnitTests/CPPUnit/ProjectConfigTest.h; sourceTree = "<group>"; };
+		7A2F41D00C75787C00FB3B69 /* UnitTests.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; name = UnitTests.cpp; path = UnitTests/CPPUnit/UnitTests.cpp; sourceTree = "<group>"; };
+		7A2F41D10C75787C00FB3B69 /* UnitTests.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = UnitTests.h; path = UnitTests/CPPUnit/UnitTests.h; sourceTree = "<group>"; };
+		7A3E25500C598C2200326103 /* HoloSimIcon.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = HoloSimIcon.icns; sourceTree = "<group>"; };
+		7A4743A50C5D2150006FEF68 /* SimpleDesignByContract.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SimpleDesignByContract.h; path = Util/SimpleDesignByContract.h; sourceTree = "<group>"; };
+		7A4743A60C5D2150006FEF68 /* SimpleDesignByContract.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = SimpleDesignByContract.cpp; path = Util/SimpleDesignByContract.cpp; sourceTree = "<group>"; };
+		7A4744550C5D3DDF006FEF68 /* libmockpp_cxxtest.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libmockpp_cxxtest.a; path = /usr/local/lib/libmockpp_cxxtest.a; sourceTree = "<absolute>"; };
+		7A4BD2AF0BCA0DD5004E8E67 /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = /System/Library/Frameworks/OpenGL.framework; sourceTree = "<absolute>"; };
+		7A4BD2B30BCA0DF8004E8E67 /* GLUT.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLUT.framework; path = /System/Library/Frameworks/GLUT.framework; sourceTree = "<absolute>"; };
+		7A63FB790BF9492000A52909 /* index.html */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.html; name = index.html; path = html/index.html; sourceTree = "<group>"; };
+		7A7639BE0C78099C00600572 /* AbstractDrawingCodeTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AbstractDrawingCodeTest.h; path = UnitTests/CPPUnit/Graphics/AbstractDrawingCodeTest.h; sourceTree = "<group>"; };
+		7A7639BF0C78099C00600572 /* AbstractDrawingCodeTest.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = AbstractDrawingCodeTest.cpp; path = UnitTests/CPPUnit/Graphics/AbstractDrawingCodeTest.cpp; sourceTree = "<group>"; };
+		7A99445A0EE61E7B0063D250 /* cppunit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = cppunit.framework; path = /Library/Frameworks/cppunit.framework; sourceTree = "<absolute>"; };
+		7AA27AB90C67D19A00BBC250 /* AppController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppController.h; path = Cocoa/AppController.h; sourceTree = "<group>"; };
+		7AA27ABA0C67D19A00BBC250 /* AppController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = AppController.mm; path = Cocoa/AppController.mm; sourceTree = "<group>"; };
+		7ABEAF550BFF633900C71586 /* blitz.html */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.html; name = blitz.html; path = "/usr/local/share/doc/blitz-0.9/blitz.html"; sourceTree = "<absolute>"; };
+		7ABEAF5C0BFF63AC00C71586 /* index.html */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.html; name = index.html; path = /usr/local/share/cppunit/html/index.html; sourceTree = "<absolute>"; };
+		7ABEAF600BFF646700C71586 /* libblitz.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libblitz.a; path = /usr/local/lib/libblitz.a; sourceTree = "<absolute>"; };
+		7ABEAFBA0BFF672A00C71586 /* HoloSim_UnitTests */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = HoloSim_UnitTests; sourceTree = BUILT_PRODUCTS_DIR; };
+		8D15AC360486D014006FF6A4 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		8D15AC370486D014006FF6A4 /* HoloSim.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HoloSim.app; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		7A20025F0C5978F90039A4F7 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7A2002670C5979160039A4F7 /* Cocoa.framework in Frameworks */,
+				7A7639780C78056C00600572 /* OpenGL.framework in Frameworks */,
+				7A7639790C78056C00600572 /* GLUT.framework in Frameworks */,
+				7A76397B0C78056C00600572 /* libblitz.a in Frameworks */,
+				7A76397C0C78056C00600572 /* libmockpp_cxxtest.a in Frameworks */,
+				7A2002680C5979160039A4F7 /* SenTestingKit.framework in Frameworks */,
+				7A99445D0EE61E7B0063D250 /* cppunit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		7ABEAFB80BFF672A00C71586 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7ABEAFFF0BFF67BA00C71586 /* Cocoa.framework in Frameworks */,
+				7ABEB0000BFF67BA00C71586 /* OpenGL.framework in Frameworks */,
+				7ABEB0010BFF67BA00C71586 /* GLUT.framework in Frameworks */,
+				7ABEB0030BFF67BA00C71586 /* libblitz.a in Frameworks */,
+				7A4744560C5D3DDF006FEF68 /* libmockpp_cxxtest.a in Frameworks */,
+				7A99445C0EE61E7B0063D250 /* cppunit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8D15AC330486D014006FF6A4 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8D15AC340486D014006FF6A4 /* Cocoa.framework in Frameworks */,
+				7A4BD2B00BCA0DD5004E8E67 /* OpenGL.framework in Frameworks */,
+				7A4BD2B40BCA0DF8004E8E67 /* GLUT.framework in Frameworks */,
+				7ABEAF610BFF646700C71586 /* libblitz.a in Frameworks */,
+				7A99445B0EE61E7B0063D250 /* cppunit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		1058C7A6FEA54F5311CA2CBB /* Linked Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				1058C7A7FEA54F5311CA2CBB /* Cocoa.framework */,
+				7A20023D0C5978930039A4F7 /* SenTestingKit.framework */,
+			);
+			name = "Linked Frameworks";
+			sourceTree = "<group>";
+		};
+		1058C7A8FEA54F5311CA2CBB /* Other Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				7A99445A0EE61E7B0063D250 /* cppunit.framework */,
+				7A4BD2B30BCA0DF8004E8E67 /* GLUT.framework */,
+				7A4BD2AF0BCA0DD5004E8E67 /* OpenGL.framework */,
+				2A37F4C4FDCFA73011CA2CEA /* AppKit.framework */,
+				13E42FBA07B3F13500E4EEF1 /* CoreData.framework */,
+				2A37F4C5FDCFA73011CA2CEA /* Foundation.framework */,
+			);
+			name = "Other Frameworks";
+			sourceTree = "<group>";
+		};
+		19C28FB0FE9D524F11CA2CBB /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				8D15AC370486D014006FF6A4 /* HoloSim.app */,
+				7ABEAFBA0BFF672A00C71586 /* HoloSim_UnitTests */,
+				7A2002620C5978F90039A4F7 /* HoloSim_OCUnitTests.octest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		2A37F4AAFDCFA73011CA2CEA /* HoloSim */ = {
+			isa = PBXGroup;
+			children = (
+				2A37F4ABFDCFA73011CA2CEA /* Cocoa */,
+				7A5B32C70C51B41E00833B6F /* Control */,
+				7A5B32CA0C51B45A00833B6F /* Graphics */,
+				7A19B9350C54323E008FD0EE /* Math */,
+				7A47C2720C51B7DC005A42B7 /* Model */,
+				2A37F4AFFDCFA73011CA2CEA /* Other Sources */,
+				7A4743A40C5D20FC006FEF68 /* Util */,
+				7ABEAFA90BFF66A300C71586 /* UnitTests */,
+				7ABEAF4E0BFF603100C71586 /* Documentation */,
+				2A37F4B8FDCFA73011CA2CEA /* Resources */,
+				2A37F4C3FDCFA73011CA2CEA /* Frameworks */,
+				19C28FB0FE9D524F11CA2CBB /* Products */,
+			);
+			name = HoloSim;
+			sourceTree = "<group>";
+		};
+		2A37F4ABFDCFA73011CA2CEA /* Cocoa */ = {
+			isa = PBXGroup;
+			children = (
+				7A0F8A5E0C5CA8EB0018DD1F /* HoloDeckView.h */,
+				7A0F8A5F0C5CA8EB0018DD1F /* HoloDeckView.mm */,
+				7A0F8A600C5CA8EB0018DD1F /* HoloSimDocument.h */,
+				7A0F8A610C5CA8EB0018DD1F /* HoloSimDocument.mm */,
+				7A0F8A620C5CA8EB0018DD1F /* main.mm */,
+				7A0F8A630C5CA8EB0018DD1F /* RoomView.h */,
+				7A0F8A640C5CA8EB0018DD1F /* RoomView.mm */,
+				7AA27AB90C67D19A00BBC250 /* AppController.h */,
+				7AA27ABA0C67D19A00BBC250 /* AppController.mm */,
+				7A02C2A50C68C021007BD910 /* Constants.h */,
+			);
+			name = Cocoa;
+			sourceTree = "<group>";
+		};
+		2A37F4AFFDCFA73011CA2CEA /* Other Sources */ = {
+			isa = PBXGroup;
+			children = (
+				32DBCF750370BD2300C91783 /* HoloSim_Prefix.pch */,
+			);
+			name = "Other Sources";
+			sourceTree = "<group>";
+		};
+		2A37F4B8FDCFA73011CA2CEA /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				7A3E25500C598C2200326103 /* HoloSimIcon.icns */,
+				2A37F4B9FDCFA73011CA2CEA /* Credits.rtf */,
+				2A37F4B6FDCFA73011CA2CEA /* MainMenu.nib */,
+				2A37F4B4FDCFA73011CA2CEA /* HoloSimDocument.nib */,
+				8D15AC360486D014006FF6A4 /* Info.plist */,
+				089C165FFE840EACC02AAC07 /* InfoPlist.strings */,
+				7A2002630C5978F90039A4F7 /* HoloSim_OCUnitTests-Info.plist */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
+		2A37F4C3FDCFA73011CA2CEA /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				1058C7A6FEA54F5311CA2CBB /* Linked Frameworks */,
+				1058C7A8FEA54F5311CA2CBB /* Other Frameworks */,
+				7ABEAF620BFF646B00C71586 /* Portable Libraries */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		7A0F8A750C5CA9120018DD1F /* Math */ = {
+			isa = PBXGroup;
+			children = (
+				7A2F41C20C75784900FB3B69 /* MathHelperTest.cpp */,
+				7A2F41C30C75784900FB3B69 /* MathHelperTest.h */,
+			);
+			name = Math;
+			sourceTree = "<group>";
+		};
+		7A0F8A760C5CA91F0018DD1F /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				7A2F41C60C75786100FB3B69 /* CheckBoardTest.cpp */,
+				7A2F41C70C75786100FB3B69 /* CheckBoardTest.h */,
+				7A2F41C80C75786100FB3B69 /* InterpolatedModelTest.cpp */,
+				7A2F41C90C75786100FB3B69 /* InterpolatedModelTest.h */,
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
+		7A19B9350C54323E008FD0EE /* Math */ = {
+			isa = PBXGroup;
+			children = (
+				7A0F8A4E0C5CA8AB0018DD1F /* MathHelper.cpp */,
+				7A0F8A4F0C5CA8AB0018DD1F /* MathHelper.h */,
+			);
+			name = Math;
+			sourceTree = "<group>";
+		};
+		7A20023B0C5978590039A4F7 /* OCUnit */ = {
+			isa = PBXGroup;
+			children = (
+				7A0F8A800C5CA9A10018DD1F /* CocoaUnitTests.h */,
+				7A0F8A810C5CA9A10018DD1F /* CocoaUnitTests.mm */,
+			);
+			name = OCUnit;
+			sourceTree = "<group>";
+		};
+		7A20023C0C5978660039A4F7 /* CPPUnit */ = {
+			isa = PBXGroup;
+			children = (
+				7A7639BD0C78094300600572 /* Graphics */,
+				7A0F8A750C5CA9120018DD1F /* Math */,
+				7A0F8A760C5CA91F0018DD1F /* Model */,
+				7A2F41CE0C75787C00FB3B69 /* ProjectConfigTest.cpp */,
+				7A2F41CF0C75787C00FB3B69 /* ProjectConfigTest.h */,
+				7A2F41D00C75787C00FB3B69 /* UnitTests.cpp */,
+				7A2F41D10C75787C00FB3B69 /* UnitTests.h */,
+			);
+			name = CPPUnit;
+			sourceTree = "<group>";
+		};
+		7A4743A40C5D20FC006FEF68 /* Util */ = {
+			isa = PBXGroup;
+			children = (
+				7A4743A50C5D2150006FEF68 /* SimpleDesignByContract.h */,
+				7A4743A60C5D2150006FEF68 /* SimpleDesignByContract.cpp */,
+			);
+			name = Util;
+			sourceTree = "<group>";
+		};
+		7A47C2720C51B7DC005A42B7 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				7A0F8A520C5CA8C90018DD1F /* AbstractModel.cpp */,
+				7A0F8A530C5CA8C90018DD1F /* AbstractModel.h */,
+				7A0F8A540C5CA8C90018DD1F /* CheckBoard.cpp */,
+				7A0F8A550C5CA8C90018DD1F /* CheckBoard.h */,
+				7A0F8A560C5CA8C90018DD1F /* InterpolatedModel.cpp */,
+				7A0F8A570C5CA8C90018DD1F /* InterpolatedModel.h */,
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
+		7A5B32C70C51B41E00833B6F /* Control */ = {
+			isa = PBXGroup;
+			children = (
+				7A0F8A3E0C5CA8650018DD1F /* ControllerAdapter.cpp */,
+				7A0F8A3F0C5CA8650018DD1F /* ControllerAdapter.h */,
+				7A0F8A400C5CA8650018DD1F /* MouseAdapter.cpp */,
+				7A0F8A410C5CA8650018DD1F /* MouseAdapter.h */,
+			);
+			name = Control;
+			sourceTree = "<group>";
+		};
+		7A5B32CA0C51B45A00833B6F /* Graphics */ = {
+			isa = PBXGroup;
+			children = (
+				7A0F8A460C5CA8910018DD1F /* AbstractDrawingCode.cpp */,
+				7A0F8A470C5CA8910018DD1F /* AbstractDrawingCode.h */,
+				7A0F8A480C5CA8910018DD1F /* OpenGLDrawingCode.cpp */,
+				7A0F8A490C5CA8910018DD1F /* OpenGLDrawingCode.h */,
+			);
+			name = Graphics;
+			sourceTree = "<group>";
+		};
+		7A63FB760BF948E300A52909 /* HoloSim Doc */ = {
+			isa = PBXGroup;
+			children = (
+				7A63FB790BF9492000A52909 /* index.html */,
+			);
+			name = "HoloSim Doc";
+			sourceTree = "<group>";
+		};
+		7A7639BD0C78094300600572 /* Graphics */ = {
+			isa = PBXGroup;
+			children = (
+				7A7639BF0C78099C00600572 /* AbstractDrawingCodeTest.cpp */,
+				7A7639BE0C78099C00600572 /* AbstractDrawingCodeTest.h */,
+			);
+			name = Graphics;
+			sourceTree = "<group>";
+		};
+		7ABEAF4E0BFF603100C71586 /* Documentation */ = {
+			isa = PBXGroup;
+			children = (
+				7ABEAF500BFF605900C71586 /* blitz Doc */,
+				7ABEAF4F0BFF604500C71586 /* CppUnit Doc */,
+				7A63FB760BF948E300A52909 /* HoloSim Doc */,
+			);
+			name = Documentation;
+			sourceTree = "<group>";
+		};
+		7ABEAF4F0BFF604500C71586 /* CppUnit Doc */ = {
+			isa = PBXGroup;
+			children = (
+				7ABEAF5C0BFF63AC00C71586 /* index.html */,
+			);
+			name = "CppUnit Doc";
+			sourceTree = "<group>";
+		};
+		7ABEAF500BFF605900C71586 /* blitz Doc */ = {
+			isa = PBXGroup;
+			children = (
+				7ABEAF550BFF633900C71586 /* blitz.html */,
+			);
+			name = "blitz Doc";
+			sourceTree = "<group>";
+		};
+		7ABEAF620BFF646B00C71586 /* Portable Libraries */ = {
+			isa = PBXGroup;
+			children = (
+				7A4744550C5D3DDF006FEF68 /* libmockpp_cxxtest.a */,
+				7ABEAF600BFF646700C71586 /* libblitz.a */,
+			);
+			name = "Portable Libraries";
+			sourceTree = "<group>";
+		};
+		7ABEAFA90BFF66A300C71586 /* UnitTests */ = {
+			isa = PBXGroup;
+			children = (
+				7A20023C0C5978660039A4F7 /* CPPUnit */,
+				7A20023B0C5978590039A4F7 /* OCUnit */,
+			);
+			name = UnitTests;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		7A2002610C5978F90039A4F7 /* HoloSim_OCUnitTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 7A2002640C5978FA0039A4F7 /* Build configuration list for PBXNativeTarget "HoloSim_OCUnitTests" */;
+			buildPhases = (
+				7A20025D0C5978F90039A4F7 /* Resources */,
+				7A20025E0C5978F90039A4F7 /* Sources */,
+				7A20025F0C5978F90039A4F7 /* Frameworks */,
+				7AB4E4C010502DD900F94F68 /* ShellScript */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = HoloSim_OCUnitTests;
+			productName = HoloSim_OCUnitTests;
+			productReference = 7A2002620C5978F90039A4F7 /* HoloSim_OCUnitTests.octest */;
+			productType = "com.apple.product-type.bundle";
+		};
+		7ABEAFB90BFF672A00C71586 /* HoloSim_CPPUnitTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 7ABEAFCF0BFF675000C71586 /* Build configuration list for PBXNativeTarget "HoloSim_CPPUnitTests" */;
+			buildPhases = (
+				7ABEAFB70BFF672A00C71586 /* Sources */,
+				7ABEAFB80BFF672A00C71586 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			comments = "CPPUnit tests to be executed with HoloSim";
+			dependencies = (
+			);
+			name = HoloSim_CPPUnitTests;
+			productName = HoloSim_UnitTests;
+			productReference = 7ABEAFBA0BFF672A00C71586 /* HoloSim_UnitTests */;
+			productType = "com.apple.product-type.tool";
+		};
+		8D15AC270486D014006FF6A4 /* HoloSim */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C05733C708A9546B00998B17 /* Build configuration list for PBXNativeTarget "HoloSim" */;
+			buildPhases = (
+				8D15AC2B0486D014006FF6A4 /* Resources */,
+				8D15AC300486D014006FF6A4 /* Sources */,
+				8D15AC330486D014006FF6A4 /* Frameworks */,
+				7ABE15E60BF949CF000D6AC4 /* Generate Documentation */,
+				7AF25E8B0BFF775D00BE4B1C /* Run Unit Tests */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				7ABEB0D00BFF747400C71586 /* PBXTargetDependency */,
+			);
+			name = HoloSim;
+			productInstallPath = "$(HOME)/Applications";
+			productName = HoloSim;
+			productReference = 8D15AC370486D014006FF6A4 /* HoloSim.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		2A37F4A9FDCFA73011CA2CEA /* Project object */ = {
+			isa = PBXProject;
+			buildConfigurationList = C05733CB08A9546B00998B17 /* Build configuration list for PBXProject "HoloSim" */;
+			compatibilityVersion = "Xcode 2.4";
+			hasScannedForEncodings = 1;
+			mainGroup = 2A37F4AAFDCFA73011CA2CEA /* HoloSim */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				8D15AC270486D014006FF6A4 /* HoloSim */,
+				7ABEAFB90BFF672A00C71586 /* HoloSim_CPPUnitTests */,
+				7A2002610C5978F90039A4F7 /* HoloSim_OCUnitTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		7A20025D0C5978F90039A4F7 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8D15AC2B0486D014006FF6A4 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8D15AC2C0486D014006FF6A4 /* Credits.rtf in Resources */,
+				8D15AC2D0486D014006FF6A4 /* MainMenu.nib in Resources */,
+				8D15AC2E0486D014006FF6A4 /* HoloSimDocument.nib in Resources */,
+				7A3E25510C598C2200326103 /* HoloSimIcon.icns in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		7AB4E4C010502DD900F94F68 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Run the unit tests in this test bundle.\n\"${SYSTEM_DEVELOPER_DIR}/Tools/RunUnitTests\"\n";
+		};
+		7ABE15E60BF949CF000D6AC4 /* Generate Documentation */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			comments = "Doxygen generation step\n";
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Generate Documentation";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "/Applications/Doxygen.app/Contents/Resources/doxygen Doxyfile";
+		};
+		7AF25E8B0BFF775D00BE4B1C /* Run Unit Tests */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			comments = "Run CPPUnit tests for the project";
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Run Unit Tests";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "TEST_SUITE=$TARGET_BUILD_DIR/HoloSim_UnitTests\n\nif [ -f $TEST_SUITE ]; then  \n   $TEST_SUITE\nfi\n";
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		7A20025E0C5978F90039A4F7 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7A7639450C7804B500600572 /* ControllerAdapter.cpp in Sources */,
+				7A7639460C7804B500600572 /* MouseAdapter.cpp in Sources */,
+				7A7639470C7804B500600572 /* AbstractDrawingCode.cpp in Sources */,
+				7A7639480C7804B500600572 /* OpenGLDrawingCode.cpp in Sources */,
+				7A7639490C7804B500600572 /* MathHelper.cpp in Sources */,
+				7A76392D0C78041C00600572 /* AbstractModel.cpp in Sources */,
+				7A76392E0C78041C00600572 /* CheckBoard.cpp in Sources */,
+				7A76392F0C78041C00600572 /* InterpolatedModel.cpp in Sources */,
+				7A76394A0C7804B500600572 /* SimpleDesignByContract.cpp in Sources */,
+				7A76394B0C7804B500600572 /* MathHelperTest.cpp in Sources */,
+				7A76394C0C7804B500600572 /* CheckBoardTest.cpp in Sources */,
+				7A76394D0C7804B500600572 /* InterpolatedModelTest.cpp in Sources */,
+				7A76394E0C7804B500600572 /* ProjectConfigTest.cpp in Sources */,
+				7A76394F0C7804B500600572 /* UnitTests.cpp in Sources */,
+				7A76392B0C7803FD00600572 /* HoloSimDocument.mm in Sources */,
+				7A0F8A820C5CA9A10018DD1F /* CocoaUnitTests.mm in Sources */,
+				7AA27ABC0C67D19A00BBC250 /* AppController.mm in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		7ABEAFB70BFF672A00C71586 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7A0F8A440C5CA8650018DD1F /* ControllerAdapter.cpp in Sources */,
+				7A0F8A450C5CA8650018DD1F /* MouseAdapter.cpp in Sources */,
+				7A0F8A4C0C5CA8910018DD1F /* AbstractDrawingCode.cpp in Sources */,
+				7A0F8A4D0C5CA8910018DD1F /* OpenGLDrawingCode.cpp in Sources */,
+				7A0F8A510C5CA8AB0018DD1F /* MathHelper.cpp in Sources */,
+				7A0F8A5B0C5CA8C90018DD1F /* AbstractModel.cpp in Sources */,
+				7A0F8A5C0C5CA8C90018DD1F /* CheckBoard.cpp in Sources */,
+				7A0F8A5D0C5CA8C90018DD1F /* InterpolatedModel.cpp in Sources */,
+				7A4743A80C5D2150006FEF68 /* SimpleDesignByContract.cpp in Sources */,
+				7A2F41C50C75784900FB3B69 /* MathHelperTest.cpp in Sources */,
+				7A2F41CC0C75786100FB3B69 /* CheckBoardTest.cpp in Sources */,
+				7A2F41CD0C75786100FB3B69 /* InterpolatedModelTest.cpp in Sources */,
+				7A2F41D40C75787C00FB3B69 /* ProjectConfigTest.cpp in Sources */,
+				7A2F41D50C75787C00FB3B69 /* UnitTests.cpp in Sources */,
+				7A7639C10C78099C00600572 /* AbstractDrawingCodeTest.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8D15AC300486D014006FF6A4 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7A0F8A420C5CA8650018DD1F /* ControllerAdapter.cpp in Sources */,
+				7A0F8A430C5CA8650018DD1F /* MouseAdapter.cpp in Sources */,
+				7A0F8A4A0C5CA8910018DD1F /* AbstractDrawingCode.cpp in Sources */,
+				7A0F8A4B0C5CA8910018DD1F /* OpenGLDrawingCode.cpp in Sources */,
+				7A0F8A500C5CA8AB0018DD1F /* MathHelper.cpp in Sources */,
+				7A0F8A580C5CA8C90018DD1F /* AbstractModel.cpp in Sources */,
+				7A0F8A590C5CA8C90018DD1F /* CheckBoard.cpp in Sources */,
+				7A0F8A5A0C5CA8C90018DD1F /* InterpolatedModel.cpp in Sources */,
+				7A0F8A650C5CA8EB0018DD1F /* HoloDeckView.mm in Sources */,
+				7A0F8A660C5CA8EB0018DD1F /* HoloSimDocument.mm in Sources */,
+				7A0F8A670C5CA8EB0018DD1F /* main.mm in Sources */,
+				7A0F8A680C5CA8EB0018DD1F /* RoomView.mm in Sources */,
+				7A4743A70C5D2150006FEF68 /* SimpleDesignByContract.cpp in Sources */,
+				7AA27ABB0C67D19A00BBC250 /* AppController.mm in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		7ABEB0D00BFF747400C71586 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 7ABEAFB90BFF672A00C71586 /* HoloSim_CPPUnitTests */;
+			targetProxy = 7ABEB0CF0BFF747400C71586 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		089C165FFE840EACC02AAC07 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				089C1660FE840EACC02AAC07 /* English */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		2A37F4B4FDCFA73011CA2CEA /* HoloSimDocument.nib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				2A37F4B5FDCFA73011CA2CEA /* English */,
+			);
+			name = HoloSimDocument.nib;
+			sourceTree = "<group>";
+		};
+		2A37F4B6FDCFA73011CA2CEA /* MainMenu.nib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				2A37F4B7FDCFA73011CA2CEA /* English */,
+			);
+			name = MainMenu.nib;
+			sourceTree = "<group>";
+		};
+		2A37F4B9FDCFA73011CA2CEA /* Credits.rtf */ = {
+			isa = PBXVariantGroup;
+			children = (
+				2A37F4BAFDCFA73011CA2CEA /* English */,
+			);
+			name = Credits.rtf;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		7A2002650C5978FA0039A4F7 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COPY_PHASE_STRIP = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(value)",
+					"$(DEVELOPER_FRAMEWORKS_DIR_QUOTED)",
+				);
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_FIX_AND_CONTINUE = NO;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_INPUT_FILETYPE = sourcecode.cpp.objcpp;
+				GCC_MODEL_TUNING = G5;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/Cocoa.framework/Headers/Cocoa.h";
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_TREAT_WARNINGS_AS_ERRORS = NO;
+				INFOPLIST_FILE = "HoloSim_OCUnitTests-Info.plist";
+				INSTALL_PATH = "$(USER_LIBRARY_DIR)/Bundles";
+				OTHER_LDFLAGS = (
+					"-framework",
+					Cocoa,
+					"-framework",
+					SenTestingKit,
+				);
+				PREBINDING = NO;
+				PRODUCT_NAME = HoloSim_OCUnitTests;
+				WRAPPER_EXTENSION = octest;
+				ZERO_LINK = NO;
+			};
+			name = Debug;
+		};
+		7A2002660C5978FA0039A4F7 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COPY_PHASE_STRIP = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(value)",
+					"$(DEVELOPER_FRAMEWORKS_DIR_QUOTED)",
+				);
+				GCC_ENABLE_FIX_AND_CONTINUE = NO;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_INPUT_FILETYPE = sourcecode.cpp.objcpp;
+				GCC_MODEL_TUNING = G5;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/Cocoa.framework/Headers/Cocoa.h";
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_TREAT_WARNINGS_AS_ERRORS = NO;
+				INFOPLIST_FILE = "HoloSim_OCUnitTests-Info.plist";
+				INSTALL_PATH = "$(USER_LIBRARY_DIR)/Bundles";
+				OTHER_LDFLAGS = (
+					"-framework",
+					Cocoa,
+					"-framework",
+					SenTestingKit,
+				);
+				PREBINDING = NO;
+				PRODUCT_NAME = HoloSim_OCUnitTests;
+				WRAPPER_EXTENSION = octest;
+				ZERO_LINK = NO;
+			};
+			name = Release;
+		};
+		7ABEAFD00BFF675000C71586 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = "compiler-default";
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_FIX_AND_CONTINUE = YES;
+				GCC_ENABLE_SYMBOL_SEPARATION = NO;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_INPUT_FILETYPE = sourcecode.cpp.objcpp;
+				GCC_MODEL_TUNING = G5;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PRECOMPILE_PREFIX_HEADER = NO;
+				GCC_PREFIX_HEADER = "";
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_TREAT_WARNINGS_AS_ERRORS = NO;
+				INSTALL_PATH = "$(HOME)/bin";
+				OTHER_LDFLAGS = (
+					"-framework",
+					Foundation,
+					"-framework",
+					AppKit,
+				);
+				PREBINDING = NO;
+				PRODUCT_NAME = HoloSim_UnitTests;
+				STRIP_STYLE = debugging;
+				ZERO_LINK = YES;
+			};
+			name = Debug;
+		};
+		7ABEAFD10BFF675000C71586 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = "compiler-default";
+				GCC_ENABLE_FIX_AND_CONTINUE = NO;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_INPUT_FILETYPE = sourcecode.cpp.objcpp;
+				GCC_MODEL_TUNING = G5;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/AppKit.framework/Headers/AppKit.h";
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_TREAT_WARNINGS_AS_ERRORS = NO;
+				INSTALL_PATH = "$(HOME)/bin";
+				OTHER_LDFLAGS = (
+					"-framework",
+					Foundation,
+					"-framework",
+					AppKit,
+				);
+				PREBINDING = NO;
+				PRODUCT_NAME = HoloSim_UnitTests;
+				STRIP_STYLE = debugging;
+				ZERO_LINK = NO;
+			};
+			name = Release;
+		};
+		C05733C808A9546B00998B17 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COPY_PHASE_STRIP = NO;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_FIX_AND_CONTINUE = YES;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_MODEL_TUNING = G5;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				INFOPLIST_FILE = Info.plist;
+				INSTALL_PATH = "$(HOME)/Applications";
+				PRODUCT_NAME = HoloSim;
+				STRIP_STYLE = "non-global";
+				WRAPPER_EXTENSION = app;
+				ZERO_LINK = YES;
+			};
+			name = Debug;
+		};
+		C05733C908A9546B00998B17 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = (
+					ppc,
+					i386,
+				);
+				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_MODEL_TUNING = G5;
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				INFOPLIST_FILE = Info.plist;
+				INSTALL_PATH = "$(HOME)/Applications";
+				PRODUCT_NAME = HoloSim;
+				STRIP_STYLE = "non-global";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+		C05733CC08A9546B00998B17 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_ENABLE_OBJC_GC = YES;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_TREAT_WARNINGS_AS_ERRORS = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_EFFECTIVE_CPLUSPLUS_VIOLATIONS = NO;
+				GCC_WARN_HIDDEN_VIRTUAL_FUNCTIONS = YES;
+				GCC_WARN_MISSING_PARENTHESES = NO;
+				GCC_WARN_NON_VIRTUAL_DESTRUCTOR = NO;
+				GCC_WARN_TYPECHECK_CALLS_TO_PRINTF = YES;
+				GCC_WARN_UNKNOWN_PRAGMAS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = /usr/local/include;
+				LIBRARY_SEARCH_PATHS = /usr/local/lib;
+				PREBINDING = NO;
+				SDKROOT = /Developer/SDKs/MacOSX10.5.sdk;
+				STRIP_STYLE = "non-global";
+				USER_HEADER_SEARCH_PATHS = /usr/local/include;
+			};
+			name = Debug;
+		};
+		C05733CD08A9546B00998B17 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(NATIVE_ARCH)";
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_ENABLE_OBJC_GC = YES;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_TREAT_WARNINGS_AS_ERRORS = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_EFFECTIVE_CPLUSPLUS_VIOLATIONS = NO;
+				GCC_WARN_HIDDEN_VIRTUAL_FUNCTIONS = YES;
+				GCC_WARN_MISSING_PARENTHESES = NO;
+				GCC_WARN_NON_VIRTUAL_DESTRUCTOR = NO;
+				GCC_WARN_TYPECHECK_CALLS_TO_PRINTF = YES;
+				GCC_WARN_UNKNOWN_PRAGMAS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = /usr/local/include;
+				LIBRARY_SEARCH_PATHS = /usr/local/lib;
+				PREBINDING = NO;
+				PRECOMPS_INCLUDE_HEADERS_FROM_BUILT_PRODUCTS_DIR = YES;
+				SCAN_ALL_SOURCE_FILES_FOR_INCLUDES = YES;
+				SDKROOT = /Developer/SDKs/MacOSX10.5.sdk;
+				STRIP_STYLE = "non-global";
+				USER_HEADER_SEARCH_PATHS = /usr/local/include;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		7A2002640C5978FA0039A4F7 /* Build configuration list for PBXNativeTarget "HoloSim_OCUnitTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				7A2002650C5978FA0039A4F7 /* Debug */,
+				7A2002660C5978FA0039A4F7 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		7ABEAFCF0BFF675000C71586 /* Build configuration list for PBXNativeTarget "HoloSim_CPPUnitTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				7ABEAFD00BFF675000C71586 /* Debug */,
+				7ABEAFD10BFF675000C71586 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		C05733C708A9546B00998B17 /* Build configuration list for PBXNativeTarget "HoloSim" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C05733C808A9546B00998B17 /* Debug */,
+				C05733C908A9546B00998B17 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		C05733CB08A9546B00998B17 /* Build configuration list for PBXProject "HoloSim" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C05733CC08A9546B00998B17 /* Debug */,
+				C05733CD08A9546B00998B17 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 2A37F4A9FDCFA73011CA2CEA /* Project object */;
+}

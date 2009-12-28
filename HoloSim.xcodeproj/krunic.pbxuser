@@ -110,6 +110,8 @@
 			7A6043E710E8B07600CDF94E /* PBXTextBookmark */ = 7A6043E710E8B07600CDF94E /* PBXTextBookmark */;
 			7A6043E810E8B07600CDF94E /* PBXBookmark */ = 7A6043E810E8B07600CDF94E /* PBXBookmark */;
 			7A6043EA10E8B07600CDF94E /* PBXTextBookmark */ = 7A6043EA10E8B07600CDF94E /* PBXTextBookmark */;
+			7A6043F010E8B19100CDF94E /* PBXTextBookmark */ = 7A6043F010E8B19100CDF94E /* PBXTextBookmark */;
+			7A6043F210E8B19600CDF94E /* PBXTextBookmark */ = 7A6043F210E8B19600CDF94E /* PBXTextBookmark */;
 			7A76397F0C7805A100600572 = 7A76397F0C7805A100600572 /* PBXTextBookmark */;
 			7AA030920DE6B23E0066A73C = 7AA030920DE6B23E0066A73C /* PBXTextBookmark */;
 			7AA030A50DE6B23E0066A73C = 7AA030A50DE6B23E0066A73C /* PBXTextBookmark */;
@@ -747,10 +749,35 @@
 		name = designable.nib;
 		path = "/Users/krunic/Documents/Projects/School/CS PhD/Holodeck/XCode/HoloSim/trunk/English.lproj/HoloSimDocument.nib/designable.nib";
 		sourceTree = "<absolute>";
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {1383, 25984}}";
+			sepNavSelRange = "{0, 0}";
+			sepNavVisRange = "{0, 1780}";
+		};
 	};
 	7A6043EA10E8B07600CDF94E /* PBXTextBookmark */ = {
 		isa = PBXTextBookmark;
 		fRef = 7A6043DF10E8B06600CDF94E /* designable.nib */;
+		name = "designable.nib: 1";
+		rLen = 0;
+		rLoc = 0;
+		rType = 0;
+		vrLen = 1780;
+		vrLoc = 0;
+	};
+	7A6043F010E8B19100CDF94E /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 7A6043E910E8B07600CDF94E /* designable.nib */;
+		name = "designable.nib: 1";
+		rLen = 0;
+		rLoc = 0;
+		rType = 0;
+		vrLen = 286;
+		vrLoc = 0;
+	};
+	7A6043F210E8B19600CDF94E /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 7A6043E910E8B07600CDF94E /* designable.nib */;
 		name = "designable.nib: 1";
 		rLen = 0;
 		rLoc = 0;

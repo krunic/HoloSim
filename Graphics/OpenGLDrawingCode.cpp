@@ -44,7 +44,7 @@ OpenGLDrawingCode::~OpenGLDrawingCode()
    
 }
 
-void OpenGLDrawingCode::setAspectRation(double ratio)
+void OpenGLDrawingCode::setAspectRatio(double ratio)
 {
    aspectRatio_ = ratio;
 }

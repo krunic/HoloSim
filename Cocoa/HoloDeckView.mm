@@ -205,7 +205,7 @@
       
    // Resize data from drawer
    drawer->setBounds(rect.size.width, rect.size.height);
-   drawer->setAspectRation(rect.size.width/(double)rect.size.height);
+   drawer->setAspectRatio(rect.size.width/(double)rect.size.height);
 
    [self setNeedsDisplay:YES];
 }

@@ -38,7 +38,7 @@ namespace hdsim {
       virtual void setBounds(int width, int height);
       virtual void initializeDrawingMode();
       virtual void draw(const AbstractModel *m);
-      virtual void setAspectRation(double);
+      virtual void setAspectRatio(double);
       virtual double getAspectRatio() const;
       virtual void setFOV(double);
       virtual double getFOV() const;

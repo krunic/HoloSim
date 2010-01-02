@@ -56,7 +56,7 @@ namespace hdsim {
        *
        * @param ratio aspect ratio
        */
-      virtual void setAspectRation(double ratio) = 0;
+      virtual void setAspectRatio(double ratio) = 0;
       
       /**
        * Get aspect ratio

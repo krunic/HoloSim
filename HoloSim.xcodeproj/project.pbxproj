@@ -36,6 +36,9 @@
 		7A2F41D40C75787C00FB3B69 /* ProjectConfigTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7A2F41CE0C75787C00FB3B69 /* ProjectConfigTest.cpp */; };
 		7A2F41D50C75787C00FB3B69 /* UnitTests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7A2F41D00C75787C00FB3B69 /* UnitTests.cpp */; };
 		7A3E25510C598C2200326103 /* HoloSimIcon.icns in Resources */ = {isa = PBXBuildFile; fileRef = 7A3E25500C598C2200326103 /* HoloSimIcon.icns */; };
+		7A4348DF10F3488300E4F3C9 /* collada.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7A4348DD10F3488300E4F3C9 /* collada.cpp */; };
+		7A4348E010F3488300E4F3C9 /* collada.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7A4348DD10F3488300E4F3C9 /* collada.cpp */; };
+		7A4348E110F3488300E4F3C9 /* collada.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7A4348DD10F3488300E4F3C9 /* collada.cpp */; };
 		7A4743A70C5D2150006FEF68 /* SimpleDesignByContract.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7A4743A60C5D2150006FEF68 /* SimpleDesignByContract.cpp */; };
 		7A4743A80C5D2150006FEF68 /* SimpleDesignByContract.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7A4743A60C5D2150006FEF68 /* SimpleDesignByContract.cpp */; };
 		7A4744560C5D3DDF006FEF68 /* libmockpp_cxxtest.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A4744550C5D3DDF006FEF68 /* libmockpp_cxxtest.a */; };
@@ -58,7 +61,6 @@
 		7A76394F0C7804B500600572 /* UnitTests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7A2F41D00C75787C00FB3B69 /* UnitTests.cpp */; };
 		7A7639780C78056C00600572 /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A4BD2AF0BCA0DD5004E8E67 /* OpenGL.framework */; };
 		7A7639790C78056C00600572 /* GLUT.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A4BD2B30BCA0DF8004E8E67 /* GLUT.framework */; };
-		7A76397B0C78056C00600572 /* libblitz.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7ABEAF600BFF646700C71586 /* libblitz.a */; };
 		7A76397C0C78056C00600572 /* libmockpp_cxxtest.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A4744550C5D3DDF006FEF68 /* libmockpp_cxxtest.a */; };
 		7A7639C10C78099C00600572 /* AbstractDrawingCodeTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7A7639BF0C78099C00600572 /* AbstractDrawingCodeTest.cpp */; };
 		7A99445B0EE61E7B0063D250 /* cppunit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A99445A0EE61E7B0063D250 /* cppunit.framework */; };
@@ -66,11 +68,10 @@
 		7A99445D0EE61E7B0063D250 /* cppunit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A99445A0EE61E7B0063D250 /* cppunit.framework */; };
 		7AA27ABB0C67D19A00BBC250 /* AppController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 7AA27ABA0C67D19A00BBC250 /* AppController.mm */; };
 		7AA27ABC0C67D19A00BBC250 /* AppController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 7AA27ABA0C67D19A00BBC250 /* AppController.mm */; };
-		7ABEAF610BFF646700C71586 /* libblitz.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7ABEAF600BFF646700C71586 /* libblitz.a */; };
+		7AB8AAF410F16DEC00B3DD4B /* Collada15Dom.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7AB8AAF310F16DEC00B3DD4B /* Collada15Dom.framework */; };
 		7ABEAFFF0BFF67BA00C71586 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A7FEA54F5311CA2CBB /* Cocoa.framework */; };
 		7ABEB0000BFF67BA00C71586 /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A4BD2AF0BCA0DD5004E8E67 /* OpenGL.framework */; };
 		7ABEB0010BFF67BA00C71586 /* GLUT.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A4BD2B30BCA0DF8004E8E67 /* GLUT.framework */; };
-		7ABEB0030BFF67BA00C71586 /* libblitz.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7ABEAF600BFF646700C71586 /* libblitz.a */; };
 		8D15AC2C0486D014006FF6A4 /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 2A37F4B9FDCFA73011CA2CEA /* Credits.rtf */; };
 		8D15AC2D0486D014006FF6A4 /* MainMenu.nib in Resources */ = {isa = PBXBuildFile; fileRef = 2A37F4B6FDCFA73011CA2CEA /* MainMenu.nib */; };
 		8D15AC2E0486D014006FF6A4 /* HoloSimDocument.nib in Resources */ = {isa = PBXBuildFile; fileRef = 2A37F4B4FDCFA73011CA2CEA /* HoloSimDocument.nib */; };
@@ -137,6 +138,8 @@
 		7A2F41D00C75787C00FB3B69 /* UnitTests.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; name = UnitTests.cpp; path = UnitTests/CPPUnit/UnitTests.cpp; sourceTree = "<group>"; };
 		7A2F41D10C75787C00FB3B69 /* UnitTests.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = UnitTests.h; path = UnitTests/CPPUnit/UnitTests.h; sourceTree = "<group>"; };
 		7A3E25500C598C2200326103 /* HoloSimIcon.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = HoloSimIcon.icns; sourceTree = "<group>"; };
+		7A4348DD10F3488300E4F3C9 /* collada.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = collada.cpp; sourceTree = "<group>"; };
+		7A4348DE10F3488300E4F3C9 /* collada.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = collada.h; sourceTree = "<group>"; };
 		7A4743A50C5D2150006FEF68 /* SimpleDesignByContract.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SimpleDesignByContract.h; path = Util/SimpleDesignByContract.h; sourceTree = "<group>"; };
 		7A4743A60C5D2150006FEF68 /* SimpleDesignByContract.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = SimpleDesignByContract.cpp; path = Util/SimpleDesignByContract.cpp; sourceTree = "<group>"; };
 		7A4744550C5D3DDF006FEF68 /* libmockpp_cxxtest.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libmockpp_cxxtest.a; path = /usr/local/lib/libmockpp_cxxtest.a; sourceTree = "<absolute>"; };
@@ -148,9 +151,9 @@
 		7A99445A0EE61E7B0063D250 /* cppunit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = cppunit.framework; path = /Library/Frameworks/cppunit.framework; sourceTree = "<absolute>"; };
 		7AA27AB90C67D19A00BBC250 /* AppController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppController.h; path = Cocoa/AppController.h; sourceTree = "<group>"; };
 		7AA27ABA0C67D19A00BBC250 /* AppController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = AppController.mm; path = Cocoa/AppController.mm; sourceTree = "<group>"; };
+		7AB8AAF310F16DEC00B3DD4B /* Collada15Dom.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Collada15Dom.framework; path = /Library/Frameworks/Collada15Dom.framework; sourceTree = "<absolute>"; };
 		7ABEAF550BFF633900C71586 /* blitz.html */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.html; name = blitz.html; path = "/usr/local/share/doc/blitz-0.9/blitz.html"; sourceTree = "<absolute>"; };
 		7ABEAF5C0BFF63AC00C71586 /* index.html */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.html; name = index.html; path = /usr/local/share/cppunit/html/index.html; sourceTree = "<absolute>"; };
-		7ABEAF600BFF646700C71586 /* libblitz.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libblitz.a; path = /usr/local/lib/libblitz.a; sourceTree = "<absolute>"; };
 		7ABEAFBA0BFF672A00C71586 /* HoloSim_UnitTests */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = HoloSim_UnitTests; sourceTree = BUILT_PRODUCTS_DIR; };
 		8D15AC360486D014006FF6A4 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		8D15AC370486D014006FF6A4 /* HoloSim.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HoloSim.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -164,7 +167,6 @@
 				7A2002670C5979160039A4F7 /* Cocoa.framework in Frameworks */,
 				7A7639780C78056C00600572 /* OpenGL.framework in Frameworks */,
 				7A7639790C78056C00600572 /* GLUT.framework in Frameworks */,
-				7A76397B0C78056C00600572 /* libblitz.a in Frameworks */,
 				7A76397C0C78056C00600572 /* libmockpp_cxxtest.a in Frameworks */,
 				7A2002680C5979160039A4F7 /* SenTestingKit.framework in Frameworks */,
 				7A99445D0EE61E7B0063D250 /* cppunit.framework in Frameworks */,
@@ -178,7 +180,6 @@
 				7ABEAFFF0BFF67BA00C71586 /* Cocoa.framework in Frameworks */,
 				7ABEB0000BFF67BA00C71586 /* OpenGL.framework in Frameworks */,
 				7ABEB0010BFF67BA00C71586 /* GLUT.framework in Frameworks */,
-				7ABEB0030BFF67BA00C71586 /* libblitz.a in Frameworks */,
 				7A4744560C5D3DDF006FEF68 /* libmockpp_cxxtest.a in Frameworks */,
 				7A99445C0EE61E7B0063D250 /* cppunit.framework in Frameworks */,
 			);
@@ -191,8 +192,8 @@
 				8D15AC340486D014006FF6A4 /* Cocoa.framework in Frameworks */,
 				7A4BD2B00BCA0DD5004E8E67 /* OpenGL.framework in Frameworks */,
 				7A4BD2B40BCA0DF8004E8E67 /* GLUT.framework in Frameworks */,
-				7ABEAF610BFF646700C71586 /* libblitz.a in Frameworks */,
 				7A99445B0EE61E7B0063D250 /* cppunit.framework in Frameworks */,
+				7AB8AAF410F16DEC00B3DD4B /* Collada15Dom.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -202,6 +203,7 @@
 		1058C7A6FEA54F5311CA2CBB /* Linked Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				7AB8AAF310F16DEC00B3DD4B /* Collada15Dom.framework */,
 				1058C7A7FEA54F5311CA2CBB /* Cocoa.framework */,
 				7A20023D0C5978930039A4F7 /* SenTestingKit.framework */,
 			);
@@ -234,6 +236,7 @@
 		2A37F4AAFDCFA73011CA2CEA /* HoloSim */ = {
 			isa = PBXGroup;
 			children = (
+				7A4348DC10F3488300E4F3C9 /* IO */,
 				2A37F4ABFDCFA73011CA2CEA /* Cocoa */,
 				7A5B32C70C51B41E00833B6F /* Control */,
 				7A5B32CA0C51B45A00833B6F /* Graphics */,
@@ -351,6 +354,15 @@
 			name = CPPUnit;
 			sourceTree = "<group>";
 		};
+		7A4348DC10F3488300E4F3C9 /* IO */ = {
+			isa = PBXGroup;
+			children = (
+				7A4348DD10F3488300E4F3C9 /* collada.cpp */,
+				7A4348DE10F3488300E4F3C9 /* collada.h */,
+			);
+			path = IO;
+			sourceTree = "<group>";
+		};
 		7A4743A40C5D20FC006FEF68 /* Util */ = {
 			isa = PBXGroup;
 			children = (
@@ -442,7 +454,6 @@
 			isa = PBXGroup;
 			children = (
 				7A4744550C5D3DDF006FEF68 /* libmockpp_cxxtest.a */,
-				7ABEAF600BFF646700C71586 /* libblitz.a */,
 			);
 			name = "Portable Libraries";
 			sourceTree = "<group>";
@@ -623,6 +634,7 @@
 				7A76392B0C7803FD00600572 /* HoloSimDocument.mm in Sources */,
 				7A0F8A820C5CA9A10018DD1F /* CocoaUnitTests.mm in Sources */,
 				7AA27ABC0C67D19A00BBC250 /* AppController.mm in Sources */,
+				7A4348E110F3488300E4F3C9 /* collada.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -645,6 +657,7 @@
 				7A2F41D40C75787C00FB3B69 /* ProjectConfigTest.cpp in Sources */,
 				7A2F41D50C75787C00FB3B69 /* UnitTests.cpp in Sources */,
 				7A7639C10C78099C00600572 /* AbstractDrawingCodeTest.cpp in Sources */,
+				7A4348E010F3488300E4F3C9 /* collada.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -666,6 +679,7 @@
 				7A0F8A680C5CA8EB0018DD1F /* RoomView.mm in Sources */,
 				7A4743A70C5D2150006FEF68 /* SimpleDesignByContract.cpp in Sources */,
 				7AA27ABB0C67D19A00BBC250 /* AppController.mm in Sources */,
+				7A4348DF10F3488300E4F3C9 /* collada.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

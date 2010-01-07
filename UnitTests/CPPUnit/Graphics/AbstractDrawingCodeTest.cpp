@@ -3,7 +3,7 @@
  *  HoloSim
  *
  *  Created by Veljko Krunic on 8/18/07.
- *  Copyright 2007 Veljko Krunic. All rights reserved.
+ *  Copyright © 2007-2010 Veljko Krunic. All rights reserved.
  *
  */
 

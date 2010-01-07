@@ -44,6 +44,17 @@
 		7A4744560C5D3DDF006FEF68 /* libmockpp_cxxtest.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A4744550C5D3DDF006FEF68 /* libmockpp_cxxtest.a */; };
 		7A4BD2B00BCA0DD5004E8E67 /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A4BD2AF0BCA0DD5004E8E67 /* OpenGL.framework */; };
 		7A4BD2B40BCA0DF8004E8E67 /* GLUT.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A4BD2B30BCA0DF8004E8E67 /* GLUT.framework */; };
+		7A70605810F4B20700816D3E /* libcppunit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A70605710F4B20700816D3E /* libcppunit.a */; };
+		7A70618710F4B61000816D3E /* Collada14Dom.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A70618610F4B61000816D3E /* Collada14Dom.framework */; };
+		7A70628E10F4BCB800816D3E /* libboost_filesystem.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A70627810F4BCB800816D3E /* libboost_filesystem.a */; };
+		7A70629D10F4BCB800816D3E /* libboost_system.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A70628710F4BCB800816D3E /* libboost_system.a */; };
+		7A7062AF10F4BE3500816D3E /* libminizip.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A7062AE10F4BE3500816D3E /* libminizip.a */; };
+		7A7062B710F4BE5E00816D3E /* libboost_filesystem.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A70627810F4BCB800816D3E /* libboost_filesystem.a */; };
+		7A7062B810F4BE5E00816D3E /* libboost_system.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A70628710F4BCB800816D3E /* libboost_system.a */; };
+		7A7062D610F4C00500816D3E /* libminizip.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A7062AE10F4BE3500816D3E /* libminizip.a */; };
+		7A70633610F4CD7C00816D3E /* Collada14Dom.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A70618610F4B61000816D3E /* Collada14Dom.framework */; };
+		7A70634610F4CECC00816D3E /* libxml2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A70634510F4CECC00816D3E /* libxml2.dylib */; };
+		7A70634710F4CED100816D3E /* libxml2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A70634510F4CECC00816D3E /* libxml2.dylib */; };
 		7A76392B0C7803FD00600572 /* HoloSimDocument.mm in Sources */ = {isa = PBXBuildFile; fileRef = 7A0F8A610C5CA8EB0018DD1F /* HoloSimDocument.mm */; };
 		7A76392D0C78041C00600572 /* AbstractModel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7A0F8A520C5CA8C90018DD1F /* AbstractModel.cpp */; };
 		7A76392E0C78041C00600572 /* CheckBoard.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7A0F8A540C5CA8C90018DD1F /* CheckBoard.cpp */; };
@@ -63,12 +74,8 @@
 		7A7639790C78056C00600572 /* GLUT.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A4BD2B30BCA0DF8004E8E67 /* GLUT.framework */; };
 		7A76397C0C78056C00600572 /* libmockpp_cxxtest.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A4744550C5D3DDF006FEF68 /* libmockpp_cxxtest.a */; };
 		7A7639C10C78099C00600572 /* AbstractDrawingCodeTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7A7639BF0C78099C00600572 /* AbstractDrawingCodeTest.cpp */; };
-		7A99445B0EE61E7B0063D250 /* cppunit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A99445A0EE61E7B0063D250 /* cppunit.framework */; };
-		7A99445C0EE61E7B0063D250 /* cppunit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A99445A0EE61E7B0063D250 /* cppunit.framework */; };
-		7A99445D0EE61E7B0063D250 /* cppunit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A99445A0EE61E7B0063D250 /* cppunit.framework */; };
 		7AA27ABB0C67D19A00BBC250 /* AppController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 7AA27ABA0C67D19A00BBC250 /* AppController.mm */; };
 		7AA27ABC0C67D19A00BBC250 /* AppController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 7AA27ABA0C67D19A00BBC250 /* AppController.mm */; };
-		7AB8AAF410F16DEC00B3DD4B /* Collada15Dom.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7AB8AAF310F16DEC00B3DD4B /* Collada15Dom.framework */; };
 		7ABEAFFF0BFF67BA00C71586 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A7FEA54F5311CA2CBB /* Cocoa.framework */; };
 		7ABEB0000BFF67BA00C71586 /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A4BD2AF0BCA0DD5004E8E67 /* OpenGL.framework */; };
 		7ABEB0010BFF67BA00C71586 /* GLUT.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A4BD2B30BCA0DF8004E8E67 /* GLUT.framework */; };
@@ -146,12 +153,17 @@
 		7A4BD2AF0BCA0DD5004E8E67 /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = /System/Library/Frameworks/OpenGL.framework; sourceTree = "<absolute>"; };
 		7A4BD2B30BCA0DF8004E8E67 /* GLUT.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLUT.framework; path = /System/Library/Frameworks/GLUT.framework; sourceTree = "<absolute>"; };
 		7A63FB790BF9492000A52909 /* index.html */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.html; name = index.html; path = html/index.html; sourceTree = "<group>"; };
+		7A70605710F4B20700816D3E /* libcppunit.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libcppunit.a; path = /usr/local/lib/libcppunit.a; sourceTree = "<absolute>"; };
+		7A70618610F4B61000816D3E /* Collada14Dom.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Collada14Dom.framework; path = /Library/Frameworks/Collada14Dom.framework; sourceTree = "<absolute>"; };
+		7A70627810F4BCB800816D3E /* libboost_filesystem.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libboost_filesystem.a; path = /usr/local/lib/libboost_filesystem.a; sourceTree = "<absolute>"; };
+		7A70628710F4BCB800816D3E /* libboost_system.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libboost_system.a; path = /usr/local/lib/libboost_system.a; sourceTree = "<absolute>"; };
+		7A7062AE10F4BE3500816D3E /* libminizip.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libminizip.a; path = /usr/local/lib/libminizip.a; sourceTree = "<absolute>"; };
+		7A70633010F4CCD200816D3E /* Collada14Dom.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = Collada14Dom.dylib; path = /usr/local/lib/Collada14Dom.dylib; sourceTree = "<absolute>"; };
+		7A70634510F4CECC00816D3E /* libxml2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.dylib; path = /usr/lib/libxml2.dylib; sourceTree = "<absolute>"; };
 		7A7639BE0C78099C00600572 /* AbstractDrawingCodeTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AbstractDrawingCodeTest.h; path = UnitTests/CPPUnit/Graphics/AbstractDrawingCodeTest.h; sourceTree = "<group>"; };
 		7A7639BF0C78099C00600572 /* AbstractDrawingCodeTest.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = AbstractDrawingCodeTest.cpp; path = UnitTests/CPPUnit/Graphics/AbstractDrawingCodeTest.cpp; sourceTree = "<group>"; };
-		7A99445A0EE61E7B0063D250 /* cppunit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = cppunit.framework; path = /Library/Frameworks/cppunit.framework; sourceTree = "<absolute>"; };
 		7AA27AB90C67D19A00BBC250 /* AppController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppController.h; path = Cocoa/AppController.h; sourceTree = "<group>"; };
 		7AA27ABA0C67D19A00BBC250 /* AppController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = AppController.mm; path = Cocoa/AppController.mm; sourceTree = "<group>"; };
-		7AB8AAF310F16DEC00B3DD4B /* Collada15Dom.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Collada15Dom.framework; path = /Library/Frameworks/Collada15Dom.framework; sourceTree = "<absolute>"; };
 		7ABEAF550BFF633900C71586 /* blitz.html */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.html; name = blitz.html; path = "/usr/local/share/doc/blitz-0.9/blitz.html"; sourceTree = "<absolute>"; };
 		7ABEAF5C0BFF63AC00C71586 /* index.html */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.html; name = index.html; path = /usr/local/share/cppunit/html/index.html; sourceTree = "<absolute>"; };
 		7ABEAFBA0BFF672A00C71586 /* HoloSim_UnitTests */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = HoloSim_UnitTests; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -169,7 +181,6 @@
 				7A7639790C78056C00600572 /* GLUT.framework in Frameworks */,
 				7A76397C0C78056C00600572 /* libmockpp_cxxtest.a in Frameworks */,
 				7A2002680C5979160039A4F7 /* SenTestingKit.framework in Frameworks */,
-				7A99445D0EE61E7B0063D250 /* cppunit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -177,11 +188,16 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7A7062B710F4BE5E00816D3E /* libboost_filesystem.a in Frameworks */,
+				7A7062B810F4BE5E00816D3E /* libboost_system.a in Frameworks */,
+				7A7062D610F4C00500816D3E /* libminizip.a in Frameworks */,
+				7A70633610F4CD7C00816D3E /* Collada14Dom.framework in Frameworks */,
 				7ABEAFFF0BFF67BA00C71586 /* Cocoa.framework in Frameworks */,
 				7ABEB0000BFF67BA00C71586 /* OpenGL.framework in Frameworks */,
 				7ABEB0010BFF67BA00C71586 /* GLUT.framework in Frameworks */,
 				7A4744560C5D3DDF006FEF68 /* libmockpp_cxxtest.a in Frameworks */,
-				7A99445C0EE61E7B0063D250 /* cppunit.framework in Frameworks */,
+				7A70605810F4B20700816D3E /* libcppunit.a in Frameworks */,
+				7A70634610F4CECC00816D3E /* libxml2.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -189,11 +205,14 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7A70628E10F4BCB800816D3E /* libboost_filesystem.a in Frameworks */,
+				7A70629D10F4BCB800816D3E /* libboost_system.a in Frameworks */,
+				7A7062AF10F4BE3500816D3E /* libminizip.a in Frameworks */,
+				7A70618710F4B61000816D3E /* Collada14Dom.framework in Frameworks */,
 				8D15AC340486D014006FF6A4 /* Cocoa.framework in Frameworks */,
 				7A4BD2B00BCA0DD5004E8E67 /* OpenGL.framework in Frameworks */,
 				7A4BD2B40BCA0DF8004E8E67 /* GLUT.framework in Frameworks */,
-				7A99445B0EE61E7B0063D250 /* cppunit.framework in Frameworks */,
-				7AB8AAF410F16DEC00B3DD4B /* Collada15Dom.framework in Frameworks */,
+				7A70634710F4CED100816D3E /* libxml2.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -203,9 +222,8 @@
 		1058C7A6FEA54F5311CA2CBB /* Linked Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				7AB8AAF310F16DEC00B3DD4B /* Collada15Dom.framework */,
-				1058C7A7FEA54F5311CA2CBB /* Cocoa.framework */,
-				7A20023D0C5978930039A4F7 /* SenTestingKit.framework */,
+				7A705AFA10F49B9A00816D3E /* Runtime */,
+				7A705AFB10F49BF600816D3E /* Development */,
 			);
 			name = "Linked Frameworks";
 			sourceTree = "<group>";
@@ -213,9 +231,9 @@
 		1058C7A8FEA54F5311CA2CBB /* Other Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				7A99445A0EE61E7B0063D250 /* cppunit.framework */,
-				7A4BD2B30BCA0DF8004E8E67 /* GLUT.framework */,
 				7A4BD2AF0BCA0DD5004E8E67 /* OpenGL.framework */,
+				1058C7A7FEA54F5311CA2CBB /* Cocoa.framework */,
+				7A4BD2B30BCA0DF8004E8E67 /* GLUT.framework */,
 				2A37F4C4FDCFA73011CA2CEA /* AppKit.framework */,
 				13E42FBA07B3F13500E4EEF1 /* CoreData.framework */,
 				2A37F4C5FDCFA73011CA2CEA /* Foundation.framework */,
@@ -297,7 +315,6 @@
 			children = (
 				1058C7A6FEA54F5311CA2CBB /* Linked Frameworks */,
 				1058C7A8FEA54F5311CA2CBB /* Other Frameworks */,
-				7ABEAF620BFF646B00C71586 /* Portable Libraries */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -415,6 +432,29 @@
 			name = "HoloSim Doc";
 			sourceTree = "<group>";
 		};
+		7A705AFA10F49B9A00816D3E /* Runtime */ = {
+			isa = PBXGroup;
+			children = (
+				7A70633010F4CCD200816D3E /* Collada14Dom.dylib */,
+				7A7062AE10F4BE3500816D3E /* libminizip.a */,
+				7A70627810F4BCB800816D3E /* libboost_filesystem.a */,
+				7A70628710F4BCB800816D3E /* libboost_system.a */,
+				7A70618610F4B61000816D3E /* Collada14Dom.framework */,
+				7A70634510F4CECC00816D3E /* libxml2.dylib */,
+			);
+			name = Runtime;
+			sourceTree = "<group>";
+		};
+		7A705AFB10F49BF600816D3E /* Development */ = {
+			isa = PBXGroup;
+			children = (
+				7A70605710F4B20700816D3E /* libcppunit.a */,
+				7A20023D0C5978930039A4F7 /* SenTestingKit.framework */,
+				7A4744550C5D3DDF006FEF68 /* libmockpp_cxxtest.a */,
+			);
+			name = Development;
+			sourceTree = "<group>";
+		};
 		7A7639BD0C78094300600572 /* Graphics */ = {
 			isa = PBXGroup;
 			children = (
@@ -448,14 +488,6 @@
 				7ABEAF550BFF633900C71586 /* blitz.html */,
 			);
 			name = "blitz Doc";
-			sourceTree = "<group>";
-		};
-		7ABEAF620BFF646B00C71586 /* Portable Libraries */ = {
-			isa = PBXGroup;
-			children = (
-				7A4744550C5D3DDF006FEF68 /* libmockpp_cxxtest.a */,
-			);
-			name = "Portable Libraries";
 			sourceTree = "<group>";
 		};
 		7ABEAFA90BFF66A300C71586 /* UnitTests */ = {
@@ -732,11 +764,14 @@
 		7A2002650C5978FA0039A4F7 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = i386;
 				COPY_PHASE_STRIP = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(value)",
 					"$(DEVELOPER_FRAMEWORKS_DIR_QUOTED)",
+					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
 				);
+				FRAMEWORK_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)\"";
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_ENABLE_FIX_AND_CONTINUE = NO;
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
@@ -767,11 +802,14 @@
 		7A2002660C5978FA0039A4F7 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = i386;
 				COPY_PHASE_STRIP = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(value)",
 					"$(DEVELOPER_FRAMEWORKS_DIR_QUOTED)",
+					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
 				);
+				FRAMEWORK_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)\"";
 				GCC_ENABLE_FIX_AND_CONTINUE = NO;
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
@@ -800,7 +838,13 @@
 		7ABEAFD00BFF675000C71586 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = i386;
 				COPY_PHASE_STRIP = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
+				);
+				FRAMEWORK_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)\"";
 				GCC_C_LANGUAGE_STANDARD = "compiler-default";
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_ENABLE_FIX_AND_CONTINUE = YES;
@@ -820,6 +864,8 @@
 					Foundation,
 					"-framework",
 					AppKit,
+					"-framework",
+					Collada14Dom,
 				);
 				PREBINDING = NO;
 				PRODUCT_NAME = HoloSim_UnitTests;
@@ -831,7 +877,13 @@
 		7ABEAFD10BFF675000C71586 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = i386;
 				COPY_PHASE_STRIP = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
+				);
+				FRAMEWORK_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)\"";
 				GCC_C_LANGUAGE_STANDARD = "compiler-default";
 				GCC_ENABLE_FIX_AND_CONTINUE = NO;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
@@ -848,6 +900,8 @@
 					Foundation,
 					"-framework",
 					AppKit,
+					"-framework",
+					Collada14Dom,
 				);
 				PREBINDING = NO;
 				PRODUCT_NAME = HoloSim_UnitTests;
@@ -859,7 +913,15 @@
 		C05733C808A9546B00998B17 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = i386;
 				COPY_PHASE_STRIP = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
+					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_FOR_TARGET_2)",
+				);
+				FRAMEWORK_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)\"";
+				FRAMEWORK_SEARCH_PATHS_QUOTED_FOR_TARGET_2 = "\"$(DEVELOPER_FRAMEWORKS_DIR)\"";
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_ENABLE_FIX_AND_CONTINUE = YES;
 				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
@@ -878,10 +940,14 @@
 		C05733C908A9546B00998B17 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = (
-					ppc,
-					i386,
+				ARCHS = i386;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
+					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_FOR_TARGET_2)",
 				);
+				FRAMEWORK_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)\"";
+				FRAMEWORK_SEARCH_PATHS_QUOTED_FOR_TARGET_2 = "\"$(DEVELOPER_FRAMEWORKS_DIR)\"";
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
 				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
 				GCC_MODEL_TUNING = G5;
@@ -897,11 +963,13 @@
 		C05733CC08A9546B00998B17 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = i386;
+				FRAMEWORK_SEARCH_PATHS = "";
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
 				GCC_ENABLE_OBJC_GC = YES;
 				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
-				GCC_TREAT_WARNINGS_AS_ERRORS = YES;
+				GCC_TREAT_WARNINGS_AS_ERRORS = NO;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_EFFECTIVE_CPLUSPLUS_VIOLATIONS = NO;
 				GCC_WARN_HIDDEN_VIRTUAL_FUNCTIONS = YES;
@@ -910,8 +978,15 @@
 				GCC_WARN_TYPECHECK_CALLS_TO_PRINTF = YES;
 				GCC_WARN_UNKNOWN_PRAGMAS = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				HEADER_SEARCH_PATHS = /usr/local/include;
+				HEADER_SEARCH_PATHS = (
+					/Library/Frameworks/Collada14Dom.framework/Headers,
+					/usr/local/include,
+				);
 				LIBRARY_SEARCH_PATHS = /usr/local/lib;
+				OTHER_LDFLAGS = (
+					"-framework",
+					Collada14Dom,
+				);
 				PREBINDING = NO;
 				SDKROOT = /Developer/SDKs/MacOSX10.5.sdk;
 				STRIP_STYLE = "non-global";
@@ -922,12 +997,13 @@
 		C05733CD08A9546B00998B17 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(NATIVE_ARCH)";
+				ARCHS = i386;
+				FRAMEWORK_SEARCH_PATHS = "";
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
 				GCC_ENABLE_OBJC_GC = YES;
 				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
-				GCC_TREAT_WARNINGS_AS_ERRORS = YES;
+				GCC_TREAT_WARNINGS_AS_ERRORS = NO;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_EFFECTIVE_CPLUSPLUS_VIOLATIONS = NO;
 				GCC_WARN_HIDDEN_VIRTUAL_FUNCTIONS = YES;
@@ -936,8 +1012,15 @@
 				GCC_WARN_TYPECHECK_CALLS_TO_PRINTF = YES;
 				GCC_WARN_UNKNOWN_PRAGMAS = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				HEADER_SEARCH_PATHS = /usr/local/include;
+				HEADER_SEARCH_PATHS = (
+					/Library/Frameworks/Collada14Dom.framework/Headers,
+					/usr/local/include,
+				);
 				LIBRARY_SEARCH_PATHS = /usr/local/lib;
+				OTHER_LDFLAGS = (
+					"-framework",
+					Collada14Dom,
+				);
 				PREBINDING = NO;
 				PRECOMPS_INCLUDE_HEADERS_FROM_BUILT_PRODUCTS_DIR = YES;
 				SCAN_ALL_SOURCE_FILES_FOR_INCLUDES = YES;

@@ -3,7 +3,7 @@
 //  HoloSim
 //
 //  Created by Veljko Krunic on 8/6/07.
-//  Copyright 2007 Veljko Krunic. All rights reserved.
+//  Copyright © 2007-2010 Veljko Krunic. All rights reserved.
 //
 
 #import "AppController.h"
@@ -169,8 +169,9 @@
 - (BOOL)application:(NSApplication *)theApplication
            openFile:(NSString *)fileName
 {
+	NSError *error = nil;
    NSDocumentController *dc = [NSDocumentController sharedDocumentController];
-   HoloSimDocument *doc = [dc openDocumentWithContentsOfFile:fileName display:YES];
+   HoloSimDocument *doc = [dc openDocumentWithContentsOfURL:[NSURL fileURLWithPath:fileName] display:YES error:&error];
    
    // Set parameters for document opened
    [self prepareDocumentParameters:doc];

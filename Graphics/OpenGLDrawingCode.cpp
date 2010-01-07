@@ -5,7 +5,7 @@
  *  Create portability layer, so that we isolate actual drawing code from the GUI code
  *
  *  Created by Veljko Krunic on 4/14/07.
- *  Copyright 2007 Veljko Krunic. All rights reserved.
+ *  Copyright © 2007-2010 Veljko Krunic. All rights reserved.
  */
 
 #include "OpenGLDrawingCode.h"

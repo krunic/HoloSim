@@ -3,7 +3,7 @@
 //  HoloSim
 //
 //  Created by Veljko Krunic on 4/8/07.
-//  Copyright Â© Veljko Krunic 2007 . All rights reserved.
+//  Copyright © Veljko Krunic 2007-2010. All rights reserved.
 //
 
 #import "HoloSimDocument.h"

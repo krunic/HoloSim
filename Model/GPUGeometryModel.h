@@ -22,7 +22,7 @@ namespace hdsim {
    /**
     * Name of the checkboard model
     */
-   static const char * const CHECKBOARD_MODEL_NAME = "GPUGeometryModel";
+   static const char * const GPU_GEOMETRY_MODEL_NAME = "GPUGeometryModel";
    
    /**
     * Checkboard used for remembering rod position at the particular moment in time. It is fed 3D geometry (points, triangles) and then will calculate checkboard based on that geometry
@@ -65,7 +65,7 @@ namespace hdsim {
       
       // Overriden methods
       virtual const char * getModelName() const {
-         return CHECKBOARD_MODEL_NAME;
+         return GPU_GEOMETRY_MODEL_NAME;
       }   
       
       virtual void setAt(int x, int y, double value);

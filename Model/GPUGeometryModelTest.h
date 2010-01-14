@@ -20,7 +20,6 @@ namespace hdsim {
       CPPUNIT_TEST(testModelName);
       CPPUNIT_TEST(testCopy);
       CPPUNIT_TEST(testEqual);
-      CPPUNIT_TEST(testNonEqual);
       CPPUNIT_TEST(testDiferentDimsAreNonEqual);
       CPPUNIT_TEST_SUITE_END();
       

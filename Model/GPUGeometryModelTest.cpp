@@ -45,47 +45,54 @@ void GPUGeometryModelTest::testModelName()
 
 void GPUGeometryModelTest::testCopy()
 {
-   const double valueToSet = 0;
-   const double valueToChange = valueToSet + 1;
-   
    GPUGeometryModel original(1, 1);
    GPUGeometryModel constructorCopy(original);
    
-	original.setAt(0, 0, valueToSet);
-   constructorCopy.setAt(0, 0, valueToChange);
-   CPPUNIT_ASSERT_MESSAGE("Aliasing happened", original.getAt(0, 0) == valueToSet);
+	original.addPoint(createPoint(0, 0, 0));
+	original.addPoint(createPoint(0, 0, 0));
+	original.addPoint(createPoint(0, 0, 0));
+   original.addTriangle(createTriangle(0, 1, 2));
+   CPPUNIT_ASSERT_MESSAGE("Aliasing happened", constructorCopy.getNumPoints() == 0  &&  constructorCopy.getNumTriangles() == 0);
+   
+   // Clear original
+   original.initializeToCleanState();
    
    // Same story for the operator =
    constructorCopy = original; 
-	original.setAt(0, 0, valueToSet);
-   constructorCopy.setAt(0, 0, valueToChange);
-   CPPUNIT_ASSERT_MESSAGE("Aliasing happened", original.getAt(0, 0) == valueToSet);
+	original.addPoint(createPoint(0, 0, 0));
+	original.addPoint(createPoint(0, 0, 0));
+	original.addPoint(createPoint(0, 0, 0));
+   original.addTriangle(createTriangle(0, 1, 2));
+   CPPUNIT_ASSERT_MESSAGE("Aliasing happened", constructorCopy.getNumPoints() == 0  &&  constructorCopy.getNumTriangles() == 0);
 }
 
 void GPUGeometryModelTest::testEqual()
 {
-   const double valueToSet = 0;
-   
    GPUGeometryModel lhs(1, 1);
-   lhs.setAt(0, 0, valueToSet);
-   
    GPUGeometryModel rhs(1, 1);
-   rhs.setAt(0, 0, valueToSet);
-   
-   CPPUNIT_ASSERT_MESSAGE("Operator == not working correctly", lhs == rhs);
-}
 
-void GPUGeometryModelTest::testNonEqual()
-{
-   const double valueToSet = 0;
+   CPPUNIT_ASSERT_MESSAGE("Operator == not working correctly", lhs == rhs);
    
-   GPUGeometryModel lhs(1, 1);
-   lhs.setAt(0, 0, valueToSet);
+   lhs.addPoint(createPoint(0, 0, 0));
+   CPPUNIT_ASSERT_MESSAGE("Operator == not working correctly after adding point", lhs != rhs);
    
-   GPUGeometryModel rhs(1, 1);
-   rhs.setAt(0, 0, valueToSet + 1);
+   rhs.addPoint(createPoint(0, 0, 0));
+   CPPUNIT_ASSERT_MESSAGE("Operator == not working correctly comparing points", lhs == rhs);
    
-   CPPUNIT_ASSERT_MESSAGE("Operator != not working correctly", lhs != rhs);
+   // We would need two more points to add triangle
+   lhs.addPoint(createPoint(0, 1, 0));
+   lhs.addPoint(createPoint(1, 0, 0));
+   
+   rhs.addPoint(createPoint(0, 1, 0));
+   rhs.addPoint(createPoint(1, 0, 0));
+   
+   // Now, add triangle - should make lhs and rhs different as one doesn't have triangles
+   lhs.addTriangle(createTriangle(0, 1, 2));  
+   CPPUNIT_ASSERT_MESSAGE("Operator == not working correctly after adding triangles", lhs != rhs);
+   
+   // And one to rhs for comparasion purposes
+   rhs.addTriangle(createTriangle(0, 1, 2));
+   CPPUNIT_ASSERT_MESSAGE("Operator == not working correctly after adding triangles", lhs == rhs);  
 }
 
 void GPUGeometryModelTest::testDiferentDimsAreNonEqual()

@@ -48,9 +48,24 @@ namespace hdsim {
    	   return index3_;
 	   }
    
-	   static TriangleByPointIndexes createTriangle(int index1, int index2, int index3) {
-   	   return TriangleByPointIndexes(index1, index2, index3);
-	   }
+	   friend TriangleByPointIndexes createTriangle(int index1, int index2, int index3);
+      
+      friend bool operator==(const TriangleByPointIndexes &lhs, const TriangleByPointIndexes &rhs);
+      friend bool operator!=(const TriangleByPointIndexes &lhs, const TriangleByPointIndexes &rhs);
+      
+      TriangleByPointIndexes(const TriangleByPointIndexes &rhs) : index1_(rhs.index1_), index2_(rhs.index2_), index3_(rhs.index3_) {}
+      
+      TriangleByPointIndexes &operator=(const TriangleByPointIndexes &rhs) {
+         
+         if (&rhs == this)
+            return *this;
+         
+         index1_ = rhs.index1_;
+         index2_ = rhs.index2_;
+         index3_ = rhs.index3_;         
+         
+         return *this;
+      }     
    
 	private:
    
@@ -60,6 +75,19 @@ namespace hdsim {
 		int index1_, index2_, index3_;
    
 	};
+   
+   inline bool operator==(const TriangleByPointIndexes &lhs, const TriangleByPointIndexes &rhs) {
+      return lhs.index1_ == rhs.index1_  &&  lhs.index2_ == rhs.index2_  &&  lhs.index3_ == rhs.index3_;
+   }
+   
+   inline bool operator!=(const TriangleByPointIndexes &lhs, const TriangleByPointIndexes &rhs)  {
+      return !(lhs == rhs);
+   }  
+
+   inline TriangleByPointIndexes createTriangle(int index1, int index2, int index3) {
+      return TriangleByPointIndexes(index1, index2, index3);
+   }
 }
+
 
 #endif

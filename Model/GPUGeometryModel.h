@@ -32,7 +32,7 @@ namespace hdsim {
    public:
       
       /**
-       * Default constructor
+       * Default constructor, setting dimensions to 0, 0
        */
       GPUGeometryModel();
       
@@ -68,7 +68,6 @@ namespace hdsim {
          return GPU_GEOMETRY_MODEL_NAME;
       }   
       
-      virtual void setAt(int x, int y, double value);
       virtual double getAt(int x, int y) const;
       virtual AbstractModel *cloneOrphan() const;
       
@@ -111,12 +110,92 @@ namespace hdsim {
        */
       virtual bool saveToFile(FILE *fp) const;
       
-   private:
+      /**
+       * Add new point to the model
+       *
+       * @param point Point to add
+       */
+      virtual void addPoint(const Point &point) {
+         points_.push_back(point);
+      }
       
+      /**
+       * Get number of points
+       *
+       * @return Number of points
+       */
+      virtual int getNumPoints() const {
+         return points_.size();
+      }
+      
+      /**
+       * Get Point
+       *
+       * @param index Index of the point
+       *
+       * @return Point
+       */
+      virtual const Point &getPoint(int index) const {
+         return points_[index];
+      }
+      
+      /**
+       * Replace point at the index.
+       * 
+       * @param Point New value of the point
+       * @param index Must be smaller then getNumPoints()
+       */
+      virtual void replacePointAt(int index, const Point &point) {
+         assert(index >= 0  &&  index < getNumPoints());
+      	points_[index] = point;
+      }
+
+      /**
+       * Add new trianble to the model
+       *
+       * @param triangle Triangle to add
+       */
+      virtual void addTriangle(const TriangleByPointIndexes &triangle) {
+         triangles_.push_back(triangle);
+      }
+      
+      /**
+       * Get number of triangles
+       *
+       * @return Number of triangles
+       */
+      virtual int getNumTriangles() const {
+         return triangles_.size();
+      }
+      
+      /**
+       * Get triangle
+       *
+       * @param index Index of the triangle
+       *
+       * @return Point
+       */
+      virtual const TriangleByPointIndexes &getTriangle(int index) const {
+         return triangles_[index];
+      }
+      
+      /**
+       * Replace triangles at the index
+       * 
+       * @param triangle New value of the triangle
+       * @param index Must be smaller then getNumTriangles()
+       */
+      virtual void replaceTriangleAt(int index, const TriangleByPointIndexes &triangle) {
+         assert(index >= 0  &&  index < getNumPoints());
+      	triangles_[index] = triangle;
+      }
+
       /**
        * Initilize model to clean state
        */
       void initializeToCleanState();
+      
+   private:
       
       /**
        * Copy value from rhs to this object
@@ -175,8 +254,21 @@ namespace hdsim {
     */
    inline bool operator==(const GPUGeometryModel &lhs, const GPUGeometryModel &rhs)
    {
-      // Currently not implemented
-      assert(0);
+      if (lhs.points_.size() != rhs.points_.size()  ||  lhs.triangles_.size() != rhs.triangles_.size())
+         return false;
+      
+      if (lhs.getSizeX() != rhs.getSizeX()  ||  lhs.getSizeY() != rhs.getSizeY())
+         return false;
+      
+      for (int i = 0; i < lhs.points_.size(); i++)
+         if (lhs.points_[i] != rhs.points_[i])
+            return false;
+   
+      for (int i = 0; i < lhs.triangles_.size(); i++)
+         if (lhs.triangles_[i] != rhs.triangles_[i])
+            return false;
+      
+      return true;
    }
    
    /** 

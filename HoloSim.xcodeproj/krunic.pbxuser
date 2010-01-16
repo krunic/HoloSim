@@ -17,7 +17,6 @@
 		);
 		breakpoints = (
 			7A7639870C7805D100600572 /* HoloSimDocument.mm:107 */,
-			7AA6DA701101BE190069471B /* Collada.cpp:107 */,
 		);
 		codeSenseManager = 7A2869FF0C656627002E50E2 /* Code sense */;
 		executables = (
@@ -2121,24 +2120,6 @@
 		rType = 0;
 		vrLen = 630;
 		vrLoc = 0;
-	};
-	7AA6DA701101BE190069471B /* Collada.cpp:107 */ = {
-		isa = PBXFileBreakpoint;
-		actions = (
-		);
-		breakpointStyle = 0;
-		continueAfterActions = 0;
-		countType = 0;
-		delayBeforeContinue = 0;
-		fileReference = 7A43490110F3496700E4F3C9 /* Collada.cpp */;
-		functionName = "loadCollada(const char *name, GPUGeometryModel &loadToThisModel)";
-		hitCount = 1;
-		ignoreCount = 0;
-		lineNumber = 107;
-		location = HoloSim_OCUnitTests;
-		modificationTime = 285326959.022454;
-		originalNumberOfMultipleMatches = 1;
-		state = 1;
 	};
 	7AA6DA761101BE730069471B /* PBXTextBookmark */ = {
 		isa = PBXTextBookmark;

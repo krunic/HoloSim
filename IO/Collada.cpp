@@ -13,9 +13,12 @@
 #include <list>
 #include <vector>
 #include <iostream>
+#include <string>
 
 #include <dae.h>
 #include <dom/domSource.h>
+#include <dom/domVertices.h>
+#include <dom/domInputLocal.h>
 #include <dom/domTriangles.h>
 #include <dom/domPolygons.h>
 #include <dom/domGeometry.h>
@@ -35,18 +38,44 @@ static bool loadPointsToModel(domMesh *meshElement, GPUGeometryModel &loadToThis
 {
    // Now, load all source points in the points array
    
+   string idOfSourceArray;
+
+   domVertices *vertecies = meshElement->getVertices();
+   int numArrays = vertecies->getInput_array().getCount();
+   
+   // Iterate through arrays and find the one that is POSITION. There is probably faster way to do this, but I am 
+   // really fedup with COLLADA DOM documentation and this is not time critical
+   for (int indexInputs = 0; indexInputs < numArrays; indexInputs++)
+   {
+      domInputLocal *current = vertecies->getInput_array()[indexInputs];
+      if (!strcmp(current->getSemantic(), "POSITION")) 
+      {
+      	// This is the position array, holding our vertex array id. Find the id of source
+         idOfSourceArray = current->getAttribute("source");
+      }
+   }
+   
    // Copy the vertices we are going to use into myGeometry. To keep things simple,
    // we will assume there is only one domSource and domFloatArray in the domMesh,
    // that it is the array of vertices, and that it is in X, Y, Z format. A real
    // app would find the vertices by starting with domPolygons and following
    // the links through the domInput, domVertices, domSource, domFloat_array,
    // and domTechnique.
-   if (meshElement->getSource_array().getCount() != 1)
+   int numSources = meshElement->getSource_array().getCount();  
+   domSource *source = 0;
+   
+   for (int indexSources = 0; indexSources < numSources; indexSources++)
+   {
+      if (meshElement->getSource_array()[indexSources]->getID() == idOfSourceArray)
+      {
+         source = meshElement->getSource_array()[indexSources];
+      }
+   }
+   
+   if (source)
    {
       return false;
    }
-
-   domSource *source = meshElement->getSource_array()[0];
    
    if (source->getFloat_array()->getCount() != 1)
    {

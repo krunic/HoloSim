@@ -42,5 +42,5 @@ void ColladaTest::testLoadQuad()
 {
    GPUGeometryModel model;
    
-   CPPUNIT_ASSERT_MESSAGE("Can't load collada file", loadCollada("TestQuad.dae", model));
+   CPPUNIT_ASSERT_MESSAGE("Can't load simple collada file", loadCollada("TestQuad.dae", model));
 }

@@ -169,6 +169,8 @@
 		7A7639BF0C78099C00600572 /* AbstractDrawingCodeTest.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = AbstractDrawingCodeTest.cpp; path = UnitTests/CPPUnit/Graphics/AbstractDrawingCodeTest.cpp; sourceTree = "<group>"; };
 		7AA27AB90C67D19A00BBC250 /* AppController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppController.h; path = Cocoa/AppController.h; sourceTree = "<group>"; };
 		7AA27ABA0C67D19A00BBC250 /* AppController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = AppController.mm; path = Cocoa/AppController.mm; sourceTree = "<group>"; };
+		7AA6D915110195BC0069471B /* TriangleByPointIndex.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TriangleByPointIndex.h; path = Model/TriangleByPointIndex.h; sourceTree = "<group>"; };
+		7AA6D91C110196090069471B /* Triangle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Triangle.h; path = Model/Triangle.h; sourceTree = "<group>"; };
 		7ABA8C0010FDA599000EB032 /* GPUGeometryModelTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GPUGeometryModelTest.h; path = Model/GPUGeometryModelTest.h; sourceTree = "<group>"; };
 		7ABA8C0110FDA599000EB032 /* GPUGeometryModelTest.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GPUGeometryModelTest.cpp; path = Model/GPUGeometryModelTest.cpp; sourceTree = "<group>"; };
 		7ABEAF550BFF633900C71586 /* blitz.html */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.html; name = blitz.html; path = "/usr/local/share/doc/blitz-0.9/blitz.html"; sourceTree = "<absolute>"; };
@@ -177,7 +179,6 @@
 		7AE63EB610FBA45E00C0AE45 /* GPUGeometryModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GPUGeometryModel.h; path = Model/GPUGeometryModel.h; sourceTree = "<group>"; };
 		7AE6411D10FBA68800C0AE45 /* GPUCalculationEngine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GPUCalculationEngine.h; path = Model/GPUCalculationEngine.h; sourceTree = "<group>"; };
 		7AE6411E10FBA78A00C0AE45 /* Point.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Point.h; path = Model/Point.h; sourceTree = "<group>"; };
-		7AE6412010FBAC1000C0AE45 /* TriangleByPointIndex.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TriangleByPointIndex.h; path = Model/TriangleByPointIndex.h; sourceTree = "<group>"; };
 		7AE6412610FBAC9B00C0AE45 /* GPUGeometryModel.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GPUGeometryModel.cpp; path = Model/GPUGeometryModel.cpp; sourceTree = "<group>"; };
 		7AE6412C10FBACC800C0AE45 /* GPUCalculationEngine.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GPUCalculationEngine.cpp; path = Model/GPUCalculationEngine.cpp; sourceTree = "<group>"; };
 		8D15AC360486D014006FF6A4 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
@@ -418,7 +419,8 @@
 				7A0F8A560C5CA8C90018DD1F /* InterpolatedModel.cpp */,
 				7A0F8A570C5CA8C90018DD1F /* InterpolatedModel.h */,
 				7AE6411E10FBA78A00C0AE45 /* Point.h */,
-				7AE6412010FBAC1000C0AE45 /* TriangleByPointIndex.h */,
+				7AA6D91C110196090069471B /* Triangle.h */,
+				7AA6D915110195BC0069471B /* TriangleByPointIndex.h */,
 			);
 			name = Model;
 			sourceTree = "<group>";

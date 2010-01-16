@@ -16,43 +16,12 @@
 #include <vector>
 #include <iostream>
 
-#define Check(x) if (!(x)) throw exception();
+#include "GPUGeometryModel.h"
 
-using namespace std;
-
-// Our material structure, which we create by converting a domMaterial object
-class Material {
-public:
-	vector<float> diffuseColor;
-	string diffuseTexture;
-	// ... and lots of other parameters
-	
-	Material(domMaterial& mtl) {
-		// Grab the <effect> from the <material> and initalize the parameters
-	}
-};
-
-
-// Our mesh structure, which we create by converting a domGeometry object
-class Mesh {
-public:
-	Material* mtl;
-	// Vertex info, etc
+namespace hdsim {
    
-	Mesh(domGeometry& geom) {
-		// Parse the <geometry> element, extract vertex data, etc
-	}
-};
+   bool loadCollada(const char *name, GPUGeometryModel &loadToThisModel);
+}
 
-
-// Our node structure, which we create by converting a domNode object
-class Node {
-public:
-	list<Mesh*> meshes;
-	list<Node*> childNodes;
-   
-	// This is defined later to work around a circular dependency on the lookup function
-	Node(domNode& node);
-};
 
 #endif

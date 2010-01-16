@@ -1,7 +1,7 @@
 /*
  * Copyright © Veljko Krunic 2007-2010. All rights reserved.
  *
- * Modification of the original code, which license is below:
+ * Modification of the original code and examples on collada.org site for Collada DOM, which license is below:
  * 
  * Copyright 2006 Sony Computer Entertainment Inc.
  *
@@ -9,130 +9,140 @@
  * http://www.opensource.org/licenses/mit-license.php
  *
  */ 
-// The DOM used to provide an "integration library", which was a mechanism for
-// converting the DOM's representation of a Collada model to the user's representation.
-// The integration classes were very clumsy and not particularly useful, so they
-// were removed in December 07. In their place, setUserData and getUserData methods
-// were added to the daeElement class. This program shows how you might write a Collada
-// importer using these new methods instead of the integration classes.
-//
-// Our model structure consists of nodes, meshes, and materials. We create them by
-// converting from domNode, domGeometry, and domMaterial, respectively. We'll
-// demonstrate how you can write an importer to traverse the Collada DOM element
-// hierarchy and attach our model representation structures to the dom* classes.
 
 #include <list>
 #include <vector>
 #include <iostream>
+
 #include <dae.h>
-#include <dom/domMaterial.h>
+#include <dom/domSource.h>
+#include <dom/domTriangles.h>
+#include <dom/domPolygons.h>
 #include <dom/domGeometry.h>
+#include <dom/domFloat_array.h>
 #include <dom/domNode.h>
 #include <dom/domCOLLADA.h>
+#include <dom/domP.h>
+#include <dom/domInt_array.h>
+
 #include "Collada.h"
+#include "GPUGeometryModel.h"
 
-namespace fs = boost::filesystem;
+using namespace std;
+using namespace hdsim;
 
-// This function checks to see if a user data object has already been attached to
-// the DOM object. If so, that object is casted from void* to the appropriate type
-// and returned, otherwise the object is created and attached to the DOM object
-// via the setUserData method.
-template<typename MyType, typename DomType>
-MyType& lookup(DomType& domObject) {
-	if (!domObject.getUserData())
-		domObject.setUserData(new MyType(domObject));
-	return *(MyType*)(domObject.getUserData());
-}
-
-// This function traverses all the DOM objects of a particular type and frees
-// destroys the associated user data object.
-template<typename MyType, typename DomType>
-void freeConversionObjects(DAE& dae) {
-	vector<daeElement*> elts = dae.getDatabase()->typeLookup(DomType::ID());
-	for (size_t i = 0; i < elts.size(); i++)
-		delete (MyType*)elts[i]->getUserData();
-}
-
-
-Node::Node(domNode& node) {
-	// Recursively convert all child nodes. First iterate over the <node> elements.
-	for (size_t i = 0; i < node.getNode_array().getCount(); i++)
-		childNodes.push_back(&lookup<Node, domNode>(*node.getNode_array()[i]));
+static bool loadPointsToModel(domMesh *meshElement, GPUGeometryModel &loadToThisModel)
+{
+   // Now, load all source points in the points array
    
-	// Then iterate over the <instance_node> elements.
-	for (size_t i = 0; i < node.getInstance_node_array().getCount(); i++) {
-		domNode* child = daeSafeCast<domNode>(
-                                            node.getInstance_node_array()[i]->getUrl().getElement());
-      Check(child);
-      childNodes.push_back(&lookup<Node, domNode>(*child));
-	}
+   // Copy the vertices we are going to use into myGeometry. To keep things simple,
+   // we will assume there is only one domSource and domFloatArray in the domMesh,
+   // that it is the array of vertices, and that it is in X, Y, Z format. A real
+   // app would find the vertices by starting with domPolygons and following
+   // the links through the domInput, domVertices, domSource, domFloat_array,
+   // and domTechnique.
+   if (meshElement->getSource_array().getCount() != 1)
+   {
+      return false;
+   }
+
+   domSource *source = meshElement->getSource_array()[0];
    
-	// Iterate over all the <instance_geometry> elements
-	for (size_t i = 0; i < node.getInstance_geometry_array().getCount(); i++) {
-		domInstance_geometry* instanceGeom = node.getInstance_geometry_array()[i];
-		domGeometry* geom = daeSafeCast<domGeometry>(instanceGeom->getUrl().getElement());
-		Check(geom);
+   if (source->getFloat_array()->getCount() != 1)
+   {
+		return false;      
+   }
+   
+   domFloat_array &floatArray = source->getFloat_array()[0];
+   
+   // Assume there are 3 values per vertex with a stride of 3.
+   int numPoints = floatArray.getCount()/3;
+   
+   // Copy the vertices into my structure one-by-one
+   int indexInArray = 0;
+   for (int indexPoint = 0; indexPoint < numPoints; indexPoint++ ) 
+   {
+      double x = floatArray.getValue()[indexInArray++];
+      double y = floatArray.getValue()[indexInArray++];         
+      double z = floatArray.getValue()[indexInArray++];
       
-		// Lookup the material that we should apply to the <geometry>. In a real app
-		// we'd need to worry about having multiple <instance_material>s, but in this
-		// test let's just convert the first <instance_material> we find.
-		domInstance_material* instanceMtl = daeSafeCast<domInstance_material>(
-                                                                            instanceGeom->getDescendant("instance_material"));
-		Check(instanceMtl);
-		domMaterial* mtl = daeSafeCast<domMaterial>(instanceMtl->getTarget().getElement());
-		Check(mtl);
-		Material& convertedMtl = lookup<Material, domMaterial>(*mtl);
+      loadToThisModel.addPoint(createPoint(x, y, z));
+   }         
+   
+   return true;
+}
+
+static bool loadTrianglesToModel(domMesh *meshElement, GPUGeometryModel &loadToThisModel) 
+{
+	int numTriangleGroups = meshElement->getTriangles_array().getCount();
+	for (int indexTriangleGroup = 0; indexTriangleGroup < numTriangleGroups; indexTriangleGroup++)
+	{
+   	domTriangles *triangles = meshElement->getTriangles_array().get(indexTriangleGroup);
+   
+	   int numTriangles = triangles->getCount();
+   	for (int indexTriangles = 0; indexTriangles < numTriangles; indexTriangles++)
+	   {
+   	   // For each triangle, we need to find its vertexes
+	      domP *triangleIndexes = triangles->getP();
       
-		// Now convert the geometry, add the result to our list of meshes, and assign
-		// the mesh a material.
-		meshes.push_back(&lookup<Mesh, domGeometry>(*geom));
-		meshes.back()->mtl = &convertedMtl;
-	}
+   	   // Now we need to add triangle vertexes:
+      	int numTriangleIndexes = triangleIndexes->getValue().getCount();
+	      for (int indexInTriangleIndexes = 0; indexInTriangleIndexes < numTriangleIndexes; indexInTriangleIndexes += 3)
+   	   {
+      	   int index1 = triangleIndexes->getValue()[indexInTriangleIndexes];
+         	int index2 = triangleIndexes->getValue()[indexInTriangleIndexes + 1];
+	         int index3 = triangleIndexes->getValue()[indexInTriangleIndexes + 2];
+         
+   	      loadToThisModel.addTriangle(createTriangle(index1, index2, index3));
+	       }
+      }
+   }
+                                        
+   return true;                                        
 }
 
-
-void convertModel(domCOLLADA& root) {
-	// We need to convert the model from the DOM's representation to our internal representation.
-	// First find a <visual_scene> to load. In a real app we would look for and load all
-	// the <visual_scene>s in a document, but for this app we just convert the first
-	// <visual_scene> we find.
-	domVisual_scene* visualScene = daeSafeCast<domVisual_scene>(root.getDescendant("visual_scene"));
-	Check(visualScene);
+bool loadCollada(const char *name, GPUGeometryModel &loadToThisModel) 
+{
+   DAE dae;
+   daeElement *root = dae.open(name);
+   if (!root) 
+   {
+      return false;
+   }
    
-	// Now covert all the <node>s in the <visual_scene>. This is a recursive process,
-	// so any child nodes will also be converted.
-	domNode_Array& nodes = visualScene->getNode_array();
-	for (size_t i = 0; i < nodes.getCount(); i++)
-		lookup<Node, domNode>(*nodes[i]);
-}
+   int numGeometries = dae.getDatabase()->typeLookup<domGeometry>().size();
+   for (int indexGeometries = 0; indexGeometries < numGeometries; indexGeometries++)
+   {
+      domGeometry *geometry = dae.getDatabase()->typeLookup<domGeometry>().at(indexGeometries);
+      if (!geometry)
+      {
+         return false;
+      }
+      
+      domMesh *meshElement = daeSafeCast<domMesh>(root->getDescendant("mesh"));
+      if (!meshElement)
+      {
+         return false;
+      }
 
-fs::path& dataPath() {
-	static fs::path dataPath_;
-	return dataPath_;
-}
-
-string lookupTestFile(const string& fileName) {
-	return (dataPath() / fileName).native_file_string();
-}
-
-
-void doTest() {
-	// Load a document from disk
-	string file = lookupTestFile("cube.dae");
-	DAE dae;
-	domCOLLADA* root = dae.open(file);
-	Check(root);
+      if (!loadPointsToModel(meshElement, loadToThisModel))
+      {
+         return false;
+      }
+                 
+      // We support only triangles
+      if (meshElement->getPolygons_array().getCount() != 0)
+      {
+         return false;
+      }
+      
+      if (!loadTrianglesToModel(meshElement, loadToThisModel))
+      {
+         return false;
+      }
+   }
    
-	// Do the conversion. The conversion process throws an exception on error, so
-	// we'll include a try/catch handler.
-	try {
-		convertModel(*root);
-	}
-	catch (const exception&) {
-	}
-   
-	// Don't forget to destroy the objects we created during the conversion process
-	freeConversionObjects<Node, domNode>(dae);
-	freeConversionObjects<Mesh, domGeometry>(dae);
-	freeConversionObjects<Material, domMaterial>(dae);
+   return true;
 }
+   
+        

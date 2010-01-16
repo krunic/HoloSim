@@ -8,6 +8,7 @@
  */
 
 #include "GPUGeometryModel.h"
+#include "Collada.h"
 
 using namespace hdsim;
 

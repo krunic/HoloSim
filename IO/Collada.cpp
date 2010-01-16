@@ -144,5 +144,3 @@ bool loadCollada(const char *name, GPUGeometryModel &loadToThisModel)
    
    return true;
 }
-   
-        

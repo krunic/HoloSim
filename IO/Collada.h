@@ -18,10 +18,6 @@
 
 #include "GPUGeometryModel.h"
 
-namespace hdsim {
-   
-   bool loadCollada(const char *name, GPUGeometryModel &loadToThisModel);
-}
-
+bool loadCollada(const char *name, hdsim::GPUGeometryModel &loadToThisModel);
 
 #endif

@@ -227,8 +227,6 @@
 			<key>Layout</key>
 			<array>
 				<dict>
-					<key>BecomeActive</key>
-					<true/>
 					<key>ContentConfiguration</key>
 					<dict>
 						<key>PBXBottomSmartGroupGIDs</key>
@@ -273,6 +271,7 @@
 								<string>2A37F4AFFDCFA73011CA2CEA</string>
 								<string>7A4743A40C5D20FC006FEF68</string>
 								<string>7ABEAFA90BFF66A300C71586</string>
+								<string>7AA6DA341101BAC90069471B</string>
 								<string>7A20023C0C5978660039A4F7</string>
 								<string>7A0F8A760C5CA91F0018DD1F</string>
 								<string>1C37FABC05509CD000000102</string>
@@ -280,6 +279,8 @@
 							<key>PBXSmartGroupTreeModuleOutlineStateSelectionKey</key>
 							<array>
 								<array>
+									<integer>2</integer>
+									<integer>1</integer>
 									<integer>0</integer>
 								</array>
 							</array>
@@ -314,12 +315,14 @@
 					<key>Dock</key>
 					<array>
 						<dict>
+							<key>BecomeActive</key>
+							<true/>
 							<key>ContentConfiguration</key>
 							<dict>
 								<key>PBXProjectModuleGUID</key>
 								<string>1CE0B20306471E060097A5F4</string>
 								<key>PBXProjectModuleLabel</key>
-								<string>ColladaTest.cpp</string>
+								<string>Collada.cpp</string>
 								<key>PBXSplitModuleInNavigatorKey</key>
 								<dict>
 									<key>Split0</key>
@@ -327,11 +330,11 @@
 										<key>PBXProjectModuleGUID</key>
 										<string>1CE0B20406471E060097A5F4</string>
 										<key>PBXProjectModuleLabel</key>
-										<string>ColladaTest.cpp</string>
+										<string>Collada.cpp</string>
 										<key>_historyCapacity</key>
 										<integer>0</integer>
 										<key>bookmark</key>
-										<string>7AA6DA601101BD230069471B</string>
+										<string>7AA6DA791101BE730069471B</string>
 										<key>history</key>
 										<array>
 											<string>7AA27AD60C67D4B200BBC250</string>
@@ -392,19 +395,20 @@
 											<string>7AA6DA211101B0FE0069471B</string>
 											<string>7AA6DA221101B0FE0069471B</string>
 											<string>7AA6DA231101B0FE0069471B</string>
-											<string>7AA6DA241101B0FE0069471B</string>
 											<string>7AA6DA251101B0FE0069471B</string>
 											<string>7AA6DA261101B0FE0069471B</string>
 											<string>7AA6DA271101B0FE0069471B</string>
 											<string>7AA6DA291101B0FE0069471B</string>
-											<string>7AA6DA491101BC830069471B</string>
 											<string>7AA6DA4A1101BC830069471B</string>
 											<string>7AA6DA4B1101BC830069471B</string>
 											<string>7AA6DA4C1101BC830069471B</string>
 											<string>7AA6DA5D1101BD230069471B</string>
 											<string>7AA6DA5E1101BD230069471B</string>
 											<string>7AA6DA5F1101BD230069471B</string>
-											<string>7AA6DA451101BBB50069471B</string>
+											<string>7AA6DA661101BDAB0069471B</string>
+											<string>7AA6DA761101BE730069471B</string>
+											<string>7AA6DA771101BE730069471B</string>
+											<string>7AA6DA781101BE730069471B</string>
 										</array>
 									</dict>
 									<key>SplitCount</key>

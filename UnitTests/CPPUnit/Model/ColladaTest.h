@@ -49,8 +49,6 @@ namespace hdsim {
       
    private:
       
-      const char *testFileName_;
-      
       // define
       ColladaTest(const ColladaTest &rhs);   
       ColladaTest & operator=(const ColladaTest &rhs);   

@@ -17,6 +17,7 @@
 		);
 		breakpoints = (
 			7A7639870C7805D100600572 /* HoloSimDocument.mm:107 */,
+			7AA6DA701101BE190069471B /* Collada.cpp:107 */,
 		);
 		codeSenseManager = 7A2869FF0C656627002E50E2 /* Code sense */;
 		executables = (
@@ -260,6 +261,15 @@
 			7AA6DA5E1101BD230069471B /* PBXTextBookmark */ = 7AA6DA5E1101BD230069471B /* PBXTextBookmark */;
 			7AA6DA5F1101BD230069471B /* PBXTextBookmark */ = 7AA6DA5F1101BD230069471B /* PBXTextBookmark */;
 			7AA6DA601101BD230069471B /* PBXTextBookmark */ = 7AA6DA601101BD230069471B /* PBXTextBookmark */;
+			7AA6DA651101BD4E0069471B /* PBXTextBookmark */ = 7AA6DA651101BD4E0069471B /* PBXTextBookmark */;
+			7AA6DA661101BDAB0069471B /* PBXTextBookmark */ = 7AA6DA661101BDAB0069471B /* PBXTextBookmark */;
+			7AA6DA671101BDAB0069471B /* PBXTextBookmark */ = 7AA6DA671101BDAB0069471B /* PBXTextBookmark */;
+			7AA6DA681101BDAB0069471B /* PBXTextBookmark */ = 7AA6DA681101BDAB0069471B /* PBXTextBookmark */;
+			7AA6DA6D1101BDCE0069471B /* PBXTextBookmark */ = 7AA6DA6D1101BDCE0069471B /* PBXTextBookmark */;
+			7AA6DA761101BE730069471B /* PBXTextBookmark */ = 7AA6DA761101BE730069471B /* PBXTextBookmark */;
+			7AA6DA771101BE730069471B /* PBXTextBookmark */ = 7AA6DA771101BE730069471B /* PBXTextBookmark */;
+			7AA6DA781101BE730069471B /* PBXTextBookmark */ = 7AA6DA781101BE730069471B /* PBXTextBookmark */;
+			7AA6DA791101BE730069471B /* PBXTextBookmark */ = 7AA6DA791101BE730069471B /* PBXTextBookmark */;
 			7AAF962010865DED00E9E69D = 7AAF962010865DED00E9E69D /* PBXTextBookmark */;
 			7AB4E48D10502BE200F94F68 = 7AB4E48D10502BE200F94F68 /* PlistBookmark */;
 			7AB5A57210FFCF2100828FD3 = 7AB5A57210FFCF2100828FD3 /* PBXTextBookmark */;
@@ -757,9 +767,9 @@
 	};
 	7A43490110F3496700E4F3C9 /* Collada.cpp */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {1619, 2384}}";
-			sepNavSelRange = "{816, 0}";
-			sepNavVisRange = "{430, 1160}";
+			sepNavIntBoundsRect = "{{0, 0}, {1340, 2352}}";
+			sepNavSelRange = "{3613, 0}";
+			sepNavVisRange = "{3080, 1480}";
 			sepNavWindowFrame = "{{15, 8}, {1583, 1015}}";
 		};
 	};
@@ -863,7 +873,7 @@
 		ignoreCount = 0;
 		lineNumber = 107;
 		location = HoloSim_OCUnitTests;
-		modificationTime = 285326282.535001;
+		modificationTime = 285326959.022702;
 		originalNumberOfMultipleMatches = 1;
 		state = 1;
 	};
@@ -1327,16 +1337,16 @@
 	};
 	7AA6D9921101A5A10069471B /* ColladaTest.h */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {1340, 976}}";
-			sepNavSelRange = "{977, 0}";
-			sepNavVisRange = "{33, 1083}";
+			sepNavIntBoundsRect = "{{0, 0}, {1340, 944}}";
+			sepNavSelRange = "{946, 0}";
+			sepNavVisRange = "{33, 1052}";
 		};
 	};
 	7AA6D9931101A5A10069471B /* ColladaTest.cpp */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {1405, 2000}}";
-			sepNavSelRange = "{320, 0}";
-			sepNavVisRange = "{0, 1939}";
+			sepNavIntBoundsRect = "{{0, 0}, {1340, 891}}";
+			sepNavSelRange = "{434, 0}";
+			sepNavVisRange = "{0, 630}";
 			sepNavWindowFrame = "{{15, 8}, {1583, 1015}}";
 		};
 	};
@@ -1430,7 +1440,7 @@
 		isa = PBXTextBookmark;
 		fRef = 7AA6D9921101A5A10069471B /* ColladaTest.h */;
 		name = "ColladaTest.h: 28";
-		rLen = 603;
+		rLen = 563;
 		rLoc = 515;
 		rType = 0;
 		vrLen = 695;
@@ -1481,7 +1491,7 @@
 		fRef = 7AA6D9931101A5A10069471B /* ColladaTest.cpp */;
 		name = "ColladaTest.cpp: 43";
 		rLen = 0;
-		rLoc = 3807;
+		rLoc = 563;
 		rType = 0;
 		vrLen = 491;
 		vrLoc = 79;
@@ -1491,7 +1501,7 @@
 		fRef = 7AA6D9931101A5A10069471B /* ColladaTest.cpp */;
 		name = "ColladaTest.cpp: 43";
 		rLen = 0;
-		rLoc = 3807;
+		rLoc = 563;
 		rType = 0;
 		vrLen = 491;
 		vrLoc = 79;
@@ -1537,7 +1547,7 @@
 		fRef = 7AA6D9931101A5A10069471B /* ColladaTest.cpp */;
 		name = "ColladaTest.cpp: 43";
 		rLen = 22;
-		rLoc = 3785;
+		rLoc = 541;
 		rType = 0;
 		vrLen = 431;
 		vrLoc = 141;
@@ -1547,7 +1557,7 @@
 		fRef = 7AA6D9931101A5A10069471B /* ColladaTest.cpp */;
 		name = "ColladaTest.cpp: 43";
 		rLen = 0;
-		rLoc = 3868;
+		rLoc = 625;
 		rType = 0;
 		vrLen = 572;
 		vrLoc = 0;
@@ -1557,7 +1567,7 @@
 		fRef = 7AA6D9931101A5A10069471B /* ColladaTest.cpp */;
 		name = "ColladaTest.cpp: 24";
 		rLen = 0;
-		rLoc = 583;
+		rLoc = 290;
 		rType = 0;
 		vrLen = 1559;
 		vrLoc = 0;
@@ -1567,7 +1577,7 @@
 		fRef = 7AA6D9931101A5A10069471B /* ColladaTest.cpp */;
 		name = "ColladaTest.cpp: 37";
 		rLen = 0;
-		rLoc = 788;
+		rLoc = 290;
 		rType = 0;
 		vrLen = 1210;
 		vrLoc = 473;
@@ -1577,7 +1587,7 @@
 		fRef = 7AA6D9931101A5A10069471B /* ColladaTest.cpp */;
 		name = "ColladaTest.cpp: 127";
 		rLen = 0;
-		rLoc = 3872;
+		rLoc = 629;
 		rType = 0;
 		vrLen = 469;
 		vrLoc = 3192;
@@ -1597,8 +1607,8 @@
 		comments = "Invalid conversion from 'const char*' to 'char'";
 		fRef = 7AA6D9931101A5A10069471B /* ColladaTest.cpp */;
 		fallbackIsa = XCBuildMessageTextBookmark;
-		rLen = 1;
-		rLoc = 99;
+		rLen = 0;
+		rLoc = 18;
 		rType = 1;
 	};
 	7AA6D9D61101AC130069471B /* PBXTextBookmark */ = {
@@ -1606,7 +1616,7 @@
 		fRef = 7AA6D9931101A5A10069471B /* ColladaTest.cpp */;
 		name = "ColladaTest.cpp: 100";
 		rLen = 0;
-		rLoc = 309;
+		rLoc = 290;
 		rType = 0;
 		vrLen = 907;
 		vrLoc = 2145;
@@ -1616,8 +1626,8 @@
 		comments = "Invalid conversion from 'const char*' to 'char'";
 		fRef = 7AA6D9931101A5A10069471B /* ColladaTest.cpp */;
 		fallbackIsa = XCBuildMessageTextBookmark;
-		rLen = 1;
-		rLoc = 99;
+		rLen = 0;
+		rLoc = 18;
 		rType = 1;
 	};
 	7AA6D9D81101AC140069471B /* PBXTextBookmark */ = {
@@ -1625,7 +1635,7 @@
 		fRef = 7AA6D9931101A5A10069471B /* ColladaTest.cpp */;
 		name = "ColladaTest.cpp: 181";
 		rLen = 0;
-		rLoc = 3365;
+		rLoc = 290;
 		rType = 0;
 		vrLen = 1210;
 		vrLoc = 741;
@@ -1645,7 +1655,7 @@
 		fRef = 7AA6D9931101A5A10069471B /* ColladaTest.cpp */;
 		name = "ColladaTest.cpp: 19";
 		rLen = 0;
-		rLoc = 309;
+		rLoc = 290;
 		rType = 0;
 		vrLen = 1287;
 		vrLoc = 35;
@@ -1655,7 +1665,7 @@
 		fRef = 7AA6D9931101A5A10069471B /* ColladaTest.cpp */;
 		name = "ColladaTest.cpp: 19";
 		rLen = 0;
-		rLoc = 309;
+		rLoc = 290;
 		rType = 0;
 		vrLen = 1464;
 		vrLoc = 1365;
@@ -1665,7 +1675,7 @@
 		fRef = 7AA6D9931101A5A10069471B /* ColladaTest.cpp */;
 		name = "ColladaTest.cpp: 19";
 		rLen = 0;
-		rLoc = 309;
+		rLoc = 290;
 		rType = 0;
 		vrLen = 1533;
 		vrLoc = 1213;
@@ -1675,7 +1685,7 @@
 		fRef = 7AA6D9931101A5A10069471B /* ColladaTest.cpp */;
 		name = "ColladaTest.cpp: 19";
 		rLen = 0;
-		rLoc = 309;
+		rLoc = 290;
 		rType = 0;
 		vrLen = 1533;
 		vrLoc = 1213;
@@ -1686,7 +1696,7 @@
 		fRef = 7AA6D9931101A5A10069471B /* ColladaTest.cpp */;
 		fallbackIsa = XCBuildMessageTextBookmark;
 		rLen = 1;
-		rLoc = 129;
+		rLoc = 44;
 		rType = 1;
 	};
 	7AA6D9F91101AF6D0069471B /* PBXTextBookmark */ = {
@@ -1694,7 +1704,7 @@
 		fRef = 7AA6D9931101A5A10069471B /* ColladaTest.cpp */;
 		name = "ColladaTest.cpp: 132";
 		rLen = 0;
-		rLoc = 3846;
+		rLoc = 602;
 		rType = 0;
 		vrLen = 542;
 		vrLoc = 3353;
@@ -1704,7 +1714,7 @@
 		fRef = 7AA6D9931101A5A10069471B /* ColladaTest.cpp */;
 		name = "ColladaTest.cpp: 132";
 		rLen = 0;
-		rLoc = 3846;
+		rLoc = 602;
 		rType = 0;
 		vrLen = 542;
 		vrLoc = 3353;
@@ -1803,7 +1813,7 @@
 		fRef = 7AA6D9921101A5A10069471B /* ColladaTest.h */;
 		name = "ColladaTest.h: 52";
 		rLen = 0;
-		rLoc = 977;
+		rLoc = 946;
 		rType = 0;
 		vrLen = 1083;
 		vrLoc = 33;
@@ -1843,7 +1853,7 @@
 		fRef = 7AA6D9931101A5A10069471B /* ColladaTest.cpp */;
 		name = "ColladaTest.cpp: 132";
 		rLen = 0;
-		rLoc = 3782;
+		rLoc = 538;
 		rType = 0;
 		vrLen = 618;
 		vrLoc = 3277;
@@ -1893,7 +1903,7 @@
 		fRef = 7AA6D9931101A5A10069471B /* ColladaTest.cpp */;
 		name = "ColladaTest.cpp: 130";
 		rLen = 0;
-		rLoc = 3782;
+		rLoc = 538;
 		rType = 0;
 		vrLen = 1087;
 		vrLoc = 2786;
@@ -1902,18 +1912,25 @@
 		isa = PBXTextBookmark;
 		fRef = 7AA6D9931101A5A10069471B /* ColladaTest.cpp */;
 		name = "ColladaTest.cpp: 19";
-		rLen = 1;
-		rLoc = 386;
+		rLen = 0;
+		rLoc = 290;
 		rType = 0;
 		vrLen = 2151;
 		vrLoc = 38;
+	};
+	7AA6DA351101BAC90069471B /* TestQuad.dae */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {1398, 1328}}";
+			sepNavSelRange = "{0, 0}";
+			sepNavVisRange = "{0, 2740}";
+		};
 	};
 	7AA6DA3B1101BB370069471B /* PBXTextBookmark */ = {
 		isa = PBXTextBookmark;
 		fRef = 7AA6D9931101A5A10069471B /* ColladaTest.cpp */;
 		name = "ColladaTest.cpp: 19";
-		rLen = 1;
-		rLoc = 386;
+		rLen = 0;
+		rLoc = 290;
 		rType = 0;
 		vrLen = 1327;
 		vrLoc = 38;
@@ -1922,8 +1939,8 @@
 		isa = PBXTextBookmark;
 		fRef = 7AA6D9931101A5A10069471B /* ColladaTest.cpp */;
 		name = "ColladaTest.cpp: 19";
-		rLen = 1;
-		rLoc = 386;
+		rLen = 0;
+		rLoc = 290;
 		rType = 0;
 		vrLen = 1327;
 		vrLoc = 38;
@@ -1932,8 +1949,8 @@
 		isa = PBXTextBookmark;
 		fRef = 7AA6D9931101A5A10069471B /* ColladaTest.cpp */;
 		name = "ColladaTest.cpp: 19";
-		rLen = 1;
-		rLoc = 386;
+		rLen = 0;
+		rLoc = 290;
 		rType = 0;
 		vrLen = 1303;
 		vrLoc = 38;
@@ -2050,10 +2067,118 @@
 		fRef = 7AA6D9931101A5A10069471B /* ColladaTest.cpp */;
 		name = "ColladaTest.cpp: 19";
 		rLen = 0;
-		rLoc = 320;
+		rLoc = 290;
 		rType = 0;
 		vrLen = 1939;
 		vrLoc = 0;
+	};
+	7AA6DA651101BD4E0069471B /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 7A43490110F3496700E4F3C9 /* Collada.cpp */;
+		name = "Collada.cpp: 32";
+		rLen = 0;
+		rLoc = 816;
+		rType = 0;
+		vrLen = 1160;
+		vrLoc = 430;
+	};
+	7AA6DA661101BDAB0069471B /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 7AA6D9921101A5A10069471B /* ColladaTest.h */;
+		name = "ColladaTest.h: 52";
+		rLen = 0;
+		rLoc = 946;
+		rType = 0;
+		vrLen = 1052;
+		vrLoc = 33;
+	};
+	7AA6DA671101BDAB0069471B /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 7AA6D9931101A5A10069471B /* ColladaTest.cpp */;
+		name = "ColladaTest.cpp: 1";
+		rLen = 630;
+		rLoc = 0;
+		rType = 0;
+		vrLen = 745;
+		vrLoc = 0;
+	};
+	7AA6DA681101BDAB0069471B /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 7AA6D9931101A5A10069471B /* ColladaTest.cpp */;
+		name = "ColladaTest.cpp: 47";
+		rLen = 0;
+		rLoc = 617;
+		rType = 0;
+		vrLen = 746;
+		vrLoc = 0;
+	};
+	7AA6DA6D1101BDCE0069471B /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 7AA6D9931101A5A10069471B /* ColladaTest.cpp */;
+		name = "ColladaTest.cpp: 34";
+		rLen = 0;
+		rLoc = 434;
+		rType = 0;
+		vrLen = 630;
+		vrLoc = 0;
+	};
+	7AA6DA701101BE190069471B /* Collada.cpp:107 */ = {
+		isa = PBXFileBreakpoint;
+		actions = (
+		);
+		breakpointStyle = 0;
+		continueAfterActions = 0;
+		countType = 0;
+		delayBeforeContinue = 0;
+		fileReference = 7A43490110F3496700E4F3C9 /* Collada.cpp */;
+		functionName = "loadCollada(const char *name, GPUGeometryModel &loadToThisModel)";
+		hitCount = 1;
+		ignoreCount = 0;
+		lineNumber = 107;
+		location = HoloSim_OCUnitTests;
+		modificationTime = 285326959.022454;
+		originalNumberOfMultipleMatches = 1;
+		state = 1;
+	};
+	7AA6DA761101BE730069471B /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 7AA6D9931101A5A10069471B /* ColladaTest.cpp */;
+		name = "ColladaTest.cpp: 34";
+		rLen = 0;
+		rLoc = 434;
+		rType = 0;
+		vrLen = 630;
+		vrLoc = 0;
+	};
+	7AA6DA771101BE730069471B /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 7AA6DA351101BAC90069471B /* TestQuad.dae */;
+		name = "TestQuad.dae: 1";
+		rLen = 0;
+		rLoc = 0;
+		rType = 0;
+		vrLen = 2740;
+		vrLoc = 0;
+	};
+	7AA6DA781101BE730069471B /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 7A43490110F3496700E4F3C9 /* Collada.cpp */;
+		name = "Collada.cpp: 107";
+		rLen = 0;
+		rLoc = 3613;
+		rType = 0;
+		vrLen = 1404;
+		vrLoc = 3156;
+	};
+	7AA6DA791101BE730069471B /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 7A43490110F3496700E4F3C9 /* Collada.cpp */;
+		name = "Collada.cpp: 107";
+		rLen = 0;
+		rLoc = 3613;
+		rType = 0;
+		vrLen = 1480;
+		vrLoc = 3080;
 	};
 	7AAF962010865DED00E9E69D /* PBXTextBookmark */ = {
 		isa = PBXTextBookmark;

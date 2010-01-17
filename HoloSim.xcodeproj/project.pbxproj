@@ -702,7 +702,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "TEST_SUITE=$TARGET_BUILD_DIR/HoloSim_UnitTests\n\nif [ -f $TEST_SUITE ]; then  \n   $TEST_SUITE\nfi\n";
+			shellScript = "TEST_SUITE=$TARGET_BUILD_DIR/HoloSim_UnitTests\n\nif [ -f $TEST_SUITE ]; then  \n   cd $TARGET_BUILD_DIR\n   $TEST_SUITE\nfi\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 

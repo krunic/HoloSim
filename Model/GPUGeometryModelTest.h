@@ -21,6 +21,9 @@ namespace hdsim {
       CPPUNIT_TEST(testCopy);
       CPPUNIT_TEST(testEqual);
       CPPUNIT_TEST(testDiferentDimsAreNonEqual);
+      CPPUNIT_TEST(testModelCleaning);
+      CPPUNIT_TEST(testLoadModel);
+      CPPUNIT_TEST(testGeometryCleaning);
       CPPUNIT_TEST_SUITE_END();
       
    public:
@@ -79,6 +82,21 @@ namespace hdsim {
        * Test that different dimensions are non-equal
        */
       void testDiferentDimsAreNonEqual();
+      
+      /**
+       * Test loading of the model
+       */
+      void testLoadModel();
+      
+      /**
+       * Test cleaning of the model (geometry and size should be reset)
+       */
+      void testModelCleaning();
+      
+      /**
+       * Test cleaning of the geometry (only geometry should be reset)
+       */
+      void testGeometryCleaning();     
       
    private:
       // define

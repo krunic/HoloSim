@@ -70,6 +70,26 @@ namespace hdsim {
       
       virtual double getAt(int x, int y) const;
       virtual AbstractModel *cloneOrphan() const;
+
+      /**
+       * Set size in X direction
+       *
+       * @param sizeX Size in X direction
+       */
+      virtual int setSizeX(int sizeX) 
+      {
+         sizeX_ = sizeX;
+      }
+
+      /**
+       * Set size in Y direction
+       *
+       * @param sizeY Size in Y direction
+       */
+      virtual int setSizeY(int sizeY) 
+      {
+         sizeY_ = sizeY;
+      }
       
       /**
        * Get size in X direction
@@ -191,9 +211,14 @@ namespace hdsim {
       }
 
       /**
-       * Initilize model to clean state
+       * Initilize model to clean state, including forgetting dimensions
        */
       void initializeToCleanState();
+      
+      /**
+       * Clear geometry from the model
+       */
+      virtual void clearGeometry();
       
    private:
       

@@ -18,6 +18,7 @@ namespace hdsim {
    class ColladaTest : public CppUnit::TestFixture  {
       CPPUNIT_TEST_SUITE(ColladaTest);
       CPPUNIT_TEST(testLoadQuad);
+      CPPUNIT_TEST(testLoadChair);
       CPPUNIT_TEST_SUITE_END();
       
    public:
@@ -46,6 +47,11 @@ namespace hdsim {
        * Simple test to ensure that quad created in Google Sketchup could be correctly loaded
        */
       void testLoadQuad();
+      
+      /**
+       * More complex test of loading chair
+       */
+      void testLoadChair();
       
    private:
       

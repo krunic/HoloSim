@@ -55,6 +55,7 @@
 		7A70633610F4CD7C00816D3E /* Collada14Dom.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A70618610F4B61000816D3E /* Collada14Dom.framework */; };
 		7A70634610F4CECC00816D3E /* libxml2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A70634510F4CECC00816D3E /* libxml2.dylib */; };
 		7A70634710F4CED100816D3E /* libxml2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A70634510F4CECC00816D3E /* libxml2.dylib */; };
+		7A7459301102E06700E29029 /* singleQuad.gpuGeometryModel in CopyFiles */ = {isa = PBXBuildFile; fileRef = 7A74592F1102E05E00E29029 /* singleQuad.gpuGeometryModel */; };
 		7A76392B0C7803FD00600572 /* HoloSimDocument.mm in Sources */ = {isa = PBXBuildFile; fileRef = 7A0F8A610C5CA8EB0018DD1F /* HoloSimDocument.mm */; };
 		7A76392D0C78041C00600572 /* AbstractModel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7A0F8A520C5CA8C90018DD1F /* AbstractModel.cpp */; };
 		7A76392E0C78041C00600572 /* CheckBoard.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7A0F8A540C5CA8C90018DD1F /* CheckBoard.cpp */; };
@@ -78,6 +79,7 @@
 		7AA27ABC0C67D19A00BBC250 /* AppController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 7AA27ABA0C67D19A00BBC250 /* AppController.mm */; };
 		7AA6D9951101A5A10069471B /* ColladaTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7AA6D9931101A5A10069471B /* ColladaTest.cpp */; };
 		7AA6DA381101BB1E0069471B /* TestQuad.dae in CopyFiles */ = {isa = PBXBuildFile; fileRef = 7AA6DA351101BAC90069471B /* TestQuad.dae */; };
+		7AA6DAF711029A6F0069471B /* Chair.dae in CopyFiles */ = {isa = PBXBuildFile; fileRef = 7AA6DAF611029A410069471B /* Chair.dae */; };
 		7ABA8C0310FDA599000EB032 /* GPUGeometryModelTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7ABA8C0110FDA599000EB032 /* GPUGeometryModelTest.cpp */; };
 		7ABEAFFF0BFF67BA00C71586 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A7FEA54F5311CA2CBB /* Cocoa.framework */; };
 		7ABEB0000BFF67BA00C71586 /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A4BD2AF0BCA0DD5004E8E67 /* OpenGL.framework */; };
@@ -109,6 +111,8 @@
 			dstPath = "";
 			dstSubfolderSpec = 16;
 			files = (
+				7A7459301102E06700E29029 /* singleQuad.gpuGeometryModel in CopyFiles */,
+				7AA6DAF711029A6F0069471B /* Chair.dae in CopyFiles */,
 				7AA6DA381101BB1E0069471B /* TestQuad.dae in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -180,6 +184,7 @@
 		7A7062AE10F4BE3500816D3E /* libminizip.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libminizip.a; path = /usr/local/lib/libminizip.a; sourceTree = "<absolute>"; };
 		7A70633010F4CCD200816D3E /* Collada14Dom.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = Collada14Dom.dylib; path = /usr/local/lib/Collada14Dom.dylib; sourceTree = "<absolute>"; };
 		7A70634510F4CECC00816D3E /* libxml2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.dylib; path = /usr/lib/libxml2.dylib; sourceTree = "<absolute>"; };
+		7A74592F1102E05E00E29029 /* singleQuad.gpuGeometryModel */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = singleQuad.gpuGeometryModel; sourceTree = "<group>"; };
 		7A7639BE0C78099C00600572 /* AbstractDrawingCodeTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AbstractDrawingCodeTest.h; path = UnitTests/CPPUnit/Graphics/AbstractDrawingCodeTest.h; sourceTree = "<group>"; };
 		7A7639BF0C78099C00600572 /* AbstractDrawingCodeTest.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = AbstractDrawingCodeTest.cpp; path = UnitTests/CPPUnit/Graphics/AbstractDrawingCodeTest.cpp; sourceTree = "<group>"; };
 		7AA27AB90C67D19A00BBC250 /* AppController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppController.h; path = Cocoa/AppController.h; sourceTree = "<group>"; };
@@ -189,6 +194,7 @@
 		7AA6D9921101A5A10069471B /* ColladaTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ColladaTest.h; path = UnitTests/CPPUnit/Model/ColladaTest.h; sourceTree = "<group>"; };
 		7AA6D9931101A5A10069471B /* ColladaTest.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ColladaTest.cpp; path = UnitTests/CPPUnit/Model/ColladaTest.cpp; sourceTree = "<group>"; };
 		7AA6DA351101BAC90069471B /* TestQuad.dae */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = TestQuad.dae; sourceTree = "<group>"; };
+		7AA6DAF611029A410069471B /* Chair.dae */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = Chair.dae; sourceTree = "<group>"; };
 		7ABA8C0010FDA599000EB032 /* GPUGeometryModelTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GPUGeometryModelTest.h; path = Model/GPUGeometryModelTest.h; sourceTree = "<group>"; };
 		7ABA8C0110FDA599000EB032 /* GPUGeometryModelTest.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GPUGeometryModelTest.cpp; path = Model/GPUGeometryModelTest.cpp; sourceTree = "<group>"; };
 		7ABEAF550BFF633900C71586 /* blitz.html */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.html; name = blitz.html; path = "/usr/local/share/doc/blitz-0.9/blitz.html"; sourceTree = "<absolute>"; };
@@ -510,6 +516,8 @@
 		7AA6DA341101BAC90069471B /* UnitTestModels */ = {
 			isa = PBXGroup;
 			children = (
+				7A74592F1102E05E00E29029 /* singleQuad.gpuGeometryModel */,
+				7AA6DAF611029A410069471B /* Chair.dae */,
 				7AA6DA351101BAC90069471B /* TestQuad.dae */,
 			);
 			name = UnitTestModels;

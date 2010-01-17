@@ -34,13 +34,16 @@
 using namespace std;
 using namespace hdsim;
 
-static bool loadPointsToModel(domMesh *meshElement, GPUGeometryModel &loadToThisModel)
+/**
+ * Read ID of the source array in vertecies. That is an array holding POSITION vertexes.
+ *
+ * @param vertecies DOM element holding vertecies
+ * @param idOfSourceArray (OUT) value of the id
+ *
+ * @return Was ID found
+ */
+static bool readSourceArrayID(const domVertices *vertecies, string &idOfSourceArray)
 {
-   // Now, load all source points in the points array
-   
-   string idOfSourceArray;
-
-   domVertices *vertecies = meshElement->getVertices();
    int numArrays = vertecies->getInput_array().getCount();
    
    // Iterate through arrays and find the one that is POSITION. There is probably faster way to do this, but I am 
@@ -52,7 +55,60 @@ static bool loadPointsToModel(domMesh *meshElement, GPUGeometryModel &loadToThis
       {
       	// This is the position array, holding our vertex array id. Find the id of source
          idOfSourceArray = current->getAttribute("source");
+         return true;
       }
+   }
+
+   return false;
+}
+
+/**
+ * Get domSource element corresponding to idOfSourceArray
+ *
+ * @param meshElement Mesh element from the COLLADA file
+ * @param idOfSourceArray id that given domElement should have
+ *
+ * @return Element or NULL if nothing is found
+ */
+static domSource *getDomSource(const domMesh *meshElement, const string &idOfSourceArray)
+{
+   int numSources = meshElement->getSource_array().getCount();  
+   
+   for (int indexSources = 0; indexSources < numSources; indexSources++)
+   {
+      string elementID = meshElement->getSource_array()[indexSources]->getID();
+      
+      // source ID is actually missing leading hash, so we need to add it
+      elementID = "#" + elementID;
+      
+      if (elementID == idOfSourceArray)
+      {
+         return meshElement->getSource_array()[indexSources];
+         
+      }
+   }
+   
+   return 0;
+}
+
+/**
+ * Loads all points from the mesh element to the model
+ *
+ * @param meshElement Mesh element from the COLLADA file
+ * @param loadToThisModel (OUT) model with points from the mesh added. Undefined in the case of error
+ *
+ * @return Was model succesfully loaded
+ */
+static bool loadPointsToModel(const domMesh *meshElement, GPUGeometryModel &loadToThisModel)
+{
+   // Now, load all source points in the points array
+   domVertices *vertecies = meshElement->getVertices();
+   
+   string idOfSourceArray;
+   
+   if (!readSourceArrayID(vertecies, idOfSourceArray))
+   {
+      return false;
    }
    
    // Copy the vertices we are going to use into myGeometry. To keep things simple,
@@ -61,39 +117,25 @@ static bool loadPointsToModel(domMesh *meshElement, GPUGeometryModel &loadToThis
    // app would find the vertices by starting with domPolygons and following
    // the links through the domInput, domVertices, domSource, domFloat_array,
    // and domTechnique.
-   int numSources = meshElement->getSource_array().getCount();  
-   domSource *source = 0;
    
-   for (int indexSources = 0; indexSources < numSources; indexSources++)
-   {
-      if (meshElement->getSource_array()[indexSources]->getID() == idOfSourceArray)
-      {
-         source = meshElement->getSource_array()[indexSources];
-      }
-   }
-   
-   if (source)
+   domSource *source = getDomSource(meshElement, idOfSourceArray);
+	if (!source)
    {
       return false;
    }
    
-   if (source->getFloat_array()->getCount() != 1)
-   {
-		return false;      
-   }
-   
-   domFloat_array &floatArray = source->getFloat_array()[0];
+   domFloat_array *floatArray = source->getFloat_array();
    
    // Assume there are 3 values per vertex with a stride of 3.
-   int numPoints = floatArray.getCount()/3;
+   int numPoints = floatArray->getCount()/3;
    
    // Copy the vertices into my structure one-by-one
    int indexInArray = 0;
    for (int indexPoint = 0; indexPoint < numPoints; indexPoint++ ) 
    {
-      double x = floatArray.getValue()[indexInArray++];
-      double y = floatArray.getValue()[indexInArray++];         
-      double z = floatArray.getValue()[indexInArray++];
+      double x = floatArray->getValue()[indexInArray++];
+      double y = floatArray->getValue()[indexInArray++];         
+      double z = floatArray->getValue()[indexInArray++];
       
       loadToThisModel.addPoint(createPoint(x, y, z));
    }         
@@ -101,41 +143,55 @@ static bool loadPointsToModel(domMesh *meshElement, GPUGeometryModel &loadToThis
    return true;
 }
 
+/**
+ * Loads all triangles from the mesh element to the model
+ *
+ * @param meshElement Mesh element from the COLLADA file
+ * @param loadToThisModel (OUT) model with triangles from the mesh added. Undefined in the case of error
+ *
+ * @return Was model succesfully loaded
+ */
 static bool loadTrianglesToModel(domMesh *meshElement, GPUGeometryModel &loadToThisModel) 
 {
 	int numTriangleGroups = meshElement->getTriangles_array().getCount();
 	for (int indexTriangleGroup = 0; indexTriangleGroup < numTriangleGroups; indexTriangleGroup++)
 	{
    	domTriangles *triangles = meshElement->getTriangles_array().get(indexTriangleGroup);
-   
-	   int numTriangles = triangles->getCount();
-   	for (int indexTriangles = 0; indexTriangles < numTriangles; indexTriangles++)
-	   {
-   	   // For each triangle, we need to find its vertexes
-	      domP *triangleIndexes = triangles->getP();
+      int numTriangles = triangles->getCount();
+   	domP *triangleIndexes = triangles->getP();
       
-   	   // Now we need to add triangle vertexes:
-      	int numTriangleIndexes = triangleIndexes->getValue().getCount();
-	      for (int indexInTriangleIndexes = 0; indexInTriangleIndexes < numTriangleIndexes; indexInTriangleIndexes += 3)
-   	   {
-      	   int index1 = triangleIndexes->getValue()[indexInTriangleIndexes];
-         	int index2 = triangleIndexes->getValue()[indexInTriangleIndexes + 1];
-	         int index3 = triangleIndexes->getValue()[indexInTriangleIndexes + 2];
-         
-   	      loadToThisModel.addTriangle(createTriangle(index1, index2, index3));
-	       }
+      // For each triangle, we need to find its vertexes
+      int indexInTriangleIndexes = 0;
+	   for (int indexTriangles = 0; indexTriangles < numTriangles; indexTriangles++)
+	   {
+         int index1 = triangleIndexes->getValue()[indexInTriangleIndexes];
+         int index2 = triangleIndexes->getValue()[indexInTriangleIndexes + 1];
+         int index3 = triangleIndexes->getValue()[indexInTriangleIndexes + 2];
+      
+         loadToThisModel.addTriangle(createTriangle(index1, index2, index3));
       }
    }
                                         
    return true;                                        
 }
 
+/**
+ * Loads geometry from the file to the model
+ *
+ * @param meshElement Mesh element from the COLLADA file
+ * @param loadToThisModel (OUT) model with triangles from the mesh added. Will have cleared geometry and preserved dimensions in the case of error
+ *
+ * @return Was model succesfully loaded
+ */
 bool loadCollada(const char *name, GPUGeometryModel &loadToThisModel) 
 {
+   loadToThisModel.clearGeometry();
+   
    DAE dae;
    daeElement *root = dae.open(name);
    if (!root) 
    {
+      loadToThisModel.clearGeometry();
       return false;
    }
    
@@ -145,17 +201,20 @@ bool loadCollada(const char *name, GPUGeometryModel &loadToThisModel)
       domGeometry *geometry = dae.getDatabase()->typeLookup<domGeometry>().at(indexGeometries);
       if (!geometry)
       {
+         loadToThisModel.clearGeometry();
          return false;
       }
       
       domMesh *meshElement = daeSafeCast<domMesh>(root->getDescendant("mesh"));
       if (!meshElement)
       {
+         loadToThisModel.clearGeometry();
          return false;
       }
 
       if (!loadPointsToModel(meshElement, loadToThisModel))
       {
+         loadToThisModel.clearGeometry();
          return false;
       }
                  

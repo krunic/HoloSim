@@ -24,6 +24,7 @@ namespace hdsim {
       CPPUNIT_TEST(testModelCleaning);
       CPPUNIT_TEST(testLoadModel);
       CPPUNIT_TEST(testGeometryCleaning);
+      CPPUNIT_TEST(testBounds);
       CPPUNIT_TEST_SUITE_END();
       
    public:
@@ -97,6 +98,11 @@ namespace hdsim {
        * Test cleaning of the geometry (only geometry should be reset)
        */
       void testGeometryCleaning();     
+      
+      /**
+       * Test model bounds
+       */
+      void testBounds();
       
    private:
       // define

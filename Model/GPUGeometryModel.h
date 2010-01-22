@@ -76,7 +76,7 @@ namespace hdsim {
        *
        * @param sizeX Size in X direction
        */
-      virtual int setSizeX(int sizeX) 
+      virtual void setSizeX(int sizeX) 
       {
          sizeX_ = sizeX;
       }
@@ -86,7 +86,7 @@ namespace hdsim {
        *
        * @param sizeY Size in Y direction
        */
-      virtual int setSizeY(int sizeY) 
+      virtual void setSizeY(int sizeY) 
       {
          sizeY_ = sizeY;
       }
@@ -135,8 +135,17 @@ namespace hdsim {
        *
        * @param point Point to add
        */
-      virtual void addPoint(const Point &point) {
+      virtual void addPoint(const Point &point) 
+      {
          points_.push_back(point);
+         
+         // And recalculate bounds
+         boundMinX_ = min(point.getX(), getBoundMinX());
+         boundMinY_ = min(point.getY(), getBoundMinY());
+         boundMinZ_ = min(point.getZ(), getBoundMinZ());
+         boundMaxX_ = max(point.getX(), getBoundMaxX());
+         boundMaxY_ = max(point.getY(), getBoundMaxY());
+         boundMaxZ_ = max(point.getZ(), getBoundMaxZ());
       }
       
       /**
@@ -144,7 +153,8 @@ namespace hdsim {
        *
        * @return Number of points
        */
-      virtual int getNumPoints() const {
+      virtual int getNumPoints() const 
+      {
          return points_.size();
       }
       
@@ -155,7 +165,8 @@ namespace hdsim {
        *
        * @return Point
        */
-      virtual const Point &getPoint(int index) const {
+      virtual const Point &getPoint(int index) const 
+      {
          return points_[index];
       }
       
@@ -165,7 +176,8 @@ namespace hdsim {
        * @param Point New value of the point
        * @param index Must be smaller then getNumPoints()
        */
-      virtual void replacePointAt(int index, const Point &point) {
+      virtual void replacePointAt(int index, const Point &point) 
+      {
          assert(index >= 0  &&  index < getNumPoints());
       	points_[index] = point;
       }
@@ -175,7 +187,8 @@ namespace hdsim {
        *
        * @param triangle Triangle to add
        */
-      virtual void addTriangle(const TriangleByPointIndexes &triangle) {
+      virtual void addTriangle(const TriangleByPointIndexes &triangle) 
+      {
          triangles_.push_back(triangle);
       }
       
@@ -184,7 +197,8 @@ namespace hdsim {
        *
        * @return Number of triangles
        */
-      virtual int getNumTriangles() const {
+      virtual int getNumTriangles() const 
+      {
          return triangles_.size();
       }
       
@@ -195,7 +209,8 @@ namespace hdsim {
        *
        * @return Point
        */
-      virtual const TriangleByPointIndexes &getTriangle(int index) const {
+      virtual const TriangleByPointIndexes &getTriangle(int index) const 
+      {
          return triangles_[index];
       }
       
@@ -205,7 +220,8 @@ namespace hdsim {
        * @param triangle New value of the triangle
        * @param index Must be smaller then getNumTriangles()
        */
-      virtual void replaceTriangleAt(int index, const TriangleByPointIndexes &triangle) {
+      virtual void replaceTriangleAt(int index, const TriangleByPointIndexes &triangle) 
+      {
          assert(index >= 0  &&  index < getNumPoints());
       	triangles_[index] = triangle;
       }
@@ -220,7 +236,60 @@ namespace hdsim {
        */
       virtual void clearGeometry();
       
+		/**
+       * Get minX of the bound
+       */
+      virtual double getBoundMinX() const
+      {
+         return boundMinX_;
+      }
+
+      /**
+       * Get maxX of the bound
+       */
+      virtual double getBoundMaxX() const
+      {
+         return boundMaxX_;
+      }
+
+      /**
+       * Get minY of the bound
+       */
+      virtual double getBoundMinY() const
+      {
+         return boundMinY_;
+      }
+      
+		/**
+       * Get maxY of the bound
+       */
+      virtual double getBoundMaxY() const
+      {
+         return boundMaxY_;
+      }
+
+      /**
+       * Get minZ of the bound
+       */
+      virtual double getBoundMinZ() const
+      {
+         return boundMinZ_;
+      }
+
+      /**
+       * Get maxZ of the bound
+       */
+      virtual double getBoundMaxZ() const
+      {
+         return boundMaxZ_;
+      }
+            
    private:
+      
+      /**
+       * Bounds of the view frustum
+       */
+      double boundMinX_, boundMinY_, boundMinZ_, boundMaxX_, boundMaxY_, boundMaxZ_;
       
       /**
        * Copy value from rhs to this object

@@ -30,6 +30,26 @@ namespace hdsim {
       return fabs(x - y) <= FLOATING_POINTS_EQUAL_DELTA;
    }
    
+   /**
+    * Get max value
+    *
+    * @return maxValue
+    */
+   static const double max(double x, double y)
+   {
+      return x > y ? x : y;
+   }
+
+   /**
+    * Get min value
+    *
+    * @return minValue
+    */
+   static const double min(double x, double y)
+   {
+      return x < y ? x : y;
+   }
+   
 } // namespace
 
 #endif

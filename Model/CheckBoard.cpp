@@ -58,6 +58,7 @@ void CheckBoard::copyFrom(const CheckBoard &rhs)
    sizeX_ == rhs.sizeX_;
    sizeY_ == rhs.sizeY_;
    
+   
    POSTCONDITION(positions_ != rhs.positions_);
 }
 

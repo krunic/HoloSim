@@ -8,6 +8,8 @@
  */
 
 #include "GPUCalculationEngine.h"
+#include "GPUGeometryModel.h"
+#include "SimpleDesignByContract.h"
 
 #include <assert.h>
 
@@ -29,6 +31,25 @@ GPUCalculationEngine::~GPUCalculationEngine() {
    assert(0);
 }
 
-void GPUCalculationEngine::calculateEngine(const AbstractModel *model) {
-   assert(0);   
+void GPUCalculationEngine::positionCamera(int sizeX, int sizeY, double minX, double maxX, double minY, double maxY, double minZ, double maxZ)
+{
+   assert(0);
+}
+
+void GPUCalculationEngine::calculate(GPUGeometryModel *model)
+{
+   assert(0);
+}
+
+void GPUCalculationEngine::calculateEngine(AbstractModel *model) {
+   GPUGeometryModel *geometryModel = dynamic_cast<GPUGeometryModel *>(model);
+   CHECK(geometryModel, "This calculation engine operates only with the geometry model");
+   
+   // Now, we need to do appropriate setup
+   positionCamera(geometryModel->getSizeX(), geometryModel->getSizeY(),
+                  geometryModel->getBoundMinX(), geometryModel->getBoundMaxX(),
+                  geometryModel->getBoundMinY(), geometryModel->getBoundMaxY(),
+                  geometryModel->getBoundMinZ(), geometryModel->getBoundMaxZ());
+   
+   calculate(geometryModel);
 }

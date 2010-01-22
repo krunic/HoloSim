@@ -12,17 +12,24 @@
 
 using namespace hdsim;
 
-GPUGeometryModel::GPUGeometryModel() : sizeX_(0), sizeY_(0) 
+GPUGeometryModel::GPUGeometryModel() : sizeX_(0), sizeY_(0), boundMinX_(0), boundMaxX_(0), 
+													boundMinY_(0), boundMaxY_(0), boundMinZ_(0), boundMaxZ_(0)
 {
 
 }
       
-GPUGeometryModel::GPUGeometryModel(int sizeX, int sizeY) : sizeX_(sizeX), sizeY_(sizeY) 
+GPUGeometryModel::GPUGeometryModel(int sizeX, int sizeY) : sizeX_(sizeX), sizeY_(sizeY), 
+                                                           boundMinX_(0), boundMaxX_(0), 
+                                                           boundMinY_(0), boundMaxY_(0), 
+                                                           boundMinZ_(0), boundMaxZ_(0) 
 {
    
 }
       
-GPUGeometryModel::GPUGeometryModel(const GPUGeometryModel &rhs) : sizeX_(rhs.sizeX_), sizeY_(rhs.sizeY_) 
+GPUGeometryModel::GPUGeometryModel(const GPUGeometryModel &rhs) : sizeX_(rhs.sizeX_), sizeY_(rhs.sizeY_),
+																						boundMinX_(rhs.boundMinX_), boundMaxX_(boundMaxX_), 
+																						boundMinY_(boundMinY_), boundMaxY_(boundMaxY_), 
+																						boundMinZ_(boundMinZ_), boundMaxZ_(boundMaxZ_)
 {
 	copyFrom(rhs);
 }
@@ -55,6 +62,13 @@ void GPUGeometryModel::clearGeometry()
 void GPUGeometryModel::copyFrom(const GPUGeometryModel &rhs) {
    sizeX_ = rhs.getSizeX();
    sizeY_ = rhs.getSizeY();
+   
+   boundMinX_ = rhs.getBoundMinX();
+   boundMaxX_ = rhs.getBoundMaxX();
+   boundMinY_ = rhs.getBoundMinY();
+   boundMaxY_ = rhs.getBoundMaxY();
+   boundMinZ_ = rhs.getBoundMinZ();
+   boundMaxZ_ = rhs.getBoundMaxZ();
    
    points_ = rhs.points_;
    triangles_ = rhs.triangles_;

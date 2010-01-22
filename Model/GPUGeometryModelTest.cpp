@@ -167,3 +167,28 @@ void GPUGeometryModelTest::testGeometryCleaning()
    CPPUNIT_ASSERT_MESSAGE("Geometry in X should not be changed", testFixture.getSizeX() == initialSizeX);
    CPPUNIT_ASSERT_MESSAGE("Geometry in Y should not be changed", testFixture.getSizeY() == initialSizeY);
 }
+
+void GPUGeometryModelTest::testBounds()
+{
+   Point upperRight = createPoint(1, 1, 1);
+   Point lowerLeft = createPoint(-1, -1, -1);
+   
+   GPUGeometryModel testFixture;
+   
+   CPPUNIT_ASSERT_MESSAGE("Model max x bounds are not correct after initialization", testFixture.getBoundMaxX() == 0);
+   CPPUNIT_ASSERT_MESSAGE("Model min x bounds are not correct after initialization", testFixture.getBoundMinX() == 0);
+   CPPUNIT_ASSERT_MESSAGE("Model max y bounds are not correct after initialization", testFixture.getBoundMaxY() == 0);
+   CPPUNIT_ASSERT_MESSAGE("Model min y bounds are not correct after initialization", testFixture.getBoundMinY() == 0);
+   CPPUNIT_ASSERT_MESSAGE("Model max z bounds are not correct after initialization", testFixture.getBoundMaxZ() == 0);
+   CPPUNIT_ASSERT_MESSAGE("Model min z bounds are not correct after initialization", testFixture.getBoundMinZ() == 0);
+   
+	testFixture.addPoint(upperRight);
+   testFixture.addPoint(lowerLeft);
+   
+   CPPUNIT_ASSERT_MESSAGE("Model max x bounds are not correct after initialization", areEqual(testFixture.getBoundMaxX(), 1));
+   CPPUNIT_ASSERT_MESSAGE("Model min x bounds are not correct after initialization", areEqual(testFixture.getBoundMinX(), -1));
+   CPPUNIT_ASSERT_MESSAGE("Model max y bounds are not correct after initialization", areEqual(testFixture.getBoundMaxY(), 1));
+   CPPUNIT_ASSERT_MESSAGE("Model min y bounds are not correct after initialization", areEqual(testFixture.getBoundMinY(), -1));
+   CPPUNIT_ASSERT_MESSAGE("Model max z bounds are not correct after initialization", areEqual(testFixture.getBoundMaxZ(), 1));
+   CPPUNIT_ASSERT_MESSAGE("Model min z bounds are not correct after initialization", areEqual(testFixture.getBoundMinZ(), -1));
+}

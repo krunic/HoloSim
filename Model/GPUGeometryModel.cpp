@@ -9,11 +9,13 @@
 
 #include "GPUGeometryModel.h"
 #include "Collada.h"
+#include "SimpleDesignByContract.h"
 
 using namespace hdsim;
 
 GPUGeometryModel::GPUGeometryModel() : sizeX_(0), sizeY_(0), boundMinX_(0), boundMaxX_(0), 
-													boundMinY_(0), boundMaxY_(0), boundMinZ_(0), boundMaxZ_(0)
+													boundMinY_(0), boundMaxY_(0), boundMinZ_(0), boundMaxZ_(0),
+												   renderedAreaMinX_(0), renderedAreaMinY_(0), renderedAreaMaxX_(0), renderedAreaMaxY_(0)
 {
 
 }
@@ -21,15 +23,19 @@ GPUGeometryModel::GPUGeometryModel() : sizeX_(0), sizeY_(0), boundMinX_(0), boun
 GPUGeometryModel::GPUGeometryModel(int sizeX, int sizeY) : sizeX_(sizeX), sizeY_(sizeY), 
                                                            boundMinX_(0), boundMaxX_(0), 
                                                            boundMinY_(0), boundMaxY_(0), 
-                                                           boundMinZ_(0), boundMaxZ_(0) 
+                                                           boundMinZ_(0), boundMaxZ_(0),
+                                                           renderedAreaMinX_(0), renderedAreaMinY_(0),
+                                                           renderedAreaMaxX_(0), renderedAreaMaxY_(0)
 {
    
 }
       
-GPUGeometryModel::GPUGeometryModel(const GPUGeometryModel &rhs) : sizeX_(rhs.sizeX_), sizeY_(rhs.sizeY_),
-																						boundMinX_(rhs.boundMinX_), boundMaxX_(boundMaxX_), 
-																						boundMinY_(boundMinY_), boundMaxY_(boundMaxY_), 
-																						boundMinZ_(boundMinZ_), boundMaxZ_(boundMaxZ_)
+GPUGeometryModel::GPUGeometryModel(const GPUGeometryModel &rhs) : sizeX_(0), sizeY_(0), 
+																						boundMinX_(0), boundMaxX_(0), 
+																						boundMinY_(0), boundMaxY_(0), 
+																						boundMinZ_(0), boundMaxZ_(0),
+																						renderedAreaMinX_(0), renderedAreaMinY_(0),
+																						renderedAreaMaxX_(0), renderedAreaMaxY_(0)
 {
 	copyFrom(rhs);
 }
@@ -59,31 +65,40 @@ void GPUGeometryModel::clearGeometry()
    triangles_.clear();
 }
 
-void GPUGeometryModel::copyFrom(const GPUGeometryModel &rhs) {
+void GPUGeometryModel::copyFrom(const GPUGeometryModel &rhs) 
+{
    sizeX_ = rhs.getSizeX();
    sizeY_ = rhs.getSizeY();
    
    boundMinX_ = rhs.getBoundMinX();
    boundMaxX_ = rhs.getBoundMaxX();
+   
    boundMinY_ = rhs.getBoundMinY();
    boundMaxY_ = rhs.getBoundMaxY();
+   
    boundMinZ_ = rhs.getBoundMinZ();
    boundMaxZ_ = rhs.getBoundMaxZ();
+
+   setRenderedArea(rhs.getRenderedAreaMinX(), rhs.getRenderedAreaMinY(), rhs.getRenderedAreaMaxX(), rhs.getRenderedAreaMaxY());
    
    points_ = rhs.points_;
    triangles_ = rhs.triangles_;
 }
      
-AbstractModel *GPUGeometryModel::cloneOrphan() const {
+AbstractModel *GPUGeometryModel::cloneOrphan() const 
+{
    // Create copy of us and return it
    return new GPUGeometryModel(*this);
 }
 
-double GPUGeometryModel::getAt(int x, int y) const {
-   assert(0);
+double GPUGeometryModel::getAt(int x, int y) const 
+{
+	FAIL("NOT IMPLEMENTED YET");
+   return false;
 }
 
-bool GPUGeometryModel::readFromFile(FILE *fp) {
+bool GPUGeometryModel::readFromFile(FILE *fp) 
+{
    
    // First line is model name
    char readThis[1024];
@@ -113,7 +128,9 @@ bool GPUGeometryModel::readFromFile(FILE *fp) {
    return loadCollada(fileName, *this);
 }
 
-bool GPUGeometryModel::saveToFile(FILE *fp) const {
-   assert(0);
+bool GPUGeometryModel::saveToFile(FILE *fp) const 
+{
+   FAIL("NOT IMPLEMENTED YET");
+   return false;
 }
 

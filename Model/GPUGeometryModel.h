@@ -20,12 +20,18 @@
 namespace hdsim {
    
    /**
-    * Name of the checkboard model
+    * Name of the geometry model
     */
    static const char * const GPU_GEOMETRY_MODEL_NAME = "GPUGeometryModel";
    
    /**
-    * Checkboard used for remembering rod position at the particular moment in time. It is fed 3D geometry (points, triangles) and then will calculate checkboard based on that geometry
+    * GPU based checkboard model used for remembering rod position at the particular moment in time. It is fed 3D geometry (points, triangles) and then will calculate 
+    * checkboard based on that geometry
+    *
+    * Some concept:
+    * Bounds - bounding box of geometry
+    * Size - size of the checkboard
+    * RenderedArea - complete area represented by the board, exists only in the X and Y area
     */
    class GPUGeometryModel : public AbstractModel {
       
@@ -283,13 +289,58 @@ namespace hdsim {
       {
          return boundMaxZ_;
       }
-            
+
+      /**
+       * Get minX of the rendered area
+       */
+      virtual double getRenderedAreaMinX() const
+      {
+         return renderedAreaMinX_;
+      }
+      
+      /**
+       * Get maxX of the rendered area
+       */
+      virtual double getRenderedAreaMaxX() const
+      {
+         return renderedAreaMaxX_;
+      }
+      
+      /**
+       * Get minY of the rendered area
+       */
+      virtual double getRenderedAreaMinY() const
+      {
+         return renderedAreaMinY_;
+      }
+      
+		/**
+       * Get maxY of the bound
+       */
+      virtual double getRenderedAreaMaxY() const
+      {
+         return renderedAreaMaxY_;
+      }
+      
+      /**
+       * Set rendered area bounds
+       */
+      virtual void setRenderedArea(double minX, double minY, double maxX, double maxY)
+      {
+         
+      }
+      
    private:
       
       /**
        * Bounds of the view frustum
        */
       double boundMinX_, boundMinY_, boundMinZ_, boundMaxX_, boundMaxY_, boundMaxZ_;
+
+      /**
+       * Rendered area 
+       */
+      double renderedAreaMinX_, renderedAreaMinY_, renderedAreaMaxX_, renderedAreaMaxY_;
       
       /**
        * Copy value from rhs to this object
@@ -297,22 +348,7 @@ namespace hdsim {
        * @param rhs Value to copy
        */
       void copyFrom(const GPUGeometryModel &rhs);
-      
-      /**
-       * Calculate linear index position in 1D array corresponding to given indexes
-       *
-       * Example - in 2D array with sizeX == 1 and sizeY == 2, linear index corresponding to [0, 1] is 1
-       *
-       * @param x X position
-       * @param y Y position    
-       *
-       * @return Linear index in 1D array
-       */
-      int get1DIndex(int x, int y) const
-      {
-         return y * sizeX_ + x;
-      }
-      
+           
       // Friend with its operators
       friend bool operator==(const GPUGeometryModel &lhs, const GPUGeometryModel &rhs);
       friend bool operator!=(const GPUGeometryModel &lhs, const GPUGeometryModel &rhs);
@@ -349,6 +385,12 @@ namespace hdsim {
    inline bool operator==(const GPUGeometryModel &lhs, const GPUGeometryModel &rhs)
    {
       if (lhs.points_.size() != rhs.points_.size()  ||  lhs.triangles_.size() != rhs.triangles_.size())
+         return false;
+      
+      if (!areEqual(lhs.getRenderedAreaMinX(), rhs.getRenderedAreaMinX())  ||  !areEqual(lhs.getRenderedAreaMaxX(), rhs.getRenderedAreaMaxX()))
+         return false;
+
+      if (!areEqual(lhs.getRenderedAreaMinY(), rhs.getRenderedAreaMinY())  ||  !areEqual(lhs.getRenderedAreaMaxY(), rhs.getRenderedAreaMaxY()))
          return false;
       
       if (lhs.getSizeX() != rhs.getSizeX()  ||  lhs.getSizeY() != rhs.getSizeY())

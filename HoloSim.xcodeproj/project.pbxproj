@@ -1037,7 +1037,7 @@
 				GCC_ENABLE_OBJC_GC = YES;
 				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
-				GCC_TREAT_WARNINGS_AS_ERRORS = NO;
+				GCC_TREAT_WARNINGS_AS_ERRORS = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_EFFECTIVE_CPLUSPLUS_VIOLATIONS = NO;
 				GCC_WARN_HIDDEN_VIRTUAL_FUNCTIONS = YES;
@@ -1051,6 +1051,11 @@
 					/usr/local/include,
 				);
 				LIBRARY_SEARCH_PATHS = /usr/local/lib;
+				OTHER_CFLAGS = (
+					"-isystem",
+					/Library/Frameworks/Collada14Dom.framework/Headers,
+				);
+				OTHER_CPLUSPLUSFLAGS = "$(OTHER_CFLAGS)";
 				OTHER_LDFLAGS = (
 					"-framework",
 					Collada14Dom,
@@ -1059,6 +1064,7 @@
 				SDKROOT = /Developer/SDKs/MacOSX10.5.sdk;
 				STRIP_STYLE = "non-global";
 				USER_HEADER_SEARCH_PATHS = /usr/local/include;
+				WARNING_CFLAGS = "";
 			};
 			name = Debug;
 		};
@@ -1071,7 +1077,7 @@
 				GCC_ENABLE_OBJC_GC = YES;
 				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
-				GCC_TREAT_WARNINGS_AS_ERRORS = NO;
+				GCC_TREAT_WARNINGS_AS_ERRORS = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_EFFECTIVE_CPLUSPLUS_VIOLATIONS = NO;
 				GCC_WARN_HIDDEN_VIRTUAL_FUNCTIONS = YES;
@@ -1085,6 +1091,11 @@
 					/usr/local/include,
 				);
 				LIBRARY_SEARCH_PATHS = /usr/local/lib;
+				OTHER_CFLAGS = (
+					"-isystem",
+					/Library/Frameworks/Collada14Dom.framework/Headers,
+				);
+				OTHER_CPLUSPLUSFLAGS = "$(OTHER_CFLAGS)";
 				OTHER_LDFLAGS = (
 					"-framework",
 					Collada14Dom,
@@ -1095,6 +1106,7 @@
 				SDKROOT = /Developer/SDKs/MacOSX10.5.sdk;
 				STRIP_STYLE = "non-global";
 				USER_HEADER_SEARCH_PATHS = /usr/local/include;
+				WARNING_CFLAGS = "";
 			};
 			name = Release;
 		};

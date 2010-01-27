@@ -15,12 +15,14 @@
 #define PRECONDITION(condition) hdsim::checkAssertion((condition), 0, "PRECONDITION", __FILE__, __LINE__)
 #define POSTCONDITION(condition) hdsim::checkAssertion((condition), 0, "POSTCONDITION", __FILE__, __LINE__)
 #define CHECK(condition, message) hdsim::checkAssertion((condition), message, "CHECK", __FILE__, __LINE__);
+#define FAIL(message) hdsim::checkAssertion(false, message, "CHECK", __FILE__, __LINE__);
 
 #else
 
 #define PRECONDITION(condition, message)
 #define POSTCONDITION(condition, message)
 #define CHECK(condition, message)
+#define FAIL(message)
 
 #endif
 

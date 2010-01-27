@@ -15,16 +15,16 @@
 #include <iostream>
 #include <string>
 
-#include <dae.h>
-#include <dom/domSource.h>
+#include <dae.h>   
+#include <dom/domSource.h> 
 #include <dom/domVertices.h>
-#include <dom/domInputLocal.h>
-#include <dom/domTriangles.h>
+#include <dom/domInputLocal.h> 
+#include <dom/domTriangles.h>  
 #include <dom/domPolygons.h>
 #include <dom/domGeometry.h>
 #include <dom/domFloat_array.h>
 #include <dom/domNode.h>
-#include <dom/domCOLLADA.h>
+#include <dom/domCOLLADA.h>   
 #include <dom/domP.h>
 #include <dom/domInt_array.h>
 

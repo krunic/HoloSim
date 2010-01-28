@@ -1,5 +1,5 @@
 /*
- *  portability.cpp
+ *  OpenGLDrawingCode.cpp
  *  HoloSim
  *
  *  Create portability layer, so that we isolate actual drawing code from the GUI code
@@ -14,7 +14,6 @@
 
 #include <OpenGL/gl.h>
 #include <OpenGL/glu.h>
-#include <GLUT/glut.h>
 
 #include "InterpolatedModel.h"
 #include "SimpleDesignByContract.h"

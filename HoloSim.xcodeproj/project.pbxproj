@@ -84,6 +84,7 @@
 		7ABEAFFF0BFF67BA00C71586 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A7FEA54F5311CA2CBB /* Cocoa.framework */; };
 		7ABEB0000BFF67BA00C71586 /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A4BD2AF0BCA0DD5004E8E67 /* OpenGL.framework */; };
 		7ABEB0010BFF67BA00C71586 /* GLUT.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A4BD2B30BCA0DF8004E8E67 /* GLUT.framework */; };
+		7ACE34F911122FA600EC758D /* GPUCalculationEngineTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7ACE34F811122FA600EC758D /* GPUCalculationEngineTest.cpp */; };
 		7AE6412710FBAC9B00C0AE45 /* GPUGeometryModel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7AE6412610FBAC9B00C0AE45 /* GPUGeometryModel.cpp */; };
 		7AE6412810FBAC9B00C0AE45 /* GPUGeometryModel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7AE6412610FBAC9B00C0AE45 /* GPUGeometryModel.cpp */; };
 		7AE6412D10FBACC800C0AE45 /* GPUCalculationEngine.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7AE6412C10FBACC800C0AE45 /* GPUCalculationEngine.cpp */; };
@@ -200,6 +201,8 @@
 		7ABEAF550BFF633900C71586 /* blitz.html */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.html; name = blitz.html; path = "/usr/local/share/doc/blitz-0.9/blitz.html"; sourceTree = "<absolute>"; };
 		7ABEAF5C0BFF63AC00C71586 /* index.html */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.html; name = index.html; path = /usr/local/share/cppunit/html/index.html; sourceTree = "<absolute>"; };
 		7ABEAFBA0BFF672A00C71586 /* HoloSim_UnitTests */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = HoloSim_UnitTests; sourceTree = BUILT_PRODUCTS_DIR; };
+		7ACE34F711122FA600EC758D /* GPUCalculationEngineTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GPUCalculationEngineTest.h; path = UnitTests/CPPUnit/Model/GPUCalculationEngineTest.h; sourceTree = "<group>"; };
+		7ACE34F811122FA600EC758D /* GPUCalculationEngineTest.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GPUCalculationEngineTest.cpp; path = UnitTests/CPPUnit/Model/GPUCalculationEngineTest.cpp; sourceTree = "<group>"; };
 		7AE63EB610FBA45E00C0AE45 /* GPUGeometryModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GPUGeometryModel.h; path = Model/GPUGeometryModel.h; sourceTree = "<group>"; };
 		7AE6411D10FBA68800C0AE45 /* GPUCalculationEngine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GPUCalculationEngine.h; path = Model/GPUCalculationEngine.h; sourceTree = "<group>"; };
 		7AE6411E10FBA78A00C0AE45 /* Point.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Point.h; path = Model/Point.h; sourceTree = "<group>"; };
@@ -377,6 +380,8 @@
 				7ABA8C0010FDA599000EB032 /* GPUGeometryModelTest.h */,
 				7AA6D9931101A5A10069471B /* ColladaTest.cpp */,
 				7AA6D9921101A5A10069471B /* ColladaTest.h */,
+				7ACE34F811122FA600EC758D /* GPUCalculationEngineTest.cpp */,
+				7ACE34F711122FA600EC758D /* GPUCalculationEngineTest.h */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -756,6 +761,7 @@
 				7AE6412E10FBACC800C0AE45 /* GPUCalculationEngine.cpp in Sources */,
 				7ABA8C0310FDA599000EB032 /* GPUGeometryModelTest.cpp in Sources */,
 				7AA6D9951101A5A10069471B /* ColladaTest.cpp in Sources */,
+				7ACE34F911122FA600EC758D /* GPUCalculationEngineTest.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

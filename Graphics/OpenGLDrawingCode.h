@@ -61,6 +61,10 @@ namespace hdsim {
       void setupProjectionAndCoordinateSystem();
       
       /**
+       * Init frame buffer
+       */
+      
+      /**
        * Current Field of View in 3D view
        */
       double fov_;

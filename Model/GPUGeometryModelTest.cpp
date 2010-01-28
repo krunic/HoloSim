@@ -9,11 +9,15 @@
 
 #include <cppunit/extensions/HelperMacros.h>
 
+#include <string>
+#include <sstream>
+
 #include "GPUGeometryModelTest.h"
 #include "GPUGeometryModel.h"
 #include "MathHelper.h"
 
 using namespace hdsim;
+using namespace std;
 
 CPPUNIT_TEST_SUITE_REGISTRATION(GPUGeometryModelTest);
 
@@ -43,27 +47,81 @@ void GPUGeometryModelTest::testModelName()
    CPPUNIT_ASSERT_MESSAGE("Name of the checkboard is not correct", !strcmp(gpuGeometryModel.getModelName(), GPU_GEOMETRY_MODEL_NAME));
 }
 
-void GPUGeometryModelTest::testCopy()
+void GPUGeometryModelTest::testCopyConstructor()
 {
-   GPUGeometryModel original(1, 1);
+   const int SIZE_X = 1; 
+   const int SIZE_Y = 2;
+   GPUGeometryModel original(SIZE_X, SIZE_Y);
+
+   // Test copy of the rendered area, too
+   const double MIN_X = 0; 
+   const double MIN_Y = -1;
+   const double MAX_X = 13324;
+   const double MAX_Y = -145;
+   original.setRenderedArea(MIN_X, MIN_Y, MAX_X, MAX_Y);
+   
    GPUGeometryModel constructorCopy(original);
+
+   CPPUNIT_ASSERT_MESSAGE("Rendered area incorrectly copied in min X", areEqual(constructorCopy.getRenderedAreaMinX(), MIN_X));
+   CPPUNIT_ASSERT_MESSAGE("Rendered area incorrectly copied in max X", areEqual(constructorCopy.getRenderedAreaMaxX(), MAX_X));
+   CPPUNIT_ASSERT_MESSAGE("Rendered area incorrectly copied in min Y", areEqual(constructorCopy.getRenderedAreaMinY(), MIN_Y));
+   CPPUNIT_ASSERT_MESSAGE("Rendered area incorrectly copied in max Y", areEqual(constructorCopy.getRenderedAreaMaxY(), MAX_Y));
+   
+   // Check that bounds are correctly copied
+   CPPUNIT_ASSERT_MESSAGE("Bounds not correctly copied in min X", areEqual(original.getBoundMinX(), constructorCopy.getBoundMinX()));
+   CPPUNIT_ASSERT_MESSAGE("Bounds not correctly copied in max X", areEqual(original.getBoundMaxX(), constructorCopy.getBoundMaxX()));
+   CPPUNIT_ASSERT_MESSAGE("Bounds not correctly copied in min Y", areEqual(original.getBoundMinY(), constructorCopy.getBoundMinY()));
+   CPPUNIT_ASSERT_MESSAGE("Bounds not correctly copied in max Y", areEqual(original.getBoundMaxY(), constructorCopy.getBoundMaxY()));
+   
+   // Check dimensions correctly coppied
+   CPPUNIT_ASSERT_MESSAGE("Dimensions not correctly copied", constructorCopy.getSizeX() == SIZE_X  &&  constructorCopy.getSizeY() == SIZE_Y);
    
 	original.addPoint(createPoint(0, 0, 0));
 	original.addPoint(createPoint(0, 0, 0));
 	original.addPoint(createPoint(0, 0, 0));
    original.addTriangle(createTriangle(0, 1, 2));
+   
    CPPUNIT_ASSERT_MESSAGE("Aliasing happened", constructorCopy.getNumPoints() == 0  &&  constructorCopy.getNumTriangles() == 0);
+}
+
+void GPUGeometryModelTest::testOperatorEqual()
+{
+   const int SIZE_X = 1; 
+   const int SIZE_Y = 2;
+   GPUGeometryModel original(SIZE_X, SIZE_Y);
    
-   // Clear original
-   original.initializeToCleanState();
+   // Test copy of the rendered area, too
+   const double MIN_X = 0; 
+   const double MIN_Y = -1;
+   const double MAX_X = 13324;
+   const double MAX_Y = -145;
+
+   original.setRenderedArea(MIN_X, MIN_Y, MAX_X, MAX_Y);
+   original.setSizeX(SIZE_X);
+   original.setSizeY(SIZE_Y);
+   original.setRenderedArea(MIN_X, MIN_Y, MAX_X, MAX_Y);
    
-   // Same story for the operator =
-   constructorCopy = original; 
+   GPUGeometryModel operatorEqualCopy = original; 
+   
+   CPPUNIT_ASSERT_MESSAGE("Rendered area incorrectly copied in min X for operator =", areEqual(operatorEqualCopy.getRenderedAreaMinX(), MIN_X));
+   CPPUNIT_ASSERT_MESSAGE("Rendered area incorrectly copied in max X for operator =", areEqual(operatorEqualCopy.getRenderedAreaMaxX(), MAX_X));
+   CPPUNIT_ASSERT_MESSAGE("Rendered area incorrectly copied in min Y for operator =", areEqual(operatorEqualCopy.getRenderedAreaMinY(), MIN_Y));
+   CPPUNIT_ASSERT_MESSAGE("Rendered area incorrectly copied in max Y for operator =", areEqual(operatorEqualCopy.getRenderedAreaMaxY(), MAX_Y));
+   
+   // Check that bounds are correctly copied
+   CPPUNIT_ASSERT_MESSAGE("Bounds not correctly copied in min X", areEqual(original.getBoundMinX(), operatorEqualCopy.getBoundMinX()));
+   CPPUNIT_ASSERT_MESSAGE("Bounds not correctly copied in max X", areEqual(original.getBoundMaxX(), operatorEqualCopy.getBoundMaxX()));
+   CPPUNIT_ASSERT_MESSAGE("Bounds not correctly copied in min Y", areEqual(original.getBoundMinY(), operatorEqualCopy.getBoundMinY()));
+   CPPUNIT_ASSERT_MESSAGE("Bounds not correctly copied in max Y", areEqual(original.getBoundMaxY(), operatorEqualCopy.getBoundMaxY()));
+   
+   // Check dimensions correctly coppied
+   CPPUNIT_ASSERT_MESSAGE("Dimensions not correctly copied for operator =", operatorEqualCopy.getSizeX() == SIZE_X  &&  operatorEqualCopy.getSizeY() == SIZE_Y);
+   
 	original.addPoint(createPoint(0, 0, 0));
 	original.addPoint(createPoint(0, 0, 0));
 	original.addPoint(createPoint(0, 0, 0));
    original.addTriangle(createTriangle(0, 1, 2));
-   CPPUNIT_ASSERT_MESSAGE("Aliasing happened", constructorCopy.getNumPoints() == 0  &&  constructorCopy.getNumTriangles() == 0);
+   CPPUNIT_ASSERT_MESSAGE("Aliasing happened for operator =", operatorEqualCopy.getNumPoints() == 0  &&  operatorEqualCopy.getNumTriangles() == 0);
 }
 
 void GPUGeometryModelTest::testEqual()
@@ -119,33 +177,57 @@ void GPUGeometryModelTest::testLoadModel()
 
 void GPUGeometryModelTest::testModelCleaning()
 {
-   GPUGeometryModel testFixture(1, 1);
+   GPUGeometryModel testFixture(1, 2);
    
-   // Add 3 points and triangle to the model
-   testFixture.addPoint(createPoint(1, 1, 0));
-   testFixture.addPoint(createPoint(1, 2, 0));
-   testFixture.addPoint(createPoint(2, 3, 0));
+   testFixture.setRenderedArea(-1, -2, 3, 4);
    
+	testFixture.addPoint(createPoint(0, 0, 0.5));
+	testFixture.addPoint(createPoint(0, 1, 0));
+	testFixture.addPoint(createPoint(1, 0, 0));
    testFixture.addTriangle(createTriangle(0, 1, 2));
    
-   CPPUNIT_ASSERT_MESSAGE("Points not correctly added", testFixture.getNumPoints() == 3);
-   CPPUNIT_ASSERT_MESSAGE("Triangles not correctly added", testFixture.getNumTriangles() == 1);
-   
+   // Clear original
    testFixture.initializeToCleanState();
    
-   // Now points should all be empty
-   CPPUNIT_ASSERT_MESSAGE("Points not correctly cleared", !testFixture.getNumPoints());
-   CPPUNIT_ASSERT_MESSAGE("Triangles not correctly added", !testFixture.getNumTriangles());
+   // Geometry should be cleaned
+	CPPUNIT_ASSERT_MESSAGE("Triangles not correctly cleaned", testFixture.getNumTriangles() == 0);
+	CPPUNIT_ASSERT_MESSAGE("Points not correctly cleaned", testFixture.getNumPoints() == 0);
    
-   // And geometry should be cleaned too (sizes reset to 0)
-   CPPUNIT_ASSERT_MESSAGE("Geometry should be cleaned too", !testFixture.getSizeX()  &&  !testFixture.getSizeY());
+   // Rendered area - all should be 0 after cleaning
+	CPPUNIT_ASSERT_MESSAGE("Rendered area should be 0 after cleaning in min X", areEqual(0, testFixture.getRenderedAreaMinX()));
+	CPPUNIT_ASSERT_MESSAGE("Rendered area should be 0 after cleaning in max X", areEqual(0, testFixture.getRenderedAreaMaxX()));
+	CPPUNIT_ASSERT_MESSAGE("Rendered area should be 0 after cleaning in min Y", areEqual(0, testFixture.getRenderedAreaMinY()));
+	CPPUNIT_ASSERT_MESSAGE("Rendered area should be 0 after cleaning in max Y", areEqual(0, testFixture.getRenderedAreaMaxY()));
+   
+   // Bounds - should be 0 after cleaning
+   CPPUNIT_ASSERT_MESSAGE("Bounds should be 0 after cleaning in min X", areEqual(0, testFixture.getBoundMinX()));
+   CPPUNIT_ASSERT_MESSAGE("Bounds should be 0 after cleaning in max X", areEqual(0, testFixture.getBoundMaxX()));
+   CPPUNIT_ASSERT_MESSAGE("Bounds should be 0 after cleaning in min Y", areEqual(0, testFixture.getBoundMinY()));
+   CPPUNIT_ASSERT_MESSAGE("Bounds should be 0 after cleaning in max Y", areEqual(0, testFixture.getBoundMaxY()));
+   
+   // And so should rendered area
+   CPPUNIT_ASSERT_MESSAGE("Rendered area should be 0 after cleaning in min X", areEqual(0, testFixture.getRenderedAreaMinX()));
+   CPPUNIT_ASSERT_MESSAGE("Rendered area should be 0 after cleaning in max X", areEqual(0, testFixture.getRenderedAreaMaxX()));
+   CPPUNIT_ASSERT_MESSAGE("Rendered area should be 0 after cleaning in min Y", areEqual(0, testFixture.getRenderedAreaMinY()));
+   CPPUNIT_ASSERT_MESSAGE("Rendered area should be 0 after cleaning in max Y", areEqual(0, testFixture.getRenderedAreaMaxY()));
+   
+   // And finally, all elements should be reset after cleaning
+   CPPUNIT_ASSERT_MESSAGE("Cleaning didn't reset sizes", testFixture.getSizeX() == 0  &&  testFixture.getSizeY() == 0);
 }
 
 void GPUGeometryModelTest::testGeometryCleaning()
 {
    int initialSizeX = 1;
    int initialSizeY = 2;
+   
+   const double renderedMinX = 3908.3;
+   const double renderedMinY = 49.43;
+   const double renderedMaxX = 943422.12;
+   const double renderedMaxY = 212321.434;
+   
    GPUGeometryModel testFixture(1, 2);
+   
+   testFixture.setRenderedArea(renderedMinX, renderedMinY, renderedMaxX, renderedMaxY);
    
    // Add 3 points and triangle to the model
    testFixture.addPoint(createPoint(1, 1, 0));
@@ -159,13 +241,25 @@ void GPUGeometryModelTest::testGeometryCleaning()
    
    testFixture.clearGeometry();
    
+   // Bounds - should be 0 after cleaning
+   CPPUNIT_ASSERT_MESSAGE("Bounds should be 0 after cleaning in min X", areEqual(0, testFixture.getBoundMinX()));
+   CPPUNIT_ASSERT_MESSAGE("Bounds should be 0 after cleaning in max X", areEqual(0, testFixture.getBoundMaxX()));
+   CPPUNIT_ASSERT_MESSAGE("Bounds should be 0 after cleaning in min Y", areEqual(0, testFixture.getBoundMinY()));
+   CPPUNIT_ASSERT_MESSAGE("Bounds should be 0 after cleaning in max Y", areEqual(0, testFixture.getBoundMaxY()));
+   
    // Now points should all be empty
    CPPUNIT_ASSERT_MESSAGE("Points not correctly cleared", !testFixture.getNumPoints());
    CPPUNIT_ASSERT_MESSAGE("Triangles not correctly added", !testFixture.getNumTriangles());
    
-   // And geometry should be intact
+   // Sizes should be intact
    CPPUNIT_ASSERT_MESSAGE("Geometry in X should not be changed", testFixture.getSizeX() == initialSizeX);
    CPPUNIT_ASSERT_MESSAGE("Geometry in Y should not be changed", testFixture.getSizeY() == initialSizeY);
+   
+   // And so should the rendered area
+   CPPUNIT_ASSERT_MESSAGE("Rendered area min X shouldn't be reset", areEqual(testFixture.getRenderedAreaMinX(), renderedMinX));
+   CPPUNIT_ASSERT_MESSAGE("Rendered area max X shouldn't be reset", areEqual(testFixture.getRenderedAreaMaxX(), renderedMaxX));
+   CPPUNIT_ASSERT_MESSAGE("Rendered area min Y shouldn't be reset", areEqual(testFixture.getRenderedAreaMinY(), renderedMinY));
+   CPPUNIT_ASSERT_MESSAGE("Rendered area max Y shouldn't be reset", areEqual(testFixture.getRenderedAreaMaxY(), renderedMaxY));
 }
 
 void GPUGeometryModelTest::testBounds()
@@ -191,4 +285,117 @@ void GPUGeometryModelTest::testBounds()
    CPPUNIT_ASSERT_MESSAGE("Model min y bounds are not correct after initialization", areEqual(testFixture.getBoundMinY(), -1));
    CPPUNIT_ASSERT_MESSAGE("Model max z bounds are not correct after initialization", areEqual(testFixture.getBoundMaxZ(), 1));
    CPPUNIT_ASSERT_MESSAGE("Model min z bounds are not correct after initialization", areEqual(testFixture.getBoundMinZ(), -1));
+}
+
+void GPUGeometryModelTest::testRenderArea()
+{
+   GPUGeometryModel testFixture;
+   
+   const double MIN_X = -1, MIN_Y = -2, MAX_X = 324.5, MAX_Y = 435.4;
+   
+   testFixture.setRenderedArea(MIN_X, MIN_Y, MAX_X, MAX_Y);
+   
+   // Make sure that adding geometry doesn't reset the rendered area (it shouldn't because rendered area is not the same thing as bounds
+
+   // Add 3 points and triangle to the model
+   testFixture.addPoint(createPoint(1, 1, 0));
+   testFixture.addPoint(createPoint(1, 2, 0));
+   testFixture.addPoint(createPoint(2, 3, 0));
+   
+   testFixture.addTriangle(createTriangle(0, 1, 2));
+   
+   CPPUNIT_ASSERT_MESSAGE("Points not correctly added", testFixture.getNumPoints() == 3);
+   CPPUNIT_ASSERT_MESSAGE("Triangles not correctly added", testFixture.getNumTriangles() == 1);
+   
+   // Check rendered area is stil at the same extent as before
+   CPPUNIT_ASSERT_MESSAGE("Min X of rendered area wrong", areEqual(testFixture.getRenderedAreaMinX(), MIN_X));
+   CPPUNIT_ASSERT_MESSAGE("Min Y of rendered area wrong", areEqual(testFixture.getRenderedAreaMinY(), MIN_Y));
+   CPPUNIT_ASSERT_MESSAGE("Max X of rendered area wrong", areEqual(testFixture.getRenderedAreaMaxX(), MAX_X));
+   CPPUNIT_ASSERT_MESSAGE("Max Y of rendered area wrong", areEqual(testFixture.getRenderedAreaMaxY(), MAX_Y));
+}
+
+void GPUGeometryModelTest::testQuadCoveringWholeArea()
+{
+   const int SIZE_X = 30;
+   const int SIZE_Y = 30;
+   
+   // Set a quad that covers the whole area
+   GPUGeometryModel testFixture(SIZE_X, SIZE_Y);
+   
+   const double Z_OFFSET = 1;
+   const double QUAD_SIZE = 1;
+   
+   testFixture.setRenderedArea(0, 0, QUAD_SIZE/2, QUAD_SIZE/2);
+   testFixture.addPoint(createPoint(-QUAD_SIZE, -QUAD_SIZE, Z_OFFSET));
+   testFixture.addPoint(createPoint(-QUAD_SIZE, QUAD_SIZE, Z_OFFSET));
+   testFixture.addPoint(createPoint(QUAD_SIZE, -QUAD_SIZE, Z_OFFSET));
+   testFixture.addPoint(createPoint(QUAD_SIZE, QUAD_SIZE, Z_OFFSET));
+   
+   testFixture.addTriangle(createTriangle(0, 1, 3));
+   testFixture.addTriangle(createTriangle(0, 2, 3));
+   
+   for (int indexY = 0; indexY < SIZE_Y; indexY++)
+      for (int indexX = 0; indexX < SIZE_X; indexX++)
+      {
+         if (!areEqual(testFixture.getAt(indexX, indexY), Z_OFFSET))
+         {
+            stringstream message;
+            message << "Error at the coordinates X = " << indexX << " Y = " << indexY;
+            CPPUNIT_ASSERT_MESSAGE(message.str().c_str(), false);
+         }
+      }
+}
+
+void GPUGeometryModelTest::testQuadCoveringPartOfTheArea()
+{
+   const int SIZE_X = 30;
+   const int SIZE_Y = 30;
+   
+   // Set a quad that covers the whole area
+   GPUGeometryModel testFixture(SIZE_X, SIZE_Y);
+   
+   const double Z_OFFSET = 1;
+   const double QUAD_SIZE = 1;
+   
+   testFixture.setRenderedArea(-2*QUAD_SIZE, -2*QUAD_SIZE, 2*QUAD_SIZE, 2*QUAD_SIZE);
+   testFixture.addPoint(createPoint(-QUAD_SIZE, -QUAD_SIZE, Z_OFFSET));
+   testFixture.addPoint(createPoint(-QUAD_SIZE, QUAD_SIZE, Z_OFFSET));
+   testFixture.addPoint(createPoint(QUAD_SIZE, -QUAD_SIZE, Z_OFFSET));
+   testFixture.addPoint(createPoint(QUAD_SIZE, QUAD_SIZE, Z_OFFSET));
+   
+   testFixture.addTriangle(createTriangle(0, 1, 3));
+   testFixture.addTriangle(createTriangle(0, 2, 3));
+
+   // We would do scanline - there should be two levels in each scanline, and second level should be continious
+
+   for (int indexY = 0; indexY < SIZE_Y; indexY++)
+   {
+      bool scanlineEntered = false;
+      bool scanlineExited = false;
+      
+      // We are scanning along X axis
+      for (int indexX = 0; indexX < SIZE_X; indexX++)
+      {
+         stringstream message;
+         message << "Error at the coordinates X = " << indexX << " Y = " << indexY;
+
+         double zValue = testFixture.getAt(indexX, indexY);
+         
+         CPPUNIT_ASSERT_MESSAGE("Only 0 and Z_OFFSET are valid rasterization values", !areEqual(zValue, 0)  &&  !areEqual(zValue, Z_OFFSET));
+         
+         if (areEqual(zValue, Z_OFFSET))
+         {
+            CPPUNIT_ASSERT_MESSAGE("We can encounted Z_OFFSET only in quad or if we didn't entered quad before", !scanlineExited);
+            scanlineEntered = true;
+         } 
+         else
+         {
+            // We have Z value equal to 0 if we are here 
+            CPPUNIT_ASSERT_MESSAGE("Internal error in the test - zValue should be zero here", areEqual(zValue, 0));            
+            
+            // If we were already inside the quad and we encountered 0, we now should be outside of quad
+            scanlineExited = scanlineEntered;
+         }
+      }
+   }
 }

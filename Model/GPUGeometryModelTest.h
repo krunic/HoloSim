@@ -17,14 +17,18 @@ namespace hdsim {
    
    class GPUGeometryModelTest : public CppUnit::TestFixture  {
       CPPUNIT_TEST_SUITE(GPUGeometryModelTest);
-      CPPUNIT_TEST(testModelName);
-      CPPUNIT_TEST(testCopy);
-      CPPUNIT_TEST(testEqual);
-      CPPUNIT_TEST(testDiferentDimsAreNonEqual);
-      CPPUNIT_TEST(testModelCleaning);
-      CPPUNIT_TEST(testLoadModel);
-      CPPUNIT_TEST(testGeometryCleaning);
-      CPPUNIT_TEST(testBounds);
+         CPPUNIT_TEST(testModelName);
+         CPPUNIT_TEST(testEqual);
+         CPPUNIT_TEST(testDiferentDimsAreNonEqual);
+         CPPUNIT_TEST(testModelCleaning);
+         CPPUNIT_TEST(testLoadModel);
+         CPPUNIT_TEST(testGeometryCleaning);
+         CPPUNIT_TEST(testBounds);
+	      CPPUNIT_TEST(testRenderArea);
+	      CPPUNIT_TEST(testQuadCoveringWholeArea);
+	      CPPUNIT_TEST(testQuadCoveringPartOfTheArea);
+      	CPPUNIT_TEST(testCopyConstructor);
+      	CPPUNIT_TEST(testOperatorEqual);
       CPPUNIT_TEST_SUITE_END();
       
    public:
@@ -55,9 +59,14 @@ namespace hdsim {
       void testModelName();
       
       /**
-       * Test that there is no aliasing after copy (so that copy constructor and operator= are working correctly
+       * Test that there copy constructor works correctly
        */
-      void testCopy();
+      void testCopyConstructor();
+      
+      /**
+       * Test that operator equal works correctly
+       */
+      void testOperatorEqual();
       
       /**
        * Test read and write of the checkboard to the file
@@ -103,6 +112,21 @@ namespace hdsim {
        * Test model bounds
        */
       void testBounds();
+      
+      /**
+       * Test of the proper setup of rendering area
+       */
+      void testRenderArea();
+      
+      /**
+       * Test of the quad parallel to Z plane, which is larger then rendering area
+       */
+      void testQuadCoveringWholeArea();
+      
+      /**
+       * Test of the quad parallel to Z plane, which is smaller then rendering area
+       */
+      void testQuadCoveringPartOfTheArea();
       
    private:
       // define

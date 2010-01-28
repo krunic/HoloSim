@@ -56,6 +56,7 @@ GPUGeometryModel::~GPUGeometryModel()
 void GPUGeometryModel::initializeToCleanState() 
 {
    sizeX_ = sizeY_ = 0;
+	renderedAreaMinX_ = renderedAreaMinY_ = renderedAreaMaxX_ = renderedAreaMaxY_ = 0;
    clearGeometry();
 }
 
@@ -63,6 +64,8 @@ void GPUGeometryModel::clearGeometry()
 {
 	points_.clear();
    triangles_.clear();
+   
+   boundMinX_ = boundMinY_ = boundMaxX_ = boundMaxY_ = 0;
 }
 
 void GPUGeometryModel::copyFrom(const GPUGeometryModel &rhs) 
@@ -93,8 +96,8 @@ AbstractModel *GPUGeometryModel::cloneOrphan() const
 
 double GPUGeometryModel::getAt(int x, int y) const 
 {
-	FAIL("NOT IMPLEMENTED YET");
-   return false;
+	// NOT IMPLEMENTED YET
+   return 0;
 }
 
 bool GPUGeometryModel::readFromFile(FILE *fp) 

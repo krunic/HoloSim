@@ -17,8 +17,8 @@ namespace hdsim {
    
    class ColladaTest : public CppUnit::TestFixture  {
       CPPUNIT_TEST_SUITE(ColladaTest);
-      CPPUNIT_TEST(testLoadQuad);
-      CPPUNIT_TEST(testLoadChair);
+         CPPUNIT_TEST(testLoadQuad);
+         CPPUNIT_TEST(testLoadChair);
       CPPUNIT_TEST_SUITE_END();
       
    public:

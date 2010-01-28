@@ -327,7 +327,10 @@ namespace hdsim {
        */
       virtual void setRenderedArea(double minX, double minY, double maxX, double maxY)
       {
-         
+         renderedAreaMinX_ = minX;
+         renderedAreaMinY_ = minY;
+         renderedAreaMaxX_ = maxX;
+         renderedAreaMaxY_ = maxY;
       }
       
    private:

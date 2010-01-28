@@ -10,11 +10,25 @@
 #ifndef GPU_CALCULATION_ENGINE_
 #define GPU_CALCULATION_ENGINE_
 
+#include <OpenGL/gl.h>
+#include <OpenGL/glu.h>
+
 #include "AbstractModel.h"
 #include "GPUGeometryModel.h"
 
 namespace hdsim {
 
+   /**
+    * Check is this whole world substring
+    *
+    * @param searchFor - string to search for
+    * @param searchIn - String to search in for searchFor
+    */
+   bool isWholeWorldSubstring(const char *searchIn, const char *searchFor);
+   
+   /**
+    * Uses frame buffer object to perform GPU based calculation
+    */ 
 	class GPUCalculationEngine {
    
 		public:
@@ -35,6 +49,21 @@ namespace hdsim {
 		   virtual void calculateEngine(AbstractModel *model);
       
    	private:
+      
+      	/**
+          * Initialize OpenGL frame buffer
+          */
+	      bool initFrameBuffer(int width, int height);
+      
+      	/**
+          * Destroy OpenGL frame buffer
+          */
+	      bool destroyFrameBuffer();
+      
+         /**
+          * IDs of the current render buffer and frame buffer objects used
+          */
+         GLuint frameBufferID_, renderBufferID_;
 
          /**
           * Calculate positions for the given model.

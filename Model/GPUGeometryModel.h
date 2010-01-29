@@ -16,14 +16,19 @@
 #include "MathHelper.h"
 #include "TriangleByPointIndex.h"
 #include "Point.h"
+#include "SimpleDesignByContract.h"
+
 
 namespace hdsim {
-   
+     
    /**
     * Name of the geometry model
     */
    static const char * const GPU_GEOMETRY_MODEL_NAME = "GPUGeometryModel";
    
+   // Forward declaration to resolve circular dependency
+   class GPUCalculationEngine;
+
    /**
     * GPU based checkboard model used for remembering rod position at the particular moment in time. It is fed 3D geometry (points, triangles) and then will calculate 
     * checkboard based on that geometry
@@ -70,7 +75,8 @@ namespace hdsim {
       virtual ~GPUGeometryModel();
       
       // Overriden methods
-      virtual const char * getModelName() const {
+      virtual const char * getModelName() const 
+      {
          return GPU_GEOMETRY_MODEL_NAME;
       }   
       
@@ -84,6 +90,7 @@ namespace hdsim {
        */
       virtual void setSizeX(int sizeX) 
       {
+		   changedSinceLastRecalc_ = true;         
          sizeX_ = sizeX;
       }
 
@@ -94,6 +101,7 @@ namespace hdsim {
        */
       virtual void setSizeY(int sizeY) 
       {
+		   changedSinceLastRecalc_ = true;	         
          sizeY_ = sizeY;
       }
       
@@ -143,6 +151,8 @@ namespace hdsim {
        */
       virtual void addPoint(const Point &point) 
       {
+		   changedSinceLastRecalc_ = true;
+         
          points_.push_back(point);
          
          // And recalculate bounds
@@ -184,7 +194,9 @@ namespace hdsim {
        */
       virtual void replacePointAt(int index, const Point &point) 
       {
-         assert(index >= 0  &&  index < getNumPoints());
+         CHECK(index >= 0  &&  index < getNumPoints(), "Index out of bound");
+         
+         changedSinceLastRecalc_ = true;
       	points_[index] = point;
       }
 
@@ -195,6 +207,7 @@ namespace hdsim {
        */
       virtual void addTriangle(const TriangleByPointIndexes &triangle) 
       {
+		   changedSinceLastRecalc_ = true;         
          triangles_.push_back(triangle);
       }
       
@@ -228,7 +241,9 @@ namespace hdsim {
        */
       virtual void replaceTriangleAt(int index, const TriangleByPointIndexes &triangle) 
       {
-         assert(index >= 0  &&  index < getNumPoints());
+		   changedSinceLastRecalc_ = true;
+         
+         CHECK(index >= 0  &&  index < getNumPoints(), "Index out of bound");
       	triangles_[index] = triangle;
       }
 
@@ -327,6 +342,8 @@ namespace hdsim {
        */
       virtual void setRenderedArea(double minX, double minY, double maxX, double maxY)
       {
+		   changedSinceLastRecalc_ = true;         
+         
          renderedAreaMinX_ = minX;
          renderedAreaMinY_ = minY;
          renderedAreaMaxX_ = maxX;
@@ -344,6 +361,16 @@ namespace hdsim {
        * Rendered area 
        */
       double renderedAreaMinX_, renderedAreaMinY_, renderedAreaMaxX_, renderedAreaMaxY_;
+      
+      /**
+       * Associated calculation engine
+       */
+      GPUCalculationEngine *calculationEngine_;
+      
+      /**
+       * Did we change after last recalc
+       */
+      bool changedSinceLastRecalc_;
       
       /**
        * Copy value from rhs to this object

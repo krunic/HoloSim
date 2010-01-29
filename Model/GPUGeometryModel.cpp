@@ -10,12 +10,15 @@
 #include "GPUGeometryModel.h"
 #include "Collada.h"
 #include "SimpleDesignByContract.h"
+#include "GPUCalculationEngine.h"
 
 using namespace hdsim;
 
 GPUGeometryModel::GPUGeometryModel() : sizeX_(0), sizeY_(0), boundMinX_(0), boundMaxX_(0), 
 													boundMinY_(0), boundMaxY_(0), boundMinZ_(0), boundMaxZ_(0),
-												   renderedAreaMinX_(0), renderedAreaMinY_(0), renderedAreaMaxX_(0), renderedAreaMaxY_(0)
+												   renderedAreaMinX_(0), renderedAreaMinY_(0), renderedAreaMaxX_(0), 
+													renderedAreaMaxY_(0), calculationEngine_(0),
+													changedSinceLastRecalc_(true)
 {
 
 }
@@ -25,9 +28,10 @@ GPUGeometryModel::GPUGeometryModel(int sizeX, int sizeY) : sizeX_(sizeX), sizeY_
                                                            boundMinY_(0), boundMaxY_(0), 
                                                            boundMinZ_(0), boundMaxZ_(0),
                                                            renderedAreaMinX_(0), renderedAreaMinY_(0),
-                                                           renderedAreaMaxX_(0), renderedAreaMaxY_(0)
+                                                           renderedAreaMaxX_(0), renderedAreaMaxY_(0), calculationEngine_(0),
+                                                           changedSinceLastRecalc_(true)
 {
-   
+   calculationEngine_ = new GPUCalculationEngine();
 }
       
 GPUGeometryModel::GPUGeometryModel(const GPUGeometryModel &rhs) : sizeX_(0), sizeY_(0), 
@@ -35,7 +39,8 @@ GPUGeometryModel::GPUGeometryModel(const GPUGeometryModel &rhs) : sizeX_(0), siz
 																						boundMinY_(0), boundMaxY_(0), 
 																						boundMinZ_(0), boundMaxZ_(0),
 																						renderedAreaMinX_(0), renderedAreaMinY_(0),
-																						renderedAreaMaxX_(0), renderedAreaMaxY_(0)
+																						renderedAreaMaxX_(0), renderedAreaMaxY_(0), calculationEngine_(0),
+																						changedSinceLastRecalc_(true)
 {
 	copyFrom(rhs);
 }
@@ -51,11 +56,13 @@ GPUGeometryModel & GPUGeometryModel::operator=(const GPUGeometryModel &rhs)
       
 GPUGeometryModel::~GPUGeometryModel() 
 {
+   delete calculationEngine_;
 }
       
 void GPUGeometryModel::initializeToCleanState() 
 {
    sizeX_ = sizeY_ = 0;
+   changedSinceLastRecalc_ = true;
 	renderedAreaMinX_ = renderedAreaMinY_ = renderedAreaMaxX_ = renderedAreaMaxY_ = 0;
    clearGeometry();
 }
@@ -70,6 +77,8 @@ void GPUGeometryModel::clearGeometry()
 
 void GPUGeometryModel::copyFrom(const GPUGeometryModel &rhs) 
 {
+   changedSinceLastRecalc_ = true;   
+   
    sizeX_ = rhs.getSizeX();
    sizeY_ = rhs.getSizeY();
    
@@ -83,6 +92,7 @@ void GPUGeometryModel::copyFrom(const GPUGeometryModel &rhs)
    boundMaxZ_ = rhs.getBoundMaxZ();
 
    setRenderedArea(rhs.getRenderedAreaMinX(), rhs.getRenderedAreaMinY(), rhs.getRenderedAreaMaxX(), rhs.getRenderedAreaMaxY());
+   calculationEngine_ = new GPUCalculationEngine();
    
    points_ = rhs.points_;
    triangles_ = rhs.triangles_;
@@ -96,12 +106,15 @@ AbstractModel *GPUGeometryModel::cloneOrphan() const
 
 double GPUGeometryModel::getAt(int x, int y) const 
 {
-	// NOT IMPLEMENTED YET
-   return 0;
+   if (changedSinceLastRecalc_)
+      calculationEngine_->calculateEngine(this);
+   
+   return calculationEngine_->getAt(x, y);
 }
 
 bool GPUGeometryModel::readFromFile(FILE *fp) 
 {
+   changedSinceLastRecalc_ = true;
    
    // First line is model name
    char readThis[1024];

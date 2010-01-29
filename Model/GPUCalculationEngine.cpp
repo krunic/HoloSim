@@ -95,6 +95,9 @@ bool hdsim::isWholeWorldSubstring(const char *searchIn, const char *searchFor)
    return delimitedAtBegin  &&  delimitedAtEnd;
 }
 
+/**
+ * Check is given OpenGL extension enabled
+ */
 static bool isOpenGLExtensionSupported(const char *extensionName)
 {
    return hdsim::isWholeWorldSubstring(extensionName, reinterpret_cast<const char*>(glGetString(GL_EXTENSIONS)));
@@ -123,208 +126,208 @@ static bool checkGLError()
    return true;
 }
 
-GPUCalculationEngine::GPUCalculationEngine() 
+GPUCalculationEngine::GPUCalculationEngine() : wasInitialized_(false), offScreenMemory_(0)
 {
-   assert(0);
 }
 
-GPUCalculationEngine::GPUCalculationEngine(const GPUCalculationEngine &rhs) 
-{
-   assert(0);  
-}
-
-GPUCalculationEngine &GPUCalculationEngine::operator=(const GPUCalculationEngine &rhs) 
-{
-   assert(0);  
-}
-   
 GPUCalculationEngine::~GPUCalculationEngine() 
 {
-   assert(0);
+   destroyFrameBuffer();
 }
 
-void GPUCalculationEngine::positionCamera(int sizeX, int sizeY, double minX, double maxX, double minY, double maxY, double minZ, double maxZ)
-{
-   assert(0);
-}
-
-void GPUCalculationEngine::calculate(GPUGeometryModel *model)
+void GPUCalculationEngine::calculate(const GPUGeometryModel *model)
 {
 	PRECONDITION(model);
+   PRECONDITION(wasInitialized_);
+
+   glBindFramebufferEXT(GL_FRAMEBUFFER_EXT, frameBufferID_);
    
-   /**
-   // Initialize framebuffer extension
+   GLuint status = glCheckFramebufferStatusEXT(GL_FRAMEBUFFER_EXT);
+   if (status != GL_FRAMEBUFFER_COMPLETE_EXT)
+   {
+      cerr << "Error, FBO status " <<  status;
+      
+      // Try to restore everything, and cleanup errors
+      glBindFramebufferEXT(GL_FRAMEBUFFER_EXT, 0);
+      checkGLError();
+      return;
+   }
+
+   // Position camera
+   glMatrixMode(GL_PROJECTION);
+   glLoadIdentity();
+   glOrtho(model->getRenderedAreaMinX(), model->getRenderedAreaMaxX(), 
+           model->getRenderedAreaMinY(), model->getRenderedAreaMaxY(),
+           model->getBoundMaxZ(), model->getBoundMinZ());
+   if (checkGLError())
+   {
+      // Try to restore everything, and cleanup errors
+      glBindFramebufferEXT(GL_FRAMEBUFFER_EXT, 0);
+      checkGLError();
+      return;
+   }
    
-   // Create framebuffer
-   void glGenFramebuffersEXT(GLsizei n, GLuint* ids)
+   glMatrixMode(GL_MODELVIEW);
+   glLoadIdentity();
    
-   void glBindFramebufferEXT(GLenum target, GLuint id)
+   gluLookAt(// Eye position
+             0, 0, model->getBoundMaxZ(),
+             // Center position
+             0, 0, 0, 
+             // Up position
+             0, 1, 0); 
+
+   glEnable(GL_DEPTH_TEST);
+   glClearDepth(model->getBoundMinZ());
+   glDepthFunc(GL_GEQUAL);
    
-   // Create renderbuffer
+   // All bound, now lets go ahead and draw
+   // This might benefit from the display list approach
+   // Orientation is counterclockwise here
+   glBegin(GL_TRIANGLES);
+	   for (int indexTriangle = 0; indexTriangle < model->getNumTriangles(); indexTriangle++)
+      {
+         TriangleByPointIndexes triangle = model->getTriangle(indexTriangle);
+         
+         Point point = model->getPoint(triangle.getIndex1());
+         glVertex3d(point.getX(), point.getY(), point.getZ());
+         
+         point = model->getPoint(triangle.getIndex2());
+         glVertex3d(point.getX(), point.getY(), point.getZ());
+         
+         point = model->getPoint(triangle.getIndex3());
+         glVertex3d(point.getX(), point.getY(), point.getZ());
+      }
+   glEnd();
    
-   void glGenRenderbuffersEXT(GLsizei n, GLuint* ids)
-   
-   // And bind
-   void glBindRenderbufferEXT(GLenum target, GLuint id)
-   
-   // Allocate
-	glRenderbufferStorageEXT(GL_RENDERBUFFER_EXT, GL_DEPTH_COMPONENT, model->getSizeX(), model->getSizeY());
-   
-   void glFramebufferRenderbufferEXT(GL_FRAMEBUFFER_EXT,
-                                     GL_DEPTH_ATTACHMENT_EXT,
-                                     GL_RENDERBUFFER_EXT,
-                                     GLuint renderbufferId)
-   
-   GLenum glCheckFramebufferStatusEXT(GLenum target)
-   
-   void glDeleteRenderbuffersEXT(GLsizei n, const Gluint* ids)
-   
-   // Delete framebuffer, not needed any more
-   void glDeleteFramebuffersEXT(GLsizei n, const GLuint* ids)
-    */
-   
-   assert(0);
+   glReadPixels(0, 0, width_, height_, GL_DEPTH_COMPONENT, GL_DOUBLE, renderedDepth_);
+     
+   // And restore state
 }
 
-void GPUCalculationEngine::calculateEngine(AbstractModel *model) {
-   GPUGeometryModel *geometryModel = dynamic_cast<GPUGeometryModel *>(model);
+void GPUCalculationEngine::calculateEngine(const AbstractModel *model) 
+{
+   PRECONDITION(model);
+   PRECONDITION(wasInitialized_);
+   
+   const GPUGeometryModel *geometryModel = dynamic_cast<const GPUGeometryModel *>(model);
    CHECK(geometryModel, "This calculation engine operates only with the geometry model");
-   
-   // Now, we need to do appropriate setup
-   positionCamera(geometryModel->getSizeX(), geometryModel->getSizeY(),
-                  geometryModel->getBoundMinX(), geometryModel->getBoundMaxX(),
-                  geometryModel->getBoundMinY(), geometryModel->getBoundMaxY(),
-                  geometryModel->getBoundMinZ(), geometryModel->getBoundMaxZ());
-   
    calculate(geometryModel);
 }
 
 bool GPUCalculationEngine::initFrameBuffer(int width, int height) 
 {
    PRECONDITION(isOpenGLExtensionSupported("GL_EXT_framebuffer_object"));
-	
-	// constant state
-	glPushAttrib(GL_ALL_ATTRIB_BITS);
+   PRECONDITION(wasInitialized_);
+   PRECONDITION(width > 0  &&  height < 0);
    
-	glEnable(GL_DEPTH_TEST);
-	glDisable(GL_FOG);
-	
+   // Following code is based on Apple OpenGL Programming Guide for Mac OS X, page 46
+   const int PIXEL_MEM_SIZE = 32;
+   
+   CGLPixelFormatAttribute openGLAttributes[] =
+   {
+      kCGLPFAOffScreen, 
+      kCGLPFAColorSize, 
+      static_cast<CGLPixelFormatAttribute>(PIXEL_MEM_SIZE), 
+      static_cast<CGLPixelFormatAttribute>(0)
+   }; 
+   
+   CGLPixelFormatObj pixelFormatObj; 
+   GLint pixelFormatID;
+   
+   CGLChoosePixelFormat(openGLAttributes, &pixelFormatObj, &pixelFormatID);	
+   CHECK(checkGLError(), "GL Error Occured");
+   
+   CGLCreateContext (pixelFormatObj, 0, &cglContext_);
+   CHECK(checkGLError(), "GL Error Occured");
+
+   CGLDestroyPixelFormat(pixelFormatObj); 
+   CHECK(checkGLError(), "GL Error Occured");
+
+   CGLSetCurrentContext(cglContext_);
+   CHECK(checkGLError(), "GL Error Occured");
+
+   offScreenMemory_ = new char[width * height * PIXEL_MEM_SIZE/8];
+   CGLSetOffScreen(cglContext_, width, height, width * PIXEL_MEM_SIZE * 4, offScreenMemory_);
+   CHECK(checkGLError(), "GL Error Occured");
+
+   // Now, lets setup FBO objects
+   
    GLenum status;
    
    glGenFramebuffersEXT(1, &frameBufferID_);
+   CHECK(checkGLError(), "GL Error Occured");
+
    glGenRenderbuffersEXT(1, &renderBufferID_);
+   CHECK(checkGLError(), "GL Error Occured");
    
    glBindRenderbufferEXT(GL_RENDERBUFFER_EXT, renderBufferID_);
+   CHECK(checkGLError(), "GL Error Occured");
+
    glRenderbufferStorageEXT(GL_RENDERBUFFER_EXT, GL_DEPTH_COMPONENT, width, height);
+   CHECK(checkGLError(), "GL Error Occured");
+
    glFramebufferRenderbufferEXT(GL_FRAMEBUFFER_EXT, GL_DEPTH_ATTACHMENT_EXT, GL_RENDERBUFFER_EXT, renderBufferID_);
+   CHECK(checkGLError(), "GL Error Occured");
    
    // Allocate
 	glRenderbufferStorageEXT(GL_RENDERBUFFER_EXT, GL_DEPTH_COMPONENT, width, height);
+   CHECK(checkGLError(), "GL Error Occured");
    
    // And bind
    glBindRenderbufferEXT(GL_RENDERBUFFER_EXT, renderBufferID_);
+   CHECK(checkGLError(), "GL Error Occured");
    
    status = glCheckFramebufferStatusEXT(GL_FRAMEBUFFER_EXT);
    if (status != GL_FRAMEBUFFER_COMPLETE_EXT)
       cerr << "Error, FBO status " <<  status;
+   
    return false;
 }
 
 bool GPUCalculationEngine::destroyFrameBuffer()
 {
+   PRECONDITION(wasInitialized_);
+   
+   glBindFramebufferEXT(GL_FRAMEBUFFER_EXT, 0);
+   glPopMatrix();
    glPopAttrib();
+   CHECK(checkGLError(), "GL Error Occured");
+   
+   CGLSetCurrentContext(0); 
+   CGLClearDrawable(cglContext_); 
+   CGLDestroyContext(cglContext_);
    
    // Don't use framebuffer extension any more
    glBindFramebufferEXT(GL_FRAMEBUFFER_EXT, 0);
 	glDeleteRenderbuffersEXT(1, &renderBufferID_);
    glDeleteFramebuffersEXT(1, &frameBufferID_);
+   
+   delete [] offScreenMemory_;
+	delete [] renderedDepth_;
+   
 	return !checkGLError();
 }
 
-
-/* ======================================
- 
-//  Demonstrate a few ways to render-to-texture via FBO:
-//  * cache rendering results (imposters)
-//  * dynamic cubic environment map
-//  * fullscreen shader effects
-//
-//  See the specification for full details:
-//  http://www.opengl.org/registry/specs/EXT/framebuffer_object.txt
-
-
-typedef struct glExtension {
-   char		*name;
-   GLfloat		promoted;
-   GLboolean	supported;
-} glExtension;
-
-typedef struct fbodesc {
-	GLint  wide, high;
-	GLenum color0;
-	GLenum filter;
-	GLenum depth;
-} fbodesc;
-
-
-// globals
-glExtension	extension[] = {
-	{"GL_EXT_framebuffer_object",   0.0, 0}
-};
-
-fbodesc fbos[NUMFBOS] = {
-	{  512,  512, GL_TEXTURE_2D,           GL_LINEAR_MIPMAP_NEAREST, GL_RENDERBUFFER_EXT },
-	{  128,  128, GL_TEXTURE_CUBE_MAP_ARB, GL_LINEAR,                GL_RENDERBUFFER_EXT },
-	{ 1024, 1024, GL_TEXTURE_2D,           GL_LINEAR_MIPMAP_LINEAR,  GL_TEXTURE_2D       },
-};
-
-// extension index
-enum {
-	EXT_framebuffer_object
-};
-
-#pragma mark -
-
-#pragma mark Window reshaping
-void reshape(int width, int height, int windowaspect, int ortho) {
-	glViewport(0, 0, width, height);
-	glMatrixMode(GL_PROJECTION);
-	glLoadIdentity();
-	gluOrtho2D(0, width, 0, height);
-	glMatrixMode(GL_MODELVIEW);
+void GPUCalculationEngine::initialize(AbstractModel *model)
+{
+   PRECONDITION(model);
+   
+   GPUGeometryModel *geometryModel = dynamic_cast<GPUGeometryModel *>(model);
+   CHECK(geometryModel, "This class works only with GPUGeometryModel");
+   
+   width_ = geometryModel->getSizeX();
+   height_ = geometryModel->getSizeY();
+   
+   // Now we need to extract calculated Z buffer
+   renderedDepth_ = new double[width_ * height_];
+   
+   initFrameBuffer(geometryModel->getSizeX(), geometryModel->getSizeY());
+   wasInitialized_ = true;
 }
 
-
-void display() {
-
-#pragma mark Render inside FBO
-	{
-		glDisable(GL_TEXTURE_2D);
-		if (mode >= 2) {	
-			// render bunny to FBO
-			glBindFramebufferEXT(GL_FRAMEBUFFER_EXT, fb[FBO_BUNNY]);
-			if (mode >= 4)
-				glClearColor(0, 0, 0, 0);
-			else
-				glClearColor(0.5, 0.5, 0.5, 1);		
-			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-			glLoadIdentity();
-			glTranslatef(0, 0, -1.35);
-			drawbunny(rotx, roty, rotz, 1);	
-		}
-	}
-	  
-	// redirect rendering either to the window or DOF FBO
-	if (mode >= 8) {
-		glBindFramebufferEXT(GL_FRAMEBUFFER_EXT, fb[FBO_DOF]);
-		reshape(fbos[FBO_DOF].wide, fbos[FBO_DOF].high, 1, 0);
-	}
-	
-	{
-		// render real bunny geometry
-		glClearColor(.3, .4, .5, 1);
-		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-      
-		drawbunny(rotx, roty, rotz, 1);
-	 
- */
+void GPUCalculationEngine::deInitialize()
+{
+   destroyFrameBuffer();
+   wasInitialized_ = false;
+}

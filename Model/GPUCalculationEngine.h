@@ -12,6 +12,7 @@
 
 #include <OpenGL/gl.h>
 #include <OpenGL/glu.h>
+#include <OpenGL/OpenGL.h>
 
 #include "AbstractModel.h"
 #include "GPUGeometryModel.h"
@@ -34,21 +35,48 @@ namespace hdsim {
 		public:
 
       	GPUCalculationEngine();
-		   GPUCalculationEngine(const GPUCalculationEngine &rhs);
-		   GPUCalculationEngine &operator=(const GPUCalculationEngine &rhs);
    
 		   virtual ~GPUCalculationEngine();
       
       	/**
-          * Calculate positions for the given model.
+          * Calculate positions for the given model and store it so that it could be subsequently obtained
           *
           * This function is not thread safe
           *
           * @param model Calculate picture for engine position
           */
-		   virtual void calculateEngine(AbstractModel *model);
+		   virtual void calculateEngine(const AbstractModel *model);
+      
+      	/**
+          * Initialization
+          *
+          * @param model - model to use
+          */
+	      virtual void initialize(AbstractModel *model);
+      
+      	/**
+          * Notifies calculation engine that associated OpenGL context was destroyed and can't be used
+          */
+	      virtual void deInitialize();
+      
+      	/**
+          * Get previously calculated position at x, y
+          *
+          * @param x - X position
+          * @param y - Y position
+          *
+          * @return Previously calculated value at that position
+          */
+      	virtual double getAt(int x, int y) const 
+         {
+            return renderedDepth_[y*width_ + x];
+         }
       
    	private:
+      
+      	// copying is not supported for now
+	      GPUCalculationEngine(const GPUCalculationEngine &rhs);
+   	   GPUCalculationEngine &operator=(const GPUCalculationEngine &rhs);
       
       	/**
           * Initialize OpenGL frame buffer
@@ -61,34 +89,44 @@ namespace hdsim {
 	      bool destroyFrameBuffer();
       
          /**
-          * IDs of the current render buffer and frame buffer objects used
-          */
-         GLuint frameBufferID_, renderBufferID_;
-
-         /**
-          * Calculate positions for the given model.
-          *
-          * This function is not thread safe
-          *
-          * @param sizeX Number of moxels in the X axis of the model
-          * @param sizeY Number of moxels in the Y axis of the model
-          * @param minX Min frustum on X axis
-          * @param maxX Max frustum on X axis
-          * @param minY Min frustum on Y axis
-          * @param maxY Max frustum on Y axis
-          * @param minZ Min frustum on Z axis
-          * @param maxZ Max frustum on Z axis
-          */      
-      	virtual void positionCamera(int sizeX, int sizeY, double minX, double maxX, double minY, double maxY, double minZ, double maxZ);
-
-         /**
           * Calculate positions for the given model.
           *
           * This function is not thread safe
           *
           * @param model Calculate picture for engine position
           */
-         virtual void calculate(GPUGeometryModel *model);
+         void calculate(const GPUGeometryModel *model);
+      
+         /**
+          * IDs of the current render buffer and frame buffer objects used
+          */
+         GLuint frameBufferID_, renderBufferID_;
+      
+      	/**
+          * Were we succesfully initialized
+          */
+	      bool wasInitialized_;
+      
+      	/**
+          * Dimensions
+          */
+	      int width_, height_;
+      
+      	/**
+          * Off screen context used for drawing
+          */
+         CGLContextObj cglContext_;
+      
+      	/**
+          * Memory for the offscreen drawning
+          */
+	      char *offScreenMemory_;
+      
+      	/**
+          * Rendered depth buffer (from the graphic card)
+          */
+	      double *renderedDepth_;
+
 	};
    
 }

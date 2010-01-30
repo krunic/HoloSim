@@ -52,7 +52,7 @@ namespace hdsim {
           *
           * @param model - model to use
           */
-	      virtual void initialize(AbstractModel *model);
+	      virtual void initialize(const AbstractModel *model);
       
       	/**
           * Notifies calculation engine that associated OpenGL context was destroyed and can't be used

@@ -100,7 +100,7 @@ bool hdsim::isWholeWorldSubstring(const char *searchIn, const char *searchFor)
  */
 static bool isOpenGLExtensionSupported(const char *extensionName)
 {
-   return hdsim::isWholeWorldSubstring(extensionName, reinterpret_cast<const char*>(glGetString(GL_EXTENSIONS)));
+   return hdsim::isWholeWorldSubstring(reinterpret_cast<const char*>(glGetString(GL_EXTENSIONS)), extensionName);
 }
 
 /**
@@ -110,7 +110,7 @@ static bool isOpenGLExtensionSupported(const char *extensionName)
  * 
  * This function started as macro from Apples example and was subsequently modified
  */
-static bool checkGLError()
+static bool getAndResetGLErrorStatus()
 {
 	GLenum err = glGetError(); 
    
@@ -119,7 +119,7 @@ static bool checkGLError()
    
 	while (err != GL_NO_ERROR) 
    {
-		cerr << "glError: " << reinterpret_cast<const char *>(gluErrorString(err)) << " caught at " << __FILE__ << " line " << __LINE__;
+		cerr << "glError: " << reinterpret_cast<const char *>(gluErrorString(err)) << " caught at " << __FILE__ << " line " << __LINE__ << endl;
 		err = glGetError();
    }
    
@@ -132,38 +132,50 @@ GPUCalculationEngine::GPUCalculationEngine() : wasInitialized_(false), offScreen
 
 GPUCalculationEngine::~GPUCalculationEngine() 
 {
-   destroyFrameBuffer();
+   if (wasInitialized_)
+   {
+   	destroyFrameBuffer();
+   }
 }
 
-void GPUCalculationEngine::calculate(const GPUGeometryModel *model)
+void GPUCalculationEngine::calculateEngine(const AbstractModel *model) 
 {
-	PRECONDITION(model);
-   PRECONDITION(wasInitialized_);
+   PRECONDITION(model);
+
+   if (!wasInitialized_)
+   {
+      initialize(model);
+   }
+     
+   const GPUGeometryModel *geometryModel = dynamic_cast<const GPUGeometryModel *>(model);
+   CHECK(geometryModel, "This calculation engine operates only with the geometry model");
 
    glBindFramebufferEXT(GL_FRAMEBUFFER_EXT, frameBufferID_);
    
    GLuint status = glCheckFramebufferStatusEXT(GL_FRAMEBUFFER_EXT);
    if (status != GL_FRAMEBUFFER_COMPLETE_EXT)
    {
-      cerr << "Error, FBO status " <<  status;
+      cerr << "Error, FBO status " <<  status << endl;
       
       // Try to restore everything, and cleanup errors
       glBindFramebufferEXT(GL_FRAMEBUFFER_EXT, 0);
-      checkGLError();
+      getAndResetGLErrorStatus();
       return;
    }
-
+   
    // Position camera
    glMatrixMode(GL_PROJECTION);
    glLoadIdentity();
-   glOrtho(model->getRenderedAreaMinX(), model->getRenderedAreaMaxX(), 
-           model->getRenderedAreaMinY(), model->getRenderedAreaMaxY(),
-           model->getBoundMaxZ(), model->getBoundMinZ());
-   if (checkGLError())
+   
+   glOrtho(geometryModel->getRenderedAreaMinX(), geometryModel->getRenderedAreaMaxX(), 
+           geometryModel->getRenderedAreaMinY(), geometryModel->getRenderedAreaMaxY(),
+           geometryModel->getBoundMaxZ(), geometryModel->getBoundMinZ());
+   
+   if (getAndResetGLErrorStatus())
    {
       // Try to restore everything, and cleanup errors
       glBindFramebufferEXT(GL_FRAMEBUFFER_EXT, 0);
-      checkGLError();
+      getAndResetGLErrorStatus();
       return;
    }
    
@@ -171,55 +183,41 @@ void GPUCalculationEngine::calculate(const GPUGeometryModel *model)
    glLoadIdentity();
    
    gluLookAt(// Eye position
-             0, 0, model->getBoundMaxZ(),
+             0, 0, geometryModel->getBoundMaxZ(),
              // Center position
              0, 0, 0, 
              // Up position
              0, 1, 0); 
-
+   
    glEnable(GL_DEPTH_TEST);
-   glClearDepth(model->getBoundMinZ());
+   glClearDepth(geometryModel->getBoundMinZ());
    glDepthFunc(GL_GEQUAL);
    
    // All bound, now lets go ahead and draw
    // This might benefit from the display list approach
    // Orientation is counterclockwise here
    glBegin(GL_TRIANGLES);
-	   for (int indexTriangle = 0; indexTriangle < model->getNumTriangles(); indexTriangle++)
-      {
-         TriangleByPointIndexes triangle = model->getTriangle(indexTriangle);
-         
-         Point point = model->getPoint(triangle.getIndex1());
-         glVertex3d(point.getX(), point.getY(), point.getZ());
-         
-         point = model->getPoint(triangle.getIndex2());
-         glVertex3d(point.getX(), point.getY(), point.getZ());
-         
-         point = model->getPoint(triangle.getIndex3());
-         glVertex3d(point.getX(), point.getY(), point.getZ());
-      }
+   for (int indexTriangle = 0; indexTriangle < geometryModel->getNumTriangles(); indexTriangle++)
+   {
+      TriangleByPointIndexes triangle = geometryModel->getTriangle(indexTriangle);
+      
+      Point point = geometryModel->getPoint(triangle.getIndex1());
+      glVertex3d(point.getX(), point.getY(), point.getZ());
+      
+      point = geometryModel->getPoint(triangle.getIndex2());
+      glVertex3d(point.getX(), point.getY(), point.getZ());
+      
+      point = geometryModel->getPoint(triangle.getIndex3());
+      glVertex3d(point.getX(), point.getY(), point.getZ());
+   }
    glEnd();
    
-   glReadPixels(0, 0, width_, height_, GL_DEPTH_COMPONENT, GL_DOUBLE, renderedDepth_);
-     
-   // And restore state
-}
-
-void GPUCalculationEngine::calculateEngine(const AbstractModel *model) 
-{
-   PRECONDITION(model);
-   PRECONDITION(wasInitialized_);
-   
-   const GPUGeometryModel *geometryModel = dynamic_cast<const GPUGeometryModel *>(model);
-   CHECK(geometryModel, "This calculation engine operates only with the geometry model");
-   calculate(geometryModel);
+   glReadPixels(0, 0, width_, height_, GL_DEPTH_COMPONENT, GL_DOUBLE, renderedDepth_);   
 }
 
 bool GPUCalculationEngine::initFrameBuffer(int width, int height) 
 {
-   PRECONDITION(isOpenGLExtensionSupported("GL_EXT_framebuffer_object"));
-   PRECONDITION(wasInitialized_);
-   PRECONDITION(width > 0  &&  height < 0);
+   PRECONDITION(width > 0  &&  height > 0);
    
    // Following code is based on Apple OpenGL Programming Guide for Mac OS X, page 46
    const int PIXEL_MEM_SIZE = 32;
@@ -236,47 +234,51 @@ bool GPUCalculationEngine::initFrameBuffer(int width, int height)
    GLint pixelFormatID;
    
    CGLChoosePixelFormat(openGLAttributes, &pixelFormatObj, &pixelFormatID);	
-   CHECK(checkGLError(), "GL Error Occured");
+   CHECK(!getAndResetGLErrorStatus(), "GL Error Occured");
    
-   CGLCreateContext (pixelFormatObj, 0, &cglContext_);
-   CHECK(checkGLError(), "GL Error Occured");
+   CGLCreateContext(pixelFormatObj, 0, &cglContext_);
+   CHECK(!getAndResetGLErrorStatus(), "GL Error Occured");
 
    CGLDestroyPixelFormat(pixelFormatObj); 
-   CHECK(checkGLError(), "GL Error Occured");
+   CHECK(!getAndResetGLErrorStatus(), "GL Error Occured");
 
    CGLSetCurrentContext(cglContext_);
-   CHECK(checkGLError(), "GL Error Occured");
+   CHECK(!getAndResetGLErrorStatus(), "GL Error Occured");
 
    offScreenMemory_ = new char[width * height * PIXEL_MEM_SIZE/8];
    CGLSetOffScreen(cglContext_, width, height, width * PIXEL_MEM_SIZE * 4, offScreenMemory_);
-   CHECK(checkGLError(), "GL Error Occured");
+   CHECK(!getAndResetGLErrorStatus(), "GL Error Occured");
 
-   // Now, lets setup FBO objects
+   // Now, lets setup FBO objects (if supported)
+	if (!isOpenGLExtensionSupported("GL_EXT_framebuffer_object"))
+   {
+      return false;
+   }
    
    GLenum status;
    
    glGenFramebuffersEXT(1, &frameBufferID_);
-   CHECK(checkGLError(), "GL Error Occured");
+   CHECK(!getAndResetGLErrorStatus(), "GL Error Occured");
 
    glGenRenderbuffersEXT(1, &renderBufferID_);
-   CHECK(checkGLError(), "GL Error Occured");
+   CHECK(!getAndResetGLErrorStatus(), "GL Error Occured");
    
    glBindRenderbufferEXT(GL_RENDERBUFFER_EXT, renderBufferID_);
-   CHECK(checkGLError(), "GL Error Occured");
+   CHECK(!getAndResetGLErrorStatus(), "GL Error Occured");
 
    glRenderbufferStorageEXT(GL_RENDERBUFFER_EXT, GL_DEPTH_COMPONENT, width, height);
-   CHECK(checkGLError(), "GL Error Occured");
+   CHECK(!getAndResetGLErrorStatus(), "GL Error Occured");
 
    glFramebufferRenderbufferEXT(GL_FRAMEBUFFER_EXT, GL_DEPTH_ATTACHMENT_EXT, GL_RENDERBUFFER_EXT, renderBufferID_);
-   CHECK(checkGLError(), "GL Error Occured");
+   CHECK(!getAndResetGLErrorStatus(), "GL Error Occured");
    
    // Allocate
 	glRenderbufferStorageEXT(GL_RENDERBUFFER_EXT, GL_DEPTH_COMPONENT, width, height);
-   CHECK(checkGLError(), "GL Error Occured");
+   CHECK(!getAndResetGLErrorStatus(), "GL Error Occured");
    
    // And bind
    glBindRenderbufferEXT(GL_RENDERBUFFER_EXT, renderBufferID_);
-   CHECK(checkGLError(), "GL Error Occured");
+   CHECK(!getAndResetGLErrorStatus(), "GL Error Occured");
    
    status = glCheckFramebufferStatusEXT(GL_FRAMEBUFFER_EXT);
    if (status != GL_FRAMEBUFFER_COMPLETE_EXT)
@@ -292,7 +294,7 @@ bool GPUCalculationEngine::destroyFrameBuffer()
    glBindFramebufferEXT(GL_FRAMEBUFFER_EXT, 0);
    glPopMatrix();
    glPopAttrib();
-   CHECK(checkGLError(), "GL Error Occured");
+   CHECK(!getAndResetGLErrorStatus(), "GL Error Occured");
    
    CGLSetCurrentContext(0); 
    CGLClearDrawable(cglContext_); 
@@ -306,14 +308,14 @@ bool GPUCalculationEngine::destroyFrameBuffer()
    delete [] offScreenMemory_;
 	delete [] renderedDepth_;
    
-	return !checkGLError();
+	return !getAndResetGLErrorStatus();
 }
 
-void GPUCalculationEngine::initialize(AbstractModel *model)
+void GPUCalculationEngine::initialize(const AbstractModel *model)
 {
    PRECONDITION(model);
    
-   GPUGeometryModel *geometryModel = dynamic_cast<GPUGeometryModel *>(model);
+   const GPUGeometryModel *geometryModel = dynamic_cast<const GPUGeometryModel *>(model);
    CHECK(geometryModel, "This class works only with GPUGeometryModel");
    
    width_ = geometryModel->getSizeX();

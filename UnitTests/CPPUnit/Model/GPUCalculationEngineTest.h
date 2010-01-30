@@ -18,6 +18,7 @@ namespace hdsim {
    class GPUCalculationEngineTest : public CppUnit::TestFixture  {
       CPPUNIT_TEST_SUITE(GPUCalculationEngineTest);
 	      CPPUNIT_TEST(testFindWholeWorldSubstring);
+	      CPPUNIT_TEST(testOpenGLExtensions);
       CPPUNIT_TEST_SUITE_END();
       
    public:
@@ -46,6 +47,11 @@ namespace hdsim {
        * Simple test that openGL extension processing is done correctly
        */
       void testFindWholeWorldSubstring();
+      
+      /**
+       * This is test with real OpenGL extensions 
+       */
+      void testOpenGLExtensions();
       
    private:
       

@@ -363,8 +363,8 @@
 		7A0F8A750C5CA9120018DD1F /* Math */ = {
 			isa = PBXGroup;
 			children = (
-				7A2F41C20C75784900FB3B69 /* MathHelperTest.cpp */,
 				7A2F41C30C75784900FB3B69 /* MathHelperTest.h */,
+				7A2F41C20C75784900FB3B69 /* MathHelperTest.cpp */,
 			);
 			name = Math;
 			sourceTree = "<group>";
@@ -372,16 +372,16 @@
 		7A0F8A760C5CA91F0018DD1F /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				7A2F41C60C75786100FB3B69 /* CheckBoardTest.cpp */,
 				7A2F41C70C75786100FB3B69 /* CheckBoardTest.h */,
-				7A2F41C80C75786100FB3B69 /* InterpolatedModelTest.cpp */,
+				7A2F41C60C75786100FB3B69 /* CheckBoardTest.cpp */,
 				7A2F41C90C75786100FB3B69 /* InterpolatedModelTest.h */,
-				7ABA8C0110FDA599000EB032 /* GPUGeometryModelTest.cpp */,
+				7A2F41C80C75786100FB3B69 /* InterpolatedModelTest.cpp */,
 				7ABA8C0010FDA599000EB032 /* GPUGeometryModelTest.h */,
-				7AA6D9931101A5A10069471B /* ColladaTest.cpp */,
+				7ABA8C0110FDA599000EB032 /* GPUGeometryModelTest.cpp */,
 				7AA6D9921101A5A10069471B /* ColladaTest.h */,
-				7ACE34F811122FA600EC758D /* GPUCalculationEngineTest.cpp */,
+				7AA6D9931101A5A10069471B /* ColladaTest.cpp */,
 				7ACE34F711122FA600EC758D /* GPUCalculationEngineTest.h */,
+				7ACE34F811122FA600EC758D /* GPUCalculationEngineTest.cpp */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -389,8 +389,8 @@
 		7A19B9350C54323E008FD0EE /* Math */ = {
 			isa = PBXGroup;
 			children = (
-				7A0F8A4E0C5CA8AB0018DD1F /* MathHelper.cpp */,
 				7A0F8A4F0C5CA8AB0018DD1F /* MathHelper.h */,
+				7A0F8A4E0C5CA8AB0018DD1F /* MathHelper.cpp */,
 			);
 			name = Math;
 			sourceTree = "<group>";
@@ -410,10 +410,10 @@
 				7A7639BD0C78094300600572 /* Graphics */,
 				7A0F8A750C5CA9120018DD1F /* Math */,
 				7A0F8A760C5CA91F0018DD1F /* Model */,
-				7A2F41CE0C75787C00FB3B69 /* ProjectConfigTest.cpp */,
 				7A2F41CF0C75787C00FB3B69 /* ProjectConfigTest.h */,
-				7A2F41D00C75787C00FB3B69 /* UnitTests.cpp */,
+				7A2F41CE0C75787C00FB3B69 /* ProjectConfigTest.cpp */,
 				7A2F41D10C75787C00FB3B69 /* UnitTests.h */,
+				7A2F41D00C75787C00FB3B69 /* UnitTests.cpp */,
 			);
 			name = CPPUnit;
 			sourceTree = "<group>";
@@ -439,16 +439,16 @@
 		7A47C2720C51B7DC005A42B7 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				7A0F8A520C5CA8C90018DD1F /* AbstractModel.cpp */,
 				7A0F8A530C5CA8C90018DD1F /* AbstractModel.h */,
-				7A0F8A540C5CA8C90018DD1F /* CheckBoard.cpp */,
+				7A0F8A520C5CA8C90018DD1F /* AbstractModel.cpp */,
 				7A0F8A550C5CA8C90018DD1F /* CheckBoard.h */,
-				7AE6412610FBAC9B00C0AE45 /* GPUGeometryModel.cpp */,
+				7A0F8A540C5CA8C90018DD1F /* CheckBoard.cpp */,
 				7AE63EB610FBA45E00C0AE45 /* GPUGeometryModel.h */,
-				7AE6412C10FBACC800C0AE45 /* GPUCalculationEngine.cpp */,
+				7AE6412610FBAC9B00C0AE45 /* GPUGeometryModel.cpp */,
 				7AE6411D10FBA68800C0AE45 /* GPUCalculationEngine.h */,
-				7A0F8A560C5CA8C90018DD1F /* InterpolatedModel.cpp */,
+				7AE6412C10FBACC800C0AE45 /* GPUCalculationEngine.cpp */,
 				7A0F8A570C5CA8C90018DD1F /* InterpolatedModel.h */,
+				7A0F8A560C5CA8C90018DD1F /* InterpolatedModel.cpp */,
 				7AE6411E10FBA78A00C0AE45 /* Point.h */,
 				7AA6D91C110196090069471B /* Triangle.h */,
 				7AA6D915110195BC0069471B /* TriangleByPointIndex.h */,
@@ -459,10 +459,10 @@
 		7A5B32C70C51B41E00833B6F /* Control */ = {
 			isa = PBXGroup;
 			children = (
-				7A0F8A3E0C5CA8650018DD1F /* ControllerAdapter.cpp */,
 				7A0F8A3F0C5CA8650018DD1F /* ControllerAdapter.h */,
-				7A0F8A400C5CA8650018DD1F /* MouseAdapter.cpp */,
+				7A0F8A3E0C5CA8650018DD1F /* ControllerAdapter.cpp */,
 				7A0F8A410C5CA8650018DD1F /* MouseAdapter.h */,
+				7A0F8A400C5CA8650018DD1F /* MouseAdapter.cpp */,
 			);
 			name = Control;
 			sourceTree = "<group>";
@@ -470,10 +470,10 @@
 		7A5B32CA0C51B45A00833B6F /* Graphics */ = {
 			isa = PBXGroup;
 			children = (
-				7A0F8A460C5CA8910018DD1F /* AbstractDrawingCode.cpp */,
 				7A0F8A470C5CA8910018DD1F /* AbstractDrawingCode.h */,
-				7A0F8A480C5CA8910018DD1F /* OpenGLDrawingCode.cpp */,
+				7A0F8A460C5CA8910018DD1F /* AbstractDrawingCode.cpp */,
 				7A0F8A490C5CA8910018DD1F /* OpenGLDrawingCode.h */,
+				7A0F8A480C5CA8910018DD1F /* OpenGLDrawingCode.cpp */,
 			);
 			name = Graphics;
 			sourceTree = "<group>";
@@ -512,8 +512,8 @@
 		7A7639BD0C78094300600572 /* Graphics */ = {
 			isa = PBXGroup;
 			children = (
-				7A7639BF0C78099C00600572 /* AbstractDrawingCodeTest.cpp */,
 				7A7639BE0C78099C00600572 /* AbstractDrawingCodeTest.h */,
+				7A7639BF0C78099C00600572 /* AbstractDrawingCodeTest.cpp */,
 			);
 			name = Graphics;
 			sourceTree = "<group>";

@@ -54,10 +54,6 @@
  * Copyright © 2006 Apple Computer, Inc., All Rights Reserved
  */
 
-#include "GPUCalculationEngine.h"
-#include "GPUGeometryModel.h"
-#include "SimpleDesignByContract.h"
-
 #include <assert.h>
 
 #include <OpenGL/gl.h>
@@ -65,6 +61,11 @@
 
 #include <string>
 #include <iostream>
+
+#include "GPUCalculationEngine.h"
+#include "GPUGeometryModel.h"
+#include "SimpleDesignByContract.h"
+#include "MathHelper.h"
 
 using namespace hdsim;
 using namespace std;
@@ -119,7 +120,7 @@ static bool getAndResetGLErrorStatus()
    
 	while (err != GL_NO_ERROR) 
    {
-		cerr << "glError: " << reinterpret_cast<const char *>(gluErrorString(err)) << " caught at " << __FILE__ << " line " << __LINE__ << endl;
+		cerr << "glError: " << err << " detail: " << reinterpret_cast<const char *>(gluErrorString(err)) << " caught at " << __FILE__ << " line " << __LINE__ << endl;
 		err = glGetError();
    }
    
@@ -151,11 +152,12 @@ void GPUCalculationEngine::calculateEngine(const AbstractModel *model)
    CHECK(geometryModel, "This calculation engine operates only with the geometry model");
 
    glBindFramebufferEXT(GL_FRAMEBUFFER_EXT, frameBufferID_);
+   CHECK(!getAndResetGLErrorStatus(), "Error binding frameBuffer");
    
    GLuint status = glCheckFramebufferStatusEXT(GL_FRAMEBUFFER_EXT);
    if (status != GL_FRAMEBUFFER_COMPLETE_EXT)
    {
-      cerr << "Error, FBO status " <<  status << endl;
+      cerr << "Error in calculateEngine's glCheckFramebufferStatusEXT, FBO status " <<  status << endl;
       
       // Try to restore everything, and cleanup errors
       glBindFramebufferEXT(GL_FRAMEBUFFER_EXT, 0);
@@ -165,12 +167,16 @@ void GPUCalculationEngine::calculateEngine(const AbstractModel *model)
    
    // Position camera
    glMatrixMode(GL_PROJECTION);
+   CHECK(!getAndResetGLErrorStatus(), "Error setting projection matrix mode");
+
    glLoadIdentity();
+   CHECK(!getAndResetGLErrorStatus(), "Error in glLoadIdentity");
    
+   // Set camera and planes to Z_CORRECTION_FACTOR*z to avoid problems due to Z buffer aliasing
    glOrtho(geometryModel->getRenderedAreaMinX(), geometryModel->getRenderedAreaMaxX(), 
            geometryModel->getRenderedAreaMinY(), geometryModel->getRenderedAreaMaxY(),
-           geometryModel->getBoundMaxZ(), geometryModel->getBoundMinZ());
-   
+           Z_CORRECTION_FACTOR * geometryModel->getBoundMaxZ(), Z_CORRECTION_FACTOR * geometryModel->getBoundMinZ());
+
    if (getAndResetGLErrorStatus())
    {
       // Try to restore everything, and cleanup errors
@@ -180,7 +186,10 @@ void GPUCalculationEngine::calculateEngine(const AbstractModel *model)
    }
    
    glMatrixMode(GL_MODELVIEW);
+   CHECK(!getAndResetGLErrorStatus(), "Error setting modelView matrix mode");
+   
    glLoadIdentity();
+   CHECK(!getAndResetGLErrorStatus(), "Error in glLoadIdentity");
    
    gluLookAt(// Eye position
              0, 0, geometryModel->getBoundMaxZ(),
@@ -189,14 +198,22 @@ void GPUCalculationEngine::calculateEngine(const AbstractModel *model)
              // Up position
              0, 1, 0); 
    
+   CHECK(!getAndResetGLErrorStatus(), "Error in gluLookAt");
+   
    glEnable(GL_DEPTH_TEST);
+   CHECK(!getAndResetGLErrorStatus(), "Error in enabling depth test");
+   
    glClearDepth(geometryModel->getBoundMinZ());
+   CHECK(!getAndResetGLErrorStatus(), "Error clearing depth buffer");
+   
    glDepthFunc(GL_GEQUAL);
+   CHECK(!getAndResetGLErrorStatus(), "Error setting depth function");
    
    // All bound, now lets go ahead and draw
    // This might benefit from the display list approach
    // Orientation is counterclockwise here
    glBegin(GL_TRIANGLES);
+   
    for (int indexTriangle = 0; indexTriangle < geometryModel->getNumTriangles(); indexTriangle++)
    {
       TriangleByPointIndexes triangle = geometryModel->getTriangle(indexTriangle);
@@ -211,8 +228,21 @@ void GPUCalculationEngine::calculateEngine(const AbstractModel *model)
       glVertex3d(point.getX(), point.getY(), point.getZ());
    }
    glEnd();
+   CHECK(!getAndResetGLErrorStatus(), "Error in glEnd");
    
-   glReadPixels(0, 0, width_, height_, GL_DEPTH_COMPONENT, GL_DOUBLE, renderedDepth_);   
+   glFinish();
+   CHECK(!getAndResetGLErrorStatus(), "Error in glFinish");
+   
+   glReadPixels(0, 0, width_, height_, GL_DEPTH_COMPONENT, GL_FLOAT, renderedDepth_);   
+   CHECK(!getAndResetGLErrorStatus(), "Error in glReadPixels");
+   
+   // Finally, recalc Z to bounds
+   double zSize = fabs(Z_CORRECTION_FACTOR * (geometryModel->getBoundMaxZ() - geometryModel->getBoundMinZ()));
+   
+   for (int indexDepthBuffer = 0; indexDepthBuffer < geometryModel->getSizeX() * geometryModel->getSizeY(); indexDepthBuffer++)
+   {
+      renderedDepth_[indexDepthBuffer] *= zSize;
+   }
 }
 
 bool GPUCalculationEngine::initFrameBuffer(int width, int height) 
@@ -221,6 +251,7 @@ bool GPUCalculationEngine::initFrameBuffer(int width, int height)
    
    // Following code is based on Apple OpenGL Programming Guide for Mac OS X, page 46
    const int PIXEL_MEM_SIZE = 32;
+   const int BYTES_PER_PIXEL = PIXEL_MEM_SIZE/8;
    
    CGLPixelFormatAttribute openGLAttributes[] =
    {
@@ -245,68 +276,87 @@ bool GPUCalculationEngine::initFrameBuffer(int width, int height)
    CGLSetCurrentContext(cglContext_);
    CHECK(!getAndResetGLErrorStatus(), "GL Error Occured");
 
-   offScreenMemory_ = new char[width * height * PIXEL_MEM_SIZE/8];
-   CGLSetOffScreen(cglContext_, width, height, width * PIXEL_MEM_SIZE * 4, offScreenMemory_);
+   offScreenMemory_ = new char[width * height * BYTES_PER_PIXEL];
+   CGLSetOffScreen(cglContext_, width, height, width * BYTES_PER_PIXEL, offScreenMemory_);
    CHECK(!getAndResetGLErrorStatus(), "GL Error Occured");
 
    // Now, lets setup FBO objects (if supported)
 	if (!isOpenGLExtensionSupported("GL_EXT_framebuffer_object"))
    {
+      cerr << "GL_EXT_framebuffer_object is not supported" << endl;
       return false;
    }
    
    GLenum status;
    
    glGenFramebuffersEXT(1, &frameBufferID_);
-   CHECK(!getAndResetGLErrorStatus(), "GL Error Occured");
+   CHECK(!getAndResetGLErrorStatus(), "Can't generate framebuffer");
+   
+   glBindFramebufferEXT(GL_FRAMEBUFFER_EXT, frameBufferID_);
+   CHECK(!getAndResetGLErrorStatus(), "Can't bind framebuffer");
 
    glGenRenderbuffersEXT(1, &renderBufferID_);
-   CHECK(!getAndResetGLErrorStatus(), "GL Error Occured");
+   CHECK(!getAndResetGLErrorStatus(), "Can't create renderbuffer");
    
    glBindRenderbufferEXT(GL_RENDERBUFFER_EXT, renderBufferID_);
-   CHECK(!getAndResetGLErrorStatus(), "GL Error Occured");
-
+   CHECK(!getAndResetGLErrorStatus(), "Can't bind renderbuffer");
+   
    glRenderbufferStorageEXT(GL_RENDERBUFFER_EXT, GL_DEPTH_COMPONENT, width, height);
-   CHECK(!getAndResetGLErrorStatus(), "GL Error Occured");
-
+   CHECK(!getAndResetGLErrorStatus(), "Can't create renderbuffer depth storage");
+   
    glFramebufferRenderbufferEXT(GL_FRAMEBUFFER_EXT, GL_DEPTH_ATTACHMENT_EXT, GL_RENDERBUFFER_EXT, renderBufferID_);
-   CHECK(!getAndResetGLErrorStatus(), "GL Error Occured");
+   CHECK(!getAndResetGLErrorStatus(), "Can't attach renderbuffer to framebuffer");
+
+   glGenRenderbuffersEXT(1, &colorBufferID_);
+   CHECK(!getAndResetGLErrorStatus(), "Can't create color buffer");
    
-   // Allocate
-	glRenderbufferStorageEXT(GL_RENDERBUFFER_EXT, GL_DEPTH_COMPONENT, width, height);
-   CHECK(!getAndResetGLErrorStatus(), "GL Error Occured");
+   glBindRenderbufferEXT(GL_RENDERBUFFER_EXT, colorBufferID_);
+   CHECK(!getAndResetGLErrorStatus(), "Can't bind renderbuffer color storage");
    
-   // And bind
-   glBindRenderbufferEXT(GL_RENDERBUFFER_EXT, renderBufferID_);
-   CHECK(!getAndResetGLErrorStatus(), "GL Error Occured");
+   glRenderbufferStorageEXT(GL_RENDERBUFFER_EXT, GL_RGBA8, width, height);
+   CHECK(!getAndResetGLErrorStatus(), "Can't create renderbuffer color storage");
    
+   glFramebufferRenderbufferEXT(GL_FRAMEBUFFER_EXT, GL_COLOR_ATTACHMENT0_EXT, GL_RENDERBUFFER_EXT, colorBufferID_);   
+   CHECK(!getAndResetGLErrorStatus(), "Can't attach renderbuffer color storage");
+  
    status = glCheckFramebufferStatusEXT(GL_FRAMEBUFFER_EXT);
    if (status != GL_FRAMEBUFFER_COMPLETE_EXT)
-      cerr << "Error, FBO status " <<  status;
+   {
+      cerr << "Error in glCheckFramebufferStatusEXT, FBO status " <<  status << endl;
+      return false;
+   }
    
-   return false;
+   return true;
 }
 
 bool GPUCalculationEngine::destroyFrameBuffer()
 {
    PRECONDITION(wasInitialized_);
    
-   glBindFramebufferEXT(GL_FRAMEBUFFER_EXT, 0);
-   glPopMatrix();
-   glPopAttrib();
-   CHECK(!getAndResetGLErrorStatus(), "GL Error Occured");
-   
-   CGLSetCurrentContext(0); 
-   CGLClearDrawable(cglContext_); 
-   CGLDestroyContext(cglContext_);
-   
    // Don't use framebuffer extension any more
    glBindFramebufferEXT(GL_FRAMEBUFFER_EXT, 0);
-	glDeleteRenderbuffersEXT(1, &renderBufferID_);
-   glDeleteFramebuffersEXT(1, &frameBufferID_);
+   CHECK(!getAndResetGLErrorStatus(), "Error in glBindFramebufferEXT");
    
+	glDeleteRenderbuffersEXT(1, &renderBufferID_);
+   CHECK(!getAndResetGLErrorStatus(), "Error in renderBufferID_");
+
+   glDeleteFramebuffersEXT(1, &colorBufferID_);
+   CHECK(!getAndResetGLErrorStatus(), "Error in colorBufferID_");
+
+   glDeleteFramebuffersEXT(1, &frameBufferID_);
+   CHECK(!getAndResetGLErrorStatus(), "Error in frameBufferID_");
+
    delete [] offScreenMemory_;
 	delete [] renderedDepth_;
+   
+   CGLSetCurrentContext(0); 
+   CHECK(!getAndResetGLErrorStatus(), "Error in CGLSetCurrentContext");
+   
+   CGLClearDrawable(cglContext_); 
+   CHECK(!getAndResetGLErrorStatus(), "Error in CGLClearDrawable");
+
+   CGLDestroyContext(cglContext_);
+   CHECK(!getAndResetGLErrorStatus(), "Error in CGLDestroyContext");
    
 	return !getAndResetGLErrorStatus();
 }
@@ -324,7 +374,8 @@ void GPUCalculationEngine::initialize(const AbstractModel *model)
    // Now we need to extract calculated Z buffer
    renderedDepth_ = new double[width_ * height_];
    
-   initFrameBuffer(geometryModel->getSizeX(), geometryModel->getSizeY());
+   bool status = initFrameBuffer(geometryModel->getSizeX(), geometryModel->getSizeY());
+   CHECK(status, "Can't initialize frame buffer");
    wasInitialized_ = true;
 }
 

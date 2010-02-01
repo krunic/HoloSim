@@ -100,7 +100,7 @@ namespace hdsim {
          /**
           * IDs of the current render buffer and frame buffer objects used
           */
-         GLuint frameBufferID_, renderBufferID_;
+         GLuint frameBufferID_, renderBufferID_, colorBufferID_;
       
       	/**
           * Were we succesfully initialized

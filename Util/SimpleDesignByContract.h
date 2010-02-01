@@ -19,9 +19,9 @@
 
 #else
 
-#define PRECONDITION(condition, message)
-#define POSTCONDITION(condition, message)
-#define CHECK(condition, message)
+#define PRECONDITION(condition, message) condition
+#define POSTCONDITION(condition, message) condition
+#define CHECK(condition, message) condition
 #define FAIL(message)
 
 #endif

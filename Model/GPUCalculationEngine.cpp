@@ -175,7 +175,7 @@ void GPUCalculationEngine::calculateEngine(const AbstractModel *model)
    // Set camera and planes to Z_CORRECTION_FACTOR*z to avoid problems due to Z buffer aliasing
    glOrtho(geometryModel->getRenderedAreaMinX(), geometryModel->getRenderedAreaMaxX(), 
            geometryModel->getRenderedAreaMinY(), geometryModel->getRenderedAreaMaxY(),
-           Z_CORRECTION_FACTOR * geometryModel->getBoundMaxZ(), Z_CORRECTION_FACTOR * geometryModel->getBoundMinZ());
+           geometryModel->getRenderedAreaMinZ(), geometryModel->getRenderedAreaMaxZ());
 
    if (getAndResetGLErrorStatus())
    {
@@ -192,7 +192,7 @@ void GPUCalculationEngine::calculateEngine(const AbstractModel *model)
    CHECK(!getAndResetGLErrorStatus(), "Error in glLoadIdentity");
    
    gluLookAt(// Eye position
-             0, 0, geometryModel->getBoundMaxZ(),
+             0, 0, geometryModel->getRenderedAreaMaxZ(),
              // Center position
              0, 0, 0, 
              // Up position
@@ -203,11 +203,23 @@ void GPUCalculationEngine::calculateEngine(const AbstractModel *model)
    glEnable(GL_DEPTH_TEST);
    CHECK(!getAndResetGLErrorStatus(), "Error in enabling depth test");
    
-   glClearDepth(geometryModel->getBoundMinZ());
-   CHECK(!getAndResetGLErrorStatus(), "Error clearing depth buffer");
+   glDepthMask(GL_TRUE);
+   CHECK(!getAndResetGLErrorStatus(), "Depth mask failed");
    
-   glDepthFunc(GL_GEQUAL);
+   glClearDepth(1);
+   CHECK(!getAndResetGLErrorStatus(), "Error setting value for clearing depth buffer");
+
+   glClear(GL_DEPTH_BUFFER_BIT);
+   CHECK(!getAndResetGLErrorStatus(), "Error clearing depth buffer");
+
+   glDepthFunc(GL_LESS);
    CHECK(!getAndResetGLErrorStatus(), "Error setting depth function");
+   
+   glDrawBuffer(GL_NONE);
+   CHECK(!getAndResetGLErrorStatus(), "Error disabling color drawing");
+
+   glReadBuffer(GL_NONE);
+   CHECK(!getAndResetGLErrorStatus(), "Error disabling read buffer");
    
    // All bound, now lets go ahead and draw
    // This might benefit from the display list approach
@@ -230,19 +242,12 @@ void GPUCalculationEngine::calculateEngine(const AbstractModel *model)
    glEnd();
    CHECK(!getAndResetGLErrorStatus(), "Error in glEnd");
    
-   glFinish();
-   CHECK(!getAndResetGLErrorStatus(), "Error in glFinish");
-   
    glReadPixels(0, 0, width_, height_, GL_DEPTH_COMPONENT, GL_FLOAT, renderedDepth_);   
    CHECK(!getAndResetGLErrorStatus(), "Error in glReadPixels");
    
-   // Finally, recalc Z to bounds
-   double zSize = fabs(Z_CORRECTION_FACTOR * (geometryModel->getBoundMaxZ() - geometryModel->getBoundMinZ()));
-   
-   for (int indexDepthBuffer = 0; indexDepthBuffer < geometryModel->getSizeX() * geometryModel->getSizeY(); indexDepthBuffer++)
-   {
-      renderedDepth_[indexDepthBuffer] *= zSize;
-   }
+   // Unbind frame buffer so that we could do rendering to different windows
+   glBindFramebufferEXT(GL_FRAMEBUFFER_EXT, 0);
+   CHECK(!getAndResetGLErrorStatus(), "Error binding frameBuffer");
 }
 
 bool GPUCalculationEngine::initFrameBuffer(int width, int height) 
@@ -372,7 +377,7 @@ void GPUCalculationEngine::initialize(const AbstractModel *model)
    height_ = geometryModel->getSizeY();
    
    // Now we need to extract calculated Z buffer
-   renderedDepth_ = new double[width_ * height_];
+   renderedDepth_ = new GLfloat[width_ * height_];
    
    bool status = initFrameBuffer(geometryModel->getSizeX(), geometryModel->getSizeY());
    CHECK(status, "Can't initialize frame buffer");

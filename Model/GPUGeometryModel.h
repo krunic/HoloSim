@@ -338,9 +338,25 @@ namespace hdsim {
       }
       
       /**
+       * Get minZ of the rendered area
+       */
+      virtual double getRenderedAreaMinZ() const
+      {
+         return renderedAreaMinZ_;
+      }
+      
+		/**
+       * Get maxZ of the bound
+       */
+      virtual double getRenderedAreaMaxZ() const
+      {
+         return renderedAreaMaxZ_;
+      }
+      
+      /**
        * Set rendered area bounds
        */
-      virtual void setRenderedArea(double minX, double minY, double maxX, double maxY)
+      virtual void setRenderedArea(double minX, double minY, double minZ, double maxX, double maxY, double maxZ)
       {
 		   changedSinceLastRecalc_ = true;         
          
@@ -348,6 +364,8 @@ namespace hdsim {
          renderedAreaMinY_ = minY;
          renderedAreaMaxX_ = maxX;
          renderedAreaMaxY_ = maxY;
+         renderedAreaMinZ_ = minZ;
+         renderedAreaMaxZ_ = maxZ;         
       }
       
    private:
@@ -360,7 +378,7 @@ namespace hdsim {
       /**
        * Rendered area 
        */
-      double renderedAreaMinX_, renderedAreaMinY_, renderedAreaMaxX_, renderedAreaMaxY_;
+      double renderedAreaMinX_, renderedAreaMinY_, renderedAreaMaxX_, renderedAreaMaxY_, renderedAreaMinZ_, renderedAreaMaxZ_;
       
       /**
        * Associated calculation engine

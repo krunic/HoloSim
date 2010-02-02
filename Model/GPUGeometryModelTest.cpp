@@ -21,6 +21,28 @@ using namespace std;
 
 CPPUNIT_TEST_SUITE_REGISTRATION(GPUGeometryModelTest);
 
+static void writeDepthBufferToCSVFile(const char *fileName, const GPUGeometryModel &model)
+{
+   // Write debug output
+   ofstream myfile;
+   myfile.open(fileName);
+   
+   for (int indexY = 0; indexY < model.getSizeY(); indexY++)
+   {
+      for (int indexX = 0; indexX < model.getSizeX(); indexX++)
+      {
+         myfile << model.getAt(indexX, indexY);
+         if (indexX < model.getSizeX() - 1)
+            myfile << ",";
+      }
+      
+      myfile << endl;
+   }
+   
+   myfile.close();  
+}
+
+
 GPUGeometryModelTest::GPUGeometryModelTest()
 {
 
@@ -58,7 +80,9 @@ void GPUGeometryModelTest::testCopyConstructor()
    const double MIN_Y = -1;
    const double MAX_X = 13324;
    const double MAX_Y = -145;
-   original.setRenderedArea(MIN_X, MIN_Y, MAX_X, MAX_Y);
+   const double MIN_Z = -324;
+   const double MAX_Z = 32.23;
+   original.setRenderedArea(MIN_X, MIN_Y, MIN_Z, MAX_X, MAX_Y, MAX_Z);
    
    GPUGeometryModel constructorCopy(original);
 
@@ -66,12 +90,16 @@ void GPUGeometryModelTest::testCopyConstructor()
    CPPUNIT_ASSERT_MESSAGE("Rendered area incorrectly copied in max X", areEqual(constructorCopy.getRenderedAreaMaxX(), MAX_X));
    CPPUNIT_ASSERT_MESSAGE("Rendered area incorrectly copied in min Y", areEqual(constructorCopy.getRenderedAreaMinY(), MIN_Y));
    CPPUNIT_ASSERT_MESSAGE("Rendered area incorrectly copied in max Y", areEqual(constructorCopy.getRenderedAreaMaxY(), MAX_Y));
+   CPPUNIT_ASSERT_MESSAGE("Rendered area incorrectly copied in min Z", areEqual(constructorCopy.getRenderedAreaMinZ(), MIN_Z));
+   CPPUNIT_ASSERT_MESSAGE("Rendered area incorrectly copied in max Z", areEqual(constructorCopy.getRenderedAreaMaxZ(), MAX_Z));
    
    // Check that bounds are correctly copied
    CPPUNIT_ASSERT_MESSAGE("Bounds not correctly copied in min X", areEqual(original.getBoundMinX(), constructorCopy.getBoundMinX()));
    CPPUNIT_ASSERT_MESSAGE("Bounds not correctly copied in max X", areEqual(original.getBoundMaxX(), constructorCopy.getBoundMaxX()));
    CPPUNIT_ASSERT_MESSAGE("Bounds not correctly copied in min Y", areEqual(original.getBoundMinY(), constructorCopy.getBoundMinY()));
    CPPUNIT_ASSERT_MESSAGE("Bounds not correctly copied in max Y", areEqual(original.getBoundMaxY(), constructorCopy.getBoundMaxY()));
+   CPPUNIT_ASSERT_MESSAGE("Bounds not correctly copied in min Z", areEqual(original.getBoundMinZ(), constructorCopy.getBoundMinZ()));
+   CPPUNIT_ASSERT_MESSAGE("Bounds not correctly copied in max Z", areEqual(original.getBoundMaxZ(), constructorCopy.getBoundMaxZ()));
    
    // Check dimensions correctly coppied
    CPPUNIT_ASSERT_MESSAGE("Dimensions not correctly copied", constructorCopy.getSizeX() == SIZE_X  &&  constructorCopy.getSizeY() == SIZE_Y);
@@ -95,11 +123,12 @@ void GPUGeometryModelTest::testOperatorEqual()
    const double MIN_Y = -1;
    const double MAX_X = 13324;
    const double MAX_Y = -145;
+   const double MIN_Z = -23;
+   const double MAX_Z = 3435.9;
 
-   original.setRenderedArea(MIN_X, MIN_Y, MAX_X, MAX_Y);
+   original.setRenderedArea(MIN_X, MIN_Y, MIN_Z, MAX_X, MAX_Y, MAX_Z);
    original.setSizeX(SIZE_X);
    original.setSizeY(SIZE_Y);
-   original.setRenderedArea(MIN_X, MIN_Y, MAX_X, MAX_Y);
    
    GPUGeometryModel operatorEqualCopy = original; 
    
@@ -107,12 +136,16 @@ void GPUGeometryModelTest::testOperatorEqual()
    CPPUNIT_ASSERT_MESSAGE("Rendered area incorrectly copied in max X for operator =", areEqual(operatorEqualCopy.getRenderedAreaMaxX(), MAX_X));
    CPPUNIT_ASSERT_MESSAGE("Rendered area incorrectly copied in min Y for operator =", areEqual(operatorEqualCopy.getRenderedAreaMinY(), MIN_Y));
    CPPUNIT_ASSERT_MESSAGE("Rendered area incorrectly copied in max Y for operator =", areEqual(operatorEqualCopy.getRenderedAreaMaxY(), MAX_Y));
+   CPPUNIT_ASSERT_MESSAGE("Rendered area incorrectly copied in min Z for operator =", areEqual(operatorEqualCopy.getRenderedAreaMinZ(), MIN_Z));
+   CPPUNIT_ASSERT_MESSAGE("Rendered area incorrectly copied in max Z for operator =", areEqual(operatorEqualCopy.getRenderedAreaMaxZ(), MAX_Z));
    
    // Check that bounds are correctly copied
    CPPUNIT_ASSERT_MESSAGE("Bounds not correctly copied in min X", areEqual(original.getBoundMinX(), operatorEqualCopy.getBoundMinX()));
    CPPUNIT_ASSERT_MESSAGE("Bounds not correctly copied in max X", areEqual(original.getBoundMaxX(), operatorEqualCopy.getBoundMaxX()));
    CPPUNIT_ASSERT_MESSAGE("Bounds not correctly copied in min Y", areEqual(original.getBoundMinY(), operatorEqualCopy.getBoundMinY()));
    CPPUNIT_ASSERT_MESSAGE("Bounds not correctly copied in max Y", areEqual(original.getBoundMaxY(), operatorEqualCopy.getBoundMaxY()));
+   CPPUNIT_ASSERT_MESSAGE("Bounds not correctly copied in min Y", areEqual(original.getBoundMinZ(), operatorEqualCopy.getBoundMinZ()));
+   CPPUNIT_ASSERT_MESSAGE("Bounds not correctly copied in max Y", areEqual(original.getBoundMaxZ(), operatorEqualCopy.getBoundMaxZ()));
    
    // Check dimensions correctly coppied
    CPPUNIT_ASSERT_MESSAGE("Dimensions not correctly copied for operator =", operatorEqualCopy.getSizeX() == SIZE_X  &&  operatorEqualCopy.getSizeY() == SIZE_Y);
@@ -179,7 +212,7 @@ void GPUGeometryModelTest::testModelCleaning()
 {
    GPUGeometryModel testFixture(1, 2);
    
-   testFixture.setRenderedArea(-1, -2, 3, 4);
+   testFixture.setRenderedArea(-1, -2, 3, 4, -5, 6);
    
 	testFixture.addPoint(createPoint(0, 0, 0.5));
 	testFixture.addPoint(createPoint(0, 1, 0));
@@ -224,10 +257,12 @@ void GPUGeometryModelTest::testGeometryCleaning()
    const double renderedMinY = 49.43;
    const double renderedMaxX = 943422.12;
    const double renderedMaxY = 212321.434;
+   const double renderedMinZ = 1233.43;
+   const double renderedMaxZ = 4324.34;
    
    GPUGeometryModel testFixture(1, 2);
    
-   testFixture.setRenderedArea(renderedMinX, renderedMinY, renderedMaxX, renderedMaxY);
+   testFixture.setRenderedArea(renderedMinX, renderedMinY, renderedMinZ, renderedMaxX, renderedMaxY, renderedMaxZ);
    
    // Add 3 points and triangle to the model
    testFixture.addPoint(createPoint(1, 1, 0));
@@ -246,6 +281,8 @@ void GPUGeometryModelTest::testGeometryCleaning()
    CPPUNIT_ASSERT_MESSAGE("Bounds should be 0 after cleaning in max X", areEqual(0, testFixture.getBoundMaxX()));
    CPPUNIT_ASSERT_MESSAGE("Bounds should be 0 after cleaning in min Y", areEqual(0, testFixture.getBoundMinY()));
    CPPUNIT_ASSERT_MESSAGE("Bounds should be 0 after cleaning in max Y", areEqual(0, testFixture.getBoundMaxY()));
+   CPPUNIT_ASSERT_MESSAGE("Bounds should be 0 after cleaning in min Z", areEqual(0, testFixture.getBoundMinZ()));
+   CPPUNIT_ASSERT_MESSAGE("Bounds should be 0 after cleaning in max Z", areEqual(0, testFixture.getBoundMaxZ()));
    
    // Now points should all be empty
    CPPUNIT_ASSERT_MESSAGE("Points not correctly cleared", !testFixture.getNumPoints());
@@ -291,9 +328,9 @@ void GPUGeometryModelTest::testRenderArea()
 {
    GPUGeometryModel testFixture;
    
-   const double MIN_X = -1, MIN_Y = -2, MAX_X = 324.5, MAX_Y = 435.4;
+   const double MIN_X = -1, MIN_Y = -2, MAX_X = 324.5, MAX_Y = 435.4, MIN_Z = 12.12, MAX_Z = 123.32;
    
-   testFixture.setRenderedArea(MIN_X, MIN_Y, MAX_X, MAX_Y);
+   testFixture.setRenderedArea(MIN_X, MIN_Y, MIN_Z, MAX_X, MAX_Y, MAX_Z);
    
    // Make sure that adding geometry doesn't reset the rendered area (it shouldn't because rendered area is not the same thing as bounds
 
@@ -310,22 +347,28 @@ void GPUGeometryModelTest::testRenderArea()
    // Check rendered area is stil at the same extent as before
    CPPUNIT_ASSERT_MESSAGE("Min X of rendered area wrong", areEqual(testFixture.getRenderedAreaMinX(), MIN_X));
    CPPUNIT_ASSERT_MESSAGE("Min Y of rendered area wrong", areEqual(testFixture.getRenderedAreaMinY(), MIN_Y));
+   CPPUNIT_ASSERT_MESSAGE("Min Z of rendered area wrong", areEqual(testFixture.getRenderedAreaMinZ(), MIN_Z));
    CPPUNIT_ASSERT_MESSAGE("Max X of rendered area wrong", areEqual(testFixture.getRenderedAreaMaxX(), MAX_X));
    CPPUNIT_ASSERT_MESSAGE("Max Y of rendered area wrong", areEqual(testFixture.getRenderedAreaMaxY(), MAX_Y));
+   CPPUNIT_ASSERT_MESSAGE("Max Z of rendered area wrong", areEqual(testFixture.getRenderedAreaMaxZ(), MAX_Z));
 }
 
 void GPUGeometryModelTest::testQuadCoveringWholeArea()
 {
    const int SIZE_X = 30;
    const int SIZE_Y = 30;
-   
+    
+   // Expected offset of Z buffer. We would set quad at the half of the viewing frustum so Z buffer should be 1/2
+   const double Z_BUFFER_VALUE = 0.75;
+     
    // Set a quad that covers the whole area
    GPUGeometryModel testFixture(SIZE_X, SIZE_Y);
    
-   const double Z_OFFSET = 1;
    const double QUAD_SIZE = 1;
+   const double Z_OFFSET = -3*QUAD_SIZE/4;
    
-   testFixture.setRenderedArea(0, 0, QUAD_SIZE/2, QUAD_SIZE/2);
+   testFixture.setRenderedArea(-QUAD_SIZE/2, -QUAD_SIZE/2, -QUAD_SIZE/2, QUAD_SIZE/2, QUAD_SIZE/2, QUAD_SIZE/2);
+   
    testFixture.addPoint(createPoint(-QUAD_SIZE, -QUAD_SIZE, Z_OFFSET));
    testFixture.addPoint(createPoint(-QUAD_SIZE, QUAD_SIZE, Z_OFFSET));
    testFixture.addPoint(createPoint(QUAD_SIZE, -QUAD_SIZE, Z_OFFSET));
@@ -337,10 +380,14 @@ void GPUGeometryModelTest::testQuadCoveringWholeArea()
    for (int indexY = 0; indexY < SIZE_Y; indexY++)
       for (int indexX = 0; indexX < SIZE_X; indexX++)
       {
-         if (!areEqual(testFixture.getAt(indexX, indexY), Z_OFFSET))
-         {
+         double value = testFixture.getAt(indexX, indexY);
+         if (!areEqual(value, Z_BUFFER_VALUE))
+         {           
             stringstream message;
-            message << "Error at the coordinates X = " << indexX << " Y = " << indexY;
+            message << "Error at the coordinates X = " << indexX << " Y = " << indexY << " got " << value << " instead of " << Z_OFFSET;
+            
+            writeDepthBufferToCSVFile("testQuadCoveringWholeArea.csv", testFixture);
+            
             CPPUNIT_ASSERT_MESSAGE(message.str().c_str(), false);
          }
       }
@@ -353,11 +400,14 @@ void GPUGeometryModelTest::testQuadCoveringPartOfTheArea()
    
    // Set a quad that covers the whole area
    GPUGeometryModel testFixture(SIZE_X, SIZE_Y);
-   
-   const double Z_OFFSET = 1;
+
+   const double Z_OFFSET = 0;
+
+   // Expected offset of Z buffer. We would set quad at the half of the viewing frustum so Z buffer should be 1/2
+	const double Z_BUFFER_VALUE = 0.5;
    const double QUAD_SIZE = 1;
    
-   testFixture.setRenderedArea(-2*QUAD_SIZE, -2*QUAD_SIZE, 2*QUAD_SIZE, 2*QUAD_SIZE);
+   testFixture.setRenderedArea(-2*QUAD_SIZE, -2*QUAD_SIZE, -2*QUAD_SIZE, 2*QUAD_SIZE, 2*QUAD_SIZE, 2*QUAD_SIZE);
    testFixture.addPoint(createPoint(-QUAD_SIZE, -QUAD_SIZE, Z_OFFSET));
    testFixture.addPoint(createPoint(-QUAD_SIZE, QUAD_SIZE, Z_OFFSET));
    testFixture.addPoint(createPoint(QUAD_SIZE, -QUAD_SIZE, Z_OFFSET));
@@ -376,14 +426,14 @@ void GPUGeometryModelTest::testQuadCoveringPartOfTheArea()
       // We are scanning along X axis
       for (int indexX = 0; indexX < SIZE_X; indexX++)
       {
-         stringstream message;
-         message << "Error at the coordinates X = " << indexX << " Y = " << indexY;
-
          double zValue = testFixture.getAt(indexX, indexY);
          
-         CPPUNIT_ASSERT_MESSAGE("Only 0 and Z_OFFSET are valid rasterization values", !areEqual(zValue, 0)  &&  !areEqual(zValue, Z_OFFSET));
+         stringstream message;
+         message << "Error at the coordinates X = " << indexX << " Y = " << indexY << " for value " << zValue;
          
-         if (areEqual(zValue, Z_OFFSET))
+         CPPUNIT_ASSERT_MESSAGE(message.str().c_str(), !areEqual(zValue, 0)  &&  !areEqual(zValue, Z_BUFFER_VALUE));
+         
+         if (areEqual(zValue, Z_BUFFER_VALUE))
          {
             CPPUNIT_ASSERT_MESSAGE("We can encounted Z_OFFSET only in quad or if we didn't entered quad before", !scanlineExited);
             scanlineEntered = true;

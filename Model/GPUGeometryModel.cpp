@@ -17,8 +17,8 @@ using namespace hdsim;
 GPUGeometryModel::GPUGeometryModel() : sizeX_(0), sizeY_(0), boundMinX_(0), boundMaxX_(0), 
 													boundMinY_(0), boundMaxY_(0), boundMinZ_(0), boundMaxZ_(0),
 												   renderedAreaMinX_(0), renderedAreaMinY_(0), renderedAreaMaxX_(0), 
-													renderedAreaMaxY_(0), calculationEngine_(0),
-													changedSinceLastRecalc_(true)
+													renderedAreaMaxY_(0), renderedAreaMinZ_(0), renderedAreaMaxZ_(0), 
+													calculationEngine_(0), changedSinceLastRecalc_(true)
 {
 
 }
@@ -28,8 +28,9 @@ GPUGeometryModel::GPUGeometryModel(int sizeX, int sizeY) : sizeX_(sizeX), sizeY_
                                                            boundMinY_(0), boundMaxY_(0), 
                                                            boundMinZ_(0), boundMaxZ_(0),
                                                            renderedAreaMinX_(0), renderedAreaMinY_(0),
-                                                           renderedAreaMaxX_(0), renderedAreaMaxY_(0), calculationEngine_(0),
-                                                           changedSinceLastRecalc_(true)
+                                                           renderedAreaMaxX_(0), renderedAreaMaxY_(0), 
+																			  renderedAreaMinZ_(0), renderedAreaMaxZ_(0), 
+																			  calculationEngine_(0), changedSinceLastRecalc_(true)
 {
    calculationEngine_ = new GPUCalculationEngine();
 }
@@ -39,8 +40,9 @@ GPUGeometryModel::GPUGeometryModel(const GPUGeometryModel &rhs) : sizeX_(0), siz
 																						boundMinY_(0), boundMaxY_(0), 
 																						boundMinZ_(0), boundMaxZ_(0),
 																						renderedAreaMinX_(0), renderedAreaMinY_(0),
-																						renderedAreaMaxX_(0), renderedAreaMaxY_(0), calculationEngine_(0),
-																						changedSinceLastRecalc_(true)
+																						renderedAreaMaxX_(0), renderedAreaMaxY_(0), 
+																						renderedAreaMinZ_(0), renderedAreaMaxZ_(0), 
+																						calculationEngine_(0), changedSinceLastRecalc_(true)
 {
 	copyFrom(rhs);
 }
@@ -63,7 +65,7 @@ void GPUGeometryModel::initializeToCleanState()
 {
    sizeX_ = sizeY_ = 0;
    changedSinceLastRecalc_ = true;
-	renderedAreaMinX_ = renderedAreaMinY_ = renderedAreaMaxX_ = renderedAreaMaxY_ = 0;
+	renderedAreaMinX_ = renderedAreaMinY_ = renderedAreaMaxX_ = renderedAreaMaxY_ = renderedAreaMinZ_ = renderedAreaMaxZ_ = 0;
    clearGeometry();
 }
 
@@ -91,7 +93,7 @@ void GPUGeometryModel::copyFrom(const GPUGeometryModel &rhs)
    boundMinZ_ = rhs.getBoundMinZ();
    boundMaxZ_ = rhs.getBoundMaxZ();
 
-   setRenderedArea(rhs.getRenderedAreaMinX(), rhs.getRenderedAreaMinY(), rhs.getRenderedAreaMaxX(), rhs.getRenderedAreaMaxY());
+   setRenderedArea(rhs.getRenderedAreaMinX(), rhs.getRenderedAreaMinY(), rhs.getRenderedAreaMinZ(), rhs.getRenderedAreaMaxX(), rhs.getRenderedAreaMaxY(), rhs.getRenderedAreaMaxZ());
    calculationEngine_ = new GPUCalculationEngine();
    
    points_ = rhs.points_;

@@ -125,7 +125,7 @@ namespace hdsim {
       	/**
           * Rendered depth buffer (from the graphic card)
           */
-	      double *renderedDepth_;
+	      GLfloat *renderedDepth_;
 
 	};
    

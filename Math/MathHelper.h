@@ -20,11 +20,6 @@ namespace hdsim {
    static const double FLOATING_POINTS_EQUAL_DELTA = 0.000000000001l;
    
    /**
-    * Correction factor to use in setting Z frustum to avoid aliasing with planes parallel to Z when view frustum matches bounding box (e.g. cube with one side parallel to Z)
-    */
-   static const double Z_CORRECTION_FACTOR = 1.01;
-
-   /**
     * Check that two floating point numbers are sufficiently close
     * 
     * @param x First floating point

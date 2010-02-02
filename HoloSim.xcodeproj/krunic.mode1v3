@@ -227,8 +227,6 @@
 			<key>Layout</key>
 			<array>
 				<dict>
-					<key>BecomeActive</key>
-					<true/>
 					<key>ContentConfiguration</key>
 					<dict>
 						<key>PBXBottomSmartGroupGIDs</key>
@@ -285,13 +283,13 @@
 							<key>PBXSmartGroupTreeModuleOutlineStateSelectionKey</key>
 							<array>
 								<array>
-									<integer>34</integer>
+									<integer>36</integer>
 									<integer>28</integer>
 									<integer>0</integer>
 								</array>
 							</array>
 							<key>PBXSmartGroupTreeModuleOutlineStateVisibleRectKey</key>
-							<string>{{0, 534}, {269, 910}}</string>
+							<string>{{0, 235}, {269, 910}}</string>
 						</dict>
 						<key>PBXTopSmartGroupGIDs</key>
 						<array/>
@@ -321,12 +319,14 @@
 					<key>Dock</key>
 					<array>
 						<dict>
+							<key>BecomeActive</key>
+							<true/>
 							<key>ContentConfiguration</key>
 							<dict>
 								<key>PBXProjectModuleGUID</key>
 								<string>1CE0B20306471E060097A5F4</string>
 								<key>PBXProjectModuleLabel</key>
-								<string>GPUGeometryModel.cpp</string>
+								<string>GPUCalculationEngine.cpp</string>
 								<key>PBXSplitModuleInNavigatorKey</key>
 								<dict>
 									<key>Split0</key>
@@ -334,11 +334,11 @@
 										<key>PBXProjectModuleGUID</key>
 										<string>1CE0B20406471E060097A5F4</string>
 										<key>PBXProjectModuleLabel</key>
-										<string>GPUGeometryModel.cpp</string>
+										<string>GPUCalculationEngine.cpp</string>
 										<key>_historyCapacity</key>
 										<integer>0</integer>
 										<key>bookmark</key>
-										<string>7A6D25FF1118178D00AB6233</string>
+										<string>7AE000D01118E82E00365A0C</string>
 										<key>history</key>
 										<array>
 											<string>7AA27AD60C67D4B200BBC250</string>
@@ -404,7 +404,6 @@
 											<string>7ACE361711125C6700EC758D</string>
 											<string>7ACE3654111280D900EC758D</string>
 											<string>7ACE365E11128E3100EC758D</string>
-											<string>7ACE36631112910500EC758D</string>
 											<string>7ACE36B2111293EE00EC758D</string>
 											<string>7ACE36B3111293EE00EC758D</string>
 											<string>7A967C1911155D1E0020BCD6</string>
@@ -417,12 +416,12 @@
 											<string>7ABD34F41117EA0200D4F16F</string>
 											<string>7A6D253E1117FFE400AB6233</string>
 											<string>7A6D2578111802AB00AB6233</string>
-											<string>7A6D25BD1118121E00AB6233</string>
-											<string>7A6D25CC111814A300AB6233</string>
-											<string>7A6D25CD111814A300AB6233</string>
-											<string>7A6D25F71118174700AB6233</string>
-											<string>7A6D25FD1118178D00AB6233</string>
-											<string>7A6D25FE1118178D00AB6233</string>
+											<string>7A6D268E1118266F00AB6233</string>
+											<string>7AE0FF9C1118C5AF00365A0C</string>
+											<string>7AE0FF9E1118C5AF00365A0C</string>
+											<string>7AE0FFB21118C5FF00365A0C</string>
+											<string>7AE000CE1118E82E00365A0C</string>
+											<string>7AE000CF1118E82E00365A0C</string>
 										</array>
 									</dict>
 									<key>SplitCount</key>
@@ -480,9 +479,9 @@
 			</array>
 			<key>TableOfContents</key>
 			<array>
-				<string>7A6D25411117FFE400AB6233</string>
+				<string>7AE0006A1118DD1800365A0C</string>
 				<string>1CE0B1FE06471DED0097A5F4</string>
-				<string>7A6D25421117FFE400AB6233</string>
+				<string>7AE0006B1118DD1800365A0C</string>
 				<string>1CE0B20306471E060097A5F4</string>
 				<string>1CE0B20506471E060097A5F4</string>
 			</array>
@@ -616,13 +615,13 @@
 	<integer>5</integer>
 	<key>WindowOrderList</key>
 	<array>
-		<string>7A6D258E1118056E00AB6233</string>
-		<string>7A6D257C111802AB00AB6233</string>
-		<string>7A6D257D111802AB00AB6233</string>
-		<string>1CD10A99069EF8BA00B06720</string>
+		<string>7AE000D11118E82E00365A0C</string>
+		<string>7AE000751118DD1800365A0C</string>
+		<string>7AE000761118DD1800365A0C</string>
 		<string>7AB81FC80CFD15870073748B</string>
-		<string>/Users/krunic/Documents/Projects/School/PhD/CS/Holodeck/XCode/HoloSim/trunk/HoloSim.xcodeproj</string>
+		<string>1CD10A99069EF8BA00B06720</string>
 		<string>1C78EAAD065D492600B07095</string>
+		<string>/Users/krunic/Documents/Projects/School/PhD/CS/Holodeck/XCode/HoloSim/trunk/HoloSim.xcodeproj</string>
 	</array>
 	<key>WindowString</key>
 	<string>0 59 1680 969 0 0 1680 1028 </string>
@@ -646,7 +645,7 @@
 								<key>PBXProjectModuleGUID</key>
 								<string>1CD0528F0623707200166675</string>
 								<key>PBXProjectModuleLabel</key>
-								<string>GPUGeometryModelTest.cpp</string>
+								<string></string>
 								<key>StatusBarVisibility</key>
 								<true/>
 							</dict>
@@ -663,8 +662,6 @@
 							<string>600pt</string>
 						</dict>
 						<dict>
-							<key>BecomeActive</key>
-							<true/>
 							<key>ContentConfiguration</key>
 							<dict>
 								<key>PBXProjectModuleGUID</key>
@@ -704,7 +701,7 @@
 			<key>TableOfContents</key>
 			<array>
 				<string>7AB81FC80CFD15870073748B</string>
-				<string>7A6D25381117FEBC00AB6233</string>
+				<string>7AE0006C1118DD1800365A0C</string>
 				<string>1CD0528F0623707200166675</string>
 				<string>XCMainBuildResultsModuleGUID</string>
 			</array>
@@ -746,8 +743,8 @@
 										<string>yes</string>
 										<key>sizes</key>
 										<array>
-											<string>{{0, 0}, {453, 431}}</string>
-											<string>{{0, 431}, {453, 496}}</string>
+											<string>{{0, 0}, {437, 433}}</string>
+											<string>{{0, 433}, {437, 494}}</string>
 										</array>
 									</dict>
 									<key>VerticalSplitView</key>
@@ -762,8 +759,8 @@
 										<string>yes</string>
 										<key>sizes</key>
 										<array>
-											<string>{{0, 0}, {453, 927}}</string>
-											<string>{{453, 0}, {1227, 927}}</string>
+											<string>{{0, 0}, {437, 927}}</string>
+											<string>{{437, 0}, {1243, 927}}</string>
 										</array>
 									</dict>
 								</dict>
@@ -793,10 +790,10 @@
 										<string>Value</string>
 										<real>85</real>
 										<string>Summary</string>
-										<real>161</real>
+										<real>145</real>
 									</array>
 									<key>Frame</key>
-									<string>{{0, 431}, {453, 496}}</string>
+									<string>{{0, 433}, {437, 494}}</string>
 									<key>RubberWindowFrame</key>
 									<string>0 60 1680 968 0 0 1680 1028 </string>
 								</dict>
@@ -824,13 +821,13 @@
 			<key>TableOfContents</key>
 			<array>
 				<string>1CD10A99069EF8BA00B06720</string>
-				<string>7A6D255E1118014E00AB6233</string>
+				<string>7AE0006D1118DD1800365A0C</string>
 				<string>1C162984064C10D400B95A72</string>
-				<string>7A6D255F1118014E00AB6233</string>
-				<string>7A6D25601118014E00AB6233</string>
-				<string>7A6D25611118014E00AB6233</string>
-				<string>7A6D25621118014E00AB6233</string>
-				<string>7A6D25631118014E00AB6233</string>
+				<string>7AE0006E1118DD1800365A0C</string>
+				<string>7AE0006F1118DD1800365A0C</string>
+				<string>7AE000701118DD1800365A0C</string>
+				<string>7AE000711118DD1800365A0C</string>
+				<string>7AE000721118DD1800365A0C</string>
 			</array>
 			<key>ToolbarConfiguration</key>
 			<string>xcode.toolbar.config.debugV3</string>
@@ -839,7 +836,7 @@
 			<key>WindowToolGUID</key>
 			<string>1CD10A99069EF8BA00B06720</string>
 			<key>WindowToolIsVisible</key>
-			<false/>
+			<true/>
 		</dict>
 		<dict>
 			<key>FirstTimeWindowDisplayed</key>
@@ -988,7 +985,7 @@
 			<key>TableOfContents</key>
 			<array>
 				<string>1C78EAAD065D492600B07095</string>
-				<string>7A6D25641118014E00AB6233</string>
+				<string>7AE000731118DD1800365A0C</string>
 				<string>1C78EAAC065D492600B07095</string>
 			</array>
 			<key>ToolbarConfiguration</key>

@@ -421,8 +421,8 @@
 		7A4348DC10F3488300E4F3C9 /* IO */ = {
 			isa = PBXGroup;
 			children = (
-				7A43490110F3496700E4F3C9 /* Collada.cpp */,
 				7A43490210F3496700E4F3C9 /* Collada.h */,
+				7A43490110F3496700E4F3C9 /* Collada.cpp */,
 			);
 			path = IO;
 			sourceTree = "<group>";

@@ -61,6 +61,7 @@
 
 #include <string>
 #include <iostream>
+#include <fstream>
 
 #include "GPUCalculationEngine.h"
 #include "GPUGeometryModel.h"
@@ -69,6 +70,32 @@
 
 using namespace hdsim;
 using namespace std;
+
+#ifndef NDEBUG
+
+template<class T> void writeColorBufferToCSVFile(const char *fileName, T *colors, int width, int height)
+{
+   // Write debug output
+   ofstream myfile;
+   myfile.open(fileName);
+   
+   for (int indexY = 0; indexY < height; indexY++)
+   {
+      for (int indexX = 0; indexX < width; indexX++)
+      {
+         myfile << colors[indexX + width*indexY];
+         if (indexX < width - 1)
+            myfile << ",";
+      }
+      
+      myfile << endl;
+   }
+   
+   myfile.close();  
+}
+
+#endif
+
 
 bool hdsim::isWholeWorldSubstring(const char *searchIn, const char *searchFor)
 {
@@ -215,12 +242,12 @@ void GPUCalculationEngine::calculateEngine(const AbstractModel *model)
    glDepthFunc(GL_LESS);
    CHECK(!getAndResetGLErrorStatus(), "Error setting depth function");
    
-   glDrawBuffer(GL_NONE);
+	glDrawBuffer(GL_NONE);
    CHECK(!getAndResetGLErrorStatus(), "Error disabling color drawing");
-
-   glReadBuffer(GL_NONE);
-   CHECK(!getAndResetGLErrorStatus(), "Error disabling read buffer");
    
+   glReadBuffer(GL_NONE);
+   CHECK(!getAndResetGLErrorStatus(), "Error disabling read buffer for color");
+
    // All bound, now lets go ahead and draw
    // This might benefit from the display list approach
    // Orientation is counterclockwise here
@@ -311,18 +338,9 @@ bool GPUCalculationEngine::initFrameBuffer(int width, int height)
    
    glFramebufferRenderbufferEXT(GL_FRAMEBUFFER_EXT, GL_DEPTH_ATTACHMENT_EXT, GL_RENDERBUFFER_EXT, renderBufferID_);
    CHECK(!getAndResetGLErrorStatus(), "Can't attach renderbuffer to framebuffer");
-
-   glGenRenderbuffersEXT(1, &colorBufferID_);
-   CHECK(!getAndResetGLErrorStatus(), "Can't create color buffer");
-   
-   glBindRenderbufferEXT(GL_RENDERBUFFER_EXT, colorBufferID_);
-   CHECK(!getAndResetGLErrorStatus(), "Can't bind renderbuffer color storage");
-   
-   glRenderbufferStorageEXT(GL_RENDERBUFFER_EXT, GL_RGBA8, width, height);
-   CHECK(!getAndResetGLErrorStatus(), "Can't create renderbuffer color storage");
-   
-   glFramebufferRenderbufferEXT(GL_FRAMEBUFFER_EXT, GL_COLOR_ATTACHMENT0_EXT, GL_RENDERBUFFER_EXT, colorBufferID_);   
-   CHECK(!getAndResetGLErrorStatus(), "Can't attach renderbuffer color storage");
+  
+   glDrawBuffer(GL_NONE);
+   glReadBuffer(GL_NONE);
   
    status = glCheckFramebufferStatusEXT(GL_FRAMEBUFFER_EXT);
    if (status != GL_FRAMEBUFFER_COMPLETE_EXT)
@@ -330,6 +348,63 @@ bool GPUCalculationEngine::initFrameBuffer(int width, int height)
       cerr << "Error in glCheckFramebufferStatusEXT, FBO status " <<  status << endl;
       return false;
    }
+
+   glBindFramebufferEXT(GL_FRAMEBUFFER_EXT, 0);
+   
+#pragma warning "START - DISABLE THIS DEBUGGING PART"   
+   glBindFramebufferEXT(GL_FRAMEBUFFER_EXT, frameBufferID_);
+
+   glEnable(GL_DEPTH_TEST);
+   glDrawBuffer(GL_NONE);
+   glReadBuffer(GL_NONE);
+   
+   // Position camera
+   glMatrixMode(GL_PROJECTION);
+   CHECK(!getAndResetGLErrorStatus(), "Error setting projection matrix mode");
+   
+   glLoadIdentity();
+   CHECK(!getAndResetGLErrorStatus(), "Error in glLoadIdentity");
+   
+   // Set camera and planes to Z_CORRECTION_FACTOR*z to avoid problems due to Z buffer aliasing
+   glOrtho(-.5, .5, -.5, .5, 0, 5.5);
+   CHECK(!getAndResetGLErrorStatus(), "Error");
+   
+   glMatrixMode(GL_MODELVIEW);
+   CHECK(!getAndResetGLErrorStatus(), "Error");
+   glLoadIdentity();
+   CHECK(!getAndResetGLErrorStatus(), "Error");
+   
+   gluLookAt(// Eye position
+             0, 0, 5,
+             // Center position
+             0, 0, 0, 
+             // Up position
+             0, 1, 0); 
+   CHECK(!getAndResetGLErrorStatus(), "Error");
+
+   glClearDepth(1);
+   CHECK(!getAndResetGLErrorStatus(), "Error");
+   glClear(GL_DEPTH_BUFFER_BIT);
+   CHECK(!getAndResetGLErrorStatus(), "Error");
+   glBegin(GL_TRIANGLES);
+      glColor3i(0, 0, 0);
+      glVertex3f(0, 0, 0);
+      glVertex3f(0, 1, 0);
+      glVertex3f(1, 1, 0);
+   glEnd();
+   CHECK(!getAndResetGLErrorStatus(), "Error");
+   
+   GLfloat *colors = new GLfloat[width*height];
+   
+   glReadPixels(0, 0, width, height, GL_DEPTH_COMPONENT, GL_FLOAT, colors);
+   CHECK(!getAndResetGLErrorStatus(), "Error");
+   
+   writeColorBufferToCSVFile("test.csv", colors, width, height);
+   
+   delete [] colors;
+   
+   // glOrtho NEAR and FAR cleaping plane are in the respect to eye point, not in the respect to the "center of the world"
+#pragma warning "STOP - DISABLE THIS DEBUGGING PART"      
    
    return true;
 }
@@ -344,9 +419,6 @@ bool GPUCalculationEngine::destroyFrameBuffer()
    
 	glDeleteRenderbuffersEXT(1, &renderBufferID_);
    CHECK(!getAndResetGLErrorStatus(), "Error in renderBufferID_");
-
-   glDeleteFramebuffersEXT(1, &colorBufferID_);
-   CHECK(!getAndResetGLErrorStatus(), "Error in colorBufferID_");
 
    glDeleteFramebuffersEXT(1, &frameBufferID_);
    CHECK(!getAndResetGLErrorStatus(), "Error in frameBufferID_");

@@ -42,7 +42,6 @@ static void writeDepthBufferToCSVFile(const char *fileName, const GPUGeometryMod
    myfile.close();  
 }
 
-
 GPUGeometryModelTest::GPUGeometryModelTest()
 {
 
@@ -355,17 +354,17 @@ void GPUGeometryModelTest::testRenderArea()
 
 void GPUGeometryModelTest::testQuadCoveringWholeArea()
 {
-   const int SIZE_X = 30;
-   const int SIZE_Y = 30;
+   const int SIZE_X = 32;
+   const int SIZE_Y = 32;
     
    // Expected offset of Z buffer. We would set quad at the half of the viewing frustum so Z buffer should be 1/2
-   const double Z_BUFFER_VALUE = 0.75;
+   const double Z_BUFFER_VALUE = 0.5;
      
    // Set a quad that covers the whole area
    GPUGeometryModel testFixture(SIZE_X, SIZE_Y);
    
    const double QUAD_SIZE = 1;
-   const double Z_OFFSET = -3*QUAD_SIZE/4;
+   const double Z_OFFSET = 0;
    
    testFixture.setRenderedArea(-QUAD_SIZE/2, -QUAD_SIZE/2, -QUAD_SIZE/2, QUAD_SIZE/2, QUAD_SIZE/2, QUAD_SIZE/2);
    
@@ -395,8 +394,8 @@ void GPUGeometryModelTest::testQuadCoveringWholeArea()
 
 void GPUGeometryModelTest::testQuadCoveringPartOfTheArea()
 {
-   const int SIZE_X = 30;
-   const int SIZE_Y = 30;
+   const int SIZE_X = 32;
+   const int SIZE_Y = 32;
    
    // Set a quad that covers the whole area
    GPUGeometryModel testFixture(SIZE_X, SIZE_Y);

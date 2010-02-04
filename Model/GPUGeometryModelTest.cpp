@@ -416,6 +416,8 @@ void GPUGeometryModelTest::testQuadCoveringPartOfTheArea()
    testFixture.addTriangle(createTriangle(0, 2, 3));
 
    // We would do scanline - there should be two levels in each scanline, and second level should be continious
+   // until exit. If we are outside of the polygon, z buffer value should be zero
+   const double Z_INFINITY = 1;
 
    for (int indexY = 0; indexY < SIZE_Y; indexY++)
    {
@@ -430,7 +432,7 @@ void GPUGeometryModelTest::testQuadCoveringPartOfTheArea()
          stringstream message;
          message << "Error at the coordinates X = " << indexX << " Y = " << indexY << " for value " << zValue;
          
-         CPPUNIT_ASSERT_MESSAGE(message.str().c_str(), !areEqual(zValue, 0)  &&  !areEqual(zValue, Z_BUFFER_VALUE));
+         CPPUNIT_ASSERT_MESSAGE(message.str().c_str(), areEqual(zValue, Z_INFINITY)  ||  areEqual(zValue, Z_BUFFER_VALUE));
          
          if (areEqual(zValue, Z_BUFFER_VALUE))
          {
@@ -440,9 +442,9 @@ void GPUGeometryModelTest::testQuadCoveringPartOfTheArea()
          else
          {
             // We have Z value equal to 0 if we are here 
-            CPPUNIT_ASSERT_MESSAGE("Internal error in the test - zValue should be zero here", areEqual(zValue, 0));            
+            CPPUNIT_ASSERT_MESSAGE("Internal error in the test - zValue should be 1 here", areEqual(zValue, Z_INFINITY));
             
-            // If we were already inside the quad and we encountered 0, we now should be outside of quad
+            // If we were already inside the quad and we encountered infinity, we now should be outside of quad
             scanlineExited = scanlineEntered;
          }
       }

@@ -202,7 +202,7 @@ void GPUCalculationEngine::calculateEngine(const AbstractModel *model)
    // Set camera and planes to Z_CORRECTION_FACTOR*z to avoid problems due to Z buffer aliasing
    glOrtho(geometryModel->getRenderedAreaMinX(), geometryModel->getRenderedAreaMaxX(), 
            geometryModel->getRenderedAreaMinY(), geometryModel->getRenderedAreaMaxY(),
-           geometryModel->getRenderedAreaMinZ(), geometryModel->getRenderedAreaMaxZ());
+           1, geometryModel->getRenderedAreaMinZ() + geometryModel->getRenderedAreaMaxZ() + FLOATING_POINTS_EQUAL_DELTA);
 
    if (getAndResetGLErrorStatus())
    {
@@ -350,61 +350,6 @@ bool GPUCalculationEngine::initFrameBuffer(int width, int height)
    }
 
    glBindFramebufferEXT(GL_FRAMEBUFFER_EXT, 0);
-   
-#pragma warning "START - DISABLE THIS DEBUGGING PART"   
-   glBindFramebufferEXT(GL_FRAMEBUFFER_EXT, frameBufferID_);
-
-   glEnable(GL_DEPTH_TEST);
-   glDrawBuffer(GL_NONE);
-   glReadBuffer(GL_NONE);
-   
-   // Position camera
-   glMatrixMode(GL_PROJECTION);
-   CHECK(!getAndResetGLErrorStatus(), "Error setting projection matrix mode");
-   
-   glLoadIdentity();
-   CHECK(!getAndResetGLErrorStatus(), "Error in glLoadIdentity");
-   
-   // Set camera and planes to Z_CORRECTION_FACTOR*z to avoid problems due to Z buffer aliasing
-   glOrtho(-.5, .5, -.5, .5, 0, 5.5);
-   CHECK(!getAndResetGLErrorStatus(), "Error");
-   
-   glMatrixMode(GL_MODELVIEW);
-   CHECK(!getAndResetGLErrorStatus(), "Error");
-   glLoadIdentity();
-   CHECK(!getAndResetGLErrorStatus(), "Error");
-   
-   gluLookAt(// Eye position
-             0, 0, 5,
-             // Center position
-             0, 0, 0, 
-             // Up position
-             0, 1, 0); 
-   CHECK(!getAndResetGLErrorStatus(), "Error");
-
-   glClearDepth(1);
-   CHECK(!getAndResetGLErrorStatus(), "Error");
-   glClear(GL_DEPTH_BUFFER_BIT);
-   CHECK(!getAndResetGLErrorStatus(), "Error");
-   glBegin(GL_TRIANGLES);
-      glColor3i(0, 0, 0);
-      glVertex3f(0, 0, 0);
-      glVertex3f(0, 1, 0);
-      glVertex3f(1, 1, 0);
-   glEnd();
-   CHECK(!getAndResetGLErrorStatus(), "Error");
-   
-   GLfloat *colors = new GLfloat[width*height];
-   
-   glReadPixels(0, 0, width, height, GL_DEPTH_COMPONENT, GL_FLOAT, colors);
-   CHECK(!getAndResetGLErrorStatus(), "Error");
-   
-   writeColorBufferToCSVFile("test.csv", colors, width, height);
-   
-   delete [] colors;
-   
-   // glOrtho NEAR and FAR cleaping plane are in the respect to eye point, not in the respect to the "center of the world"
-#pragma warning "STOP - DISABLE THIS DEBUGGING PART"      
    
    return true;
 }

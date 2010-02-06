@@ -11,8 +11,8 @@
 			<string key="NS.object.0">732</string>
 		</object>
 		<array class="NSMutableArray" key="IBDocument.EditedObjectIDs">
+			<integer value="104"/>
 			<integer value="105"/>
-			<integer value="103"/>
 		</array>
 		<array key="IBDocument.PluginDependencies">
 			<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -29,11 +29,9 @@
 				<string key="NSClassName">NSApplication</string>
 			</object>
 			<object class="NSCustomView" id="157320687">
-				<reference key="NSNextResponder"/>
+				<nil key="NSNextResponder"/>
 				<int key="NSvFlags">256</int>
 				<string key="NSFrameSize">{431, 426}</string>
-				<reference key="NSSuperview"/>
-				<reference key="NSWindow"/>
 				<string key="NSClassName">RoomView</string>
 			</object>
 			<object class="NSWindowTemplate" id="273431737">
@@ -51,7 +49,7 @@
 				<string key="NSWindowContentMaxSize">{1.79769e+308, 1.79769e+308}</string>
 				<string key="NSWindowContentMinSize">{480, 360}</string>
 				<object class="NSView" key="NSWindowView" id="612005037">
-					<reference key="NSNextResponder"/>
+					<nil key="NSNextResponder"/>
 					<int key="NSvFlags">256</int>
 					<array class="NSMutableArray" key="NSSubviews">
 						<object class="NSCustomView" id="37093224">
@@ -59,7 +57,6 @@
 							<int key="NSvFlags">274</int>
 							<string key="NSFrame">{{20, 52}, {440, 288}}</string>
 							<reference key="NSSuperview" ref="612005037"/>
-							<reference key="NSWindow"/>
 							<object class="NSMutableString" key="NSClassName">
 								<characters key="NS.bytes">NSView</characters>
 							</object>
@@ -70,7 +67,6 @@
 							<int key="NSvFlags">261</int>
 							<string key="NSFrame">{{118, 5}, {102, 32}}</string>
 							<reference key="NSSuperview" ref="612005037"/>
-							<reference key="NSWindow"/>
 							<bool key="NSEnabled">YES</bool>
 							<object class="NSButtonCell" key="NSCell" id="20842331">
 								<int key="NSCellFlags">67239424</int>
@@ -98,7 +94,6 @@
 							<int key="NSvFlags">261</int>
 							<string key="NSFrame">{{266, 5}, {117, 32}}</string>
 							<reference key="NSSuperview" ref="612005037"/>
-							<reference key="NSWindow"/>
 							<bool key="NSEnabled">YES</bool>
 							<object class="NSButtonCell" key="NSCell" id="163004918">
 								<int key="NSCellFlags">67239424</int>
@@ -119,8 +114,6 @@
 						</object>
 					</array>
 					<string key="NSFrameSize">{480, 360}</string>
-					<reference key="NSSuperview"/>
-					<reference key="NSWindow"/>
 				</object>
 				<string key="NSScreenRect">{{0, 0}, {1680, 1028}}</string>
 				<string key="NSMinSize">{480, 382}</string>
@@ -155,17 +148,6 @@
 					<reference key="NSNextResponder"/>
 					<int key="NSvFlags">256</int>
 					<array class="NSMutableArray" key="NSSubviews">
-						<object class="NSOpenGLView" id="187109569">
-							<reference key="NSNextResponder" ref="937265467"/>
-							<int key="NSvFlags">274</int>
-							<string key="NSFrame">{{20, 20}, {718, 421}}</string>
-							<reference key="NSSuperview" ref="937265467"/>
-							<object class="NSOpenGLPixelFormat" key="NSPixelFormat">
-								<object class="NSMutableData" key="NSPixelAttributes">
-									<bytes key="NS.bytes">AAAASQAAAAwAAAAQAAAAAA</bytes>
-								</object>
-							</object>
-						</object>
 						<object class="NSButton" id="963317004">
 							<reference key="NSNextResponder" ref="937265467"/>
 							<int key="NSvFlags">265</int>
@@ -275,6 +257,13 @@
 								<int key="NSPeriodicDelay">400</int>
 								<int key="NSPeriodicInterval">75</int>
 							</object>
+						</object>
+						<object class="NSCustomView" id="12899723">
+							<reference key="NSNextResponder" ref="937265467"/>
+							<int key="NSvFlags">268</int>
+							<string key="NSFrame">{{18, 20}, {720, 418}}</string>
+							<reference key="NSSuperview" ref="937265467"/>
+							<string key="NSClassName">HoloDeckView</string>
 						</object>
 					</array>
 					<string key="NSFrameSize">{758, 488}</string>
@@ -510,14 +499,6 @@
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBOutletConnection" key="connection">
-						<string key="label">model</string>
-						<reference key="source" ref="187109569"/>
-						<reference key="destination" ref="126397766"/>
-					</object>
-					<int key="connectionID">135</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBOutletConnection" key="connection">
 						<string key="label">timeSliceSlider</string>
 						<reference key="source" ref="126397766"/>
 						<reference key="destination" ref="94957020"/>
@@ -531,38 +512,6 @@
 						<reference key="destination" ref="94957020"/>
 					</object>
 					<int key="connectionID">148</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBOutletConnection" key="connection">
-						<string key="label">rodRoomWindow</string>
-						<reference key="source" ref="126397766"/>
-						<reference key="destination" ref="187109569"/>
-					</object>
-					<int key="connectionID">151</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBOutletConnection" key="connection">
-						<string key="label">timeSliceSlider</string>
-						<reference key="source" ref="187109569"/>
-						<reference key="destination" ref="94957020"/>
-					</object>
-					<int key="connectionID">206</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBActionConnection" key="connection">
-						<string key="label">toggleAnimation:</string>
-						<reference key="source" ref="187109569"/>
-						<reference key="destination" ref="185454300"/>
-					</object>
-					<int key="connectionID">207</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBOutletConnection" key="connection">
-						<string key="label">playPauseButton</string>
-						<reference key="source" ref="187109569"/>
-						<reference key="destination" ref="185454300"/>
-					</object>
-					<int key="connectionID">208</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBOutletConnection" key="connection">
@@ -590,75 +539,115 @@
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBOutletConnection" key="connection">
-						<string key="label">delegate</string>
-						<reference key="source" ref="405331186"/>
-						<reference key="destination" ref="187109569"/>
+						<string key="label">fovSlider</string>
+						<reference key="source" ref="12899723"/>
+						<reference key="destination" ref="381916571"/>
 					</object>
-					<int key="connectionID">244</int>
+					<int key="connectionID">306</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBOutletConnection" key="connection">
-						<string key="label">fovSlider</string>
-						<reference key="source" ref="187109569"/>
-						<reference key="destination" ref="381916571"/>
+						<string key="label">model</string>
+						<reference key="source" ref="12899723"/>
+						<reference key="destination" ref="126397766"/>
 					</object>
-					<int key="connectionID">271</int>
+					<int key="connectionID">307</int>
 				</object>
 				<object class="IBConnectionRecord">
-					<object class="IBActionConnection" key="connection">
-						<string key="label">fovSliderChanged:</string>
-						<reference key="source" ref="187109569"/>
-						<reference key="destination" ref="381916571"/>
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">playPauseButton</string>
+						<reference key="source" ref="12899723"/>
+						<reference key="destination" ref="185454300"/>
 					</object>
-					<int key="connectionID">272</int>
+					<int key="connectionID">308</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">timeSliceSlider</string>
+						<reference key="source" ref="12899723"/>
+						<reference key="destination" ref="94957020"/>
+					</object>
+					<int key="connectionID">309</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBOutletConnection" key="connection">
 						<string key="label">xSlider</string>
-						<reference key="source" ref="187109569"/>
+						<reference key="source" ref="12899723"/>
 						<reference key="destination" ref="1041142660"/>
 					</object>
-					<int key="connectionID">273</int>
+					<int key="connectionID">310</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBOutletConnection" key="connection">
 						<string key="label">ySlider</string>
-						<reference key="source" ref="187109569"/>
+						<reference key="source" ref="12899723"/>
 						<reference key="destination" ref="227080404"/>
 					</object>
-					<int key="connectionID">274</int>
+					<int key="connectionID">311</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBOutletConnection" key="connection">
 						<string key="label">zSlider</string>
-						<reference key="source" ref="187109569"/>
+						<reference key="source" ref="12899723"/>
 						<reference key="destination" ref="639442472"/>
 					</object>
-					<int key="connectionID">275</int>
+					<int key="connectionID">312</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
+						<string key="label">fovSliderChanged:</string>
+						<reference key="source" ref="12899723"/>
+						<reference key="destination" ref="381916571"/>
+					</object>
+					<int key="connectionID">313</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBActionConnection" key="connection">
 						<string key="label">xSliderChanged:</string>
-						<reference key="source" ref="187109569"/>
+						<reference key="source" ref="12899723"/>
 						<reference key="destination" ref="1041142660"/>
 					</object>
-					<int key="connectionID">276</int>
+					<int key="connectionID">314</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBActionConnection" key="connection">
 						<string key="label">ySliderChanged:</string>
-						<reference key="source" ref="187109569"/>
+						<reference key="source" ref="12899723"/>
 						<reference key="destination" ref="227080404"/>
 					</object>
-					<int key="connectionID">277</int>
+					<int key="connectionID">315</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBActionConnection" key="connection">
 						<string key="label">zSliderChanged:</string>
-						<reference key="source" ref="187109569"/>
+						<reference key="source" ref="12899723"/>
 						<reference key="destination" ref="639442472"/>
 					</object>
-					<int key="connectionID">278</int>
+					<int key="connectionID">316</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">rodRoomWindow</string>
+						<reference key="source" ref="126397766"/>
+						<reference key="destination" ref="405331186"/>
+					</object>
+					<int key="connectionID">318</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">delegate</string>
+						<reference key="source" ref="405331186"/>
+						<reference key="destination" ref="12899723"/>
+					</object>
+					<int key="connectionID">319</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
+						<string key="label">toggleAnimation:</string>
+						<reference key="source" ref="12899723"/>
+						<reference key="destination" ref="185454300"/>
+					</object>
+					<int key="connectionID">320</int>
 				</object>
 			</array>
 			<object class="IBMutableOrderedSet" key="objectRecords">
@@ -752,18 +741,13 @@
 						<int key="objectID">104</int>
 						<reference key="object" ref="937265467"/>
 						<array class="NSMutableArray" key="children">
-							<reference ref="187109569"/>
 							<reference ref="963317004"/>
 							<reference ref="94957020"/>
 							<reference ref="628599924"/>
 							<reference ref="185454300"/>
+							<reference ref="12899723"/>
 						</array>
 						<reference key="parent" ref="405331186"/>
-					</object>
-					<object class="IBObjectRecord">
-						<int key="objectID">115</int>
-						<reference key="object" ref="187109569"/>
-						<reference key="parent" ref="937265467"/>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">119</int>
@@ -961,6 +945,11 @@
 						<reference key="object" ref="41692943"/>
 						<reference key="parent" ref="639442472"/>
 					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">305</int>
+						<reference key="object" ref="12899723"/>
+						<reference key="parent" ref="937265467"/>
+					</object>
 				</array>
 			</object>
 			<dictionary class="NSMutableDictionary" key="flattenedProperties">
@@ -980,12 +969,9 @@
 				<string key="103.windowTemplate.minSize">{535, 339}</string>
 				<string key="104.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<boolean value="YES" key="104.ImportedFromIB2"/>
-				<string key="105.IBEditorWindowLastContentRect">{{412, 550}, {211, 422}}</string>
+				<string key="105.IBEditorWindowLastContentRect">{{317, 538}, {211, 422}}</string>
 				<string key="105.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<boolean value="YES" key="105.ImportedFromIB2"/>
-				<string key="115.CustomClassName">RoomView</string>
-				<string key="115.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
-				<boolean value="YES" key="115.ImportedFromIB2"/>
 				<string key="119.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<boolean value="YES" key="119.ImportedFromIB2"/>
 				<string key="121.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -1015,6 +1001,22 @@
 				<boolean value="YES" key="267.ImportedFromIB2"/>
 				<string key="268.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<boolean value="YES" key="268.ImportedFromIB2"/>
+				<string key="290.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
+				<string key="291.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
+				<string key="292.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
+				<string key="293.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
+				<string key="294.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
+				<string key="295.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
+				<string key="296.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
+				<string key="297.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
+				<string key="298.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
+				<string key="299.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
+				<string key="300.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
+				<string key="301.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
+				<string key="302.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
+				<string key="303.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
+				<string key="304.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
+				<string key="305.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="86.IBEditorWindowLastContentRect">{{412, 589}, {480, 360}}</string>
 				<string key="86.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="86.IBWindowTemplateEditedContentRect">{{412, 589}, {480, 360}}</string>
@@ -1030,12 +1032,13 @@
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">304</int>
+			<int key="maxID">320</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
 				<object class="IBPartialClassDescription">
 					<string key="className">FirstResponder</string>
+					<string key="superclassName">NSObject</string>
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
 						<string key="majorKey">IBUserSource</string>
 						<string key="minorKey"/>
@@ -1043,7 +1046,7 @@
 				</object>
 				<object class="IBPartialClassDescription">
 					<string key="className">HoloDeckView</string>
-					<string key="superclassName">NSOpenGLView</string>
+					<string key="superclassName">NSView</string>
 					<dictionary class="NSMutableDictionary" key="actions">
 						<string key="fovSliderChanged:">id</string>
 						<string key="notifyModelChanged:">id</string>
@@ -1068,7 +1071,7 @@
 				</object>
 				<object class="IBPartialClassDescription">
 					<string key="className">HoloDeckView</string>
-					<string key="superclassName">NSOpenGLView</string>
+					<string key="superclassName">NSView</string>
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
 						<string key="majorKey">IBUserSource</string>
 						<string key="minorKey"/>
@@ -1490,14 +1493,6 @@
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
 						<string key="majorKey">IBFrameworkSource</string>
 						<string key="minorKey">Foundation.framework/Headers/NSURLDownload.h</string>
-					</object>
-				</object>
-				<object class="IBPartialClassDescription">
-					<string key="className">NSOpenGLView</string>
-					<string key="superclassName">NSView</string>
-					<object class="IBClassDescriptionSource" key="sourceIdentifier">
-						<string key="majorKey">IBFrameworkSource</string>
-						<string key="minorKey">AppKit.framework/Headers/NSOpenGLView.h</string>
 					</object>
 				</object>
 				<object class="IBPartialClassDescription">

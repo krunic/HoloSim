@@ -12,7 +12,7 @@ using namespace hdsim;
 /**
  * Room view that is used to show 3D view of the room in the Holodeck
  */
-@interface HoloDeckView : NSOpenGLView
+@interface HoloDeckView : NSView
 {
    /**
     * Model associated with this view. 
@@ -93,6 +93,18 @@ using namespace hdsim;
     * Controller adapter that is controlling model in this view
     */
    MouseAdapter *mouseAdapter;
+   
+@private
+   
+   /**
+    * OpenGL context for the custom view
+    */
+   NSOpenGLContext *openGLContext; 
+   
+   /**
+    * Pixel format when we are inited with separate pixel format
+    */
+   NSOpenGLPixelFormat *pixelFormat;
 }
 
 /**
@@ -136,5 +148,40 @@ using namespace hdsim;
  * @param sender Who invoked this callback
  */
 -(IBAction)notifyModelChanged:(id)sender;
+
+/**
+ * Initialize with appropriate pixel format
+ */
+-(id)initWithFrame:(NSRect)frameRect pixelFormat:(NSOpenGLPixelFormat*)format; 
+
+/**
+ * Call update method of the OpenGL context class
+ */
+-(void)update; 
+
+/**
+ * Lock focus for the current window
+ */
+-(void)lockFocus;
+
+/**
+ * Pixel format getter
+ */
+-(NSOpenGLPixelFormat *)pixelFormat;
+
+/**
+ * Set pixel format
+ */
+-(void)setPixelFormat:(NSOpenGLPixelFormat*)format;
+
+/**
+ * Set OpenGL context
+ */
+-(void)setOpenGLContext:(NSOpenGLContext*)context; 
+
+/**
+ * Get OpenGL context
+ */
+-(NSOpenGLContext*)openGLContext;
 
 @end

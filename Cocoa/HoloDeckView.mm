@@ -107,15 +107,47 @@
 }
 
 /**
+ * If we are notified that update is needed for the surface
+ */
+- (void) surfaceNeedsUpdate:(NSNotification*)notification 
+{
+   [self update];
+}
+
+/**
+ * Default initializer for descendents of NSView 
+ */
+- (id)initWithFrame:(NSRect)frame {
+   
+   self = [super initWithFrame:frame];
+   if (!self)
+      return nil;
+   
+   // create and activate the context object which maintains the OpenGL state
+   [self setOpenGLContext:[self getMyContext]];
+   [[self openGLContext] makeCurrentContext];
+   
+   return self;
+}
+
+/**
  * Constructor
  *
  * @param frame Rectangle of the view
  * @param pixFmt Pixel format to use
  */
 - (id)initWithFrame:(NSRect)frame
-        pixelFormat:(NSOpenGLPixelFormat *)pixFmt
+        pixelFormat:(NSOpenGLPixelFormat *)format
 {
-   self = [super initWithFrame:frame pixelFormat:pixFmt];
+   self = [super initWithFrame:frame];
+   if (self)
+   {
+      pixelFormat	= [format retain]; 
+      
+      [[NSNotificationCenter defaultCenter] addObserver:self
+                                            selector:@selector(surfaceNeedsUpdate:) name:NSViewGlobalFrameDidChangeNotification object:self];
+   }
+   
    contextInitalized = NO;
    [self prepare];
    return self;
@@ -132,6 +164,14 @@
    contextInitalized = NO;
    [self prepare];
    return self;
+}
+
+/**
+ * Prevent mouse down from moving window
+ */
+- (BOOL)mouseDownCanMoveWindow
+{
+   return NO;
 }
 
 /**
@@ -508,10 +548,16 @@ void doubleInterval(double min, double max, double *newMin, double *newMax)
  */
 - (void)drawRect:(NSRect)rect
 {
+	NSOpenGLContext *context = [self openGLContext];   
+   [context makeCurrentContext]; 
+   
    GPUInterpolatedModel *m = dynamic_cast<GPUInterpolatedModel *>([model model]);
    if (!m)
-      return;
-   
+   {
+      [context flushBuffer];
+      return;      
+   }
+
    // Set model boundaries to twice the model. We in effect want to extend [minX, maxX] twice while keeping same mean. 
    double renderMinX, renderMinY, renderMinZ, renderMaxX, renderMaxY, renderMaxZ;
    
@@ -527,6 +573,7 @@ void doubleInterval(double min, double max, double *newMin, double *newMax)
    [ySlider setFloatValue:drawer->getRotationAngleY()];
    [zSlider setFloatValue:drawer->getRotationAngleZ()];
    [fovSlider setFloatValue:[self recalcFOVToSlider:drawer->getFOV()]];
+   [context flushBuffer];
 }
 
 /**
@@ -564,6 +611,65 @@ void doubleInterval(double min, double max, double *newMin, double *newMax)
 
    [timeSliceSlider setFloatValue:newTimeslice];
    [self setNeedsDisplay:YES];
+}
+
+/**
+ * Call update method of the OpenGL context class
+ */
+-(void)update
+{
+	[openGLContext update];
+   [self setNeedsDisplay:YES];
+}
+
+/**
+ * Lock focus in preparation for drawing
+ */
+- (void)lockFocus
+{
+   NSOpenGLContext *context = openGLContext;
+   
+   [super lockFocus];
+   if ([context view] != self) 
+   {
+      [context setView:self];
+   }
+   
+   [context makeCurrentContext];
+}
+
+/**
+ * Get pixel format
+ */
+-(NSOpenGLPixelFormat *)pixelFormat
+{
+   return pixelFormat;
+}
+
+/**
+ * Set pixel format
+ */
+-(void)setPixelFormat:(NSOpenGLPixelFormat*)format
+{
+   [pixelFormat autorelease];
+	pixelFormat = [format retain];
+}
+
+/**
+ * Set OpenGL context
+ */
+-(void)setOpenGLContext:(NSOpenGLContext*)context
+{
+   [openGLContext autorelease];
+	openGLContext = [context retain];
+}
+
+/**
+ * Get OpenGL context
+ */
+-(NSOpenGLContext*)openGLContext
+{
+   return openGLContext;
 }
 
 @end

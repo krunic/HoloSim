@@ -345,6 +345,40 @@ bool GPUCalculationEngine::initFrameBuffer(int width, int height)
       return false;
    }
    
+   //--- EXTRA ----
+   
+   glBindFramebufferEXT(GL_FRAMEBUFFER_EXT, frameBufferID_);
+   
+   glClearDepth(1);
+   glClear(GL_DEPTH_BUFFER_BIT);
+
+   GLfloat *depths = new GLfloat	[width_ * height_];
+   for (int i = 0; i < width_ * height_; i++)
+      depths[i] = 1.11;
+   
+   glMatrixMode(GL_PROJECTION);
+   glOrtho(-1, 1, -1, 1, 1, 10);
+   
+   glMatrixMode(GL_MODELVIEW);
+   glLoadIdentity();
+   gluLookAt(0, 0, 4,
+            0, 0, 0,
+             0, 1, 0);
+   
+   // Now draw something
+   glBegin(GL_TRIANGLES);
+	   glVertex3d(0, 0, 0);
+	   glVertex3d(1, 0, 0);
+   	glVertex3d(0, 1, 0);
+   glEnd();
+   
+   glReadPixels(0, 0, width_, height_, GL_DEPTH_COMPONENT, GL_FLOAT, depths);
+   CHECK(!getAndResetGLErrorStatus(), "Problem reading Z buffer");
+   
+   writeColorBufferToCSVFile("depths.csv", depths, width_, height_);
+   
+   // -----------
+   
    glBindFramebufferEXT(GL_FRAMEBUFFER_EXT, 0);
    
    return true;

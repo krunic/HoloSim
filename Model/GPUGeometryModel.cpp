@@ -106,11 +106,12 @@ AbstractModel *GPUGeometryModel::cloneOrphan() const
    return new GPUGeometryModel(*this);
 }
 
-double GPUGeometryModel::getAt(int x, int y) const 
+double GPUGeometryModel::getAt(int x, int y) const
 {
    if (changedSinceLastRecalc_)
    {
-      calculationEngine_->calculateEngine(this);
+		calculationEngine_->calculateEngine(this);
+      changedSinceLastRecalc_ = false;
    }
    
    return calculationEngine_->getAt(x, y);
@@ -153,4 +154,3 @@ bool GPUGeometryModel::saveToFile(FILE *fp) const
    FAIL("NOT IMPLEMENTED YET");
    return false;
 }
-

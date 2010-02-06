@@ -101,6 +101,7 @@
    FILE *fp = fopen([fileName UTF8String], "r");
    BOOL result = model->readFromFile(fp);
    fclose(fp);
+
    return result;
 }
 

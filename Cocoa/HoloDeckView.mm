@@ -30,15 +30,15 @@
    };
    
    // Create the pixel-format object.
-   NSOpenGLContext* myContext = nil;
-   NSOpenGLPixelFormat* pixFmt = [[NSOpenGLPixelFormat alloc]
+   NSOpenGLContext *myContext = nil;
+   NSOpenGLPixelFormat *pixFmt = [[NSOpenGLPixelFormat alloc]
                                      initWithAttributes:attrs];
    
    // If the pixel format is valid, create the OpenGL context.
    if (pixFmt != nil)
    {
       myContext = [[NSOpenGLContext alloc] initWithFormat:pixFmt
-                                             shareContext:nil];
+                                           shareContext:nil];
    }
    else 
    {
@@ -481,6 +481,26 @@
 		[self leftMouseButtonDown:theEvent];
 }
 
+/** 
+ * Calculate new interval with double the length
+ *
+ * @param min (IN) - min of the interval
+ * @paramm max (IN) - max of the interval
+ * @param min (OUT) - min of the interval
+ * @paramm max (OUT) - max of the interval
+ */
+void doubleInterval(double min, double max, double *newMin, double *newMax)
+{
+	PRECONDITION(min <= max);
+   
+   // Find center of the old interval, add full length of the old interval left and right of it and that is your new interval   
+   double center = (min + max)/2;
+   double length = max - min;
+   
+   *newMin = center - length;
+   *newMax = center + length;
+}
+
 /**
  * Callback called when this window needs to redisplay itself
  *
@@ -488,7 +508,19 @@
  */
 - (void)drawRect:(NSRect)rect
 {
-   drawer->draw([model model]);
+   GPUInterpolatedModel *m = dynamic_cast<GPUInterpolatedModel *>([model model]);
+   if (!m)
+      return;
+   
+   // Set model boundaries to twice the model. We in effect want to extend [minX, maxX] twice while keeping same mean. 
+   double renderMinX, renderMinY, renderMinZ, renderMaxX, renderMaxY, renderMaxZ;
+   
+   doubleInterval(m->getBoundMinX(), m->getBoundMaxX(), &renderMinX, &renderMaxX);
+   doubleInterval(m->getBoundMinY(), m->getBoundMaxY(), &renderMinY, &renderMaxY);
+   doubleInterval(m->getBoundMinZ(), m->getBoundMaxZ(), &renderMinZ, &renderMaxZ);
+   
+   m->setRenderedArea(renderMinX, renderMinY, renderMinZ, renderMaxX, renderMaxY, renderMaxZ);
+   drawer->draw(m);
    
    // And update UI
    [xSlider setFloatValue:drawer->getRotationAngleX()];
@@ -516,7 +548,7 @@
          return;
       
       newTimeslice = m->getTimeSlice() + [model interframeDistance];
-      
+            
       if ([model loopAnimation])
       {
          // Loop at the same place from the beginning as would be if this was circular tape. Helps with avoiding discontinuity at the moment of jump

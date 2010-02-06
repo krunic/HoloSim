@@ -169,18 +169,18 @@ GPUCalculationEngine::~GPUCalculationEngine()
 void GPUCalculationEngine::calculateEngine(const AbstractModel *model) 
 {
    PRECONDITION(model);
-
+   
    if (!wasInitialized_)
    {
       initialize(model);
    }
-     
+
    const GPUGeometryModel *geometryModel = dynamic_cast<const GPUGeometryModel *>(model);
    CHECK(geometryModel, "This calculation engine operates only with the geometry model");
-
+   
    glBindFramebufferEXT(GL_FRAMEBUFFER_EXT, frameBufferID_);
    CHECK(!getAndResetGLErrorStatus(), "Error binding frameBuffer");
-   
+
    GLuint status = glCheckFramebufferStatusEXT(GL_FRAMEBUFFER_EXT);
    if (status != GL_FRAMEBUFFER_COMPLETE_EXT)
    {
@@ -281,15 +281,13 @@ bool GPUCalculationEngine::initFrameBuffer(int width, int height)
 {
    PRECONDITION(width > 0  &&  height > 0);
    
-   cerr << "Recalculating";
-   
    // Following code is based on Apple OpenGL Programming Guide for Mac OS X, page 46
    const int PIXEL_MEM_SIZE = 32;
-   const int BYTES_PER_PIXEL = PIXEL_MEM_SIZE/8;
    
    CGLPixelFormatAttribute openGLAttributes[] =
    {
-      kCGLPFAOffScreen, 
+      kCGLPFAPBuffer, 
+      kCGLPFAAccelerated,
       kCGLPFAColorSize, 
       static_cast<CGLPixelFormatAttribute>(PIXEL_MEM_SIZE), 
       static_cast<CGLPixelFormatAttribute>(0)
@@ -306,14 +304,10 @@ bool GPUCalculationEngine::initFrameBuffer(int width, int height)
 
    CGLDestroyPixelFormat(pixelFormatObj); 
    CHECK(!getAndResetGLErrorStatus(), "GL Error Occured");
-
+   
    CGLSetCurrentContext(cglContext_);
    CHECK(!getAndResetGLErrorStatus(), "GL Error Occured");
-
-   offScreenMemory_ = new char[width * height * BYTES_PER_PIXEL];
-   CGLSetOffScreen(cglContext_, width, height, width * BYTES_PER_PIXEL, offScreenMemory_);
-   CHECK(!getAndResetGLErrorStatus(), "GL Error Occured");
-
+   
    // Now, lets setup FBO objects (if supported)
 	if (!isOpenGLExtensionSupported("GL_EXT_framebuffer_object"))
    {
@@ -350,7 +344,7 @@ bool GPUCalculationEngine::initFrameBuffer(int width, int height)
       cerr << "Error in glCheckFramebufferStatusEXT, FBO status " <<  status << endl;
       return false;
    }
-
+   
    glBindFramebufferEXT(GL_FRAMEBUFFER_EXT, 0);
    
    return true;

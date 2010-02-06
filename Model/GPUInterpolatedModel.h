@@ -111,6 +111,110 @@ namespace hdsim {
          return timeSlice_;
       }
       
+		/**
+       * Get minX of the bound
+       */
+      virtual double getBoundMinX() const
+      {
+         return model_.getBoundMinX();
+      }
+      
+      /**
+       * Get maxX of the bound
+       */
+      virtual double getBoundMaxX() const
+      {
+         return model_.getBoundMaxX();
+      }
+      
+      /**
+       * Get minY of the bound
+       */
+      virtual double getBoundMinY() const
+      {
+         return model_.getBoundMinY();
+      }
+      
+		/**
+       * Get maxY of the bound
+       */
+      virtual double getBoundMaxY() const
+      {
+         return model_.getBoundMaxX();
+      }
+      
+      /**
+       * Get minZ of the bound
+       */
+      virtual double getBoundMinZ() const
+      {
+         return model_.getBoundMinZ();
+      }
+      
+      /**
+       * Get maxZ of the bound
+       */
+      virtual double getBoundMaxZ() const
+      {
+         return model_.getBoundMaxZ();
+      }
+
+      /**
+       * Get minX of the rendered area
+       */
+      virtual double getRenderedAreaMinX() const
+      {
+         return model_.getRenderedAreaMinX();
+      }
+      
+      /**
+       * Get maxX of the rendered area
+       */
+      virtual double getRenderedAreaMaxX() const
+      {
+         return model_.getRenderedAreaMaxX();
+      }
+      
+      /**
+       * Get minY of the rendered area
+       */
+      virtual double getRenderedAreaMinY() const
+      {
+         return model_.getRenderedAreaMinY();
+      }
+      
+		/**
+       * Get maxY of the bound
+       */
+      virtual double getRenderedAreaMaxY() const
+      {
+         return model_.getRenderedAreaMaxY();
+      }
+      
+      /**
+       * Get minZ of the rendered area
+       */
+      virtual double getRenderedAreaMinZ() const
+      {
+         return model_.getRenderedAreaMinZ();
+      }
+      
+		/**
+       * Get maxZ of the bound
+       */
+      virtual double getRenderedAreaMaxZ() const
+      {
+         return model_.getRenderedAreaMaxZ();
+      }
+      
+      /**
+       * Set rendered area bounds
+       */
+      virtual void setRenderedArea(double minX, double minY, double minZ, double maxX, double maxY, double maxZ)
+      {
+         model_.setRenderedArea(minX, minY, minZ, maxX, maxY, maxZ);
+      }
+      
       /**
        * Read model from file. Format of the file is:
        *

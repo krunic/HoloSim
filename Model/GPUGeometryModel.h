@@ -358,14 +358,22 @@ namespace hdsim {
        */
       virtual void setRenderedArea(double minX, double minY, double minZ, double maxX, double maxY, double maxZ)
       {
-		   changedSinceLastRecalc_ = true;         
+         // Check is it really needed to invalidate before you do it
+		   changedSinceLastRecalc_ = !areEqual(minX, getRenderedAreaMinX())  ||  !areEqual(maxX, getRenderedAreaMaxX())  ||
+                                   !areEqual(minY, getRenderedAreaMinY())  ||  !areEqual(maxY, getRenderedAreaMaxY())  ||
+										     !areEqual(minZ, getRenderedAreaMinZ())  ||  !areEqual(maxZ, getRenderedAreaMaxZ());
          
-         renderedAreaMinX_ = minX;
-         renderedAreaMinY_ = minY;
-         renderedAreaMaxX_ = maxX;
-         renderedAreaMaxY_ = maxY;
-         renderedAreaMinZ_ = minZ;
-         renderedAreaMaxZ_ = maxZ;         
+			// It is quite possible that if test would take more time due to the possible pipeline stall then all assignments, but we 
+         // should measure before we optimize
+         if (changedSinceLastRecalc_)
+         {
+            renderedAreaMinX_ = minX;
+            renderedAreaMinY_ = minY;
+            renderedAreaMaxX_ = maxX;
+            renderedAreaMaxY_ = maxY;
+            renderedAreaMinZ_ = minZ;
+            renderedAreaMaxZ_ = maxZ;         
+         }
       }
       
    private:
@@ -386,9 +394,10 @@ namespace hdsim {
       GPUCalculationEngine *calculationEngine_;
       
       /**
-       * Did we change after last recalc
+       * Did we change after last recalc. Note that this variable is not considered part of the const of the object because it is related to the
+       * caching, not to the model state (model state for cached and non-cached object is considered the same)
        */
-      bool changedSinceLastRecalc_;
+      mutable bool changedSinceLastRecalc_;
       
       /**
        * Copy value from rhs to this object

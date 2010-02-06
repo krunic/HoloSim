@@ -418,6 +418,8 @@ void GPUGeometryModelTest::testQuadCoveringPartOfTheArea()
    // We would do scanline - there should be two levels in each scanline, and second level should be continious
    // until exit. If we are outside of the polygon, z buffer value should be zero
    const double Z_INFINITY = 1;
+   
+   bool quadDetected = false;   
 
    for (int indexY = 0; indexY < SIZE_Y; indexY++)
    {
@@ -438,6 +440,7 @@ void GPUGeometryModelTest::testQuadCoveringPartOfTheArea()
          {
             CPPUNIT_ASSERT_MESSAGE("We can encounted Z_OFFSET only in quad or if we didn't entered quad before", !scanlineExited);
             scanlineEntered = true;
+            quadDetected = true;
          } 
          else
          {
@@ -449,4 +452,6 @@ void GPUGeometryModelTest::testQuadCoveringPartOfTheArea()
          }
       }
    }
+   
+   CPPUNIT_ASSERT_MESSAGE("Quad was never entered or detected", quadDetected);
 }

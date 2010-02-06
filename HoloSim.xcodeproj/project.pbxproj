@@ -522,9 +522,9 @@
 		7AA6DA341101BAC90069471B /* UnitTestModels */ = {
 			isa = PBXGroup;
 			children = (
+				7AA6DAF611029A410069471B /* Chair.dae */,
 				7A8B3847111CF0B000AAB8A2 /* singleQuad.GPUHoloSim */,
 				7A74592F1102E05E00E29029 /* singleQuad.gpuGeometryModel */,
-				7AA6DAF611029A410069471B /* Chair.dae */,
 				7AA6DA351101BAC90069471B /* TestQuad.dae */,
 			);
 			name = UnitTestModels;

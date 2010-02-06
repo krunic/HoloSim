@@ -68,8 +68,11 @@ void OpenGLDrawingCode::initializeDrawingMode()
    GLfloat lightPosition[] = {0, 1, 3, 0.0};
    GLfloat ambient[] = {0.2, 0.2, 0.2, 1.0}; 
    GLfloat diffuse[] = {1.0, 1.0, 1.0, 1.0};
-   
+
    char message[4096];
+   
+   glMatrixMode(GL_MODELVIEW);
+   glLoadIdentity();
    
    // Configure the view
    glEnable(GL_CULL_FACE);
@@ -318,6 +321,7 @@ void OpenGLDrawingCode::draw(const AbstractModel *m)
    CHECK(model->getSizeX() == model->getSizeY(), "Model sizes must be equal in X and Y for this drawer to work");
    
    // Setup screen and projection
+   initializeDrawingMode();   
    setupProjectionAndCoordinateSystem();
    clearScreen();
 
@@ -342,14 +346,14 @@ void OpenGLDrawingCode::draw(const AbstractModel *m)
    mat[0] = 0.2;
    mat[1] = 0.6;
    mat[2] = 0.1;
+   mat[3] = 1.0;   
    glMaterialfv(GL_FRONT, GL_DIFFUSE, mat);	   
    sprintf(message, "OpenGL returned an error %d", (int)glGetError());
    CHECK(glGetError() == GL_NO_ERROR, message);
    
 	drawModelBase(BASE_SIZE);
       
-   // and draw all the rods in red
-   glColor3f(1.0, 0, 0);
+   // and draw all the rods
    for (int indexX = 0; indexX < model->getSizeX(); indexX++)
       for (int indexY = 0; indexY < model->getSizeY(); indexY++)
          drawRodAt(BASE_SIZE, model->getSizeX(), ROD_COVERAGE_PERCENTAGE, indexX, indexY, model->getAt(indexX, indexY));

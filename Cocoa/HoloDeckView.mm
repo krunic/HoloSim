@@ -103,7 +103,6 @@
    [self setTrackingRectangle];
    
    drawer = [self createDrawer];
-   drawer->initializeDrawingMode();
 }
 
 /**

@@ -20,7 +20,7 @@ GPUGeometryModel::GPUGeometryModel() : sizeX_(0), sizeY_(0), boundMinX_(0), boun
 													renderedAreaMaxY_(0), renderedAreaMinZ_(0), renderedAreaMaxZ_(0), 
 													calculationEngine_(0), changedSinceLastRecalc_(true)
 {
-
+   calculationEngine_ = new GPUCalculationEngine();
 }
       
 GPUGeometryModel::GPUGeometryModel(int sizeX, int sizeY) : sizeX_(sizeX), sizeY_(sizeY), 

@@ -15,7 +15,7 @@
 #include <OpenGL/gl.h>
 #include <OpenGL/glu.h>
 
-#include "InterpolatedModel.h"
+#include "GPUInterpolatedModel.h"
 #include "SimpleDesignByContract.h"
 
 using namespace hdsim;
@@ -313,8 +313,8 @@ void OpenGLDrawingCode::setupProjectionAndCoordinateSystem()
 void OpenGLDrawingCode::draw(const AbstractModel *m)
 {
    // This service knows at the moment only how to draw interpolated models
-   const InterpolatedModel *model = dynamic_cast<const InterpolatedModel*>(m);
-   CHECK(model, "Model must be of the type InterpolatedModel");
+   const GPUInterpolatedModel *model = dynamic_cast<const GPUInterpolatedModel*>(m);
+   CHECK(model, "Model must be of the type GPUInterpolatedModel");
    CHECK(model->getSizeX() == model->getSizeY(), "Model sizes must be equal in X and Y for this drawer to work");
    
    // Setup screen and projection

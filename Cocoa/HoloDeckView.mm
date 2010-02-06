@@ -362,7 +362,7 @@
 
 - (IBAction)notifyModelChanged:(id)sender
 {
-   InterpolatedModel *m = dynamic_cast<InterpolatedModel *>([sender model]);
+   GPUInterpolatedModel *m = dynamic_cast<GPUInterpolatedModel *>([sender model]);
 	[timeSliceSlider setFloatValue:m->getTimeSlice()];
 
    @synchronized(self)
@@ -511,7 +511,7 @@
       if (!animationRunning)
          return;
       
-      InterpolatedModel *m = dynamic_cast<InterpolatedModel *>([model model]);
+      GPUInterpolatedModel *m = dynamic_cast<GPUInterpolatedModel *>([model model]);
       if (!m)
          return;
       
@@ -520,11 +520,11 @@
       if ([model loopAnimation])
       {
          // Loop at the same place from the beginning as would be if this was circular tape. Helps with avoiding discontinuity at the moment of jump
-         newTimeslice = newTimeslice < InterpolatedModel::MAX_TIME_SLICE ? newTimeslice : (newTimeslice - InterpolatedModel::MAX_TIME_SLICE) + InterpolatedModel::MIN_TIME_SLICE;
+         newTimeslice = newTimeslice < GPUInterpolatedModel::MAX_TIME_SLICE ? newTimeslice : (newTimeslice - GPUInterpolatedModel::MAX_TIME_SLICE) + GPUInterpolatedModel::MIN_TIME_SLICE;
       }
 		else
       {
-	      newTimeslice = newTimeslice <= InterpolatedModel::MAX_TIME_SLICE ? newTimeslice : InterpolatedModel::MAX_TIME_SLICE;
+	      newTimeslice = newTimeslice <= GPUInterpolatedModel::MAX_TIME_SLICE ? newTimeslice : GPUInterpolatedModel::MAX_TIME_SLICE;
       }
       
       m->setTimeSlice(newTimeslice);

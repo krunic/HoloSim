@@ -10,7 +10,7 @@
 
 #import <Cocoa/Cocoa.h>
 
-#import "InterpolatedModel.h"
+#import "GPUInterpolatedModel.h"
 
 using namespace hdsim;
 
@@ -52,7 +52,7 @@ using namespace hdsim;
    /**
     * This is a pointer to C++ object is where all loading of the code actually happens
     */
-   InterpolatedModel *model;
+   GPUInterpolatedModel *model;
 }
 
 /**

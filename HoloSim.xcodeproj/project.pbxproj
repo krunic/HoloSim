@@ -19,10 +19,8 @@
 		7A0F8A510C5CA8AB0018DD1F /* MathHelper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7A0F8A4E0C5CA8AB0018DD1F /* MathHelper.cpp */; };
 		7A0F8A580C5CA8C90018DD1F /* AbstractModel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7A0F8A520C5CA8C90018DD1F /* AbstractModel.cpp */; };
 		7A0F8A590C5CA8C90018DD1F /* CheckBoard.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7A0F8A540C5CA8C90018DD1F /* CheckBoard.cpp */; };
-		7A0F8A5A0C5CA8C90018DD1F /* InterpolatedModel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7A0F8A560C5CA8C90018DD1F /* InterpolatedModel.cpp */; };
 		7A0F8A5B0C5CA8C90018DD1F /* AbstractModel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7A0F8A520C5CA8C90018DD1F /* AbstractModel.cpp */; };
 		7A0F8A5C0C5CA8C90018DD1F /* CheckBoard.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7A0F8A540C5CA8C90018DD1F /* CheckBoard.cpp */; };
-		7A0F8A5D0C5CA8C90018DD1F /* InterpolatedModel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7A0F8A560C5CA8C90018DD1F /* InterpolatedModel.cpp */; };
 		7A0F8A650C5CA8EB0018DD1F /* HoloDeckView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 7A0F8A5F0C5CA8EB0018DD1F /* HoloDeckView.mm */; };
 		7A0F8A660C5CA8EB0018DD1F /* HoloSimDocument.mm in Sources */ = {isa = PBXBuildFile; fileRef = 7A0F8A610C5CA8EB0018DD1F /* HoloSimDocument.mm */; };
 		7A0F8A670C5CA8EB0018DD1F /* main.mm in Sources */ = {isa = PBXBuildFile; fileRef = 7A0F8A620C5CA8EB0018DD1F /* main.mm */; };
@@ -32,7 +30,6 @@
 		7A2002680C5979160039A4F7 /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A20023D0C5978930039A4F7 /* SenTestingKit.framework */; };
 		7A2F41C50C75784900FB3B69 /* MathHelperTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7A2F41C20C75784900FB3B69 /* MathHelperTest.cpp */; };
 		7A2F41CC0C75786100FB3B69 /* CheckBoardTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7A2F41C60C75786100FB3B69 /* CheckBoardTest.cpp */; };
-		7A2F41CD0C75786100FB3B69 /* InterpolatedModelTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7A2F41C80C75786100FB3B69 /* InterpolatedModelTest.cpp */; };
 		7A2F41D40C75787C00FB3B69 /* ProjectConfigTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7A2F41CE0C75787C00FB3B69 /* ProjectConfigTest.cpp */; };
 		7A2F41D50C75787C00FB3B69 /* UnitTests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7A2F41D00C75787C00FB3B69 /* UnitTests.cpp */; };
 		7A3E25510C598C2200326103 /* HoloSimIcon.icns in Resources */ = {isa = PBXBuildFile; fileRef = 7A3E25500C598C2200326103 /* HoloSimIcon.icns */; };
@@ -59,7 +56,6 @@
 		7A76392B0C7803FD00600572 /* HoloSimDocument.mm in Sources */ = {isa = PBXBuildFile; fileRef = 7A0F8A610C5CA8EB0018DD1F /* HoloSimDocument.mm */; };
 		7A76392D0C78041C00600572 /* AbstractModel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7A0F8A520C5CA8C90018DD1F /* AbstractModel.cpp */; };
 		7A76392E0C78041C00600572 /* CheckBoard.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7A0F8A540C5CA8C90018DD1F /* CheckBoard.cpp */; };
-		7A76392F0C78041C00600572 /* InterpolatedModel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7A0F8A560C5CA8C90018DD1F /* InterpolatedModel.cpp */; };
 		7A7639450C7804B500600572 /* ControllerAdapter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7A0F8A3E0C5CA8650018DD1F /* ControllerAdapter.cpp */; };
 		7A7639460C7804B500600572 /* MouseAdapter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7A0F8A400C5CA8650018DD1F /* MouseAdapter.cpp */; };
 		7A7639470C7804B500600572 /* AbstractDrawingCode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7A0F8A460C5CA8910018DD1F /* AbstractDrawingCode.cpp */; };
@@ -68,13 +64,16 @@
 		7A76394A0C7804B500600572 /* SimpleDesignByContract.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7A4743A60C5D2150006FEF68 /* SimpleDesignByContract.cpp */; };
 		7A76394B0C7804B500600572 /* MathHelperTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7A2F41C20C75784900FB3B69 /* MathHelperTest.cpp */; };
 		7A76394C0C7804B500600572 /* CheckBoardTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7A2F41C60C75786100FB3B69 /* CheckBoardTest.cpp */; };
-		7A76394D0C7804B500600572 /* InterpolatedModelTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7A2F41C80C75786100FB3B69 /* InterpolatedModelTest.cpp */; };
 		7A76394E0C7804B500600572 /* ProjectConfigTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7A2F41CE0C75787C00FB3B69 /* ProjectConfigTest.cpp */; };
 		7A76394F0C7804B500600572 /* UnitTests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7A2F41D00C75787C00FB3B69 /* UnitTests.cpp */; };
 		7A7639780C78056C00600572 /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A4BD2AF0BCA0DD5004E8E67 /* OpenGL.framework */; };
 		7A7639790C78056C00600572 /* GLUT.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A4BD2B30BCA0DF8004E8E67 /* GLUT.framework */; };
 		7A76397C0C78056C00600572 /* libmockpp_cxxtest.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A4744550C5D3DDF006FEF68 /* libmockpp_cxxtest.a */; };
 		7A7639C10C78099C00600572 /* AbstractDrawingCodeTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7A7639BF0C78099C00600572 /* AbstractDrawingCodeTest.cpp */; };
+		7A8B37A1111B4EFD00AAB8A2 /* GPUInterpolatedModelTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7A8B37A0111B4EFD00AAB8A2 /* GPUInterpolatedModelTest.cpp */; };
+		7A8B384C111CF18000AAB8A2 /* singleQuad.GPUHoloSim in CopyFiles */ = {isa = PBXBuildFile; fileRef = 7A8B3847111CF0B000AAB8A2 /* singleQuad.GPUHoloSim */; };
+		7A8B385B111CF50200AAB8A2 /* GPUInterpolatedModel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7A8B3859111CF50200AAB8A2 /* GPUInterpolatedModel.cpp */; };
+		7A8B385C111CF50200AAB8A2 /* GPUInterpolatedModel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7A8B3859111CF50200AAB8A2 /* GPUInterpolatedModel.cpp */; };
 		7AA27ABB0C67D19A00BBC250 /* AppController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 7AA27ABA0C67D19A00BBC250 /* AppController.mm */; };
 		7AA27ABC0C67D19A00BBC250 /* AppController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 7AA27ABA0C67D19A00BBC250 /* AppController.mm */; };
 		7AA6D9951101A5A10069471B /* ColladaTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7AA6D9931101A5A10069471B /* ColladaTest.cpp */; };
@@ -112,6 +111,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 16;
 			files = (
+				7A8B384C111CF18000AAB8A2 /* singleQuad.GPUHoloSim in CopyFiles */,
 				7A7459301102E06700E29029 /* singleQuad.gpuGeometryModel in CopyFiles */,
 				7AA6DAF711029A6F0069471B /* Chair.dae in CopyFiles */,
 				7AA6DA381101BB1E0069471B /* TestQuad.dae in CopyFiles */,
@@ -145,8 +145,6 @@
 		7A0F8A530C5CA8C90018DD1F /* AbstractModel.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = AbstractModel.h; path = Model/AbstractModel.h; sourceTree = "<group>"; };
 		7A0F8A540C5CA8C90018DD1F /* CheckBoard.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; name = CheckBoard.cpp; path = Model/CheckBoard.cpp; sourceTree = "<group>"; };
 		7A0F8A550C5CA8C90018DD1F /* CheckBoard.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = CheckBoard.h; path = Model/CheckBoard.h; sourceTree = "<group>"; };
-		7A0F8A560C5CA8C90018DD1F /* InterpolatedModel.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; name = InterpolatedModel.cpp; path = Model/InterpolatedModel.cpp; sourceTree = "<group>"; };
-		7A0F8A570C5CA8C90018DD1F /* InterpolatedModel.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = InterpolatedModel.h; path = Model/InterpolatedModel.h; sourceTree = "<group>"; };
 		7A0F8A5E0C5CA8EB0018DD1F /* HoloDeckView.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = HoloDeckView.h; path = Cocoa/HoloDeckView.h; sourceTree = "<group>"; };
 		7A0F8A5F0C5CA8EB0018DD1F /* HoloDeckView.mm */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.objcpp; name = HoloDeckView.mm; path = Cocoa/HoloDeckView.mm; sourceTree = "<group>"; };
 		7A0F8A600C5CA8EB0018DD1F /* HoloSimDocument.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = HoloSimDocument.h; path = Cocoa/HoloSimDocument.h; sourceTree = "<group>"; };
@@ -163,8 +161,6 @@
 		7A2F41C30C75784900FB3B69 /* MathHelperTest.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = MathHelperTest.h; path = UnitTests/CPPUnit/Math/MathHelperTest.h; sourceTree = "<group>"; };
 		7A2F41C60C75786100FB3B69 /* CheckBoardTest.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; name = CheckBoardTest.cpp; path = UnitTests/CPPUnit/Model/CheckBoardTest.cpp; sourceTree = "<group>"; };
 		7A2F41C70C75786100FB3B69 /* CheckBoardTest.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = CheckBoardTest.h; path = UnitTests/CPPUnit/Model/CheckBoardTest.h; sourceTree = "<group>"; };
-		7A2F41C80C75786100FB3B69 /* InterpolatedModelTest.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; name = InterpolatedModelTest.cpp; path = UnitTests/CPPUnit/Model/InterpolatedModelTest.cpp; sourceTree = "<group>"; };
-		7A2F41C90C75786100FB3B69 /* InterpolatedModelTest.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = InterpolatedModelTest.h; path = UnitTests/CPPUnit/Model/InterpolatedModelTest.h; sourceTree = "<group>"; };
 		7A2F41CE0C75787C00FB3B69 /* ProjectConfigTest.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; name = ProjectConfigTest.cpp; path = UnitTests/CPPUnit/ProjectConfigTest.cpp; sourceTree = "<group>"; };
 		7A2F41CF0C75787C00FB3B69 /* ProjectConfigTest.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = ProjectConfigTest.h; path = UnitTests/CPPUnit/ProjectConfigTest.h; sourceTree = "<group>"; };
 		7A2F41D00C75787C00FB3B69 /* UnitTests.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; name = UnitTests.cpp; path = UnitTests/CPPUnit/UnitTests.cpp; sourceTree = "<group>"; };
@@ -188,6 +184,11 @@
 		7A74592F1102E05E00E29029 /* singleQuad.gpuGeometryModel */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = singleQuad.gpuGeometryModel; sourceTree = "<group>"; };
 		7A7639BE0C78099C00600572 /* AbstractDrawingCodeTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AbstractDrawingCodeTest.h; path = UnitTests/CPPUnit/Graphics/AbstractDrawingCodeTest.h; sourceTree = "<group>"; };
 		7A7639BF0C78099C00600572 /* AbstractDrawingCodeTest.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = AbstractDrawingCodeTest.cpp; path = UnitTests/CPPUnit/Graphics/AbstractDrawingCodeTest.cpp; sourceTree = "<group>"; };
+		7A8B379F111B4EFD00AAB8A2 /* GPUInterpolatedModelTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GPUInterpolatedModelTest.h; path = UnitTests/CPPUnit/Model/GPUInterpolatedModelTest.h; sourceTree = "<group>"; };
+		7A8B37A0111B4EFD00AAB8A2 /* GPUInterpolatedModelTest.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GPUInterpolatedModelTest.cpp; path = UnitTests/CPPUnit/Model/GPUInterpolatedModelTest.cpp; sourceTree = "<group>"; };
+		7A8B3847111CF0B000AAB8A2 /* singleQuad.GPUHoloSim */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = singleQuad.GPUHoloSim; sourceTree = "<group>"; };
+		7A8B3859111CF50200AAB8A2 /* GPUInterpolatedModel.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GPUInterpolatedModel.cpp; path = Model/GPUInterpolatedModel.cpp; sourceTree = "<group>"; };
+		7A8B385A111CF50200AAB8A2 /* GPUInterpolatedModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GPUInterpolatedModel.h; path = Model/GPUInterpolatedModel.h; sourceTree = "<group>"; };
 		7AA27AB90C67D19A00BBC250 /* AppController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppController.h; path = Cocoa/AppController.h; sourceTree = "<group>"; };
 		7AA27ABA0C67D19A00BBC250 /* AppController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = AppController.mm; path = Cocoa/AppController.mm; sourceTree = "<group>"; };
 		7AA6D915110195BC0069471B /* TriangleByPointIndex.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TriangleByPointIndex.h; path = Model/TriangleByPointIndex.h; sourceTree = "<group>"; };
@@ -374,14 +375,14 @@
 			children = (
 				7A2F41C70C75786100FB3B69 /* CheckBoardTest.h */,
 				7A2F41C60C75786100FB3B69 /* CheckBoardTest.cpp */,
-				7A2F41C90C75786100FB3B69 /* InterpolatedModelTest.h */,
-				7A2F41C80C75786100FB3B69 /* InterpolatedModelTest.cpp */,
 				7ABA8C0010FDA599000EB032 /* GPUGeometryModelTest.h */,
 				7ABA8C0110FDA599000EB032 /* GPUGeometryModelTest.cpp */,
 				7AA6D9921101A5A10069471B /* ColladaTest.h */,
 				7AA6D9931101A5A10069471B /* ColladaTest.cpp */,
 				7ACE34F711122FA600EC758D /* GPUCalculationEngineTest.h */,
 				7ACE34F811122FA600EC758D /* GPUCalculationEngineTest.cpp */,
+				7A8B379F111B4EFD00AAB8A2 /* GPUInterpolatedModelTest.h */,
+				7A8B37A0111B4EFD00AAB8A2 /* GPUInterpolatedModelTest.cpp */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -443,12 +444,12 @@
 				7A0F8A520C5CA8C90018DD1F /* AbstractModel.cpp */,
 				7A0F8A550C5CA8C90018DD1F /* CheckBoard.h */,
 				7A0F8A540C5CA8C90018DD1F /* CheckBoard.cpp */,
-				7AE63EB610FBA45E00C0AE45 /* GPUGeometryModel.h */,
-				7AE6412610FBAC9B00C0AE45 /* GPUGeometryModel.cpp */,
 				7AE6411D10FBA68800C0AE45 /* GPUCalculationEngine.h */,
 				7AE6412C10FBACC800C0AE45 /* GPUCalculationEngine.cpp */,
-				7A0F8A570C5CA8C90018DD1F /* InterpolatedModel.h */,
-				7A0F8A560C5CA8C90018DD1F /* InterpolatedModel.cpp */,
+				7AE63EB610FBA45E00C0AE45 /* GPUGeometryModel.h */,
+				7AE6412610FBAC9B00C0AE45 /* GPUGeometryModel.cpp */,
+				7A8B385A111CF50200AAB8A2 /* GPUInterpolatedModel.h */,
+				7A8B3859111CF50200AAB8A2 /* GPUInterpolatedModel.cpp */,
 				7AE6411E10FBA78A00C0AE45 /* Point.h */,
 				7AA6D91C110196090069471B /* Triangle.h */,
 				7AA6D915110195BC0069471B /* TriangleByPointIndex.h */,
@@ -521,6 +522,7 @@
 		7AA6DA341101BAC90069471B /* UnitTestModels */ = {
 			isa = PBXGroup;
 			children = (
+				7A8B3847111CF0B000AAB8A2 /* singleQuad.GPUHoloSim */,
 				7A74592F1102E05E00E29029 /* singleQuad.gpuGeometryModel */,
 				7AA6DAF611029A410069471B /* Chair.dae */,
 				7AA6DA351101BAC90069471B /* TestQuad.dae */,
@@ -723,11 +725,9 @@
 				7A7639490C7804B500600572 /* MathHelper.cpp in Sources */,
 				7A76392D0C78041C00600572 /* AbstractModel.cpp in Sources */,
 				7A76392E0C78041C00600572 /* CheckBoard.cpp in Sources */,
-				7A76392F0C78041C00600572 /* InterpolatedModel.cpp in Sources */,
 				7A76394A0C7804B500600572 /* SimpleDesignByContract.cpp in Sources */,
 				7A76394B0C7804B500600572 /* MathHelperTest.cpp in Sources */,
 				7A76394C0C7804B500600572 /* CheckBoardTest.cpp in Sources */,
-				7A76394D0C7804B500600572 /* InterpolatedModelTest.cpp in Sources */,
 				7A76394E0C7804B500600572 /* ProjectConfigTest.cpp in Sources */,
 				7A76394F0C7804B500600572 /* UnitTests.cpp in Sources */,
 				7A76392B0C7803FD00600572 /* HoloSimDocument.mm in Sources */,
@@ -748,11 +748,9 @@
 				7A0F8A510C5CA8AB0018DD1F /* MathHelper.cpp in Sources */,
 				7A0F8A5B0C5CA8C90018DD1F /* AbstractModel.cpp in Sources */,
 				7A0F8A5C0C5CA8C90018DD1F /* CheckBoard.cpp in Sources */,
-				7A0F8A5D0C5CA8C90018DD1F /* InterpolatedModel.cpp in Sources */,
 				7A4743A80C5D2150006FEF68 /* SimpleDesignByContract.cpp in Sources */,
 				7A2F41C50C75784900FB3B69 /* MathHelperTest.cpp in Sources */,
 				7A2F41CC0C75786100FB3B69 /* CheckBoardTest.cpp in Sources */,
-				7A2F41CD0C75786100FB3B69 /* InterpolatedModelTest.cpp in Sources */,
 				7A2F41D40C75787C00FB3B69 /* ProjectConfigTest.cpp in Sources */,
 				7A2F41D50C75787C00FB3B69 /* UnitTests.cpp in Sources */,
 				7A7639C10C78099C00600572 /* AbstractDrawingCodeTest.cpp in Sources */,
@@ -762,6 +760,8 @@
 				7ABA8C0310FDA599000EB032 /* GPUGeometryModelTest.cpp in Sources */,
 				7AA6D9951101A5A10069471B /* ColladaTest.cpp in Sources */,
 				7ACE34F911122FA600EC758D /* GPUCalculationEngineTest.cpp in Sources */,
+				7A8B37A1111B4EFD00AAB8A2 /* GPUInterpolatedModelTest.cpp in Sources */,
+				7A8B385B111CF50200AAB8A2 /* GPUInterpolatedModel.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -776,7 +776,6 @@
 				7A0F8A500C5CA8AB0018DD1F /* MathHelper.cpp in Sources */,
 				7A0F8A580C5CA8C90018DD1F /* AbstractModel.cpp in Sources */,
 				7A0F8A590C5CA8C90018DD1F /* CheckBoard.cpp in Sources */,
-				7A0F8A5A0C5CA8C90018DD1F /* InterpolatedModel.cpp in Sources */,
 				7A0F8A650C5CA8EB0018DD1F /* HoloDeckView.mm in Sources */,
 				7A0F8A660C5CA8EB0018DD1F /* HoloSimDocument.mm in Sources */,
 				7A0F8A670C5CA8EB0018DD1F /* main.mm in Sources */,
@@ -786,6 +785,7 @@
 				7A43490310F3496700E4F3C9 /* Collada.cpp in Sources */,
 				7AE6412710FBAC9B00C0AE45 /* GPUGeometryModel.cpp in Sources */,
 				7AE6412D10FBACC800C0AE45 /* GPUCalculationEngine.cpp in Sources */,
+				7A8B385C111CF50200AAB8A2 /* GPUInterpolatedModel.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

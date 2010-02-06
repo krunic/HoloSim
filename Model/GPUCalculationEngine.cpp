@@ -281,6 +281,8 @@ bool GPUCalculationEngine::initFrameBuffer(int width, int height)
 {
    PRECONDITION(width > 0  &&  height > 0);
    
+   cerr << "Recalculating";
+   
    // Following code is based on Apple OpenGL Programming Guide for Mac OS X, page 46
    const int PIXEL_MEM_SIZE = 32;
    const int BYTES_PER_PIXEL = PIXEL_MEM_SIZE/8;

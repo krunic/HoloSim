@@ -227,6 +227,10 @@ void GPUCalculationEngine::calculateEngine(const AbstractModel *model)
    
    CHECK(!getAndResetGLErrorStatus(), "Error in gluLookAt");
    
+   // Set viewport so that one rod matches one pixel
+   glViewport(0, 0, geometryModel->getSizeX(), geometryModel->getSizeY());
+   CHECK(!getAndResetGLErrorStatus(), "Failed to setup viewport so that one rod matches one pixel");   
+   
    glEnable(GL_DEPTH_TEST);
    CHECK(!getAndResetGLErrorStatus(), "Error in enabling depth test");
    
@@ -334,10 +338,29 @@ bool GPUCalculationEngine::initFrameBuffer(int width, int height)
    
    glFramebufferRenderbufferEXT(GL_FRAMEBUFFER_EXT, GL_DEPTH_ATTACHMENT_EXT, GL_RENDERBUFFER_EXT, renderBufferID_);
    CHECK(!getAndResetGLErrorStatus(), "Can't attach renderbuffer to framebuffer");
+
+//#define VELJKO_DEBUG
+#ifdef VELJKO_DEBUG   
+   GLuint colorBufferID;
+   glGenRenderbuffersEXT(1, &colorBufferID);
+   CHECK(!getAndResetGLErrorStatus(), "Can't create renderbuffer");
+   
+   glBindRenderbufferEXT(GL_RENDERBUFFER_EXT, colorBufferID);
+   CHECK(!getAndResetGLErrorStatus(), "Can't bind renderbuffer color storage");
+   
+   glRenderbufferStorageEXT(GL_RENDERBUFFER_EXT, GL_RGBA8, width, height);
+   CHECK(!getAndResetGLErrorStatus(), "Can't create renderbuffer color storage");
+   
+   glFramebufferRenderbufferEXT(GL_FRAMEBUFFER_EXT, GL_COLOR_ATTACHMENT0_EXT, GL_RENDERBUFFER_EXT, colorBufferID);   
+   CHECK(!getAndResetGLErrorStatus(), "Can't attach renderbuffer color storage");
   
+   glDrawBuffer(GL_COLOR_ATTACHMENT0_EXT);
+   glReadBuffer(GL_COLOR_ATTACHMENT0_EXT);
+#else
    glDrawBuffer(GL_NONE);
    glReadBuffer(GL_NONE);
-  
+#endif
+   
    status = glCheckFramebufferStatusEXT(GL_FRAMEBUFFER_EXT);
    if (status != GL_FRAMEBUFFER_COMPLETE_EXT)
    {
@@ -345,19 +368,27 @@ bool GPUCalculationEngine::initFrameBuffer(int width, int height)
       return false;
    }
    
+#ifdef VELJKO_DEBUG   
    //--- EXTRA ----
    
    glBindFramebufferEXT(GL_FRAMEBUFFER_EXT, frameBufferID_);
    
+   glViewport(0, 0, width_, height_);
+   
+   glEnable(GL_DEPTH_TEST);
+   glDepthFunc(GL_LEQUAL);
+	glDepthMask(GL_TRUE);
+   
    glClearDepth(1);
-   glClear(GL_DEPTH_BUFFER_BIT);
+   glClearColor(0, 0, 0, 1);
+   glClear(GL_DEPTH_BUFFER_BIT | GL_COLOR_BUFFER_BIT);
 
-   GLfloat *depths = new GLfloat	[width_ * height_];
+   GLfloat *depths = new GLfloat[width_ * height_];
    for (int i = 0; i < width_ * height_; i++)
       depths[i] = 1.11;
    
    glMatrixMode(GL_PROJECTION);
-   glOrtho(-1, 1, -1, 1, 1, 10);
+   glOrtho(-1, 1, -1, 1, 0.01, 10);
    
    glMatrixMode(GL_MODELVIEW);
    glLoadIdentity();
@@ -366,6 +397,7 @@ bool GPUCalculationEngine::initFrameBuffer(int width, int height)
              0, 1, 0);
    
    // Now draw something
+   glColor3f(1, 0, 0);
    glBegin(GL_TRIANGLES);
 	   glVertex3d(0, 0, 0);
 	   glVertex3d(1, 0, 0);
@@ -374,10 +406,18 @@ bool GPUCalculationEngine::initFrameBuffer(int width, int height)
    
    glReadPixels(0, 0, width_, height_, GL_DEPTH_COMPONENT, GL_FLOAT, depths);
    CHECK(!getAndResetGLErrorStatus(), "Problem reading Z buffer");
-   
    writeColorBufferToCSVFile("depths.csv", depths, width_, height_);
    
+   GLuint *colors = new GLuint[3 * width_ * height_];
+   for (int i = 0; i < width_ * height_; i++)
+      depths[i] = 0.1;
+   
+   glReadPixels(0, 0, width_, height_, GL_RGB, GL_UNSIGNED_INT, colors);
+   CHECK(!getAndResetGLErrorStatus(), "Problem reading Z buffer");
+   writeColorBufferToCSVFile("colors.csv", colors, 3*width_, height_);
+   
    // -----------
+#endif   
    
    glBindFramebufferEXT(GL_FRAMEBUFFER_EXT, 0);
    

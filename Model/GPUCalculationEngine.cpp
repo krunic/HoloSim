@@ -354,7 +354,7 @@ bool GPUCalculationEngine::initFrameBuffer(int width, int height)
       cerr << "Error in glCheckFramebufferStatusEXT, FBO status " <<  status << endl;
       return false;
    }
-  
+    
    glBindFramebufferEXT(GL_FRAMEBUFFER_EXT, 0);
    
    return true;

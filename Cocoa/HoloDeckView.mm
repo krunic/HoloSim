@@ -541,6 +541,50 @@ void doubleInterval(double min, double max, double *newMin, double *newMax)
 }
 
 /**
+ * Normalize bounds of the viewing volume
+ * 
+ * @param minX Min X
+ * @param minY Min Y
+ * @param minZ Min Z
+ * @param maxX Max X
+ * @param maxY Max Y
+ * @param maxZ Max Z
+ */
+void normalizeBounds(double *minX, double *maxX, double *minY, double *maxY, double *minZ, double *maxZ)
+{
+   // Find max dimension. fabs is there to account for precision loss
+   double xDim = fabs(*maxX - *minX);
+   double yDim = fabs(*maxY - *minY);
+   double zDim = fabs(*maxZ - *minZ);
+   
+   double maxDim = max(xDim, max(yDim, zDim));
+   
+   if (areEqual(xDim, 0))
+   {
+      // As minX == maxX
+      double center = *minX;
+      *minX = center - maxDim/2;
+      *maxX = center + maxDim/2;      
+   }
+
+   if (areEqual(yDim, 0))
+   {
+      // As minY == maxY
+      double center = *minY;
+      *minY = center - maxDim/2;
+      *maxY = center + maxDim/2;      
+   }
+   
+   if (areEqual(zDim, 0))
+   {
+      // As minZ == maxZ
+      double center = *minZ;
+      *minZ = center - maxDim/2;
+      *maxZ = center + maxDim/2;      
+   }
+}
+
+/**
  * Callback called when this window needs to redisplay itself
  *
  * @param rect Rectangle that needs to be redisplayed. We always redisplay whole window
@@ -563,6 +607,11 @@ void doubleInterval(double min, double max, double *newMin, double *newMax)
    doubleInterval(m->getBoundMinX(), m->getBoundMaxX(), &renderMinX, &renderMaxX);
    doubleInterval(m->getBoundMinY(), m->getBoundMaxY(), &renderMinY, &renderMaxY);
    doubleInterval(m->getBoundMinZ(), m->getBoundMaxZ(), &renderMinZ, &renderMaxZ);
+   
+   // Now, if any data are 0, set them up to be equal to the max dimension
+   normalizeBounds(&renderMinX, &renderMaxX,
+                   &renderMinY, &renderMaxY,
+                   &renderMinZ, &renderMaxZ);
    
    m->setRenderedArea(renderMinX, renderMinY, renderMinZ, renderMaxX, renderMaxY, renderMaxZ);
    drawer->draw(m);

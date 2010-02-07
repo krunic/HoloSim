@@ -245,6 +245,7 @@
    // Resize data from drawer
    drawer->setBounds(rect.size.width, rect.size.height);
    drawer->setAspectRatio(rect.size.width/(double)rect.size.height);
+   [self update];
 
    [self setNeedsDisplay:YES];
 }
@@ -593,6 +594,8 @@ void normalizeBounds(double *minX, double *maxX, double *minY, double *maxY, dou
  */
 - (void)drawRect:(NSRect)rect
 {
+   [self reshape];
+   
 	NSOpenGLContext *context = [self openGLContext];   
    [context makeCurrentContext]; 
    

@@ -260,7 +260,7 @@
 						</object>
 						<object class="NSCustomView" id="12899723">
 							<reference key="NSNextResponder" ref="937265467"/>
-							<int key="NSvFlags">268</int>
+							<int key="NSvFlags">274</int>
 							<string key="NSFrame">{{18, 20}, {720, 418}}</string>
 							<reference key="NSSuperview" ref="937265467"/>
 							<string key="NSClassName">HoloDeckView</string>

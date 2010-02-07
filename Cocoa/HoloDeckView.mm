@@ -528,13 +528,15 @@
  * @param min (OUT) - min of the interval
  * @paramm max (OUT) - max of the interval
  */
-void doubleInterval(double min, double max, double *newMin, double *newMax)
+void padInterval(double min, double max, double *newMin, double *newMax)
 {
 	PRECONDITION(min <= max);
    
    // Find center of the old interval, add full length of the old interval left and right of it and that is your new interval   
+   const double PAD_FACTOR = 1.2;
+   
    double center = (min + max)/2;
-   double length = max - min;
+   double length = (max - min) * PAD_FACTOR/2;
    
    *newMin = center - length;
    *newMax = center + length;
@@ -601,12 +603,12 @@ void normalizeBounds(double *minX, double *maxX, double *minY, double *maxY, dou
       return;      
    }
 
-   // Set model boundaries to twice the model. We in effect want to extend [minX, maxX] twice while keeping same mean. 
+   // Set model boundaries to be a little bit bigger then the model. We in effect want to extend [minX, maxX] twice while keeping same mean. 
    double renderMinX, renderMinY, renderMinZ, renderMaxX, renderMaxY, renderMaxZ;
    
-   doubleInterval(m->getBoundMinX(), m->getBoundMaxX(), &renderMinX, &renderMaxX);
-   doubleInterval(m->getBoundMinY(), m->getBoundMaxY(), &renderMinY, &renderMaxY);
-   doubleInterval(m->getBoundMinZ(), m->getBoundMaxZ(), &renderMinZ, &renderMaxZ);
+   padInterval(m->getBoundMinX(), m->getBoundMaxX(), &renderMinX, &renderMaxX);
+   padInterval(m->getBoundMinY(), m->getBoundMaxY(), &renderMinY, &renderMaxY);
+   padInterval(m->getBoundMinZ(), m->getBoundMaxZ(), &renderMinZ, &renderMaxZ);
    
    // Now, if any data are 0, set them up to be equal to the max dimension
    normalizeBounds(&renderMinX, &renderMaxX,

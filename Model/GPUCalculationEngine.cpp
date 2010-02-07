@@ -209,6 +209,7 @@ void GPUCalculationEngine::calculateEngine(const AbstractModel *model)
    glOrtho(geometryModel->getRenderedAreaMinX(), geometryModel->getRenderedAreaMaxX(), 
            geometryModel->getRenderedAreaMinY(), geometryModel->getRenderedAreaMaxY(),
            NEAR_CLIP_PLANE_POSITION, farClipPlanePosition);
+   
 
    if (getAndResetGLErrorStatus())
    {
@@ -272,7 +273,7 @@ void GPUCalculationEngine::calculateEngine(const AbstractModel *model)
       
       point = geometryModel->getPoint(triangle.getIndex2());
       glVertex3d(point.getX(), point.getY(), point.getZ());
-      
+
       point = geometryModel->getPoint(triangle.getIndex3());
       glVertex3d(point.getX(), point.getY(), point.getZ());
    }

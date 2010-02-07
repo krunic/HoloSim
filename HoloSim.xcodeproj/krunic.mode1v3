@@ -284,13 +284,15 @@
 							<key>PBXSmartGroupTreeModuleOutlineStateSelectionKey</key>
 							<array>
 								<array>
-									<integer>34</integer>
-									<integer>28</integer>
+									<integer>66</integer>
+									<integer>60</integer>
+									<integer>53</integer>
+									<integer>47</integer>
 									<integer>0</integer>
 								</array>
 							</array>
 							<key>PBXSmartGroupTreeModuleOutlineStateVisibleRectKey</key>
-							<string>{{0, 0}, {269, 910}}</string>
+							<string>{{0, 402}, {269, 910}}</string>
 						</dict>
 						<key>PBXTopSmartGroupGIDs</key>
 						<array/>
@@ -327,7 +329,7 @@
 								<key>PBXProjectModuleGUID</key>
 								<string>1CE0B20306471E060097A5F4</string>
 								<key>PBXProjectModuleLabel</key>
-								<string>GPUCalculationEngine.cpp</string>
+								<string>ColladaTest.cpp</string>
 								<key>PBXSplitModuleInNavigatorKey</key>
 								<dict>
 									<key>Split0</key>
@@ -335,11 +337,11 @@
 										<key>PBXProjectModuleGUID</key>
 										<string>1CE0B20406471E060097A5F4</string>
 										<key>PBXProjectModuleLabel</key>
-										<string>GPUCalculationEngine.cpp</string>
+										<string>ColladaTest.cpp</string>
 										<key>_historyCapacity</key>
 										<integer>0</integer>
 										<key>bookmark</key>
-										<string>7A938924111E894D006D65F1</string>
+										<string>7A9389CE111EB17A006D65F1</string>
 										<key>history</key>
 										<array>
 											<string>7A76397F0C7805A100600572</string>
@@ -381,7 +383,6 @@
 											<string>7ACE346D1110CB2300EC758D</string>
 											<string>7ACE346E1110CB2300EC758D</string>
 											<string>7ACE34701110CB2300EC758D</string>
-											<string>7ACE3508111232EB00EC758D</string>
 											<string>7ACE357911123F1200EC758D</string>
 											<string>7A967C1B11155D1E0020BCD6</string>
 											<string>7A967C1C11155D1E0020BCD6</string>
@@ -394,7 +395,6 @@
 											<string>7A6C1DBA111CFA7C001E19D7</string>
 											<string>7A6C1DBB111CFA7C001E19D7</string>
 											<string>7A6C1DBC111CFA7C001E19D7</string>
-											<string>7AB20C48111D76AF00200217</string>
 											<string>7AB20C49111D76AF00200217</string>
 											<string>7AB20C4B111D76AF00200217</string>
 											<string>7AB20C62111D787500200217</string>
@@ -424,10 +424,12 @@
 											<string>7A9388A5111E4E77006D65F1</string>
 											<string>7A9388A6111E4E77006D65F1</string>
 											<string>7A9388A7111E4E77006D65F1</string>
-											<string>7A9388F3111E851F006D65F1</string>
-											<string>7A9388FF111E85E4006D65F1</string>
-											<string>7A938911111E87C5006D65F1</string>
-											<string>7A938912111E87C5006D65F1</string>
+											<string>7A938940111E9FDC006D65F1</string>
+											<string>7A93897A111EA79A006D65F1</string>
+											<string>7A93898A111EA954006D65F1</string>
+											<string>7A938995111EAC17006D65F1</string>
+											<string>7A9389C4111EAE09006D65F1</string>
+											<string>7A9389C5111EAE09006D65F1</string>
 										</array>
 									</dict>
 									<key>SplitCount</key>
@@ -646,8 +648,6 @@
 					<key>Dock</key>
 					<array>
 						<dict>
-							<key>BecomeActive</key>
-							<true/>
 							<key>ContentConfiguration</key>
 							<dict>
 								<key>PBXProjectModuleGUID</key>
@@ -670,6 +670,8 @@
 							<string>437pt</string>
 						</dict>
 						<dict>
+							<key>BecomeActive</key>
+							<true/>
 							<key>ContentConfiguration</key>
 							<dict>
 								<key>PBXProjectModuleGUID</key>
@@ -796,7 +798,7 @@
 										<string>Name</string>
 										<real>303</real>
 										<string>Value</string>
-										<real>85</real>
+										<real>128</real>
 										<string>Summary</string>
 										<real>80</real>
 									</array>

@@ -32,6 +32,9 @@ static const int ROD_COVERAGE_PERCENTAGE = 80;
 // Offset to avoid Z buffer fighting
 static const double Z_OFFSET = 0.01;
 
+// Max rod height in comparasion with base
+static const double MAX_ROD_HEIGHT = 10;
+
 OpenGLDrawingCode::OpenGLDrawingCode() : AbstractDrawingCode(), aspectRatio_(0), fov_(0)
 {
    fov_ = INITIAL_FOV;
@@ -354,10 +357,12 @@ void OpenGLDrawingCode::draw(const AbstractModel *m)
    
 	drawModelBase(BASE_SIZE);
    
-   // Holodeck can't show negative Z offset, so we would show only part of the image above the ground. As 
-   // we are calculating image based on total size divided by sizeX() and sizeY(), we need to divide maxZ
-   // with this same measures
-   double maxRodSize = model->getRenderedAreaMaxZ() / max(model->getSizeX(), model->getSizeY());
+   // Holodeck can't show negative Z offset but we would rescale that minZ iz Z=1. And we would rescale so 
+   // that the Z coordinates are proportional to the X and Y axis
+   double xRenderSize = model->getRenderedAreaMaxX() - model->getRenderedAreaMinX();
+   double yRenderSize = model->getRenderedAreaMaxY() - model->getRenderedAreaMinY();
+   
+   double maxRodSize = BASE_SIZE * (model->getRenderedAreaMaxZ() - model->getRenderedAreaMinZ())/max(xRenderSize, yRenderSize);
       
    // and draw all the rods
    for (int indexX = 0; indexX < model->getSizeX(); indexX++)

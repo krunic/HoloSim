@@ -164,9 +164,9 @@ static bool loadTrianglesToModel(domMesh *meshElement, GPUGeometryModel &loadToT
       int indexInTriangleIndexes = 0;
 	   for (int indexTriangles = 0; indexTriangles < numTriangles; indexTriangles++)
 	   {
-         int index1 = triangleIndexes->getValue()[indexInTriangleIndexes];
-         int index2 = triangleIndexes->getValue()[indexInTriangleIndexes + 1];
-         int index3 = triangleIndexes->getValue()[indexInTriangleIndexes + 2];
+         int index1 = triangleIndexes->getValue()[indexInTriangleIndexes++];
+         int index2 = triangleIndexes->getValue()[indexInTriangleIndexes++];
+         int index3 = triangleIndexes->getValue()[indexInTriangleIndexes++];
       
          loadToThisModel.addTriangle(createTriangle(index1, index2, index3));
       }

@@ -292,13 +292,18 @@ bool GPUCalculationEngine::initFrameBuffer(int width, int height)
 {
    PRECONDITION(width > 0  &&  height > 0);
    
-   // Following code is based on Apple OpenGL Programming Guide for Mac OS X, page 46
+   // Following code is based on Apple OpenGL Programming Guide for Mac OS X, page 46. Although we would be using
+   // renderbuffer and not pbuffer, we still need a context for the renderers so that we could check renderers
+   // capabilities etc. With that being said, once when we have render buffer setup, we don't need to set this context
+   // as a current context
    const int PIXEL_MEM_SIZE = 32;
    
    CGLPixelFormatAttribute openGLAttributes[] =
    {
       kCGLPFAPBuffer, 
       kCGLPFAAccelerated,
+      kCGLPFANoRecovery,
+      kCGLPFAMinimumPolicy,
       kCGLPFAColorSize, 
       static_cast<CGLPixelFormatAttribute>(PIXEL_MEM_SIZE), 
       static_cast<CGLPixelFormatAttribute>(0)

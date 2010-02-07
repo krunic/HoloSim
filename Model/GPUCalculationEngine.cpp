@@ -199,10 +199,16 @@ void GPUCalculationEngine::calculateEngine(const AbstractModel *model)
    glLoadIdentity();
    CHECK(!getAndResetGLErrorStatus(), "Error in glLoadIdentity");
    
+   // Position of the near clip plane from the camera
+   static const double NEAR_CLIP_PLANE_POSITION = 1.0;
+   
+   double farClipPlanePosition = geometryModel->getRenderedAreaMaxZ() - geometryModel->getRenderedAreaMinZ() +  
+   										NEAR_CLIP_PLANE_POSITION + FLOATING_POINTS_LOW_PRECISION_EQUAL_DELTA;
+   
    // Set camera and planes to Z_CORRECTION_FACTOR*z to avoid problems due to Z buffer aliasing
    glOrtho(geometryModel->getRenderedAreaMinX(), geometryModel->getRenderedAreaMaxX(), 
            geometryModel->getRenderedAreaMinY(), geometryModel->getRenderedAreaMaxY(),
-           1, geometryModel->getRenderedAreaMinZ() + geometryModel->getRenderedAreaMaxZ() + FLOATING_POINTS_EQUAL_DELTA);
+           NEAR_CLIP_PLANE_POSITION, farClipPlanePosition);
 
    if (getAndResetGLErrorStatus())
    {
@@ -219,7 +225,7 @@ void GPUCalculationEngine::calculateEngine(const AbstractModel *model)
    CHECK(!getAndResetGLErrorStatus(), "Error in glLoadIdentity");
    
    gluLookAt(// Eye position
-             0, 0, geometryModel->getRenderedAreaMaxZ(),
+             0, 0, geometryModel->getRenderedAreaMaxZ() + NEAR_CLIP_PLANE_POSITION + FLOATING_POINTS_LOW_PRECISION_EQUAL_DELTA,
              // Center position
              0, 0, 0, 
              // Up position
@@ -339,86 +345,16 @@ bool GPUCalculationEngine::initFrameBuffer(int width, int height)
    glFramebufferRenderbufferEXT(GL_FRAMEBUFFER_EXT, GL_DEPTH_ATTACHMENT_EXT, GL_RENDERBUFFER_EXT, renderBufferID_);
    CHECK(!getAndResetGLErrorStatus(), "Can't attach renderbuffer to framebuffer");
 
-//#define VELJKO_DEBUG
-#ifdef VELJKO_DEBUG   
-   GLuint colorBufferID;
-   glGenRenderbuffersEXT(1, &colorBufferID);
-   CHECK(!getAndResetGLErrorStatus(), "Can't create renderbuffer");
-   
-   glBindRenderbufferEXT(GL_RENDERBUFFER_EXT, colorBufferID);
-   CHECK(!getAndResetGLErrorStatus(), "Can't bind renderbuffer color storage");
-   
-   glRenderbufferStorageEXT(GL_RENDERBUFFER_EXT, GL_RGBA8, width, height);
-   CHECK(!getAndResetGLErrorStatus(), "Can't create renderbuffer color storage");
-   
-   glFramebufferRenderbufferEXT(GL_FRAMEBUFFER_EXT, GL_COLOR_ATTACHMENT0_EXT, GL_RENDERBUFFER_EXT, colorBufferID);   
-   CHECK(!getAndResetGLErrorStatus(), "Can't attach renderbuffer color storage");
-  
-   glDrawBuffer(GL_COLOR_ATTACHMENT0_EXT);
-   glReadBuffer(GL_COLOR_ATTACHMENT0_EXT);
-#else
    glDrawBuffer(GL_NONE);
    glReadBuffer(GL_NONE);
-#endif
-   
+
    status = glCheckFramebufferStatusEXT(GL_FRAMEBUFFER_EXT);
    if (status != GL_FRAMEBUFFER_COMPLETE_EXT)
    {
       cerr << "Error in glCheckFramebufferStatusEXT, FBO status " <<  status << endl;
       return false;
    }
-   
-#ifdef VELJKO_DEBUG   
-   //--- EXTRA ----
-   
-   glBindFramebufferEXT(GL_FRAMEBUFFER_EXT, frameBufferID_);
-   
-   glViewport(0, 0, width_, height_);
-   
-   glEnable(GL_DEPTH_TEST);
-   glDepthFunc(GL_LEQUAL);
-	glDepthMask(GL_TRUE);
-   
-   glClearDepth(1);
-   glClearColor(0, 0, 0, 1);
-   glClear(GL_DEPTH_BUFFER_BIT | GL_COLOR_BUFFER_BIT);
-
-   GLfloat *depths = new GLfloat[width_ * height_];
-   for (int i = 0; i < width_ * height_; i++)
-      depths[i] = 1.11;
-   
-   glMatrixMode(GL_PROJECTION);
-   glOrtho(-1, 1, -1, 1, 0.01, 10);
-   
-   glMatrixMode(GL_MODELVIEW);
-   glLoadIdentity();
-   gluLookAt(0, 0, 4,
-            0, 0, 0,
-             0, 1, 0);
-   
-   // Now draw something
-   glColor3f(1, 0, 0);
-   glBegin(GL_TRIANGLES);
-	   glVertex3d(0, 0, 0);
-	   glVertex3d(1, 0, 0);
-   	glVertex3d(0, 1, 0);
-   glEnd();
-   
-   glReadPixels(0, 0, width_, height_, GL_DEPTH_COMPONENT, GL_FLOAT, depths);
-   CHECK(!getAndResetGLErrorStatus(), "Problem reading Z buffer");
-   writeColorBufferToCSVFile("depths.csv", depths, width_, height_);
-   
-   GLuint *colors = new GLuint[3 * width_ * height_];
-   for (int i = 0; i < width_ * height_; i++)
-      depths[i] = 0.1;
-   
-   glReadPixels(0, 0, width_, height_, GL_RGB, GL_UNSIGNED_INT, colors);
-   CHECK(!getAndResetGLErrorStatus(), "Problem reading Z buffer");
-   writeColorBufferToCSVFile("colors.csv", colors, 3*width_, height_);
-   
-   // -----------
-#endif   
-   
+  
    glBindFramebufferEXT(GL_FRAMEBUFFER_EXT, 0);
    
    return true;

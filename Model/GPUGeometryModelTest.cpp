@@ -380,10 +380,10 @@ void GPUGeometryModelTest::testQuadCoveringWholeArea()
       for (int indexX = 0; indexX < SIZE_X; indexX++)
       {
          double value = testFixture.getAt(indexX, indexY);
-         if (!areEqual(value, Z_BUFFER_VALUE))
+         if (!areEqualInLowPrecision(value, Z_BUFFER_VALUE))
          {           
             stringstream message;
-            message << "Error at the coordinates X = " << indexX << " Y = " << indexY << " got " << value << " instead of " << Z_OFFSET;
+            message << "Error at the coordinates X = " << indexX << " Y = " << indexY << " got " << value << " instead of " << Z_BUFFER_VALUE;
             
             writeDepthBufferToCSVFile("testQuadCoveringWholeArea.csv", testFixture);
             
@@ -392,7 +392,7 @@ void GPUGeometryModelTest::testQuadCoveringWholeArea()
       }
 }
 
-void GPUGeometryModelTest::testQuadCoveringPartOfTheArea()
+void GPUGeometryModelTest::testTriangleCoveringPartOfTheArea()
 {
    const int SIZE_X = 32;
    const int SIZE_Y = 32;
@@ -410,10 +410,8 @@ void GPUGeometryModelTest::testQuadCoveringPartOfTheArea()
    testFixture.addPoint(createPoint(-QUAD_SIZE, -QUAD_SIZE, Z_OFFSET));
    testFixture.addPoint(createPoint(-QUAD_SIZE, QUAD_SIZE, Z_OFFSET));
    testFixture.addPoint(createPoint(QUAD_SIZE, -QUAD_SIZE, Z_OFFSET));
-   testFixture.addPoint(createPoint(QUAD_SIZE, QUAD_SIZE, Z_OFFSET));
    
-   testFixture.addTriangle(createTriangle(0, 1, 3));
-   testFixture.addTriangle(createTriangle(0, 2, 3));
+   testFixture.addTriangle(createTriangle(0, 1, 2));
 
    // We would do scanline - there should be two levels in each scanline, and second level should be continious
    // until exit. If we are outside of the polygon, z buffer value should be zero
@@ -434,9 +432,9 @@ void GPUGeometryModelTest::testQuadCoveringPartOfTheArea()
          stringstream message;
          message << "Error at the coordinates X = " << indexX << " Y = " << indexY << " for value " << zValue;
          
-         CPPUNIT_ASSERT_MESSAGE(message.str().c_str(), areEqual(zValue, Z_INFINITY)  ||  areEqual(zValue, Z_BUFFER_VALUE));
+         CPPUNIT_ASSERT_MESSAGE(message.str().c_str(), areEqualInLowPrecision(zValue, Z_INFINITY)  ||  areEqualInLowPrecision(zValue, Z_BUFFER_VALUE));
          
-         if (areEqual(zValue, Z_BUFFER_VALUE))
+         if (areEqualInLowPrecision(zValue, Z_BUFFER_VALUE))
          {
             CPPUNIT_ASSERT_MESSAGE("We can encounted Z_OFFSET only in quad or if we didn't entered quad before", !scanlineExited);
             scanlineEntered = true;
@@ -445,12 +443,17 @@ void GPUGeometryModelTest::testQuadCoveringPartOfTheArea()
          else
          {
             // We have Z value equal to 0 if we are here 
-            CPPUNIT_ASSERT_MESSAGE("Internal error in the test - zValue should be 1 here", areEqual(zValue, Z_INFINITY));
+            CPPUNIT_ASSERT_MESSAGE("Internal error in the test - zValue should be 1 here", areEqualInLowPrecision(zValue, Z_INFINITY));
             
             // If we were already inside the quad and we encountered infinity, we now should be outside of quad
             scanlineExited = scanlineEntered;
          }
       }
+   }
+   
+   if (!quadDetected)
+   {
+      writeDepthBufferToCSVFile("testTriangleCoveringPartOfTheArea.csv", testFixture);
    }
    
    CPPUNIT_ASSERT_MESSAGE("Quad was never entered or detected", quadDetected);

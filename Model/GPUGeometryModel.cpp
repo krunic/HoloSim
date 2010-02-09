@@ -7,12 +7,16 @@
  *
  */
 
+#include <string>
+#include <fstream>
+
 #include "GPUGeometryModel.h"
 #include "Collada.h"
 #include "SimpleDesignByContract.h"
 #include "GPUCalculationEngine.h"
 
 using namespace hdsim;
+using namespace std;
 
 GPUGeometryModel::GPUGeometryModel() : sizeX_(0), sizeY_(0), boundMinX_(0), boundMaxX_(0), 
 													boundMinY_(0), boundMaxY_(0), boundMinZ_(0), boundMaxZ_(0),
@@ -117,40 +121,56 @@ double GPUGeometryModel::getAt(int x, int y) const
    return calculationEngine_->getAt(x, y);
 }
 
-bool GPUGeometryModel::readFromFile(FILE *fp) 
+bool GPUGeometryModel::readFromFile(const string &fileName) 
 {
    changedSinceLastRecalc_ = true;
    
    // First line is model name
-   char readThis[1024];
-   sprintf(readThis, "%s\n", getModelName());
-   fscanf(fp, readThis, NULL);
+   string line;
+   ifstream inputStream(fileName.c_str());
    
-   // Second line is x y sizes
-   int x, y;
-   int sizeRead = fscanf(fp, "%d %d\n", &x, &y);
-   if (sizeRead != 2)
+   if (!getline(inputStream, line))
    {
       return false;
    }
    
+   if (line != getModelName())
+   {
+      return false;
+   }
+   
+   // Get line for x size
+   int x, y;
+   
+   if (!getline(inputStream, line))
+   {
+      return false;
+   }
+   
+   if (!stringToNumber(line, &x))
+   {
+      return false;
+   }
+   
+   if (!getline(inputStream, line))
+   {
+      return false;
+   }
+   
+   if (!stringToNumber(line, &y))
+   {
+      return false;
+   }
+
    setSizeX(x);
    setSizeY(y);
 
    // Next line is collada filename
-   // Line from the file we are getting would point us to the actual filename for the collada model
-   char fileName[1024];
-   int charsRead = fscanf(fp, "%s\n", fileName);
-   if (charsRead != 1)
+   if (!getline(inputStream, line))
    {
       return false;
    }
-
-   return loadCollada(fileName, *this);
-}
-
-bool GPUGeometryModel::saveToFile(FILE *fp) const 
-{
-   FAIL("NOT IMPLEMENTED YET");
-   return false;
+   
+   // That filename is relative to the file we are reading from
+   return loadCollada(getFileNameInSameDirAsOriginalFile(fileName, line).c_str(), *this);
 }

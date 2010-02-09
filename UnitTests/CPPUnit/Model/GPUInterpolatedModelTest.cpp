@@ -76,13 +76,9 @@ void GPUInterpolatedModelTest::testOperatorEqual()
 
 void GPUInterpolatedModelTest::testSerialization()
 {
-	FILE *fp = fopen("singleQuad.GPUHoloSim", "r");
-   CPPUNIT_ASSERT_MESSAGE("Test files not correctly setup and copied", fp);
-   
 	GPUInterpolatedModel testFixture;
    
-   CPPUNIT_ASSERT_MESSAGE("Reading from file failed", testFixture.readFromFile(fp));
-   fclose(fp);
+   CPPUNIT_ASSERT_MESSAGE("Reading from file failed", testFixture.readFromFile("singleQuad.GPUHoloSim"));
    
    // And assert that values in the file were correctly read. This coordinates are from file
    CPPUNIT_ASSERT_MESSAGE("Incorrect dimensions in X", testFixture.getSizeX() == 30);
@@ -101,9 +97,7 @@ void GPUInterpolatedModelTest::testReadFromGarbageFile()
    
    // Now read from the file and compare models
    GPUInterpolatedModel toLoad;
-   fp = fopen(testFileName, "r");
-   CPPUNIT_ASSERT_MESSAGE("Reading from file should fail but it didn't", !toLoad.readFromFile(fp));
-   fclose(fp);
+   CPPUNIT_ASSERT_MESSAGE("Reading from file should fail but it didn't", !toLoad.readFromFile(testFileName));
 	
    unlink(testFileName);
 }
@@ -128,4 +122,17 @@ void GPUInterpolatedModelTest::testNonEqual()
    rhs.setTimeSlice((GPUInterpolatedModel::MIN_TIME_SLICE + GPUInterpolatedModel::MAX_TIME_SLICE)/2);
    
    CPPUNIT_ASSERT_MESSAGE("Operator != not working correctly", lhs != rhs);
+}
+
+void GPUInterpolatedModelTest::testGetFileNameInSameDir()
+{
+   CPPUNIT_ASSERT_MESSAGE("Simple file substitution fails", getFileNameInSameDirAsOriginalFile("abc.xxx", "de.xxx") == "de.xxx");
+   CPPUNIT_ASSERT_MESSAGE("Complex file substitution fails", getFileNameInSameDirAsOriginalFile("/tmp/abc.xxx", "de.xxx") == "/tmp/de.xxx"); 
+   CPPUNIT_ASSERT_MESSAGE("URI filename substitution fails", getFileNameInSameDirAsOriginalFile("file://abc.xxx", "de.xxx") == "file://de.xxx"); 
+   
+   CPPUNIT_ASSERT_MESSAGE("Empty filenames not working correctly", getFileNameInSameDirAsOriginalFile("", "") == "");
+   CPPUNIT_ASSERT_MESSAGE("Empty filenames not correctly added", getFileNameInSameDirAsOriginalFile("/abc/d.e", "") == "/abc/");
+   CPPUNIT_ASSERT_MESSAGE("Filename were not correctly added to empty filename", getFileNameInSameDirAsOriginalFile("", "addthis") == "addthis");
+   
+   CPPUNIT_ASSERT_MESSAGE("Relative filenames not working correctly", getFileNameInSameDirAsOriginalFile("/abc/de.xxx", "../fg.xxx") == "/abc/../fg.xxx");
 }

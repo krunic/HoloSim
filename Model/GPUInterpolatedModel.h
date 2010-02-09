@@ -13,6 +13,8 @@
 #include "GPUGeometryModel.h"
 #include "SimpleDesignByContract.h"
 
+#include <string>
+
 static const char *const GPU_INTERPOLATED_MODEL_NAME = "GPUInterpolatedModel";
 
 using namespace std;
@@ -225,26 +227,11 @@ namespace hdsim {
        * model1\n
        * model2\n
        *
-       * @param fp File to read from
+       * @param filename File to read from
        *
        * @return Was read success
        */
-      virtual bool readFromFile(FILE *fp);
-      
-      /**
-       * Write model to file. Format of the file is:
-       *
-       * Model name\n    
-       * Number of models\n       
-       * timeslice\n      
-       * model1\n
-       * model2\n
-       *
-       * @param fp File to read from
-       *
-       * @return Was save success
-       */
-      virtual bool saveToFile(FILE *fp) const;
+      virtual bool readFromFile(const std::string &fileName);
       
    private:
       

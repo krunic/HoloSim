@@ -24,6 +24,7 @@ namespace hdsim {
 	      CPPUNIT_TEST(testReadFromGarbageFile);
 	      CPPUNIT_TEST(testEqual);
 	      CPPUNIT_TEST(testNonEqual);
+	      CPPUNIT_TEST(testGetFileNameInSameDir);
       CPPUNIT_TEST_SUITE_END();
       
    public:
@@ -82,6 +83,11 @@ namespace hdsim {
        * Test operator !=
        */
       void testNonEqual();
+      
+      /**
+       * Test that file substitution is working correctly
+       */
+      void testGetFileNameInSameDir();
       
    private:
       

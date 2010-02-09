@@ -21,6 +21,10 @@ namespace hdsim {
    class MathHelperTest : public CppUnit::TestFixture  {
       CPPUNIT_TEST_SUITE(MathHelperTest);
          CPPUNIT_TEST(testEqual);
+	      CPPUNIT_TEST(testEqualInLowPrecision);
+   	   CPPUNIT_TEST(testMin);
+      	CPPUNIT_TEST(testMax);
+	      CPPUNIT_TEST(testStringToNumber);
       CPPUNIT_TEST_SUITE_END();
       
    public:
@@ -49,6 +53,26 @@ namespace hdsim {
        * Simple test to ensure that equality works correctly
        */
       void testEqual();
+      
+      /** 
+       * Test that equal is working correctly in low precision mode
+       */
+      void testEqualInLowPrecision();
+      
+      /**
+       * Test minimum
+       */
+      void testMin();
+      
+      /**
+       * Test maximum
+       */
+      void testMax();
+      
+      /**
+       * Test conversion of strings to numbers
+       */
+      void testStringToNumber();
       
    private:
          MathHelperTest(const MathHelperTest &rhs);   

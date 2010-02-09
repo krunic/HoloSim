@@ -11,6 +11,9 @@
 #define MATH_HELPER_H_
 
 #include <cmath>
+#include <iostream>
+#include <sstream>
+#include <string>
 
 namespace hdsim {
 
@@ -30,7 +33,7 @@ namespace hdsim {
     * @param x First floating point
     * @param y Second floating point
     */
-   static const bool areEqual(double x, double y)
+   static bool areEqual(double x, double y)
    {
       return fabs(x - y) <= FLOATING_POINTS_EQUAL_DELTA;
    }
@@ -41,7 +44,7 @@ namespace hdsim {
     * @param x First floating point
     * @param y Second floating point
     */
-   static const bool areEqualInLowPrecision(double x, double y)
+   static bool areEqualInLowPrecision(double x, double y)
    {
       return fabs(x - y) <= FLOATING_POINTS_LOW_PRECISION_EQUAL_DELTA;
    }
@@ -51,7 +54,7 @@ namespace hdsim {
     *
     * @return maxValue
     */
-   static const double max(double x, double y)
+   static double max(double x, double y)
    {
       return x > y ? x : y;
    }
@@ -61,9 +64,24 @@ namespace hdsim {
     *
     * @return minValue
     */
-   static const double min(double x, double y)
+   static double min(double x, double y)
    {
       return x < y ? x : y;
+   }
+
+   /**
+    * Convert string to number
+    *
+    * @param str Input string
+    * @param result (OUT) result
+    */
+   template<class T> inline T stringToNumber(const std::string &str, T *result)
+   {
+      std::istringstream inputStream(str);
+      char extraCharactersAfterNumber;
+      
+      // Conversion to string has to succeed first, and then there should be no extra spaces after the number
+      return (inputStream >> *result)  &&  !inputStream.get(extraCharactersAfterNumber);
    }
    
 } // namespace

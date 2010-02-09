@@ -11,6 +11,7 @@
 #define GPU_GEOMETRY_MODEL_H_
 
 #include <vector>
+#include <string>
 
 #include "AbstractModel.h"
 #include "MathHelper.h"
@@ -129,20 +130,11 @@ namespace hdsim {
        * Read model from file. File uses Collada format, but as Collada is complex format and we don't need all its features, only geometry extraction from Collada (without any transformation) 
        * is supported
        *
-       * @param fp File to read from
+       * @param fileName File to read from
        *
        * @return Was read success
        */
-      virtual bool readFromFile(FILE *fp);
-      
-      /**
-       * Write model to file. File uses Collada format, but as Collada is complex format and we don't need all its features, only geometry (without any transformation) is supported
-       *
-       * @param fp File to write to
-       *
-       * @return Was write success
-       */
-      virtual bool saveToFile(FILE *fp) const;
+      virtual bool readFromFile(const std::string &fileName);
       
       /**
        * Add new point to the model

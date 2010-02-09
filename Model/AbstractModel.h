@@ -11,8 +11,19 @@
 #define ABSTRACT_MODEL_H_
 
 #include <cstdio>
+#include <string>
 
 namespace hdsim {
+   
+   /**
+    * Used when we need to open file in the same directory as original file was
+    *
+    * @param fileName Name of the file
+    * @param newFile Name of the new file
+    *
+    * @return New filename using same path as original file
+    */
+   std::string getFileNameInSameDirAsOriginalFile(const std::string &fileName, const std::string &newFile);
 
    /**
     * This is definition of the abstract model that should be used for the storing of data about the board. There is contract between model and view controller that makes it possible 
@@ -53,20 +64,11 @@ namespace hdsim {
       /**
        * Read model from file
        *
-       * @param fp file to read from
+       * @param fileName file to read from
        *
        * @return Was read success
        */
-      virtual bool readFromFile(FILE *fp) = 0;
-      
-      /**
-       * Save model to file
-       *
-       * @param fp file to save model to
-       *
-       * @return Was write success
-       */
-      virtual bool saveToFile(FILE *fp) const = 0;
+      virtual bool readFromFile(const std::string &fileName) = 0;
    };
    
 } // namespace

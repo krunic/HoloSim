@@ -71,14 +71,7 @@
    // Convert input
    NSString *name = [absoluteURL path];
 
-   // Now read model in the C style
-   FILE *fp = fopen([name UTF8String], "r");
-   if (!fp)
-      return NO;
-   
-   BOOL result = model->readFromFile(fp);
-   fclose(fp);
-   
+   BOOL result = model->readFromFile([name UTF8String]);
    if (!result)
    {
       *outError = [NSError errorWithDomain:@"Not implemented yet" code:0 userInfo:[NSDictionary dictionaryWithObject:@"Test" forKey:@"key"]];
@@ -98,9 +91,7 @@
  */
 - (BOOL)readFromFile:(NSString *)fileName ofType:(NSString *)docType
 {
-   FILE *fp = fopen([fileName UTF8String], "r");
-   BOOL result = model->readFromFile(fp);
-   fclose(fp);
+   BOOL result = model->readFromFile([fileName UTF8String]);
 
    return result;
 }

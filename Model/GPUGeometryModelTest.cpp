@@ -196,10 +196,8 @@ void GPUGeometryModelTest::testDiferentDimsAreNonEqual()
 void GPUGeometryModelTest::testLoadModel()
 {
    GPUGeometryModel testFixture;
-   
-   FILE *fp = fopen("singleQuad.gpuGeometryModel", "r");
-   CPPUNIT_ASSERT_MESSAGE("Opening file failed", fp);
-   CPPUNIT_ASSERT_MESSAGE("Model load failed", testFixture.readFromFile(fp));
+
+   CPPUNIT_ASSERT_MESSAGE("Model load failed", testFixture.readFromFile("singleQuad.gpuGeometryModel"));
    
    // 30 times 30 model of quad with 4 points and 2 triangles
    CPPUNIT_ASSERT_MESSAGE("Invalid dimensions read", testFixture.getSizeX() == 30  &&  testFixture.getSizeY() == 30);

@@ -9,11 +9,15 @@
 
 #include <iostream>
 #include <fstream>
+#include <string>
+#include <sstream>
 
+#include "MathHelper.h"
 #include "GPUInterpolatedModel.h"
 #include "SimpleDesignByContract.h"
 
 using namespace hdsim;
+using namespace std;
 
 GPUInterpolatedModel::GPUInterpolatedModel() : model_(), timeSlice_(0)
 {
@@ -54,27 +58,42 @@ void GPUInterpolatedModel::initializeToCleanState()
    timeSlice_ = 0;
 }
 
-bool GPUInterpolatedModel::readFromFile(FILE *fp)
+bool GPUInterpolatedModel::readFromFile(const string &fileName)
 {
-   // First line is model name
-   char readThis[1024];
-   sprintf(readThis, "%s\n", getModelName());
-   fscanf(fp, readThis, NULL);
+   string line; 
    
-   // Next line is timeslice
-	int itemsRead = fscanf(fp, " %lf\n", &timeSlice_);
-   if (itemsRead != 1)
+   ifstream openedFile(fileName.c_str());
+   
+   // First line is model name
+	if (!getline(openedFile, line))
    {
-      initializeToCleanState();
       return false;
    }
    
-   // Next line is model, so just read it
-   return model_.readFromFile(fp);
-}
+   if (line != getModelName())
+   {
+      return false;
+   }
+     
+   // Next line is timeslice
+   if (!getline(openedFile, line))
+   {
+   	return false;
+   }
+   
+   if (!stringToNumber(line, &timeSlice_))
+   {
+      return false;
+   }
+   
+   // Get name of the model from the file
+   string modelName; 
+   
+   if (!getline(openedFile, modelName))
+   {
+      return false;
+   }
 
-bool GPUInterpolatedModel::saveToFile(FILE *fp) const
-{
-   FAIL("Implement this");
-   return false;
+   // Next line is model, so just read it
+   return model_.readFromFile(getFileNameInSameDirAsOriginalFile(fileName, modelName));
 }

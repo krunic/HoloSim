@@ -118,7 +118,8 @@ double GPUGeometryModel::getAt(int x, int y) const
       changedSinceLastRecalc_ = false;
    }
    
-   return calculationEngine_->getAt(x, y);
+   double value = calculationEngine_->getAt(x, y);
+   return value;
 }
 
 bool GPUGeometryModel::readFromFile(const string &fileName) 

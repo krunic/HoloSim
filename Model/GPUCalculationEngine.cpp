@@ -73,7 +73,7 @@ using namespace std;
 
 #ifndef NDEBUG
 
-template<class T> void writeColorBufferToCSVFile(const char *fileName, T *colors, int width, int height)
+template<class T> void writeBufferToCSVFile(const char *fileName, T *colors, int width, int height)
 {
    // Write debug output
    ofstream myfile;
@@ -154,7 +154,7 @@ static bool getAndResetGLErrorStatus()
    return true;
 }
 
-GPUCalculationEngine::GPUCalculationEngine() : wasInitialized_(false), offScreenMemory_(0)
+GPUCalculationEngine::GPUCalculationEngine() : wasInitialized_(false), width_(0), height_(0), renderedDepth_(0)
 {
 }
 
@@ -258,12 +258,16 @@ void GPUCalculationEngine::calculateEngine(const AbstractModel *model)
    
    glReadBuffer(GL_NONE);
    CHECK(!getAndResetGLErrorStatus(), "Error disabling read buffer for color");
+   
+   // As we would do read pixel later, we must setup pixel alignment to 1 to prevent overwritting buffer
+   glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
+   glPixelStorei(GL_PACK_ALIGNMENT, 1);
 
    // All bound, now lets go ahead and draw
    // This might benefit from the display list approach
    // Orientation is counterclockwise here
    glBegin(GL_TRIANGLES);
-   
+
    for (int indexTriangle = 0; indexTriangle < geometryModel->getNumTriangles(); indexTriangle++)
    {
       TriangleByPointIndexes triangle = geometryModel->getTriangle(indexTriangle);
@@ -360,7 +364,7 @@ bool GPUCalculationEngine::initFrameBuffer(int width, int height)
       cerr << "Error in glCheckFramebufferStatusEXT, FBO status " <<  status << endl;
       return false;
    }
-    
+   
    glBindFramebufferEXT(GL_FRAMEBUFFER_EXT, 0);
    
    return true;
@@ -380,7 +384,6 @@ bool GPUCalculationEngine::destroyFrameBuffer()
    glDeleteFramebuffersEXT(1, &frameBufferID_);
    CHECK(!getAndResetGLErrorStatus(), "Error in frameBufferID_");
 
-   delete [] offScreenMemory_;
 	delete [] renderedDepth_;
    
    CGLSetCurrentContext(0); 

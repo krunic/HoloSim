@@ -329,9 +329,6 @@ void OpenGLDrawingCode::draw(const AbstractModel *m)
    setupProjectionAndCoordinateSystem();
    clearScreen();
 
-   // To make things better centered
-   glTranslated(0, 0, 0);
-   
    // And draw models 
    // Set the properties of the material under ambient light
    float mat[4];
@@ -354,16 +351,16 @@ void OpenGLDrawingCode::draw(const AbstractModel *m)
    glMaterialfv(GL_FRONT, GL_DIFFUSE, mat);	   
    sprintf(message, "OpenGL returned an error %d", (int)glGetError());
    CHECK(glGetError() == GL_NO_ERROR, message);
-   
-	drawModelBase(BASE_SIZE);
-   
+     
    // Holodeck can't show negative Z offset but we would rescale that minZ iz Z=1. And we would rescale so 
    // that the Z coordinates are proportional to the X and Y axis
    double xRenderSize = model->getRenderedAreaMaxX() - model->getRenderedAreaMinX();
    double yRenderSize = model->getRenderedAreaMaxY() - model->getRenderedAreaMinY();
    
    double maxRodSize = BASE_SIZE * (model->getRenderedAreaMaxZ() - model->getRenderedAreaMinZ())/max(xRenderSize, yRenderSize);
-      
+   
+   drawModelBase(BASE_SIZE);
+     
    // and draw all the rods
    for (int indexX = 0; indexX < model->getSizeX(); indexX++)
       for (int indexY = 0; indexY < model->getSizeY(); indexY++)
@@ -372,8 +369,6 @@ void OpenGLDrawingCode::draw(const AbstractModel *m)
 			double zValue = maxRodSize*(1-model->getAt(indexX, indexY));
          drawRodAt(BASE_SIZE, model->getSizeX(), ROD_COVERAGE_PERCENTAGE, indexX, indexY, zValue);
       }
-         
    
    swapBuffers();
 }
-

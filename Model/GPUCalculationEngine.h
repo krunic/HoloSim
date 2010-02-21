@@ -118,11 +118,6 @@ namespace hdsim {
          CGLContextObj cglContext_;
       
       	/**
-          * Memory for the offscreen drawning
-          */
-	      char *offScreenMemory_;
-      
-      	/**
           * Rendered depth buffer (from the graphic card)
           */
 	      GLfloat *renderedDepth_;

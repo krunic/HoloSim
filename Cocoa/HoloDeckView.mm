@@ -20,7 +20,7 @@
    NSOpenGLPixelFormatAttribute attrs[] =
    {
       NSOpenGLPFAWindow,
-      NSOpenGLPFADoubleBuffer,
+   	NSOpenGLPFADoubleBuffer,
       NSOpenGLPFAAccelerated,
       NSOpenGLPFADepthSize, (NSOpenGLPixelFormatAttribute)32,
       NSOpenGLPFASampleBuffers, (NSOpenGLPixelFormatAttribute)1,

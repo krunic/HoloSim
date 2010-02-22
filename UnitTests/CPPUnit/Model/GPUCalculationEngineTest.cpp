@@ -9,6 +9,7 @@
 
 #include <cppunit/extensions/HelperMacros.h>
 
+#include "OGLUtils.h"
 #include "GPUCalculationEngine.h"
 #include "GPUCalculationEngineTest.h"
 

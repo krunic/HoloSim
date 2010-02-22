@@ -30,6 +30,13 @@
 		7A2F41D40C75787C00FB3B69 /* ProjectConfigTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7A2F41CE0C75787C00FB3B69 /* ProjectConfigTest.cpp */; };
 		7A2F41D50C75787C00FB3B69 /* UnitTests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7A2F41D00C75787C00FB3B69 /* UnitTests.cpp */; };
 		7A3E25510C598C2200326103 /* HoloSimIcon.icns in Resources */ = {isa = PBXBuildFile; fileRef = 7A3E25500C598C2200326103 /* HoloSimIcon.icns */; };
+		7A4078141131C67200D47E62 /* ShaderTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7A4078121131C67200D47E62 /* ShaderTest.cpp */; };
+		7A40783411321DC700D47E62 /* OGLUtils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7A40783211321DC700D47E62 /* OGLUtils.cpp */; };
+		7A40783511321DC700D47E62 /* OGLUtils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7A40783211321DC700D47E62 /* OGLUtils.cpp */; };
+		7A40789A11323BBC00D47E62 /* Plasma.fs in CopyFiles */ = {isa = PBXBuildFile; fileRef = 7A40789811323B9600D47E62 /* Plasma.fs */; };
+		7A40789B11323BBC00D47E62 /* Plasma.vs in CopyFiles */ = {isa = PBXBuildFile; fileRef = 7A40789911323B9600D47E62 /* Plasma.vs */; };
+		7A4078C511323F3600D47E62 /* PlasmaFSOnly.fs in CopyFiles */ = {isa = PBXBuildFile; fileRef = 7A4078C111323EE800D47E62 /* PlasmaFSOnly.fs */; };
+		7A4078C611323F3600D47E62 /* PlasmaVSOnly.vs in CopyFiles */ = {isa = PBXBuildFile; fileRef = 7A4078C211323EE800D47E62 /* PlasmaVSOnly.vs */; };
 		7A43490310F3496700E4F3C9 /* Collada.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7A43490110F3496700E4F3C9 /* Collada.cpp */; };
 		7A43490410F3496700E4F3C9 /* Collada.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7A43490110F3496700E4F3C9 /* Collada.cpp */; };
 		7A43490510F3496700E4F3C9 /* Collada.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7A43490110F3496700E4F3C9 /* Collada.cpp */; };
@@ -69,6 +76,8 @@
 		7A8B384C111CF18000AAB8A2 /* singleQuad.GPUHoloSim in CopyFiles */ = {isa = PBXBuildFile; fileRef = 7A8B3847111CF0B000AAB8A2 /* singleQuad.GPUHoloSim */; };
 		7A8B385B111CF50200AAB8A2 /* GPUInterpolatedModel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7A8B3859111CF50200AAB8A2 /* GPUInterpolatedModel.cpp */; };
 		7A8B385C111CF50200AAB8A2 /* GPUInterpolatedModel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7A8B3859111CF50200AAB8A2 /* GPUInterpolatedModel.cpp */; };
+		7A8E1B001130EB1000ABDDC4 /* Shader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7A8E1AFE1130EB1000ABDDC4 /* Shader.cpp */; };
+		7A8E1B011130EB1000ABDDC4 /* Shader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7A8E1AFE1130EB1000ABDDC4 /* Shader.cpp */; };
 		7AA27ABB0C67D19A00BBC250 /* AppController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 7AA27ABA0C67D19A00BBC250 /* AppController.mm */; };
 		7AA27ABC0C67D19A00BBC250 /* AppController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 7AA27ABA0C67D19A00BBC250 /* AppController.mm */; };
 		7AA6D9951101A5A10069471B /* ColladaTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7AA6D9931101A5A10069471B /* ColladaTest.cpp */; };
@@ -110,6 +119,10 @@
 				7A7459301102E06700E29029 /* singleQuad.gpuGeometryModel in CopyFiles */,
 				7AA6DAF711029A6F0069471B /* Chair.dae in CopyFiles */,
 				7AA6DA381101BB1E0069471B /* TestQuad.dae in CopyFiles */,
+				7A40789A11323BBC00D47E62 /* Plasma.fs in CopyFiles */,
+				7A40789B11323BBC00D47E62 /* Plasma.vs in CopyFiles */,
+				7A4078C511323F3600D47E62 /* PlasmaFSOnly.fs in CopyFiles */,
+				7A4078C611323F3600D47E62 /* PlasmaVSOnly.vs in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -157,6 +170,14 @@
 		7A2F41D00C75787C00FB3B69 /* UnitTests.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; name = UnitTests.cpp; path = UnitTests/CPPUnit/UnitTests.cpp; sourceTree = "<group>"; };
 		7A2F41D10C75787C00FB3B69 /* UnitTests.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = UnitTests.h; path = UnitTests/CPPUnit/UnitTests.h; sourceTree = "<group>"; };
 		7A3E25500C598C2200326103 /* HoloSimIcon.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = HoloSimIcon.icns; sourceTree = "<group>"; };
+		7A4078121131C67200D47E62 /* ShaderTest.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ShaderTest.cpp; path = UnitTests/CPPUnit/Model/GLSL/ShaderTest.cpp; sourceTree = "<group>"; };
+		7A4078131131C67200D47E62 /* ShaderTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ShaderTest.h; path = UnitTests/CPPUnit/Model/GLSL/ShaderTest.h; sourceTree = "<group>"; };
+		7A40783211321DC700D47E62 /* OGLUtils.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = OGLUtils.cpp; path = Model/GLSL/OGLUtils.cpp; sourceTree = "<group>"; };
+		7A40783311321DC700D47E62 /* OGLUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OGLUtils.h; path = Model/GLSL/OGLUtils.h; sourceTree = "<group>"; };
+		7A40789811323B9600D47E62 /* Plasma.fs */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Plasma.fs; sourceTree = "<group>"; };
+		7A40789911323B9600D47E62 /* Plasma.vs */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Plasma.vs; sourceTree = "<group>"; };
+		7A4078C111323EE800D47E62 /* PlasmaFSOnly.fs */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = PlasmaFSOnly.fs; sourceTree = "<group>"; };
+		7A4078C211323EE800D47E62 /* PlasmaVSOnly.vs */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = PlasmaVSOnly.vs; sourceTree = "<group>"; };
 		7A43490110F3496700E4F3C9 /* Collada.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Collada.cpp; sourceTree = "<group>"; };
 		7A43490210F3496700E4F3C9 /* Collada.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Collada.h; sourceTree = "<group>"; };
 		7A4743A50C5D2150006FEF68 /* SimpleDesignByContract.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SimpleDesignByContract.h; path = Util/SimpleDesignByContract.h; sourceTree = "<group>"; };
@@ -180,6 +201,8 @@
 		7A8B3847111CF0B000AAB8A2 /* singleQuad.GPUHoloSim */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = singleQuad.GPUHoloSim; sourceTree = "<group>"; };
 		7A8B3859111CF50200AAB8A2 /* GPUInterpolatedModel.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GPUInterpolatedModel.cpp; path = Model/GPUInterpolatedModel.cpp; sourceTree = "<group>"; };
 		7A8B385A111CF50200AAB8A2 /* GPUInterpolatedModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GPUInterpolatedModel.h; path = Model/GPUInterpolatedModel.h; sourceTree = "<group>"; };
+		7A8E1AFE1130EB1000ABDDC4 /* Shader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Shader.cpp; path = Model/GLSL/Shader.cpp; sourceTree = "<group>"; };
+		7A8E1AFF1130EB1000ABDDC4 /* Shader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Shader.h; path = Model/GLSL/Shader.h; sourceTree = "<group>"; };
 		7AA27AB90C67D19A00BBC250 /* AppController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppController.h; path = Cocoa/AppController.h; sourceTree = "<group>"; };
 		7AA27ABA0C67D19A00BBC250 /* AppController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = AppController.mm; path = Cocoa/AppController.mm; sourceTree = "<group>"; };
 		7AA6D915110195BC0069471B /* TriangleByPointIndex.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TriangleByPointIndex.h; path = Model/TriangleByPointIndex.h; sourceTree = "<group>"; };
@@ -364,6 +387,7 @@
 		7A0F8A760C5CA91F0018DD1F /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				7A40780D1131C62700D47E62 /* GLSL */,
 				7ABA8C0010FDA599000EB032 /* GPUGeometryModelTest.h */,
 				7ABA8C0110FDA599000EB032 /* GPUGeometryModelTest.cpp */,
 				7AA6D9921101A5A10069471B /* ColladaTest.h */,
@@ -408,6 +432,15 @@
 			name = CPPUnit;
 			sourceTree = "<group>";
 		};
+		7A40780D1131C62700D47E62 /* GLSL */ = {
+			isa = PBXGroup;
+			children = (
+				7A4078131131C67200D47E62 /* ShaderTest.h */,
+				7A4078121131C67200D47E62 /* ShaderTest.cpp */,
+			);
+			name = GLSL;
+			sourceTree = "<group>";
+		};
 		7A4348DC10F3488300E4F3C9 /* IO */ = {
 			isa = PBXGroup;
 			children = (
@@ -429,6 +462,7 @@
 		7A47C2720C51B7DC005A42B7 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				7A8E1AFD1130EAEC00ABDDC4 /* GLSL */,
 				7A0F8A530C5CA8C90018DD1F /* AbstractModel.h */,
 				7A0F8A520C5CA8C90018DD1F /* AbstractModel.cpp */,
 				7AE6411D10FBA68800C0AE45 /* GPUCalculationEngine.h */,
@@ -506,9 +540,24 @@
 			name = Graphics;
 			sourceTree = "<group>";
 		};
+		7A8E1AFD1130EAEC00ABDDC4 /* GLSL */ = {
+			isa = PBXGroup;
+			children = (
+				7A40783311321DC700D47E62 /* OGLUtils.h */,
+				7A40783211321DC700D47E62 /* OGLUtils.cpp */,
+				7A8E1AFF1130EB1000ABDDC4 /* Shader.h */,
+				7A8E1AFE1130EB1000ABDDC4 /* Shader.cpp */,
+			);
+			name = GLSL;
+			sourceTree = "<group>";
+		};
 		7AA6DA341101BAC90069471B /* UnitTestModels */ = {
 			isa = PBXGroup;
 			children = (
+				7A4078C111323EE800D47E62 /* PlasmaFSOnly.fs */,
+				7A4078C211323EE800D47E62 /* PlasmaVSOnly.vs */,
+				7A40789811323B9600D47E62 /* Plasma.fs */,
+				7A40789911323B9600D47E62 /* Plasma.vs */,
 				7AA6DAF611029A410069471B /* Chair.dae */,
 				7A8B3847111CF0B000AAB8A2 /* singleQuad.GPUHoloSim */,
 				7A74592F1102E05E00E29029 /* singleQuad.gpuGeometryModel */,
@@ -745,6 +794,9 @@
 				7ACE34F911122FA600EC758D /* GPUCalculationEngineTest.cpp in Sources */,
 				7A8B37A1111B4EFD00AAB8A2 /* GPUInterpolatedModelTest.cpp in Sources */,
 				7A8B385B111CF50200AAB8A2 /* GPUInterpolatedModel.cpp in Sources */,
+				7A8E1B001130EB1000ABDDC4 /* Shader.cpp in Sources */,
+				7A4078141131C67200D47E62 /* ShaderTest.cpp in Sources */,
+				7A40783411321DC700D47E62 /* OGLUtils.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -768,6 +820,8 @@
 				7AE6412710FBAC9B00C0AE45 /* GPUGeometryModel.cpp in Sources */,
 				7AE6412D10FBACC800C0AE45 /* GPUCalculationEngine.cpp in Sources */,
 				7A8B385C111CF50200AAB8A2 /* GPUInterpolatedModel.cpp in Sources */,
+				7A8E1B011130EB1000ABDDC4 /* Shader.cpp in Sources */,
+				7A40783511321DC700D47E62 /* OGLUtils.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

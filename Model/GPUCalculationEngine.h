@@ -7,8 +7,8 @@
  *
  */
 
-#ifndef GPU_CALCULATION_ENGINE_
-#define GPU_CALCULATION_ENGINE_
+#ifndef GPU_CALCULATION_ENGINE_H_
+#define GPU_CALCULATION_ENGINE_H_
 
 #include <OpenGL/gl.h>
 #include <OpenGL/glu.h>
@@ -19,14 +19,6 @@
 
 namespace hdsim {
 
-   /**
-    * Check is this whole world substring
-    *
-    * @param searchFor - string to search for
-    * @param searchIn - String to search in for searchFor
-    */
-   bool isWholeWorldSubstring(const char *searchIn, const char *searchFor);
-   
    /**
     * Uses frame buffer object to perform GPU based calculation
     */ 

@@ -328,7 +328,7 @@ void OpenGLDrawingCode::draw(const AbstractModel *m)
    initializeDrawingMode();   
    setupProjectionAndCoordinateSystem();
    clearScreen();
-
+     
    // And draw models 
    // Set the properties of the material under ambient light
    float mat[4];
@@ -360,13 +360,13 @@ void OpenGLDrawingCode::draw(const AbstractModel *m)
    double maxRodSize = BASE_SIZE * (model->getRenderedAreaMaxZ() - model->getRenderedAreaMinZ())/max(xRenderSize, yRenderSize);
    
    drawModelBase(BASE_SIZE);
-     
+   
    // and draw all the rods
    for (int indexX = 0; indexX < model->getSizeX(); indexX++)
       for (int indexY = 0; indexY < model->getSizeY(); indexY++)
       {
          // Transform from [0, 1] in Z buffer to the maxZ coordinate
-			double zValue = maxRodSize*(1-model->getAt(indexX, indexY));
+         double zValue = maxRodSize*(1-model->getAt(indexX, indexY));
          drawRodAt(BASE_SIZE, model->getSizeX(), ROD_COVERAGE_PERCENTAGE, indexX, indexY, zValue);
       }
    

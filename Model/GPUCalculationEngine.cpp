@@ -65,94 +65,12 @@
 
 #include "GPUCalculationEngine.h"
 #include "GPUGeometryModel.h"
-#include "SimpleDesignByContract.h"
 #include "MathHelper.h"
+#include "OGLUtils.h"
+#include "SimpleDesignByContract.h"
 
 using namespace hdsim;
 using namespace std;
-
-#ifndef NDEBUG
-
-template<class T> void writeBufferToCSVFile(const char *fileName, T *colors, int width, int height)
-{
-   // Write debug output
-   ofstream myfile;
-   myfile.open(fileName);
-   
-   for (int indexY = 0; indexY < height; indexY++)
-   {
-      for (int indexX = 0; indexX < width; indexX++)
-      {
-         myfile << colors[indexX + width*indexY];
-         if (indexX < width - 1)
-            myfile << ",";
-      }
-      
-      myfile << endl;
-   }
-   
-   myfile.close();  
-}
-
-#endif
-
-
-bool hdsim::isWholeWorldSubstring(const char *searchIn, const char *searchFor)
-{
-   PRECONDITION(searchIn);
-   PRECONDITION(searchFor);
-   
-   // Note that strstr doesn't account for terminator
-   char *substringStartPosition = strstr(searchIn, searchFor);
-   
-   if (!substringStartPosition)
-      return false;
-   
-   int searchInLength = strlen(searchIn);
-   int searchForLength = strlen(searchFor);
-   
-   // Find how far in index it was found
-   int fromStart = substringStartPosition - searchIn;
-   
-   // And make sure that position is last position in allExtensions string, or that next position is space
-	bool delimitedAtEnd = (searchInLength == (fromStart + searchForLength))  ||  (*(substringStartPosition + searchForLength) == ' ');
-
-   // Check that there is nothing before, or that what is before is space
-   bool delimitedAtBegin = (substringStartPosition == searchIn)  ||  (*(substringStartPosition - 1) == ' ');
-
-   return delimitedAtBegin  &&  delimitedAtEnd;
-}
-
-/**
- * Check is given OpenGL extension enabled
- */
-static bool isOpenGLExtensionSupported(const char *extensionName)
-{
-   return hdsim::isWholeWorldSubstring(reinterpret_cast<const char*>(glGetString(GL_EXTENSIONS)), extensionName);
-}
-
-/**
- * Check did OpenGL error occured. It would print what error was to stderr
- *
- * @return Was there an error
- * 
- * This function started as macro from Apples example and was subsequently modified
- */
-static bool getAndResetGLErrorStatus()
-{
-	GLenum err = glGetError(); 
-   
-   if (err == GL_NO_ERROR)
-      return false;
-   
-	while (err != GL_NO_ERROR) 
-   {
-		cerr << "glError: " << err << " detail: " << reinterpret_cast<const char *>(gluErrorString(err)) << " caught at " << __FILE__ << " line " << __LINE__ << endl;
-		err = glGetError();
-   }
-   
-   return true;
-}
 
 GPUCalculationEngine::GPUCalculationEngine() : wasInitialized_(false), width_(0), height_(0), renderedDepth_(0)
 {
@@ -191,11 +109,11 @@ void GPUCalculationEngine::calculateEngine(const AbstractModel *model)
       getAndResetGLErrorStatus();
       return;
    }
+
+   glMatrixMode(GL_PROJECTION);
+   CHECK(!getAndResetGLErrorStatus(), "Error setting GL_PROJECTION");
    
    // Position camera
-   glMatrixMode(GL_PROJECTION);
-   CHECK(!getAndResetGLErrorStatus(), "Error setting projection matrix mode");
-
    glLoadIdentity();
    CHECK(!getAndResetGLErrorStatus(), "Error in glLoadIdentity");
    
@@ -237,32 +155,10 @@ void GPUCalculationEngine::calculateEngine(const AbstractModel *model)
    // Set viewport so that one rod matches one pixel
    glViewport(0, 0, geometryModel->getSizeX(), geometryModel->getSizeY());
    CHECK(!getAndResetGLErrorStatus(), "Failed to setup viewport so that one rod matches one pixel");   
-   
-   glEnable(GL_DEPTH_TEST);
-   CHECK(!getAndResetGLErrorStatus(), "Error in enabling depth test");
-   
-   glDepthMask(GL_TRUE);
-   CHECK(!getAndResetGLErrorStatus(), "Depth mask failed");
-   
-   glClearDepth(1);
-   CHECK(!getAndResetGLErrorStatus(), "Error setting value for clearing depth buffer");
 
-   glClear(GL_DEPTH_BUFFER_BIT);
-   CHECK(!getAndResetGLErrorStatus(), "Error clearing depth buffer");
-
-   glDepthFunc(GL_LESS);
-   CHECK(!getAndResetGLErrorStatus(), "Error setting depth function");
+   status = prepareForDepthBufferDrawing();
+   CHECK(status, "Preparation for drawing to depth buffer failed");
    
-	glDrawBuffer(GL_NONE);
-   CHECK(!getAndResetGLErrorStatus(), "Error disabling color drawing");
-   
-   glReadBuffer(GL_NONE);
-   CHECK(!getAndResetGLErrorStatus(), "Error disabling read buffer for color");
-   
-   // As we would do read pixel later, we must setup pixel alignment to 1 to prevent overwritting buffer
-   glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
-   glPixelStorei(GL_PACK_ALIGNMENT, 1);
-
    // All bound, now lets go ahead and draw
    // This might benefit from the display list approach
    // Orientation is counterclockwise here
@@ -295,77 +191,16 @@ void GPUCalculationEngine::calculateEngine(const AbstractModel *model)
 bool GPUCalculationEngine::initFrameBuffer(int width, int height) 
 {
    PRECONDITION(width > 0  &&  height > 0);
-   
-   // Following code is based on Apple OpenGL Programming Guide for Mac OS X, page 46. Although we would be using
-   // renderbuffer and not pbuffer, we still need a context for the renderers so that we could check renderers
-   // capabilities etc. With that being said, once when we have render buffer setup, we don't need to set this context
-   // as a current context
-   const int PIXEL_MEM_SIZE = 32;
-   
-   CGLPixelFormatAttribute openGLAttributes[] =
-   {
-      kCGLPFAPBuffer, 
-      kCGLPFAAccelerated,
-      kCGLPFANoRecovery,
-      kCGLPFAMinimumPolicy,
-      kCGLPFAColorSize, 
-      static_cast<CGLPixelFormatAttribute>(PIXEL_MEM_SIZE), 
-      static_cast<CGLPixelFormatAttribute>(0)
-   }; 
-   
-   CGLPixelFormatObj pixelFormatObj; 
-   GLint pixelFormatID;
-   
-   CGLChoosePixelFormat(openGLAttributes, &pixelFormatObj, &pixelFormatID);	
-   CHECK(!getAndResetGLErrorStatus(), "GL Error Occured");
-   
-   CGLCreateContext(pixelFormatObj, 0, &cglContext_);
-   CHECK(!getAndResetGLErrorStatus(), "GL Error Occured");
 
-   CGLDestroyPixelFormat(pixelFormatObj); 
-   CHECK(!getAndResetGLErrorStatus(), "GL Error Occured");
-   
-   CGLSetCurrentContext(cglContext_);
-   CHECK(!getAndResetGLErrorStatus(), "GL Error Occured");
-   
-   // Now, lets setup FBO objects (if supported)
-	if (!isOpenGLExtensionSupported("GL_EXT_framebuffer_object"))
-   {
-      cerr << "GL_EXT_framebuffer_object is not supported" << endl;
-      return false;
-   }
-   
-   GLenum status;
-   
-   glGenFramebuffersEXT(1, &frameBufferID_);
-   CHECK(!getAndResetGLErrorStatus(), "Can't generate framebuffer");
-   
-   glBindFramebufferEXT(GL_FRAMEBUFFER_EXT, frameBufferID_);
-   CHECK(!getAndResetGLErrorStatus(), "Can't bind framebuffer");
-
-   glGenRenderbuffersEXT(1, &renderBufferID_);
-   CHECK(!getAndResetGLErrorStatus(), "Can't create renderbuffer");
-   
-   glBindRenderbufferEXT(GL_RENDERBUFFER_EXT, renderBufferID_);
-   CHECK(!getAndResetGLErrorStatus(), "Can't bind renderbuffer");
-   
-   glRenderbufferStorageEXT(GL_RENDERBUFFER_EXT, GL_DEPTH_COMPONENT, width, height);
-   CHECK(!getAndResetGLErrorStatus(), "Can't create renderbuffer depth storage");
-   
-   glFramebufferRenderbufferEXT(GL_FRAMEBUFFER_EXT, GL_DEPTH_ATTACHMENT_EXT, GL_RENDERBUFFER_EXT, renderBufferID_);
-   CHECK(!getAndResetGLErrorStatus(), "Can't attach renderbuffer to framebuffer");
-
-   glDrawBuffer(GL_NONE);
-   glReadBuffer(GL_NONE);
-
-   status = glCheckFramebufferStatusEXT(GL_FRAMEBUFFER_EXT);
-   if (status != GL_FRAMEBUFFER_COMPLETE_EXT)
-   {
-      cerr << "Error in glCheckFramebufferStatusEXT, FBO status " <<  status << endl;
-      return false;
-   }
+   bool status = initOpenGLOffScreenRender(width, height, &cglContext_, &frameBufferID_, &renderBufferID_);
+   CHECK(status, "Initialization of offscreen rendering failed");
    
    glBindFramebufferEXT(GL_FRAMEBUFFER_EXT, 0);
+   if (getAndResetGLErrorStatus())
+   {
+      cerr << "Error binding framebuffer" << endl;
+      return false;
+   }
    
    return true;
 }
@@ -373,29 +208,9 @@ bool GPUCalculationEngine::initFrameBuffer(int width, int height)
 bool GPUCalculationEngine::destroyFrameBuffer()
 {
    PRECONDITION(wasInitialized_);
-   
-   // Don't use framebuffer extension any more
-   glBindFramebufferEXT(GL_FRAMEBUFFER_EXT, 0);
-   CHECK(!getAndResetGLErrorStatus(), "Error in glBindFramebufferEXT");
-   
-	glDeleteRenderbuffersEXT(1, &renderBufferID_);
-   CHECK(!getAndResetGLErrorStatus(), "Error in renderBufferID_");
 
-   glDeleteFramebuffersEXT(1, &frameBufferID_);
-   CHECK(!getAndResetGLErrorStatus(), "Error in frameBufferID_");
-
-	delete [] renderedDepth_;
-   
-   CGLSetCurrentContext(0); 
-   CHECK(!getAndResetGLErrorStatus(), "Error in CGLSetCurrentContext");
-   
-   CGLClearDrawable(cglContext_); 
-   CHECK(!getAndResetGLErrorStatus(), "Error in CGLClearDrawable");
-
-   CGLDestroyContext(cglContext_);
-   CHECK(!getAndResetGLErrorStatus(), "Error in CGLDestroyContext");
-   
-	return !getAndResetGLErrorStatus();
+   delete [] renderedDepth_;
+   return destroyOpenGLOffScreenRender(cglContext_, frameBufferID_, renderBufferID_);
 }
 
 void GPUCalculationEngine::initialize(const AbstractModel *model)

@@ -498,7 +498,16 @@ bool Shader::getShaderVariable(const char *name, double *value)
 
 bool Shader::setShaderActive(bool shaderActive)
 {
-   glUseProgramObjectARB(programObject_);
-   shaderActive_ = getAndResetGLErrorStatus();
-   return shaderActive_;
+   GLhandleARB handleToUse = shaderActive ? programObject_ : 0;
+   
+   glUseProgramObjectARB(handleToUse);
+   if (getAndResetGLErrorStatus())
+   {
+      LOG("Error in setShaderActive");
+      shaderActive_ = false;
+      return false;
+   }
+   
+   shaderActive_ = shaderActive;
+   return true;
 }

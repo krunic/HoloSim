@@ -56,6 +56,8 @@
 		7A70633610F4CD7C00816D3E /* Collada14Dom.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A70618610F4B61000816D3E /* Collada14Dom.framework */; };
 		7A70634610F4CECC00816D3E /* libxml2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A70634510F4CECC00816D3E /* libxml2.dylib */; };
 		7A70634710F4CED100816D3E /* libxml2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A70634510F4CECC00816D3E /* libxml2.dylib */; };
+		7A72E3C81132C92700B4D338 /* SlowInSlowOut.fs in Resources */ = {isa = PBXBuildFile; fileRef = 7A72E3C71132C92700B4D338 /* SlowInSlowOut.fs */; };
+		7A72E3C91132C93700B4D338 /* SlowInSlowOut.fs in CopyFiles */ = {isa = PBXBuildFile; fileRef = 7A72E3C71132C92700B4D338 /* SlowInSlowOut.fs */; };
 		7A7459301102E06700E29029 /* singleQuad.gpuGeometryModel in CopyFiles */ = {isa = PBXBuildFile; fileRef = 7A74592F1102E05E00E29029 /* singleQuad.gpuGeometryModel */; };
 		7A76392B0C7803FD00600572 /* HoloSimDocument.mm in Sources */ = {isa = PBXBuildFile; fileRef = 7A0F8A610C5CA8EB0018DD1F /* HoloSimDocument.mm */; };
 		7A76392D0C78041C00600572 /* AbstractModel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7A0F8A520C5CA8C90018DD1F /* AbstractModel.cpp */; };
@@ -116,6 +118,7 @@
 			dstSubfolderSpec = 16;
 			files = (
 				7A8B384C111CF18000AAB8A2 /* singleQuad.GPUHoloSim in CopyFiles */,
+				7A72E3C91132C93700B4D338 /* SlowInSlowOut.fs in CopyFiles */,
 				7A7459301102E06700E29029 /* singleQuad.gpuGeometryModel in CopyFiles */,
 				7AA6DAF711029A6F0069471B /* Chair.dae in CopyFiles */,
 				7AA6DA381101BB1E0069471B /* TestQuad.dae in CopyFiles */,
@@ -193,6 +196,7 @@
 		7A7062AE10F4BE3500816D3E /* libminizip.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libminizip.a; path = /usr/local/lib/libminizip.a; sourceTree = "<absolute>"; };
 		7A70633010F4CCD200816D3E /* Collada14Dom.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = Collada14Dom.dylib; path = /usr/local/lib/Collada14Dom.dylib; sourceTree = "<absolute>"; };
 		7A70634510F4CECC00816D3E /* libxml2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.dylib; path = /usr/lib/libxml2.dylib; sourceTree = "<absolute>"; };
+		7A72E3C71132C92700B4D338 /* SlowInSlowOut.fs */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = SlowInSlowOut.fs; sourceTree = "<group>"; };
 		7A74592F1102E05E00E29029 /* singleQuad.gpuGeometryModel */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = singleQuad.gpuGeometryModel; sourceTree = "<group>"; };
 		7A7639BE0C78099C00600572 /* AbstractDrawingCodeTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AbstractDrawingCodeTest.h; path = UnitTests/CPPUnit/Graphics/AbstractDrawingCodeTest.h; sourceTree = "<group>"; };
 		7A7639BF0C78099C00600572 /* AbstractDrawingCodeTest.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = AbstractDrawingCodeTest.cpp; path = UnitTests/CPPUnit/Graphics/AbstractDrawingCodeTest.cpp; sourceTree = "<group>"; };
@@ -554,6 +558,7 @@
 		7AA6DA341101BAC90069471B /* UnitTestModels */ = {
 			isa = PBXGroup;
 			children = (
+				7A72E3C71132C92700B4D338 /* SlowInSlowOut.fs */,
 				7A4078C111323EE800D47E62 /* PlasmaFSOnly.fs */,
 				7A4078C211323EE800D47E62 /* PlasmaVSOnly.vs */,
 				7A40789811323B9600D47E62 /* Plasma.fs */,
@@ -698,6 +703,7 @@
 				8D15AC2D0486D014006FF6A4 /* MainMenu.nib in Resources */,
 				8D15AC2E0486D014006FF6A4 /* HoloSimDocument.nib in Resources */,
 				7A3E25510C598C2200326103 /* HoloSimIcon.icns in Resources */,
+				7A72E3C81132C92700B4D338 /* SlowInSlowOut.fs in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

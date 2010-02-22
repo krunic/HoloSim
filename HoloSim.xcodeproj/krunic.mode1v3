@@ -283,14 +283,14 @@
 							<key>PBXSmartGroupTreeModuleOutlineStateSelectionKey</key>
 							<array>
 								<array>
-									<integer>33</integer>
-									<integer>29</integer>
-									<integer>28</integer>
+									<integer>52</integer>
+									<integer>51</integer>
+									<integer>50</integer>
 									<integer>0</integer>
 								</array>
 							</array>
 							<key>PBXSmartGroupTreeModuleOutlineStateVisibleRectKey</key>
-							<string>{{0, 280}, {300, 910}}</string>
+							<string>{{0, 470}, {300, 910}}</string>
 						</dict>
 						<key>PBXTopSmartGroupGIDs</key>
 						<array/>
@@ -327,7 +327,7 @@
 								<key>PBXProjectModuleGUID</key>
 								<string>1CE0B20306471E060097A5F4</string>
 								<key>PBXProjectModuleLabel</key>
-								<string>Shader.cpp</string>
+								<string>SlowInSlowOut.fs</string>
 								<key>PBXSplitModuleInNavigatorKey</key>
 								<dict>
 									<key>Split0</key>
@@ -335,11 +335,11 @@
 										<key>PBXProjectModuleGUID</key>
 										<string>1CE0B20406471E060097A5F4</string>
 										<key>PBXProjectModuleLabel</key>
-										<string>Shader.cpp</string>
+										<string>SlowInSlowOut.fs</string>
 										<key>_historyCapacity</key>
 										<integer>0</integer>
 										<key>bookmark</key>
-										<string>7A40795F1132493200D47E62</string>
+										<string>7A72E3E311332D8A00B4D338</string>
 										<key>history</key>
 										<array>
 											<string>7A76397F0C7805A100600572</string>
@@ -426,16 +426,18 @@
 											<string>7A40789C11323C8A00D47E62</string>
 											<string>7A40789E11323C8A00D47E62</string>
 											<string>7A4078AE11323D7100D47E62</string>
-											<string>7A4079031132457500D47E62</string>
 											<string>7A4079041132457500D47E62</string>
-											<string>7A4079051132457500D47E62</string>
 											<string>7A4079061132457500D47E62</string>
-											<string>7A4079071132457500D47E62</string>
 											<string>7A4079561132491500D47E62</string>
 											<string>7A4079571132491500D47E62</string>
-											<string>7A4079581132491500D47E62</string>
 											<string>7A4079591132491500D47E62</string>
-											<string>7A40795A1132491500D47E62</string>
+											<string>7A72E3BF1132B6DD00B4D338</string>
+											<string>7A72E3C31132B76C00B4D338</string>
+											<string>7A72E3D4113324E900B4D338</string>
+											<string>7A72E3D5113324E900B4D338</string>
+											<string>7A72E3DA1133252F00B4D338</string>
+											<string>7A72E3E211332D8A00B4D338</string>
+											<string>7A72E3E011332A8100B4D338</string>
 										</array>
 									</dict>
 									<key>SplitCount</key>
@@ -493,9 +495,9 @@
 			</array>
 			<key>TableOfContents</key>
 			<array>
-				<string>7A4078031131C46400D47E62</string>
+				<string>7A72E3BB1132B32700B4D338</string>
 				<string>1CE0B1FE06471DED0097A5F4</string>
-				<string>7A4078041131C46400D47E62</string>
+				<string>7A72E3BC1132B32700B4D338</string>
 				<string>1CE0B20306471E060097A5F4</string>
 				<string>1CE0B20506471E060097A5F4</string>
 			</array>
@@ -629,12 +631,6 @@
 	<integer>5</integer>
 	<key>WindowOrderList</key>
 	<array>
-		<string>1C530D57069F1CE1000CFCEE</string>
-		<string>7A4078BA11323DA200D47E62</string>
-		<string>7A4078B311323D7100D47E62</string>
-		<string>7A4078B411323D7100D47E62</string>
-		<string>1C78EAAD065D492600B07095</string>
-		<string>1CD10A99069EF8BA00B06720</string>
 		<string>7AB81FC80CFD15870073748B</string>
 		<string>/Users/krunic/Documents/Projects/School/PhD/CS/Holodeck/XCode/HoloSim/trunk/HoloSim.xcodeproj</string>
 	</array>
@@ -660,7 +656,7 @@
 								<key>PBXProjectModuleGUID</key>
 								<string>1CD0528F0623707200166675</string>
 								<key>PBXProjectModuleLabel</key>
-								<string>Shader.cpp</string>
+								<string></string>
 								<key>StatusBarVisibility</key>
 								<true/>
 							</dict>
@@ -677,8 +673,6 @@
 							<string>437pt</string>
 						</dict>
 						<dict>
-							<key>BecomeActive</key>
-							<true/>
 							<key>ContentConfiguration</key>
 							<dict>
 								<key>PBXProjectModuleGUID</key>
@@ -718,7 +712,7 @@
 			<key>TableOfContents</key>
 			<array>
 				<string>7AB81FC80CFD15870073748B</string>
-				<string>7A4077F31131C05200D47E62</string>
+				<string>7A72E3BD1132B32700B4D338</string>
 				<string>1CD0528F0623707200166675</string>
 				<string>XCMainBuildResultsModuleGUID</string>
 			</array>

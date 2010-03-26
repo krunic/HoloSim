@@ -361,6 +361,9 @@ void GPUGeometryModelTest::testQuadCoveringWholeArea()
    // Set a quad that covers the whole area
    GPUGeometryModel testFixture(SIZE_X, SIZE_Y);
    
+   // Shaders are not compatible with unit test as unit test doesn't create bundle
+   testFixture.setUseShaders(false);
+   
    const double QUAD_SIZE = 1;
    const double Z_OFFSET = 0;
    
@@ -390,6 +393,55 @@ void GPUGeometryModelTest::testQuadCoveringWholeArea()
       }
 }
 
+void GPUGeometryModelTest::testCallingTwice()
+{
+   const int SIZE_X = 32;
+   const int SIZE_Y = 32;
+   
+   // Expected offset of Z buffer. We would set quad at the half of the viewing frustum so Z buffer should be 1/2
+   const double Z_BUFFER_VALUE = 0.5;
+   
+   // Set a quad that covers the whole area
+   GPUGeometryModel testFixture(SIZE_X, SIZE_Y);
+
+   // Shaders are not compatible with unit test as unit test doesn't create bundle
+   testFixture.setUseShaders(false);
+   
+   const double QUAD_SIZE = 1;
+   const double Z_OFFSET = 0;
+   
+   testFixture.setRenderedArea(-QUAD_SIZE/2, -QUAD_SIZE/2, -QUAD_SIZE/2, QUAD_SIZE/2, QUAD_SIZE/2, QUAD_SIZE/2);
+   
+   testFixture.addPoint(createPoint(-QUAD_SIZE, -QUAD_SIZE, Z_OFFSET));
+   testFixture.addPoint(createPoint(-QUAD_SIZE, QUAD_SIZE, Z_OFFSET));
+   testFixture.addPoint(createPoint(QUAD_SIZE, -QUAD_SIZE, Z_OFFSET));
+   testFixture.addPoint(createPoint(QUAD_SIZE, QUAD_SIZE, Z_OFFSET));
+   
+   testFixture.addTriangle(createTriangle(0, 1, 3));
+   
+   // Draw once, doesn't matter what you get
+   testFixture.getAt(0, 0);
+   
+   // Add new triangle and redraw
+   testFixture.addTriangle(createTriangle(0, 2, 3));
+   
+   for (int indexY = 0; indexY < SIZE_Y; indexY++)
+      for (int indexX = 0; indexX < SIZE_X; indexX++)
+      {
+         double value = testFixture.getAt(indexX, indexY);
+         if (!areEqualInLowPrecision(value, Z_BUFFER_VALUE))
+         {           
+            stringstream message;
+            message << "Error at the coordinates X = " << indexX << " Y = " << indexY << " got " << value << " instead of " << Z_BUFFER_VALUE;
+            
+            writeDepthBufferToCSVFile("testCallingTwice.csv", testFixture);
+            
+            CPPUNIT_ASSERT_MESSAGE(message.str().c_str(), false);
+         }
+      }
+}
+
+
 void GPUGeometryModelTest::testTriangleCoveringPartOfTheArea()
 {
    const int SIZE_X = 32;
@@ -397,7 +449,10 @@ void GPUGeometryModelTest::testTriangleCoveringPartOfTheArea()
    
    // Set a quad that covers the whole area
    GPUGeometryModel testFixture(SIZE_X, SIZE_Y);
-
+   
+   // Shaders are not compatible with unit test as unit test doesn't create bundle
+   testFixture.setUseShaders(false);
+   
    const double Z_OFFSET = 0;
 
    // Expected offset of Z buffer. We would set quad at the half of the viewing frustum so Z buffer should be 1/2
@@ -434,7 +489,7 @@ void GPUGeometryModelTest::testTriangleCoveringPartOfTheArea()
          
          if (areEqualInLowPrecision(zValue, Z_BUFFER_VALUE))
          {
-            CPPUNIT_ASSERT_MESSAGE("We can encounted Z_OFFSET only in quad or if we didn't entered quad before", !scanlineExited);
+            CPPUNIT_ASSERT_MESSAGE("We can encounter Z_OFFSET only in quad or if we didn't entered quad before", !scanlineExited);
             scanlineEntered = true;
             quadDetected = true;
          } 

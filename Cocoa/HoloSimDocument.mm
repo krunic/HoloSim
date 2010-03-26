@@ -120,7 +120,8 @@
 
 - (IBAction)timeSliceSliderChanged:(id)sender
 {
-   model->setTimeSlice([sender floatValue]);
+   float value = [sender floatValue];
+   model->setTimeSlice(value);
    [rodRoomWindow notifyModelChanged:self];
 }
 

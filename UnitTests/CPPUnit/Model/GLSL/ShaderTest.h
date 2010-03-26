@@ -69,7 +69,8 @@ namespace hdsim {
       
       CGLContextObj cglContext_;
       GLuint frameBufferID_;
-      GLuint renderBufferID_;
+      GLuint colorBufferID_;
+      GLuint depthBufferID_;
    };
    
 }

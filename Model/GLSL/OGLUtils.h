@@ -10,12 +10,16 @@
 #ifndef OGL_UTILS_H_
 #define OGL_UTILS_H_
 
+#include <string>
+
 #include <OpenGL/gl.h>
 #include <OpenGL/glu.h>
 #include <OpenGL/OpenGL.h>
 
 #include "AbstractModel.h"
 #include "GPUGeometryModel.h"
+
+using namespace std;
 
 namespace hdsim {
    
@@ -83,22 +87,43 @@ namespace hdsim {
     * @param height Height of the offscreen drawing region to create
     * @param cglContext (OUT) Created CGL context to use
     * @param frameBufferID (OUT) ID of the created framebuffer
-    * @param renderBufferID (OUT) ID of the renderbuffer
+    * @param colorBufferID (OUT) ID of the color buffer
+    * @param depthBufferID (OUT) ID of the depth buffer
     *
     * @return Was OpenGL offscreen rendering success
     */
-   bool initOpenGLOffScreenRender(int width, int height, CGLContextObj *cglContext, GLuint *frameBufferID, GLuint *renderBufferID);
+   bool initOpenGLOffScreenRender(int width, int height, CGLContextObj *cglContext, GLuint *frameBufferID, GLuint *colorBufferID, GLuint *depthBufferID);
    
    /**
     * Cleanup for depth buffer rendering to framebuffer
     *
     * @param CGL context to use
     * @param frameBufferID Frame buffer ID to use
-    * @param renderBufferID Render buffer ID to use
+    * @param colorBufferID Color buffer ID to use
+    * @param depthBufferID Depth buffer ID to use
     *
     * @return Was destroying contextes success
     */
-   bool destroyOpenGLOffScreenRender(CGLContextObj cglContext, GLuint frameBufferID, GLuint renderBufferID);
+   bool destroyOpenGLOffScreenRender(CGLContextObj cglContext, GLuint frameBufferID, GLuint colorBufferID, GLuint depthBufferID);
+   
+   /**
+    * Get path to resource file in bundle
+    *
+    * @param name Name of the file in bundle
+    * @param path (OUT) Path to the filename using UNIX file convention
+    *
+    * @return Was conversion success
+    */
+   bool getPathToBundleFileAdopt(const char *name, string *path);
+   
+   /**
+    * Change CGL context
+    *
+    * @param context New context to set
+    *
+    * @return Was change success
+    */
+   bool changeCGLContext(CGLContextObj context);
 }
 
 #endif

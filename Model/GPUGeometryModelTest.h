@@ -28,6 +28,7 @@ namespace hdsim {
 	      CPPUNIT_TEST(testQuadCoveringWholeArea);
 	      CPPUNIT_TEST(testTriangleCoveringPartOfTheArea);
       	CPPUNIT_TEST(testCopyConstructor);
+	      CPPUNIT_TEST(testCallingTwice);
       	CPPUNIT_TEST(testOperatorEqual);
       CPPUNIT_TEST_SUITE_END();
       
@@ -122,6 +123,11 @@ namespace hdsim {
        * Test of the quad parallel to Z plane, which is larger then rendering area
        */
       void testQuadCoveringWholeArea();
+
+      /**
+       * Test calling twice (we had a problem with that
+       */
+      void testCallingTwice();
       
       /**
        * Test of the quad parallel to Z plane, which is smaller then rendering area

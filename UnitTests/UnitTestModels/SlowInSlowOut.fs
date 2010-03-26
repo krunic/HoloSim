@@ -21,35 +21,13 @@ uniform float timeSlice;
  */
 float getPositionOnTheCurve(in float t)
 {
-   if (t < 0.1)
-      return 0.0;
-
    if (t < 0.2)
-      return 0.1;
-
-   if (t < 0.3)
-      return 0.2;
-     
-   if (t < 0.7)
-      return t;
-    
-   if (t < 0.8)
-      return 0.7;
-    
+      return t/2.0;
+      
    if (t < 0.9)
-      return 0.8;
+      return t - 0.1;
     
-   // 0.9 <= t <= 1.0
-   if (t < 0.92)
-      return 0.9;
-    
-   if (t < 0.94)
-      return 0.92;
-    
-   if (t < 0.99)
-      return 0.95;
-    
-   return 1.0;
+   return 0.8 + (t - 0.9)/3.0;
 }
 
 /**

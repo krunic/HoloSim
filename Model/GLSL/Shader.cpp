@@ -264,15 +264,17 @@ static GLhandleARB loadShader(GLenum shaderType, const char *shaderSourceFileNam
  */
 static GLint getUniformLocation(const char *uniformName, GLhandleARB programObject, GLint *uniformLocation)
 {
-	GLint uniformLoacation = glGetUniformLocationARB(programObject, uniformName);
+	GLint location = glGetUniformLocationARB(programObject, uniformName);
 	
-	if (uniformLoacation == -1) 
+	if (location == -1) 
 	{
       stringstream message;
       message << "No such uniform named " << uniformName;
       LOG(message.str().c_str());
       return false;
 	}
+   
+   *uniformLocation = location;
 	
 	return true;
 }
@@ -467,7 +469,7 @@ bool Shader::setShaderVariable(const char *uniformName, double value)
    }
    
    glUniform1fARB(uniformLocation, value);
-   return getAndResetGLErrorStatus();
+   return !getAndResetGLErrorStatus();
 }
 
 bool Shader::getShaderVariable(const char *name, double *value)
@@ -488,7 +490,7 @@ bool Shader::getShaderVariable(const char *name, double *value)
    
    bool status = getAndResetGLErrorStatus();
    
-   if (status)
+   if (!status)
    {
       *value = uniformValue;
    }

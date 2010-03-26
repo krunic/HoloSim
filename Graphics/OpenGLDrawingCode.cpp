@@ -320,6 +320,9 @@ void OpenGLDrawingCode::draw(const AbstractModel *m)
 {
    // This service knows at the moment only how to draw interpolated models
    const GPUInterpolatedModel *model = dynamic_cast<const GPUInterpolatedModel*>(m);
+   
+   model->getAt(0, 0);
+   
    CHECK(model, "Model must be of the type GPUInterpolatedModel");
    CHECK(model->getSizeX() == model->getSizeY(), "Model sizes must be equal in X and Y for this drawer to work");
    CHECK(model->getRenderedAreaMaxZ() >= 0, "Model must have at least some part above the ground plane");
@@ -366,6 +369,9 @@ void OpenGLDrawingCode::draw(const AbstractModel *m)
       for (int indexY = 0; indexY < model->getSizeY(); indexY++)
       {
          // Transform from [0, 1] in Z buffer to the maxZ coordinate
+         
+         //THIS IS A PROBLEM - A LOT OF DRAWING HAPPENED ON INITIALIZED BUFFER THAT GETS UNINITIALIZED. HOW TO FIX? E.G. ENSURE PRECALC?
+         
          double zValue = maxRodSize*(1-model->getAt(indexX, indexY));
          drawRodAt(BASE_SIZE, model->getSizeX(), ROD_COVERAGE_PERCENTAGE, indexX, indexY, zValue);
       }

@@ -175,3 +175,32 @@ bool GPUGeometryModel::readFromFile(const string &fileName)
    // That filename is relative to the file we are reading from
    return loadCollada(getFileNameInSameDirAsOriginalFile(fileName, line).c_str(), *this);
 }
+
+void GPUGeometryModel::setTimeSlice(double timeSlice)
+{
+   PRECONDITION(calculationEngine_);
+   
+   calculationEngine_->setTimeSlice(timeSlice);
+   changedSinceLastRecalc_ = true;
+}
+
+double GPUGeometryModel::getTimeSlice() const
+{
+   PRECONDITION(calculationEngine_);
+   return calculationEngine_->getTimeSlice();
+}
+
+void GPUGeometryModel::setUseShaders(bool useShaders)
+{
+   PRECONDITION(calculationEngine_);
+   
+   calculationEngine_->setUseShader(useShaders);
+}
+
+bool GPUGeometryModel::getUseShaders() const
+{
+   PRECONDITION(calculationEngine_);
+   
+   return calculationEngine_->getUseShader();
+}
+

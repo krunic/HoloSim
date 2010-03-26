@@ -16,6 +16,7 @@
 
 #include "AbstractModel.h"
 #include "GPUGeometryModel.h"
+#include "Shader.h"
 
 namespace hdsim {
 
@@ -64,7 +65,57 @@ namespace hdsim {
             return renderedDepth_[y*width_ + x];
          }
       
+      	/**
+          * Should we load shader from bundle
+          *
+          * @param shouldYou Should we load from bundle
+          */
+      	virtual void setUseShader(bool shouldYou)
+         {
+				useShader_ = shouldYou;            
+         }
+      
+         /**
+          * Should we load shader from bundle
+          *
+          * @return Is shader used
+          */
+         virtual bool getUseShader() const
+         {
+            return useShader_;
+         }
+      
+         /**
+          * Should we load shader from bundle
+          *
+          * @param timeSlice - Timeslice to use
+          */
+         virtual void setTimeSlice(double timeSlice)
+         {
+				timeSlice_ = timeSlice;
+         }
+         
+         /**
+          * Get value of the timeslice
+          *
+          * @return timeSlice 
+          */
+         virtual double getTimeSlice() const
+         {
+            return timeSlice_;
+         }
+      
    	private:
+      
+         /**
+          * Name of the uniform variable holding current timeslice
+          */
+         static const char *TIMESLICE_NAME;
+         
+         /**
+          * Name of the uniform variable holding current timeslice
+          */
+         static const char *SHADER_NAME;
       
       	// copying is not supported for now
 	      GPUCalculationEngine(const GPUCalculationEngine &rhs);
@@ -92,7 +143,7 @@ namespace hdsim {
          /**
           * IDs of the current render buffer and frame buffer objects used
           */
-         GLuint frameBufferID_, renderBufferID_;
+         GLuint frameBufferID_, colorBufferID_, depthBufferID_;
       
       	/**
           * Were we succesfully initialized
@@ -105,6 +156,11 @@ namespace hdsim {
 	      int width_, height_;
       
       	/**
+          * Should we load shader from bundle
+          */
+	      bool useShader_;
+      
+      	/**
           * Off screen context used for drawing
           */
          CGLContextObj cglContext_;
@@ -113,7 +169,16 @@ namespace hdsim {
           * Rendered depth buffer (from the graphic card)
           */
 	      GLfloat *renderedDepth_;
-
+      
+      	/**
+          * Shader to use
+          */
+	      Shader shader_;
+      
+      	/**
+          * Timeslice value
+          */
+	      double timeSlice_;
 	};
    
 }

@@ -238,6 +238,20 @@ namespace hdsim {
          CHECK(index >= 0  &&  index < getNumPoints(), "Index out of bound");
       	triangles_[index] = triangle;
       }
+      
+      /**
+       * Set value of the timeslice
+       * 
+       * @param timeSlice
+       */
+      virtual void setTimeSlice(double timeSlice);
+      
+      /**
+       * Get value of the timeslice
+       * 
+       * @return Value of the timeslice
+       */
+      virtual double getTimeSlice() const;
 
       /**
        * Initilize model to clean state, including forgetting dimensions
@@ -351,9 +365,11 @@ namespace hdsim {
       virtual void setRenderedArea(double minX, double minY, double minZ, double maxX, double maxY, double maxZ)
       {
          // Check is it really needed to invalidate before you do it
-		   changedSinceLastRecalc_ = !areEqual(minX, getRenderedAreaMinX())  ||  !areEqual(maxX, getRenderedAreaMaxX())  ||
-                                   !areEqual(minY, getRenderedAreaMinY())  ||  !areEqual(maxY, getRenderedAreaMaxY())  ||
-										     !areEqual(minZ, getRenderedAreaMinZ())  ||  !areEqual(maxZ, getRenderedAreaMaxZ());
+		   bool boundsChanged = !areEqual(minX, getRenderedAreaMinX())  ||  !areEqual(maxX, getRenderedAreaMaxX())  ||
+                              !areEqual(minY, getRenderedAreaMinY())  ||  !areEqual(maxY, getRenderedAreaMaxY())  ||
+									   !areEqual(minZ, getRenderedAreaMinZ())  ||  !areEqual(maxZ, getRenderedAreaMaxZ());
+         
+         changedSinceLastRecalc_ = changedSinceLastRecalc_  ||  boundsChanged;
          
 			// It is quite possible that if test would take more time due to the possible pipeline stall then all assignments, but we 
          // should measure before we optimize
@@ -367,6 +383,20 @@ namespace hdsim {
             renderedAreaMaxZ_ = maxZ;         
          }
       }
+      
+      /**
+       * Set should shaders be used when geometry model is calculated
+       * 
+       * @param useShaders - should shaders be used
+       */
+      virtual void setUseShaders(bool useShaders);
+      
+      /**
+       * Get should shaders be used when geometry model is calculated
+       * 
+       * @return are shaders used
+       */
+      virtual bool getUseShaders() const;
       
    private:
       

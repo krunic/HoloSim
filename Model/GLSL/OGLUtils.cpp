@@ -58,6 +58,8 @@
 #include <OpenGL/gl.h>
 #include <OpenGL/glu.h>
 
+#include <CoreFoundation/CFBundle.h>
+
 #include <string>
 #include <iostream>
 #include <fstream>
@@ -66,6 +68,10 @@
 
 using namespace hdsim;
 using namespace std;
+
+#ifndef __APPLE__
+#error This file is Mac specific, needs to be fixed for other platforms
+#endif
 
 template<class T> void hdsim::writeBufferToCSVFile(const char *fileName, T *array, int width, int height)
 {
@@ -121,10 +127,25 @@ bool hdsim::isOpenGLExtensionSupported(const char *extensionName)
 
 bool hdsim::saveOpenGLState(CGLContextObj *savedContext)
 {
+   *savedContext = CGLGetCurrentContext();
+
+   // If we have no OpenGL state, then don't do OpenGL operations
+   if (!*savedContext)
+   {
+      return true;
+   }
+   
    glPushAttrib(GL_ALL_ATTRIB_BITS);
    if (getAndResetGLErrorStatus())
    {
       LOG("Error pushing attributes");
+		return false;      
+   }
+   
+   glPushClientAttrib(GL_CLIENT_ALL_ATTRIB_BITS);
+   if (getAndResetGLErrorStatus())
+   {
+      LOG("Error pushing client attributes");
 		return false;      
    }
    
@@ -156,12 +177,26 @@ bool hdsim::saveOpenGLState(CGLContextObj *savedContext)
 		return false;      
    }
    
-   *savedContext = CGLGetCurrentContext();
    return true;
 }
 
 bool hdsim::restoreOpenGLState(CGLContextObj savedContext)
 {
+   // If there was not a saved context, don't worry
+   if (!savedContext)
+   {
+      return true;
+   }
+
+   CGLError error = CGLSetCurrentContext(savedContext);
+   if (error != kCGLNoError)
+	{
+      stringstream message;
+     	message << "Error in setting CGL context " << CGLErrorString(error);
+      LOG(message.str().c_str());
+	   return false;
+	}
+   
    // Now, lets restore old state
    glMatrixMode(GL_PROJECTION);
    if (getAndResetGLErrorStatus())
@@ -190,18 +225,18 @@ bool hdsim::restoreOpenGLState(CGLContextObj savedContext)
       LOG("Error in restoring GL_MODELVIEW");
 		return false;      
    }
-  
+   
+   glPopClientAttrib();
+   if (getAndResetGLErrorStatus())
+   {
+      LOG("Error restoring client attributes");
+		return false;      
+   }
+   
    glPopAttrib();
    if (getAndResetGLErrorStatus())
    {
       LOG("Error restoring attributes");
-		return false;      
-   }
-   
-   glDrawBuffer(GL_FRONT_AND_BACK);
-   if (getAndResetGLErrorStatus())
-   {
-      LOG("Error restoring draw buffer");
 		return false;      
    }
    
@@ -210,15 +245,6 @@ bool hdsim::restoreOpenGLState(CGLContextObj savedContext)
    {
       LOG("Error unbinding framebuffer");
 		return false;      
-   }
-   
-   CGLError error = CGLSetCurrentContext(savedContext);
-   if (error != kCGLNoError)
-   {
-      stringstream message;
-      message << "Error in setting CGL context " << CGLErrorString(error);
-      LOG(message.str().c_str());
-      return false;
    }
    
    return true;
@@ -255,7 +281,7 @@ bool hdsim::prepareForDepthBufferDrawing()
    if (getAndResetGLErrorStatus())
    {
       LOG("Depth mask failed");
-		return false;      
+		return false;
    }
    
    glClearDepth(1);
@@ -265,7 +291,14 @@ bool hdsim::prepareForDepthBufferDrawing()
 		return false;      
    }
 
-   glClear(GL_DEPTH_BUFFER_BIT);
+   glClearColor(0, 0, 0, 0);
+   if (getAndResetGLErrorStatus())
+   {
+      LOG("Error setting value for clearing depth buffer");
+		return false;      
+   }
+   
+   glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
    if (getAndResetGLErrorStatus())
    {
       LOG("Error clearing depth buffer");
@@ -312,7 +345,7 @@ bool hdsim::prepareForDepthBufferDrawing()
 }
 
 // THIS FUNCTION HAS LEAKS IN THE CASE OF ERROR. SHOULD BE FIXED FOR PRODUCTION QUALITY CODE
-bool hdsim::initOpenGLOffScreenRender(int width, int height, CGLContextObj *cglContext, GLuint *frameBufferID, GLuint *renderBufferID)
+bool hdsim::initOpenGLOffScreenRender(int width, int height, CGLContextObj *cglContext, GLuint *frameBufferID, GLuint *colorBufferID, GLuint *depthBufferID)
 {
    // Following code is based on Apple OpenGL Programming Guide for Mac OS X, page 46. Although we would be using
    // renderbuffer and not pbuffer, we still need a context for the renderers so that we could check renderers
@@ -396,15 +429,16 @@ bool hdsim::initOpenGLOffScreenRender(int width, int height, CGLContextObj *cglC
       LOG("Can't bind framebuffer");
       return false;
    }
-   
-   glGenRenderbuffersEXT(1, renderBufferID);
+
+   // Provide depth buffer renderbuffer
+   glGenRenderbuffersEXT(1, depthBufferID);
    if (getAndResetGLErrorStatus())
    {
       LOG("Can't create renderbuffer");
       return false;
    }
    
-   glBindRenderbufferEXT(GL_RENDERBUFFER_EXT, *renderBufferID);
+   glBindRenderbufferEXT(GL_RENDERBUFFER_EXT, *depthBufferID);
    if (getAndResetGLErrorStatus())
    {
       LOG("Can't bind renderbuffer");
@@ -418,27 +452,42 @@ bool hdsim::initOpenGLOffScreenRender(int width, int height, CGLContextObj *cglC
       return false;
    }
    
-   glFramebufferRenderbufferEXT(GL_FRAMEBUFFER_EXT, GL_DEPTH_ATTACHMENT_EXT, GL_RENDERBUFFER_EXT, *renderBufferID);
+   glFramebufferRenderbufferEXT(GL_FRAMEBUFFER_EXT, GL_DEPTH_ATTACHMENT_EXT, GL_RENDERBUFFER_EXT, *depthBufferID);
    if (getAndResetGLErrorStatus())
    {
       LOG("Can't attach renderbuffer to framebuffer");
       return false;
    }
-   
-   glDrawBuffer(GL_NONE);
+
+   // Provide color buffer renderbuffer
+   glGenRenderbuffersEXT(1, colorBufferID);
    if (getAndResetGLErrorStatus())
    {
-      LOG("Can't disable draw buffer rendering");
+      LOG("Can't create renderbuffer");
+      return false;
+   }
+   
+   glBindRenderbufferEXT(GL_RENDERBUFFER_EXT, *colorBufferID);
+   if (getAndResetGLErrorStatus())
+   {
+      LOG("Can't bind renderbuffer");
+      return false;
+   }
+   
+   glRenderbufferStorageEXT(GL_RENDERBUFFER_EXT, GL_RGBA8, width, height);
+   if (getAndResetGLErrorStatus())
+   {
+      LOG("Can't create renderbuffer depth storage");
+      return false;
+   }
+   
+   glFramebufferRenderbufferEXT(GL_FRAMEBUFFER_EXT, GL_COLOR_ATTACHMENT0_EXT, GL_RENDERBUFFER_EXT, *colorBufferID);
+   if (getAndResetGLErrorStatus())
+   {
+      LOG("Can't attach renderbuffer to framebuffer");
       return false;
    }
 
-   glReadBuffer(GL_NONE);
-   if (getAndResetGLErrorStatus())
-   {
-      LOG("Can't disable read budder rendering");
-      return false;
-   }
-   
    status = glCheckFramebufferStatusEXT(GL_FRAMEBUFFER_EXT);
    if (status != GL_FRAMEBUFFER_COMPLETE_EXT)
    {
@@ -455,11 +504,25 @@ bool hdsim::initOpenGLOffScreenRender(int width, int height, CGLContextObj *cglC
       LOG("Can't unbind framebuffer");
       return false;
    }
+
+   return true;
+}
+
+bool hdsim::changeCGLContext(CGLContextObj context)
+{
+   CGLError error = CGLSetCurrentContext(context);
+   if (error != kCGLNoError)
+   {
+      stringstream message;
+      message << "Error setting current context " << CGLErrorString(error);
+      LOG(message.str().c_str());
+		return false;      
+   }
    
    return true;
 }
 
-bool hdsim::destroyOpenGLOffScreenRender(CGLContextObj cglContext, GLuint frameBufferID, GLuint renderBufferID)
+bool hdsim::destroyOpenGLOffScreenRender(CGLContextObj cglContext, GLuint frameBufferID, GLuint colorBufferID, GLuint depthBufferID)
 {
    // Don't use framebuffer extension any more
    glBindFramebufferEXT(GL_FRAMEBUFFER_EXT, 0);
@@ -469,17 +532,24 @@ bool hdsim::destroyOpenGLOffScreenRender(CGLContextObj cglContext, GLuint frameB
       return false;
    }
    
-	glDeleteRenderbuffersEXT(1, &renderBufferID);
-   if (getAndResetGLErrorStatus())
-   {
-      LOG("Error in deleting renderbuffer");
-      return false;
-   }
-   
-   glDeleteFramebuffersEXT(1, &frameBufferID);
+	glDeleteRenderbuffersEXT(1, &frameBufferID);
    if (getAndResetGLErrorStatus())
    {
       LOG("Error in deleting framebuffer");
+      return false;
+   }
+   
+   glDeleteRenderbuffersEXT(1, &colorBufferID);
+   if (getAndResetGLErrorStatus())
+   {
+      LOG("Error in color renderbuffer");
+      return false;
+   }
+   
+	glDeleteRenderbuffersEXT(1, &depthBufferID);
+   if (getAndResetGLErrorStatus())
+   {
+      LOG("Error in deleting depth buffer");
       return false;
    }
    
@@ -490,15 +560,6 @@ bool hdsim::destroyOpenGLOffScreenRender(CGLContextObj cglContext, GLuint frameB
 	{
       stringstream message;
       message << "Error in reseting current context " << CGLErrorString(error);
-      LOG(message.str().c_str());
-      return false;
-   }
-   
-   error = CGLClearDrawable(cglContext); 
-	if (error != kCGLNoError)
-	{
-      stringstream message;
-      message << "Error in dissasotiating offscreen context " << CGLErrorString(error);
       LOG(message.str().c_str());
       return false;
    }
@@ -514,3 +575,34 @@ bool hdsim::destroyOpenGLOffScreenRender(CGLContextObj cglContext, GLuint frameB
    
 	return true;
 }
+
+bool hdsim::getPathToBundleFileAdopt(const char *name, string *path)
+{
+   CFURLRef fileURL;
+   
+   CFBundleRef applicationBundle = CFBundleGetMainBundle();
+   
+   // Look for the resource in the main bundle by name and type.
+   fileURL = CFBundleCopyResourceURL(applicationBundle,
+                                     CFStringCreateWithCString(0, name, kCFStringEncodingASCII),
+                                     0, 0);
+   
+   if (!fileURL)
+   {
+      return false;
+   }
+   
+   const int MAX_PATH_SIZE = 1024;
+   char pathToFile[MAX_PATH_SIZE];
+   
+   
+   if (!CFURLGetFileSystemRepresentation(fileURL, true, (UInt8 *)pathToFile, MAX_PATH_SIZE))
+   {
+		return false;
+   }
+   
+   *path = pathToFile;
+   
+   return true;
+}
+

@@ -101,6 +101,7 @@ namespace hdsim {
       virtual void setTimeSlice(double ts)
       {
          timeSlice_ = ts;
+         model_.setTimeSlice(ts);
       }
       
       /**

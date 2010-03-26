@@ -72,7 +72,11 @@
 using namespace hdsim;
 using namespace std;
 
-GPUCalculationEngine::GPUCalculationEngine() : wasInitialized_(false), width_(0), height_(0), renderedDepth_(0)
+
+const char *GPUCalculationEngine::TIMESLICE_NAME = "timeSlice";
+const char *GPUCalculationEngine::SHADER_NAME = "SlowInSlowOut.fs";
+
+GPUCalculationEngine::GPUCalculationEngine() : wasInitialized_(false), width_(0), height_(0), renderedDepth_(0), useShader_(true), timeSlice_(0)
 {
 }
 
@@ -88,25 +92,52 @@ void GPUCalculationEngine::calculateEngine(const AbstractModel *model)
 {
    PRECONDITION(model);
    
+   CGLContextObj currenCGLContext;
+   
+   if (!saveOpenGLState(&currenCGLContext))
+   {
+      cerr << "Error saving CGL Context" << endl;
+      return;
+   }
+     
    if (!wasInitialized_)
    {
+      currenCGLContext = CGLGetCurrentContext();
       initialize(model);
-   }
-
+	}      
+   
    const GPUGeometryModel *geometryModel = dynamic_cast<const GPUGeometryModel *>(model);
    CHECK(geometryModel, "This calculation engine operates only with the geometry model");
    
+   CGLError error = CGLSetCurrentContext(cglContext_);
+   if (error != kCGLNoError)
+   {
+      stringstream message;
+      message << "Error in setting CGL context " << CGLErrorString(error);
+      LOG(message.str().c_str());
+      return;
+   }
+
    glBindFramebufferEXT(GL_FRAMEBUFFER_EXT, frameBufferID_);
    CHECK(!getAndResetGLErrorStatus(), "Error binding frameBuffer");
 
+   if (getUseShader()) 
+   {
+      CHECK(shader_.setShaderActive(true), "Can't set shader");
+      CHECK(shader_.setShaderVariable(TIMESLICE_NAME, getTimeSlice()), "Can't reset shader");
+   }
+   
    GLuint status = glCheckFramebufferStatusEXT(GL_FRAMEBUFFER_EXT);
    if (status != GL_FRAMEBUFFER_COMPLETE_EXT)
    {
-      cerr << "Error in calculateEngine's glCheckFramebufferStatusEXT, FBO status " <<  status << endl;
+      GLenum err = glGetError(); 
+      
+      cerr << "Error in calculateEngine's glCheckFramebufferStatusEXT, FBO status " <<  status << "glError: " << err << " detail: " << reinterpret_cast<const char *>(gluErrorString(err)) << endl;
       
       // Try to restore everything, and cleanup errors
       glBindFramebufferEXT(GL_FRAMEBUFFER_EXT, 0);
       getAndResetGLErrorStatus();
+      restoreOpenGLState(currenCGLContext);
       return;
    }
 
@@ -134,6 +165,7 @@ void GPUCalculationEngine::calculateEngine(const AbstractModel *model)
       // Try to restore everything, and cleanup errors
       glBindFramebufferEXT(GL_FRAMEBUFFER_EXT, 0);
       getAndResetGLErrorStatus();
+      restoreOpenGLState(currenCGLContext);
       return;
    }
    
@@ -183,16 +215,26 @@ void GPUCalculationEngine::calculateEngine(const AbstractModel *model)
    glReadPixels(0, 0, width_, height_, GL_DEPTH_COMPONENT, GL_FLOAT, renderedDepth_);   
    CHECK(!getAndResetGLErrorStatus(), "Error in glReadPixels");
    
+   if (getUseShader()) 
+   {
+	   CHECK(shader_.setShaderActive(false), "Can't reset shader");
+   }
+   
    // Unbind frame buffer so that we could do rendering to different windows
    glBindFramebufferEXT(GL_FRAMEBUFFER_EXT, 0);
    CHECK(!getAndResetGLErrorStatus(), "Error binding frameBuffer");
+  
+   if (!restoreOpenGLState(currenCGLContext))
+   {
+      cerr << "Error in restoring OpenGL state" << endl;
+   }
 }
 
 bool GPUCalculationEngine::initFrameBuffer(int width, int height) 
 {
    PRECONDITION(width > 0  &&  height > 0);
 
-   bool status = initOpenGLOffScreenRender(width, height, &cglContext_, &frameBufferID_, &renderBufferID_);
+   bool status = initOpenGLOffScreenRender(width, height, &cglContext_, &frameBufferID_, &colorBufferID_, &depthBufferID_);
    CHECK(status, "Initialization of offscreen rendering failed");
    
    glBindFramebufferEXT(GL_FRAMEBUFFER_EXT, 0);
@@ -210,7 +252,7 @@ bool GPUCalculationEngine::destroyFrameBuffer()
    PRECONDITION(wasInitialized_);
 
    delete [] renderedDepth_;
-   return destroyOpenGLOffScreenRender(cglContext_, frameBufferID_, renderBufferID_);
+   return destroyOpenGLOffScreenRender(cglContext_, frameBufferID_, colorBufferID_, depthBufferID_);
 }
 
 void GPUCalculationEngine::initialize(const AbstractModel *model)
@@ -228,6 +270,18 @@ void GPUCalculationEngine::initialize(const AbstractModel *model)
    
    bool status = initFrameBuffer(geometryModel->getSizeX(), geometryModel->getSizeY());
    CHECK(status, "Can't initialize frame buffer");
+
+   if (getUseShader()) 
+   {
+      string pathToShaderSource;
+      
+      status = getPathToBundleFileAdopt(SHADER_NAME, &pathToShaderSource);
+      CHECK(status, "Can't find file in bundle");
+      
+      status = shader_.initializeWithFragmentShaderOnly(pathToShaderSource.c_str());
+      CHECK(status, "Can't initilize shader");
+   }
+   
    wasInitialized_ = true;
 }
 

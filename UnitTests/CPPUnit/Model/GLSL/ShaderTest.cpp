@@ -40,25 +40,25 @@ void ShaderTest::testVertexAndFragmentShaderCreation()
 {
    Shader testFixture;
    
-   CPPUNIT_ASSERT_MESSAGE("Initialization of the offscreen renderer failed", initOpenGLOffScreenRender(100, 100, &cglContext_, &frameBufferID_, &renderBufferID_));
+   CPPUNIT_ASSERT_MESSAGE("Initialization of the offscreen renderer failed", initOpenGLOffScreenRender(100, 100, &cglContext_, &frameBufferID_, &colorBufferID_, &depthBufferID_));
    CPPUNIT_ASSERT_MESSAGE("Shader creation and compilation failed", testFixture.initialize("Plasma.vs", "Plasma.fs"));
-   CPPUNIT_ASSERT_MESSAGE("Teardown of the offscreen renderer failed", destroyOpenGLOffScreenRender(cglContext_, frameBufferID_, renderBufferID_));   
+   CPPUNIT_ASSERT_MESSAGE("Teardown of the offscreen renderer failed", destroyOpenGLOffScreenRender(cglContext_, frameBufferID_, colorBufferID_, depthBufferID_));   
 }
 
 void ShaderTest::testVertexShaderCreation()
 {
    Shader testFixture;
    
-   CPPUNIT_ASSERT_MESSAGE("Initialization of the offscreen renderer failed", initOpenGLOffScreenRender(100, 100, &cglContext_, &frameBufferID_, &renderBufferID_));
+   CPPUNIT_ASSERT_MESSAGE("Initialization of the offscreen renderer failed", initOpenGLOffScreenRender(100, 100, &cglContext_, &frameBufferID_, &colorBufferID_, &depthBufferID_));
    CPPUNIT_ASSERT_MESSAGE("Shader creation and compilation failed", testFixture.initializeWithVertexShaderOnly("PlasmaVSOnly.vs"));
-   CPPUNIT_ASSERT_MESSAGE("Teardown of the offscreen renderer failed", destroyOpenGLOffScreenRender(cglContext_, frameBufferID_, renderBufferID_));   
+   CPPUNIT_ASSERT_MESSAGE("Teardown of the offscreen renderer failed", destroyOpenGLOffScreenRender(cglContext_, frameBufferID_, colorBufferID_, depthBufferID_));   
 }
 
 void ShaderTest::testFragmentShaderCreation()
 {
    Shader testFixture;
    
-   CPPUNIT_ASSERT_MESSAGE("Initialization of the offscreen renderer failed", initOpenGLOffScreenRender(100, 100, &cglContext_, &frameBufferID_, &renderBufferID_));
+   CPPUNIT_ASSERT_MESSAGE("Initialization of the offscreen renderer failed", initOpenGLOffScreenRender(100, 100, &cglContext_, &frameBufferID_, &colorBufferID_, &depthBufferID_));
    CPPUNIT_ASSERT_MESSAGE("Shader creation and compilation failed", testFixture.initializeWithFragmentShaderOnly("PlasmaFSOnly.fs"));
-   CPPUNIT_ASSERT_MESSAGE("Teardown of the offscreen renderer failed", destroyOpenGLOffScreenRender(cglContext_, frameBufferID_, renderBufferID_));   
+   CPPUNIT_ASSERT_MESSAGE("Teardown of the offscreen renderer failed", destroyOpenGLOffScreenRender(cglContext_, frameBufferID_, colorBufferID_, depthBufferID_));   
 }

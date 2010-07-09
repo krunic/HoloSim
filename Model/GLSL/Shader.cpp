@@ -142,7 +142,7 @@ static GLhandleARB loadShader(GLenum shaderType, const char *shader, GLint *comp
  * Link shader program
  *
  * @param programObject - Handle to program object that should be linked
- * @param linkedProgram - Program object linked
+ * @param programLinked - Program object linked
  *
  * @return Was program successfully linked
  */
@@ -228,7 +228,7 @@ char *getShaderSourceFromResourceAdopt(const char *fileName)
  * Load shader
  *
  * @param shaderType - Type of the shader
- * @param shader - Name of the shader source file
+ * @param shaderSourceFileName - Name of the shader source file
  *
  * @return Handle on the shader or 0 if shader was not successfully loaded
  */
@@ -258,7 +258,7 @@ static GLhandleARB loadShader(GLenum shaderType, const char *shaderSourceFileNam
  *
  * @param uniformName - Name of the uniform variable
  * @param programObject - Program object associated with uniform
- * @param handle to uniform object or undefined if there is no such uniform object
+ * @param uniformLocation - handle to uniform object or undefined if there is no such uniform object
  *
  * @return Was handle retrieval success
  */

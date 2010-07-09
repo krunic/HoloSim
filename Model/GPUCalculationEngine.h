@@ -10,6 +10,8 @@
 #ifndef GPU_CALCULATION_ENGINE_H_
 #define GPU_CALCULATION_ENGINE_H_
 
+#include <string>
+
 #include <OpenGL/gl.h>
 #include <OpenGL/glu.h>
 #include <OpenGL/OpenGL.h>
@@ -70,9 +72,9 @@ namespace hdsim {
           *
           * @param shouldYou Should we load from bundle
           */
-      	virtual void setUseShader(bool shouldYou)
+      	virtual void setUseBundledShaders(bool shouldYou)
          {
-				useShader_ = shouldYou;            
+				useBundledShaders_ = shouldYou;            
          }
       
          /**
@@ -80,9 +82,9 @@ namespace hdsim {
           *
           * @return Is shader used
           */
-         virtual bool getUseShader() const
+         virtual bool getUseBundledShaders() const
          {
-            return useShader_;
+            return useBundledShaders_;
          }
       
          /**
@@ -105,6 +107,15 @@ namespace hdsim {
             return timeSlice_;
          }
       
+         /**
+          * Get path to shader file
+          *
+          * @param path (OUT) Path to the filename using UNIX file convention
+          *
+          * @return Was conversion success
+          */
+	      virtual bool getPathToShaderFileAdopt(std::string *path) const;
+      
    	private:
       
          /**
@@ -113,9 +124,14 @@ namespace hdsim {
          static const char *TIMESLICE_NAME;
          
          /**
-          * Name of the uniform variable holding current timeslice
+          * Name of the bundled shader we would use
           */
-         static const char *SHADER_NAME;
+         static const char *BUNDLED_SHADER_NAME;
+      
+      	/**
+          * Name of the non-bundled shader we would use
+          */
+         static const char *UNBUNDLED_SHADER_NAME;
       
       	// copying is not supported for now
 	      GPUCalculationEngine(const GPUCalculationEngine &rhs);
@@ -158,7 +174,7 @@ namespace hdsim {
       	/**
           * Should we load shader from bundle
           */
-	      bool useShader_;
+	      bool useBundledShaders_;
       
       	/**
           * Off screen context used for drawing

@@ -525,9 +525,9 @@
  * Calculate new interval with double the length
  *
  * @param min (IN) - min of the interval
- * @paramm max (IN) - max of the interval
- * @param min (OUT) - min of the interval
- * @paramm max (OUT) - max of the interval
+ * @param max (IN) - max of the interval
+ * @param newMin (OUT) - new min of the interval
+ * @param newMax (OUT) - new max of the interval
  */
 void padInterval(double min, double max, double *newMin, double *newMax)
 {

@@ -178,7 +178,7 @@ static bool loadTrianglesToModel(domMesh *meshElement, GPUGeometryModel &loadToT
 /**
  * Loads geometry from the file to the model
  *
- * @param meshElement Mesh element from the COLLADA file
+ * @param name name of the file to load from
  * @param loadToThisModel (OUT) model with triangles from the mesh added. Will have cleared geometry and preserved dimensions in the case of error
  *
  * @return Was model succesfully loaded

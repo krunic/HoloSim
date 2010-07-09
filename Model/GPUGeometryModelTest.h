@@ -7,8 +7,8 @@
  *
  */
 
-#ifndef CHECKBOARD_TEST_H_
-#define CHECKBOARD_TEST_H_
+#ifndef GPU_GEOMETRY_MODEL_TEST_H_
+#define GPU_GEOMETRY_MODEL_TEST_H_
 
 #include <cppunit/TestFixture.h>
 #include <cppunit/extensions/HelperMacros.h>

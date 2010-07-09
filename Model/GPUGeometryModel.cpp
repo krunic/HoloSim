@@ -122,7 +122,7 @@ double GPUGeometryModel::getAt(int x, int y) const
    return value;
 }
 
-bool GPUGeometryModel::readFromFile(const string &fileName) 
+bool GPUGeometryModel::readFromFile(const std::string &fileName) 
 {
    changedSinceLastRecalc_ = true;
    
@@ -190,17 +190,16 @@ double GPUGeometryModel::getTimeSlice() const
    return calculationEngine_->getTimeSlice();
 }
 
-void GPUGeometryModel::setUseShaders(bool useShaders)
+void GPUGeometryModel::setUseBundledShaders(bool useShaders)
 {
    PRECONDITION(calculationEngine_);
-   
-   calculationEngine_->setUseShader(useShaders);
+   calculationEngine_->setUseBundledShaders(useShaders);
 }
 
-bool GPUGeometryModel::getUseShaders() const
+bool GPUGeometryModel::getUseBundledShaders() const
 {
    PRECONDITION(calculationEngine_);
    
-   return calculationEngine_->getUseShader();
+   return calculationEngine_->getUseBundledShaders();
 }
 

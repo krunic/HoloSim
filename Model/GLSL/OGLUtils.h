@@ -97,7 +97,7 @@ namespace hdsim {
    /**
     * Cleanup for depth buffer rendering to framebuffer
     *
-    * @param CGL context to use
+    * @param cglContext context to use
     * @param frameBufferID Frame buffer ID to use
     * @param colorBufferID Color buffer ID to use
     * @param depthBufferID Depth buffer ID to use
@@ -105,16 +105,6 @@ namespace hdsim {
     * @return Was destroying contextes success
     */
    bool destroyOpenGLOffScreenRender(CGLContextObj cglContext, GLuint frameBufferID, GLuint colorBufferID, GLuint depthBufferID);
-   
-   /**
-    * Get path to resource file in bundle
-    *
-    * @param name Name of the file in bundle
-    * @param path (OUT) Path to the filename using UNIX file convention
-    *
-    * @return Was conversion success
-    */
-   bool getPathToBundleFileAdopt(const char *name, string *path);
    
    /**
     * Change CGL context

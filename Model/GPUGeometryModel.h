@@ -19,7 +19,6 @@
 #include "Point.h"
 #include "SimpleDesignByContract.h"
 
-
 namespace hdsim {
      
    /**
@@ -181,8 +180,8 @@ namespace hdsim {
       /**
        * Replace point at the index.
        * 
-       * @param Point New value of the point
        * @param index Must be smaller then getNumPoints()
+       * @param point New value of the point
        */
       virtual void replacePointAt(int index, const Point &point) 
       {
@@ -385,18 +384,18 @@ namespace hdsim {
       }
       
       /**
-       * Set should shaders be used when geometry model is calculated
+       * Set should shaders bundled with app be used when geometry model is calculated
        * 
        * @param useShaders - should shaders be used
        */
-      virtual void setUseShaders(bool useShaders);
+      virtual void setUseBundledShaders(bool useShaders);
       
       /**
        * Get should shaders be used when geometry model is calculated
        * 
        * @return are shaders used
        */
-      virtual bool getUseShaders() const;
+      virtual bool getUseBundledShaders() const;
       
    private:
       

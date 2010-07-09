@@ -26,6 +26,7 @@
 		7A0F8A820C5CA9A10018DD1F /* CocoaUnitTests.mm in Sources */ = {isa = PBXBuildFile; fileRef = 7A0F8A810C5CA9A10018DD1F /* CocoaUnitTests.mm */; };
 		7A2002670C5979160039A4F7 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A7FEA54F5311CA2CBB /* Cocoa.framework */; };
 		7A2002680C5979160039A4F7 /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A20023D0C5978930039A4F7 /* SenTestingKit.framework */; };
+		7A2A27E011E585BE0037C0F3 /* NullOpFragmentShader.fs in CopyFiles */ = {isa = PBXBuildFile; fileRef = 7A2A27DF11E585B50037C0F3 /* NullOpFragmentShader.fs */; };
 		7A2F41C50C75784900FB3B69 /* MathHelperTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7A2F41C20C75784900FB3B69 /* MathHelperTest.cpp */; };
 		7A2F41D40C75787C00FB3B69 /* ProjectConfigTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7A2F41CE0C75787C00FB3B69 /* ProjectConfigTest.cpp */; };
 		7A2F41D50C75787C00FB3B69 /* UnitTests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7A2F41D00C75787C00FB3B69 /* UnitTests.cpp */; };
@@ -94,6 +95,7 @@
 		7AE6412810FBAC9B00C0AE45 /* GPUGeometryModel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7AE6412610FBAC9B00C0AE45 /* GPUGeometryModel.cpp */; };
 		7AE6412D10FBACC800C0AE45 /* GPUCalculationEngine.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7AE6412C10FBACC800C0AE45 /* GPUCalculationEngine.cpp */; };
 		7AE6412E10FBACC800C0AE45 /* GPUCalculationEngine.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7AE6412C10FBACC800C0AE45 /* GPUCalculationEngine.cpp */; };
+		7AFE409411E448E300875CB7 /* PerformanceTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7AFE409311E448E300875CB7 /* PerformanceTest.cpp */; };
 		8D15AC2C0486D014006FF6A4 /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 2A37F4B9FDCFA73011CA2CEA /* Credits.rtf */; };
 		8D15AC2D0486D014006FF6A4 /* MainMenu.nib in Resources */ = {isa = PBXBuildFile; fileRef = 2A37F4B6FDCFA73011CA2CEA /* MainMenu.nib */; };
 		8D15AC2E0486D014006FF6A4 /* HoloSimDocument.nib in Resources */ = {isa = PBXBuildFile; fileRef = 2A37F4B4FDCFA73011CA2CEA /* HoloSimDocument.nib */; };
@@ -122,6 +124,7 @@
 				7A7459301102E06700E29029 /* singleQuad.gpuGeometryModel in CopyFiles */,
 				7AA6DAF711029A6F0069471B /* Chair.dae in CopyFiles */,
 				7AA6DA381101BB1E0069471B /* TestQuad.dae in CopyFiles */,
+				7A2A27E011E585BE0037C0F3 /* NullOpFragmentShader.fs in CopyFiles */,
 				7A40789A11323BBC00D47E62 /* Plasma.fs in CopyFiles */,
 				7A40789B11323BBC00D47E62 /* Plasma.vs in CopyFiles */,
 				7A4078C511323F3600D47E62 /* PlasmaFSOnly.fs in CopyFiles */,
@@ -166,6 +169,7 @@
 		7A20023D0C5978930039A4F7 /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = /System/Library/Frameworks/SenTestingKit.framework; sourceTree = "<absolute>"; };
 		7A2002620C5978F90039A4F7 /* HoloSim_OCUnitTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = HoloSim_OCUnitTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
 		7A2002630C5978F90039A4F7 /* HoloSim_OCUnitTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "HoloSim_OCUnitTests-Info.plist"; sourceTree = "<group>"; };
+		7A2A27DF11E585B50037C0F3 /* NullOpFragmentShader.fs */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = NullOpFragmentShader.fs; sourceTree = "<group>"; };
 		7A2F41C20C75784900FB3B69 /* MathHelperTest.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; name = MathHelperTest.cpp; path = UnitTests/CPPUnit/Math/MathHelperTest.cpp; sourceTree = "<group>"; };
 		7A2F41C30C75784900FB3B69 /* MathHelperTest.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = MathHelperTest.h; path = UnitTests/CPPUnit/Math/MathHelperTest.h; sourceTree = "<group>"; };
 		7A2F41CE0C75787C00FB3B69 /* ProjectConfigTest.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; name = ProjectConfigTest.cpp; path = UnitTests/CPPUnit/ProjectConfigTest.cpp; sourceTree = "<group>"; };
@@ -227,6 +231,8 @@
 		7AE6411E10FBA78A00C0AE45 /* Point.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Point.h; path = Model/Point.h; sourceTree = "<group>"; };
 		7AE6412610FBAC9B00C0AE45 /* GPUGeometryModel.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GPUGeometryModel.cpp; path = Model/GPUGeometryModel.cpp; sourceTree = "<group>"; };
 		7AE6412C10FBACC800C0AE45 /* GPUCalculationEngine.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GPUCalculationEngine.cpp; path = Model/GPUCalculationEngine.cpp; sourceTree = "<group>"; };
+		7AFE409211E448E300875CB7 /* PerformanceTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PerformanceTest.h; path = UnitTests/Perf/PerformanceTest.h; sourceTree = "<group>"; };
+		7AFE409311E448E300875CB7 /* PerformanceTest.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = PerformanceTest.cpp; path = UnitTests/Perf/PerformanceTest.cpp; sourceTree = "<group>"; };
 		8D15AC360486D014006FF6A4 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		8D15AC370486D014006FF6A4 /* HoloSim.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HoloSim.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -425,6 +431,7 @@
 		7A20023C0C5978660039A4F7 /* CPPUnit */ = {
 			isa = PBXGroup;
 			children = (
+				7A83713511A84B0A008F4DE3 /* Perf */,
 				7A7639BD0C78094300600572 /* Graphics */,
 				7A0F8A750C5CA9120018DD1F /* Math */,
 				7A0F8A760C5CA91F0018DD1F /* Model */,
@@ -544,6 +551,15 @@
 			name = Graphics;
 			sourceTree = "<group>";
 		};
+		7A83713511A84B0A008F4DE3 /* Perf */ = {
+			isa = PBXGroup;
+			children = (
+				7AFE409211E448E300875CB7 /* PerformanceTest.h */,
+				7AFE409311E448E300875CB7 /* PerformanceTest.cpp */,
+			);
+			name = Perf;
+			sourceTree = "<group>";
+		};
 		7A8E1AFD1130EAEC00ABDDC4 /* GLSL */ = {
 			isa = PBXGroup;
 			children = (
@@ -558,11 +574,12 @@
 		7AA6DA341101BAC90069471B /* UnitTestModels */ = {
 			isa = PBXGroup;
 			children = (
-				7A72E3C71132C92700B4D338 /* SlowInSlowOut.fs */,
+				7A2A27DF11E585B50037C0F3 /* NullOpFragmentShader.fs */,
 				7A4078C111323EE800D47E62 /* PlasmaFSOnly.fs */,
 				7A4078C211323EE800D47E62 /* PlasmaVSOnly.vs */,
 				7A40789811323B9600D47E62 /* Plasma.fs */,
 				7A40789911323B9600D47E62 /* Plasma.vs */,
+				7A72E3C71132C92700B4D338 /* SlowInSlowOut.fs */,
 				7AA6DAF611029A410069471B /* Chair.dae */,
 				7A8B3847111CF0B000AAB8A2 /* singleQuad.GPUHoloSim */,
 				7A74592F1102E05E00E29029 /* singleQuad.gpuGeometryModel */,
@@ -803,6 +820,7 @@
 				7A8E1B001130EB1000ABDDC4 /* Shader.cpp in Sources */,
 				7A4078141131C67200D47E62 /* ShaderTest.cpp in Sources */,
 				7A40783411321DC700D47E62 /* OGLUtils.cpp in Sources */,
+				7AFE409411E448E300875CB7 /* PerformanceTest.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

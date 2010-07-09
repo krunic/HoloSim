@@ -58,7 +58,7 @@ void GPUInterpolatedModel::initializeToCleanState()
    timeSlice_ = 0;
 }
 
-bool GPUInterpolatedModel::readFromFile(const string &fileName)
+bool GPUInterpolatedModel::readFromFile(const std::string &fileName)
 {
    string line; 
    

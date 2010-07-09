@@ -63,6 +63,8 @@
 #include <iostream>
 #include <fstream>
 
+#include <CoreFoundation/CFBundle.h>
+
 #include "GPUCalculationEngine.h"
 #include "GPUGeometryModel.h"
 #include "MathHelper.h"
@@ -72,11 +74,11 @@
 using namespace hdsim;
 using namespace std;
 
-
 const char *GPUCalculationEngine::TIMESLICE_NAME = "timeSlice";
-const char *GPUCalculationEngine::SHADER_NAME = "SlowInSlowOut.fs";
+const char *GPUCalculationEngine::BUNDLED_SHADER_NAME = "SlowInSlowOut.fs";
+const char *GPUCalculationEngine::UNBUNDLED_SHADER_NAME = "NullOpFragmentShader.fs";
 
-GPUCalculationEngine::GPUCalculationEngine() : wasInitialized_(false), width_(0), height_(0), renderedDepth_(0), useShader_(true), timeSlice_(0)
+GPUCalculationEngine::GPUCalculationEngine() : wasInitialized_(false), width_(0), height_(0), renderedDepth_(0), useBundledShaders_(true), timeSlice_(0)
 {
 }
 
@@ -86,6 +88,44 @@ GPUCalculationEngine::~GPUCalculationEngine()
    {
    	destroyFrameBuffer();
    }
+}
+
+bool GPUCalculationEngine::getPathToShaderFileAdopt(std::string *path) const
+{
+   const int MAX_PATH_SIZE = 1024;
+   char pathToFile[MAX_PATH_SIZE];
+   
+   if (getUseBundledShaders())
+   {
+      CFURLRef fileURL;
+
+      CFBundleRef applicationBundle = CFBundleGetMainBundle();
+      
+      // Look for the resource in the main bundle by name and type.
+      fileURL = CFBundleCopyResourceURL(applicationBundle,
+                                        CFStringCreateWithCString(0, BUNDLED_SHADER_NAME, kCFStringEncodingASCII),
+                                        0, 0);
+      
+      if (!fileURL)
+      {
+         return false;
+      }
+      
+      if (!CFURLGetFileSystemRepresentation(fileURL, true, (UInt8 *)pathToFile, MAX_PATH_SIZE))
+      {
+         return false;
+      }
+
+      *path = pathToFile;
+   }
+   else 
+   {
+      // Unbundled file must be in the current working directory
+		sprintf(pathToFile, "./%s", UNBUNDLED_SHADER_NAME);      
+      *path = pathToFile;
+   }
+   
+   return true;
 }
 
 void GPUCalculationEngine::calculateEngine(const AbstractModel *model) 
@@ -121,7 +161,7 @@ void GPUCalculationEngine::calculateEngine(const AbstractModel *model)
    glBindFramebufferEXT(GL_FRAMEBUFFER_EXT, frameBufferID_);
    CHECK(!getAndResetGLErrorStatus(), "Error binding frameBuffer");
 
-   if (getUseShader()) 
+   if (getUseBundledShaders()) 
    {
       CHECK(shader_.setShaderActive(true), "Can't set shader");
       CHECK(shader_.setShaderVariable(TIMESLICE_NAME, getTimeSlice()), "Can't reset shader");
@@ -215,7 +255,7 @@ void GPUCalculationEngine::calculateEngine(const AbstractModel *model)
    glReadPixels(0, 0, width_, height_, GL_DEPTH_COMPONENT, GL_FLOAT, renderedDepth_);   
    CHECK(!getAndResetGLErrorStatus(), "Error in glReadPixels");
    
-   if (getUseShader()) 
+   if (getUseBundledShaders()) 
    {
 	   CHECK(shader_.setShaderActive(false), "Can't reset shader");
    }
@@ -271,16 +311,13 @@ void GPUCalculationEngine::initialize(const AbstractModel *model)
    bool status = initFrameBuffer(geometryModel->getSizeX(), geometryModel->getSizeY());
    CHECK(status, "Can't initialize frame buffer");
 
-   if (getUseShader()) 
-   {
-      string pathToShaderSource;
+   string pathToShaderSource;
+            
+   status = getPathToShaderFileAdopt(&pathToShaderSource);
+   CHECK(status, "Can't find file in bundle");
       
-      status = getPathToBundleFileAdopt(SHADER_NAME, &pathToShaderSource);
-      CHECK(status, "Can't find file in bundle");
-      
-      status = shader_.initializeWithFragmentShaderOnly(pathToShaderSource.c_str());
-      CHECK(status, "Can't initilize shader");
-   }
+   status = shader_.initializeWithFragmentShaderOnly(pathToShaderSource.c_str());
+   CHECK(status, "Can't initilize shader");
    
    wasInitialized_ = true;
 }

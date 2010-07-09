@@ -58,8 +58,6 @@
 #include <OpenGL/gl.h>
 #include <OpenGL/glu.h>
 
-#include <CoreFoundation/CFBundle.h>
-
 #include <string>
 #include <iostream>
 #include <fstream>
@@ -574,35 +572,5 @@ bool hdsim::destroyOpenGLOffScreenRender(CGLContextObj cglContext, GLuint frameB
    }
    
 	return true;
-}
-
-bool hdsim::getPathToBundleFileAdopt(const char *name, string *path)
-{
-   CFURLRef fileURL;
-   
-   CFBundleRef applicationBundle = CFBundleGetMainBundle();
-   
-   // Look for the resource in the main bundle by name and type.
-   fileURL = CFBundleCopyResourceURL(applicationBundle,
-                                     CFStringCreateWithCString(0, name, kCFStringEncodingASCII),
-                                     0, 0);
-   
-   if (!fileURL)
-   {
-      return false;
-   }
-   
-   const int MAX_PATH_SIZE = 1024;
-   char pathToFile[MAX_PATH_SIZE];
-   
-   
-   if (!CFURLGetFileSystemRepresentation(fileURL, true, (UInt8 *)pathToFile, MAX_PATH_SIZE))
-   {
-		return false;
-   }
-   
-   *path = pathToFile;
-   
-   return true;
 }
 

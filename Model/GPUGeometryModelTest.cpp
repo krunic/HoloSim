@@ -65,6 +65,10 @@ void GPUGeometryModelTest::tearDown()
 void GPUGeometryModelTest::testModelName()
 {
    GPUGeometryModel gpuGeometryModel;
+   
+   // We are not running as bundle in content of unit test, so don't use bundled file
+	gpuGeometryModel.setUseBundledShaders(false);
+   
    CPPUNIT_ASSERT_MESSAGE("Name of the checkboard is not correct", !strcmp(gpuGeometryModel.getModelName(), GPU_GEOMETRY_MODEL_NAME));
 }
 
@@ -116,6 +120,9 @@ void GPUGeometryModelTest::testOperatorEqual()
    const int SIZE_X = 1; 
    const int SIZE_Y = 2;
    GPUGeometryModel original(SIZE_X, SIZE_Y);
+   
+   // We are not running as bundle in content of unit test, so don't use bundled file
+	original.setUseBundledShaders(false);
    
    // Test copy of the rendered area, too
    const double MIN_X = 0; 
@@ -196,6 +203,9 @@ void GPUGeometryModelTest::testDiferentDimsAreNonEqual()
 void GPUGeometryModelTest::testLoadModel()
 {
    GPUGeometryModel testFixture;
+   
+   // We are not running as bundle in content of unit test, so don't use bundled file
+   testFixture.setUseBundledShaders(false);
 
    CPPUNIT_ASSERT_MESSAGE("Model load failed", testFixture.readFromFile("singleQuad.gpuGeometryModel"));
    
@@ -208,6 +218,9 @@ void GPUGeometryModelTest::testLoadModel()
 void GPUGeometryModelTest::testModelCleaning()
 {
    GPUGeometryModel testFixture(1, 2);
+   
+   // We are not running as bundle in content of unit test, so don't use bundled file
+   testFixture.setUseBundledShaders(false);
    
    testFixture.setRenderedArea(-1, -2, 3, 4, -5, 6);
    
@@ -259,6 +272,9 @@ void GPUGeometryModelTest::testGeometryCleaning()
    
    GPUGeometryModel testFixture(1, 2);
    
+   // We are not running as bundle in content of unit test, so don't use bundled file
+   testFixture.setUseBundledShaders(false);
+   
    testFixture.setRenderedArea(renderedMinX, renderedMinY, renderedMinZ, renderedMaxX, renderedMaxY, renderedMaxZ);
    
    // Add 3 points and triangle to the model
@@ -302,6 +318,9 @@ void GPUGeometryModelTest::testBounds()
    Point lowerLeft = createPoint(-1, -1, -1);
    
    GPUGeometryModel testFixture;
+
+   // We are not running as bundle in content of unit test, so don't use bundled file
+   testFixture.setUseBundledShaders(false);
    
    CPPUNIT_ASSERT_MESSAGE("Model max x bounds are not correct after initialization", testFixture.getBoundMaxX() == 0);
    CPPUNIT_ASSERT_MESSAGE("Model min x bounds are not correct after initialization", testFixture.getBoundMinX() == 0);
@@ -328,6 +347,9 @@ void GPUGeometryModelTest::testRenderArea()
    const double MIN_X = -1, MIN_Y = -2, MAX_X = 324.5, MAX_Y = 435.4, MIN_Z = 12.12, MAX_Z = 123.32;
    
    testFixture.setRenderedArea(MIN_X, MIN_Y, MIN_Z, MAX_X, MAX_Y, MAX_Z);
+   
+   // We are not running as bundle in content of unit test, so don't use bundled file
+   testFixture.setUseBundledShaders(false);
    
    // Make sure that adding geometry doesn't reset the rendered area (it shouldn't because rendered area is not the same thing as bounds
 
@@ -361,8 +383,8 @@ void GPUGeometryModelTest::testQuadCoveringWholeArea()
    // Set a quad that covers the whole area
    GPUGeometryModel testFixture(SIZE_X, SIZE_Y);
    
-   // Shaders are not compatible with unit test as unit test doesn't create bundle
-   testFixture.setUseShaders(false);
+   // We are not running as bundle in content of unit test, so don't use bundled file
+   testFixture.setUseBundledShaders(false);
    
    const double QUAD_SIZE = 1;
    const double Z_OFFSET = 0;
@@ -403,10 +425,10 @@ void GPUGeometryModelTest::testCallingTwice()
    
    // Set a quad that covers the whole area
    GPUGeometryModel testFixture(SIZE_X, SIZE_Y);
-
-   // Shaders are not compatible with unit test as unit test doesn't create bundle
-   testFixture.setUseShaders(false);
    
+   // We are not running as bundle in content of unit test, so don't use bundled file
+   testFixture.setUseBundledShaders(false);
+
    const double QUAD_SIZE = 1;
    const double Z_OFFSET = 0;
    
@@ -450,8 +472,8 @@ void GPUGeometryModelTest::testTriangleCoveringPartOfTheArea()
    // Set a quad that covers the whole area
    GPUGeometryModel testFixture(SIZE_X, SIZE_Y);
    
-   // Shaders are not compatible with unit test as unit test doesn't create bundle
-   testFixture.setUseShaders(false);
+   // We are not running as bundle in content of unit test, so don't use bundled file
+   testFixture.setUseBundledShaders(false);
    
    const double Z_OFFSET = 0;
 

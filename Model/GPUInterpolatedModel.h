@@ -228,7 +228,7 @@ namespace hdsim {
        * model1\n
        * model2\n
        *
-       * @param filename File to read from
+       * @param fileName File to read from
        *
        * @return Was read success
        */

@@ -168,7 +168,7 @@ private:
    /**
     * Create and link program object associated with this fragment shader
     *
-    * @param fragmentShader - Handle to fragment shader
+    * @param vertexShader - Handle to fragment shader
     *
     * @return Was preparation success
     */

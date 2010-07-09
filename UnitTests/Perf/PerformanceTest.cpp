@@ -183,15 +183,13 @@ void PerformanceTest::testStatedPerforance()
 
 void PerformanceTest::testTimerGenerallyWorks()
 {
-   static const int TIME_TO_WAIT_IN_SECONDS = 1;
-   static const long SECOND_TO_MICROSECONDS = 1000000;
-   static const long TIME_TO_WAIT_IN_MICROSECONDS = TIME_TO_WAIT_IN_SECONDS * SECOND_TO_MICROSECONDS;
+   static const long TIME_TO_WAIT_IN_MICROSECONDS = 500000;
    
    // max relative error is 1% for timer resolution at TIME_TO_WAIT to be considered generally acceptable
    static const double MAX_RELATIVE_ERROR = 0.01;
    
    startTimer();
-   sleep(TIME_TO_WAIT_IN_SECONDS);
+   usleep(TIME_TO_WAIT_IN_MICROSECONDS);
    long timeElapsed = stopTimerAndGetTimeInMicroSeconds();
    
    double relativeError = fabs(timeElapsed - TIME_TO_WAIT_IN_MICROSECONDS) / TIME_TO_WAIT_IN_MICROSECONDS;  
@@ -201,20 +199,38 @@ void PerformanceTest::testTimerGenerallyWorks()
 
 void PerformanceTest::testTimerResolutionBelow1ms()
 {
-   static const long TIME_TO_WAIT_IN_SECONDS = 2;
-   static const long SECOND_TO_MICROSECONDS = 1000000;
-   static const long TIME_TO_WAIT_IN_MICROSECONDS = TIME_TO_WAIT_IN_SECONDS * SECOND_TO_MICROSECONDS;
+   static const long TIME_TO_WAIT_IN_MICROSECONDS = 50000;
    
    // max relative error is 1% for timer resolution at TIME_TO_WAIT to be considered generally acceptable
    static const long MAX_ABSOLUTE_ERROR_IN_MICROSECONDS = 100;
    
-   startTimer();
-   sleep(TIME_TO_WAIT_IN_SECONDS);
-   long timeElapsed = stopTimerAndGetTimeInMicroSeconds();
+   // We need to repeat the test multiple times as there could be jitter in wakeup of one or two instances
+   // Note that this is still not ideal because under the system that is having heavy load, we could still get 
+   // sporadic build failures
+   static const int TIMES_TO_REPEAT_MEASUREMENT = 20;
    
-   long absoluteError = labs(timeElapsed - TIME_TO_WAIT_IN_MICROSECONDS);  
+   long absoluteError = 0;
+   int numViolations = 0;
+   
+   for (int index = 0; index < TIMES_TO_REPEAT_MEASUREMENT; index++)
+   {
+      startTimer();
+      usleep(TIME_TO_WAIT_IN_MICROSECONDS);
+      long timeElapsed = stopTimerAndGetTimeInMicroSeconds();
+      
+      absoluteError += fabs(timeElapsed - TIME_TO_WAIT_IN_MICROSECONDS);  
+      if (absoluteError > MAX_ABSOLUTE_ERROR_IN_MICROSECONDS)
+      {
+         numViolations++;
+      }
+   }
    
    char message[1024];
-   sprintf(message, "Min time resolution was %ld and should have been %ld", absoluteError, MAX_ABSOLUTE_ERROR_IN_MICROSECONDS);
-   CPPUNIT_ASSERT_MESSAGE(message, absoluteError <= MAX_ABSOLUTE_ERROR_IN_MICROSECONDS);
+   sprintf(message, "Multiple measurements resulted in violation (%d to be exact)", numViolations);
+   CPPUNIT_ASSERT_MESSAGE(message, numViolations > 3);
+   
+   // As this is stohastic, repeat at least ten times
+   // Note - statistical analysis to prove that ten is enough was not done. This number is chosen based on experience and 
+   // very small importance of getting this test right (just rebuild if it is not right and problem is solved)
+   CPPUNIT_ASSERT_MESSAGE("We don't have enough repeats of the build", TIMES_TO_REPEAT_MEASUREMENT > 10);
 }

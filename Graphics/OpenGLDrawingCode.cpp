@@ -331,11 +331,18 @@ void OpenGLDrawingCode::draw(const AbstractModel *m)
    // This service knows at the moment only how to draw interpolated models
    const GPUInterpolatedModel *model = dynamic_cast<const GPUInterpolatedModel*>(m);
    
+   frameRenderingStatistics_.startTimer();
+   
    // Make sure that model is not precalculated at this point (otherwise, our measurement is not correct)
    if (!wasModelDrawn_)
    {
    	CHECK(!model->isModelCalculated(), "Model must not be calculated at this point");
+      moxelCalculationStatistics_.startTimer();
       model->forceModelCalculation();
+      
+      // Update statistics for the model calculation
+      moxelCalculationStatistics_.stopTimer();
+      moxelCalculationStatistics_.addAggregateStatistics(model->getSizeX() * model->getSizeY());
       wasModelDrawn_ = true;
    }
    
@@ -396,4 +403,8 @@ void OpenGLDrawingCode::draw(const AbstractModel *m)
       }
    
    swapBuffers();
+   
+   // Update statistics for one more frame rendered
+   frameRenderingStatistics_.stopTimer();
+   frameRenderingStatistics_.addAggregateStatistics(1.0);
 }

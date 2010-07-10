@@ -11,6 +11,7 @@
 #define ABSRACT_DRAWING_CODE_H_
 
 #include "AbstractModel.h"
+#include "Statistics.h"
 
 namespace hdsim {
 
@@ -78,6 +79,20 @@ namespace hdsim {
        * @return Field of view
        */
       virtual double getFOV() const = 0;
+      
+      /**
+       * Get statistics related to moxel calculation
+       *
+       * @return Statistics related to moxel calculation
+       */
+      virtual Statistics getMoxelCalculationStatistics() const = 0;
+
+      /**
+       * Get statistics related to frame rendering
+       *
+       * @return Statistics related to frame rendering
+       */
+      virtual Statistics getFrameRenderingStatistics() const = 0;
       
       /**
        * Set what are initial rotation angles for the view. Angles are given in degrees, and view is rotated around center of the view for that many degrees before drawing.

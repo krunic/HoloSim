@@ -443,25 +443,25 @@
 	};
 	7A0F8A470C5CA8910018DD1F /* AbstractDrawingCode.h */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {1216, 2320}}";
-			sepNavSelRange = "{1183, 0}";
-			sepNavVisRange = "{266, 839}";
+			sepNavIntBoundsRect = "{{0, 0}, {1381, 2512}}";
+			sepNavSelRange = "{1650, 416}";
+			sepNavVisRange = "{866, 1392}";
 			sepNavVisRect = "{{0, 1658}, {1329, 614}}";
 		};
 	};
 	7A0F8A480C5CA8910018DD1F /* OpenGLDrawingCode.cpp */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {1619, 5840}}";
-			sepNavSelRange = "{11181, 21}";
-			sepNavVisRange = "{9958, 1842}";
+			sepNavIntBoundsRect = "{{0, 0}, {1381, 6320}}";
+			sepNavSelRange = "{9086, 0}";
+			sepNavVisRange = "{8113, 1634}";
 			sepNavVisRect = "{{0, 4128}, {1329, 891}}";
 		};
 	};
 	7A0F8A490C5CA8910018DD1F /* OpenGLDrawingCode.h */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {1342, 1248}}";
-			sepNavSelRange = "{704, 9}";
-			sepNavVisRange = "{0, 1281}";
+			sepNavIntBoundsRect = "{{0, 0}, {1381, 1472}}";
+			sepNavSelRange = "{991, 126}";
+			sepNavVisRange = "{605, 1402}";
 			sepNavWindowFrame = "{{15, 4}, {1159, 1024}}";
 		};
 	};
@@ -713,7 +713,7 @@
 		fRef = 7A0F8A480C5CA8910018DD1F /* OpenGLDrawingCode.cpp */;
 		name = "OpenGLDrawingCode.cpp: 373";
 		rLen = 0;
-		rLoc = 11463;
+		rLoc = 11684;
 		rType = 0;
 		vrLen = 2114;
 		vrLoc = 8752;
@@ -1400,7 +1400,7 @@
 		fRef = 7A0F8A480C5CA8910018DD1F /* OpenGLDrawingCode.cpp */;
 		fallbackIsa = XCBuildMessageTextBookmark;
 		rLen = 1;
-		rLoc = 318;
+		rLoc = 328;
 		rType = 1;
 	};
 	7A6E6E6611E8E976006A6C95 /* PBXTextBookmark */ = {
@@ -1408,7 +1408,7 @@
 		fRef = 7A0F8A480C5CA8910018DD1F /* OpenGLDrawingCode.cpp */;
 		name = "OpenGLDrawingCode.cpp: 319";
 		rLen = 0;
-		rLoc = 8992;
+		rLoc = 9213;
 		rType = 0;
 		vrLen = 1362;
 		vrLoc = 8484;
@@ -1428,7 +1428,7 @@
 		fRef = 7A0F8A480C5CA8910018DD1F /* OpenGLDrawingCode.cpp */;
 		name = "OpenGLDrawingCode.cpp: 371";
 		rLen = 21;
-		rLoc = 11181;
+		rLoc = 11402;
 		rType = 0;
 		vrLen = 1842;
 		vrLoc = 9958;
@@ -1979,7 +1979,7 @@
 		fRef = 7A0F8A480C5CA8910018DD1F /* OpenGLDrawingCode.cpp */;
 		name = "OpenGLDrawingCode.cpp: 375";
 		rLen = 0;
-		rLoc = 11170;
+		rLoc = 11391;
 		rType = 0;
 		vrLen = 2240;
 		vrLoc = 9337;
@@ -2426,7 +2426,7 @@
 	7A8B37A0111B4EFD00AAB8A2 /* GPUInterpolatedModelTest.cpp */ = {
 		uiCtxt = {
 			sepNavIntBoundsRect = "{{0, 0}, {1381, 2304}}";
-			sepNavSelRange = "{4895, 0}";
+			sepNavSelRange = "{4897, 0}";
 			sepNavVisRange = "{2485, 2412}";
 			sepNavWindowFrame = "{{15, 4}, {1280, 1024}}";
 		};
@@ -3221,7 +3221,7 @@
 		fRef = 7A0F8A470C5CA8910018DD1F /* AbstractDrawingCode.h */;
 		name = "AbstractDrawingCode.h: 59";
 		rLen = 0;
-		rLoc = 1183;
+		rLoc = 1207;
 		rType = 0;
 		vrLen = 839;
 		vrLoc = 266;

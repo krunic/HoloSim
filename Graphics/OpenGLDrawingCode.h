@@ -42,6 +42,8 @@ namespace hdsim {
       virtual double getAspectRatio() const;
       virtual void setFOV(double);
       virtual double getFOV() const;
+      virtual Statistics getMoxelCalculationStatistics() const;
+      virtual Statistics getFrameRenderingStatistics() const;
       
    protected:
 
@@ -73,6 +75,16 @@ namespace hdsim {
        * Current aspect ration of the window
        */
       double aspectRatio_;   
+      
+      /**
+       * Statistics related to moxel calculation
+       */
+      Statistics moxelCalculationStatistics_;
+      
+      /**
+       * Statistics related to frame rendering calculation
+       */
+      Statistics frameRenderingStatistics_;
    };
    
 } // namespace

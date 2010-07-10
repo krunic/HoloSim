@@ -316,6 +316,16 @@ void OpenGLDrawingCode::setupProjectionAndCoordinateSystem()
    glRotated(getRotationAngleZ(), 0, 0, 1);
 }
 
+Statistics OpenGLDrawingCode::getMoxelCalculationStatistics() const
+{
+	return moxelCalculationStatistics_;   
+}
+
+Statistics OpenGLDrawingCode::getFrameRenderingStatistics() const
+{
+   return frameRenderingStatistics_;
+}
+
 void OpenGLDrawingCode::draw(const AbstractModel *m)
 {
    // This service knows at the moment only how to draw interpolated models

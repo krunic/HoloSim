@@ -30,6 +30,12 @@
 		7A2F41C50C75784900FB3B69 /* MathHelperTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7A2F41C20C75784900FB3B69 /* MathHelperTest.cpp */; };
 		7A2F41D40C75787C00FB3B69 /* ProjectConfigTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7A2F41CE0C75787C00FB3B69 /* ProjectConfigTest.cpp */; };
 		7A2F41D50C75787C00FB3B69 /* UnitTests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7A2F41D00C75787C00FB3B69 /* UnitTests.cpp */; };
+		7A3A537311E7E51200D6BB77 /* Statistics.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7A3A537211E7E51200D6BB77 /* Statistics.cpp */; };
+		7A3A537411E7E51200D6BB77 /* Statistics.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7A3A537211E7E51200D6BB77 /* Statistics.cpp */; };
+		7A3A537511E7E51200D6BB77 /* Statistics.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7A3A537211E7E51200D6BB77 /* Statistics.cpp */; };
+		7A3A537B11E7EF7B00D6BB77 /* StatisticsTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7A3A537A11E7EF7B00D6BB77 /* StatisticsTest.cpp */; };
+		7A3A53F411E8041700D6BB77 /* PreciseDelay.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7A3A53F211E8041700D6BB77 /* PreciseDelay.cpp */; };
+		7A3A53F611E8043C00D6BB77 /* PreciseDelay.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7A3A53F211E8041700D6BB77 /* PreciseDelay.cpp */; };
 		7A3E25510C598C2200326103 /* HoloSimIcon.icns in Resources */ = {isa = PBXBuildFile; fileRef = 7A3E25500C598C2200326103 /* HoloSimIcon.icns */; };
 		7A4078141131C67200D47E62 /* ShaderTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7A4078121131C67200D47E62 /* ShaderTest.cpp */; };
 		7A40783411321DC700D47E62 /* OGLUtils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7A40783211321DC700D47E62 /* OGLUtils.cpp */; };
@@ -176,6 +182,12 @@
 		7A2F41CF0C75787C00FB3B69 /* ProjectConfigTest.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = ProjectConfigTest.h; path = UnitTests/CPPUnit/ProjectConfigTest.h; sourceTree = "<group>"; };
 		7A2F41D00C75787C00FB3B69 /* UnitTests.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; name = UnitTests.cpp; path = UnitTests/CPPUnit/UnitTests.cpp; sourceTree = "<group>"; };
 		7A2F41D10C75787C00FB3B69 /* UnitTests.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = UnitTests.h; path = UnitTests/CPPUnit/UnitTests.h; sourceTree = "<group>"; };
+		7A3A537111E7E51200D6BB77 /* Statistics.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Statistics.h; path = Util/Statistics.h; sourceTree = "<group>"; };
+		7A3A537211E7E51200D6BB77 /* Statistics.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Statistics.cpp; path = Util/Statistics.cpp; sourceTree = "<group>"; };
+		7A3A537911E7EF7B00D6BB77 /* StatisticsTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StatisticsTest.h; sourceTree = "<group>"; };
+		7A3A537A11E7EF7B00D6BB77 /* StatisticsTest.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = StatisticsTest.cpp; sourceTree = "<group>"; };
+		7A3A53F211E8041700D6BB77 /* PreciseDelay.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = PreciseDelay.cpp; path = Util/PreciseDelay.cpp; sourceTree = "<group>"; };
+		7A3A53F311E8041700D6BB77 /* PreciseDelay.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PreciseDelay.h; path = Util/PreciseDelay.h; sourceTree = "<group>"; };
 		7A3E25500C598C2200326103 /* HoloSimIcon.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = HoloSimIcon.icns; sourceTree = "<group>"; };
 		7A4078121131C67200D47E62 /* ShaderTest.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ShaderTest.cpp; path = UnitTests/CPPUnit/Model/GLSL/ShaderTest.cpp; sourceTree = "<group>"; };
 		7A4078131131C67200D47E62 /* ShaderTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ShaderTest.h; path = UnitTests/CPPUnit/Model/GLSL/ShaderTest.h; sourceTree = "<group>"; };
@@ -431,6 +443,7 @@
 		7A20023C0C5978660039A4F7 /* CPPUnit */ = {
 			isa = PBXGroup;
 			children = (
+				7A3A537811E7EF5D00D6BB77 /* Util */,
 				7A83713511A84B0A008F4DE3 /* Perf */,
 				7A7639BD0C78094300600572 /* Graphics */,
 				7A0F8A750C5CA9120018DD1F /* Math */,
@@ -441,6 +454,15 @@
 				7A2F41D00C75787C00FB3B69 /* UnitTests.cpp */,
 			);
 			name = CPPUnit;
+			sourceTree = "<group>";
+		};
+		7A3A537811E7EF5D00D6BB77 /* Util */ = {
+			isa = PBXGroup;
+			children = (
+				7A3A537911E7EF7B00D6BB77 /* StatisticsTest.h */,
+				7A3A537A11E7EF7B00D6BB77 /* StatisticsTest.cpp */,
+			);
+			name = Util;
 			sourceTree = "<group>";
 		};
 		7A40780D1131C62700D47E62 /* GLSL */ = {
@@ -464,8 +486,12 @@
 		7A4743A40C5D20FC006FEF68 /* Util */ = {
 			isa = PBXGroup;
 			children = (
+				7A3A53F311E8041700D6BB77 /* PreciseDelay.h */,
+				7A3A53F211E8041700D6BB77 /* PreciseDelay.cpp */,
 				7A4743A50C5D2150006FEF68 /* SimpleDesignByContract.h */,
 				7A4743A60C5D2150006FEF68 /* SimpleDesignByContract.cpp */,
+				7A3A537111E7E51200D6BB77 /* Statistics.h */,
+				7A3A537211E7E51200D6BB77 /* Statistics.cpp */,
 			);
 			name = Util;
 			sourceTree = "<group>";
@@ -791,6 +817,7 @@
 				7A0F8A820C5CA9A10018DD1F /* CocoaUnitTests.mm in Sources */,
 				7AA27ABC0C67D19A00BBC250 /* AppController.mm in Sources */,
 				7A43490510F3496700E4F3C9 /* Collada.cpp in Sources */,
+				7A3A537511E7E51200D6BB77 /* Statistics.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -821,6 +848,9 @@
 				7A4078141131C67200D47E62 /* ShaderTest.cpp in Sources */,
 				7A40783411321DC700D47E62 /* OGLUtils.cpp in Sources */,
 				7AFE409411E448E300875CB7 /* PerformanceTest.cpp in Sources */,
+				7A3A537311E7E51200D6BB77 /* Statistics.cpp in Sources */,
+				7A3A537B11E7EF7B00D6BB77 /* StatisticsTest.cpp in Sources */,
+				7A3A53F411E8041700D6BB77 /* PreciseDelay.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -828,6 +858,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7A3A53F611E8043C00D6BB77 /* PreciseDelay.cpp in Sources */,
 				7A0F8A420C5CA8650018DD1F /* ControllerAdapter.cpp in Sources */,
 				7A0F8A430C5CA8650018DD1F /* MouseAdapter.cpp in Sources */,
 				7A0F8A4A0C5CA8910018DD1F /* AbstractDrawingCode.cpp in Sources */,
@@ -846,6 +877,7 @@
 				7A8B385C111CF50200AAB8A2 /* GPUInterpolatedModel.cpp in Sources */,
 				7A8E1B011130EB1000ABDDC4 /* Shader.cpp in Sources */,
 				7A40783511321DC700D47E62 /* OGLUtils.cpp in Sources */,
+				7A3A537411E7E51200D6BB77 /* Statistics.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

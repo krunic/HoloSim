@@ -20,6 +20,7 @@ namespace hdsim {
 	      CPPUNIT_TEST(testStatedPerforance);
       	CPPUNIT_TEST(testTimerGenerallyWorks);
       	CPPUNIT_TEST(testTimerResolutionBelow1ms);
+      	CPPUNIT_TEST(testPreciseDelayTimer);
       CPPUNIT_TEST_SUITE_END();
       
    public:
@@ -58,6 +59,11 @@ namespace hdsim {
        * Test that the timer resolution is below 1ms
        */
       void testTimerResolutionBelow1ms();
+      
+      /**
+       * Test precise delay timer
+       */
+      void testPreciseDelayTimer();
       
    private:
       // define

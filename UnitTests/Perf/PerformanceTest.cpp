@@ -18,11 +18,17 @@
 #include "PerformanceTest.h"
 #include "GPUGeometryModel.h"
 #include "MathHelper.h"
+#include "PreciseDelay.h"
 
 using namespace hdsim;
 using namespace std;
 
 CPPUNIT_TEST_SUITE_REGISTRATION(PerformanceTest);
+
+/**
+ * max error for the time measurement
+ */
+static const long MAX_ABSOLUTE_ERROR_IN_MICROSECONDS = 100;
 
 static struct timeval startTime_;
 static bool timerStated_ = false;
@@ -186,10 +192,10 @@ void PerformanceTest::testTimerGenerallyWorks()
    static const long TIME_TO_WAIT_IN_MICROSECONDS = 500000;
    
    // max relative error is 1% for timer resolution at TIME_TO_WAIT to be considered generally acceptable
-   static const double MAX_RELATIVE_ERROR = 0.01;
+   static const double MAX_RELATIVE_ERROR = 0.001;
    
    startTimer();
-   usleep(TIME_TO_WAIT_IN_MICROSECONDS);
+   busyWaitDelay(TIME_TO_WAIT_IN_MICROSECONDS);
    long timeElapsed = stopTimerAndGetTimeInMicroSeconds();
    
    double relativeError = fabs(timeElapsed - TIME_TO_WAIT_IN_MICROSECONDS) / TIME_TO_WAIT_IN_MICROSECONDS;  
@@ -200,37 +206,28 @@ void PerformanceTest::testTimerGenerallyWorks()
 void PerformanceTest::testTimerResolutionBelow1ms()
 {
    static const long TIME_TO_WAIT_IN_MICROSECONDS = 50000;
-   
-   // max relative error is 1% for timer resolution at TIME_TO_WAIT to be considered generally acceptable
-   static const long MAX_ABSOLUTE_ERROR_IN_MICROSECONDS = 100;
-   
-   // We need to repeat the test multiple times as there could be jitter in wakeup of one or two instances
-   // Note that this is still not ideal because under the system that is having heavy load, we could still get 
-   // sporadic build failures
-   static const int TIMES_TO_REPEAT_MEASUREMENT = 20;
-   
-   long absoluteError = 0;
-   int numViolations = 0;
-   
-   for (int index = 0; index < TIMES_TO_REPEAT_MEASUREMENT; index++)
-   {
-      startTimer();
-      usleep(TIME_TO_WAIT_IN_MICROSECONDS);
-      long timeElapsed = stopTimerAndGetTimeInMicroSeconds();
       
-      absoluteError += fabs(timeElapsed - TIME_TO_WAIT_IN_MICROSECONDS);  
-      if (absoluteError > MAX_ABSOLUTE_ERROR_IN_MICROSECONDS)
-      {
-         numViolations++;
-      }
-   }
+   startTimer();
+   busyWaitDelay(TIME_TO_WAIT_IN_MICROSECONDS);
+      
+   double absoluteError = fabs(stopTimerAndGetTimeInMicroSeconds() - TIME_TO_WAIT_IN_MICROSECONDS);  
    
-   char message[1024];
-   sprintf(message, "Multiple measurements resulted in violation (%d to be exact)", numViolations);
-   CPPUNIT_ASSERT_MESSAGE(message, numViolations > 3);
+   stringstream message;
+   message << "Absolute error " << absoluteError << " is too large";
+   CPPUNIT_ASSERT_MESSAGE(message.str().c_str(), absoluteError <= MAX_ABSOLUTE_ERROR_IN_MICROSECONDS);
+}
+
+void PerformanceTest::testPreciseDelayTimer()
+{
+   static const long TIME_TO_WAIT_MICROSECONDS = 50000;
    
-   // As this is stohastic, repeat at least ten times
-   // Note - statistical analysis to prove that ten is enough was not done. This number is chosen based on experience and 
-   // very small importance of getting this test right (just rebuild if it is not right and problem is solved)
-   CPPUNIT_ASSERT_MESSAGE("We don't have enough repeats of the build", TIMES_TO_REPEAT_MEASUREMENT > 10);
+   startTimer();
+	busyWaitDelay(TIME_TO_WAIT_MICROSECONDS);
+   long timeElapsed = stopTimerAndGetTimeInMicroSeconds();
+   
+   double absoluteError = fabs(TIME_TO_WAIT_MICROSECONDS - timeElapsed);
+   
+   stringstream message;
+   message << "Error too large, absolute error is " << absoluteError;
+   CPPUNIT_ASSERT_MESSAGE(message.str().c_str(), absoluteError <= MAX_ABSOLUTE_ERROR_IN_MICROSECONDS); 
 }

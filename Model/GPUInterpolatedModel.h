@@ -22,7 +22,8 @@ using namespace std;
 namespace hdsim {
    
    /**
-    * This model performs linear interpolation between inital position in Z buffer and calculaed position in Z buffer
+    * This model was once intended to performs linear interpolation between inital position in Z buffer and calculaed position in Z buffer. At this point, it is 
+    * simply a proxy for the final model and is left in in the case that we later decide to work with some morphing from one model to another
     */
    class GPUInterpolatedModel : public AbstractModel
    {
@@ -233,6 +234,18 @@ namespace hdsim {
        * @return Was read success
        */
       virtual bool readFromFile(const std::string &fileName);
+      
+      /**
+       * Get is model calculated or there are still calculations to perform that are pending
+       *
+       * @return Is model calculated
+       */
+      virtual bool isModelCalculated() const;
+      
+      /**
+       * Perform all calculations on the model
+       */
+      virtual void forceModelCalculation() const;
       
    private:
       

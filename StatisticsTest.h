@@ -17,6 +17,8 @@ namespace hdsim {
    
    class StatisticsTest : public CppUnit::TestFixture  {
       CPPUNIT_TEST_SUITE(StatisticsTest);
+	      CPPUNIT_TEST(testCopyConstructor);
+   	   CPPUNIT_TEST(testOperatorEqual);
       	CPPUNIT_TEST(testElapsedTime);
       	CPPUNIT_TEST(testAggregation);
       	CPPUNIT_TEST(testAggregateElapsedTime);
@@ -43,6 +45,16 @@ namespace hdsim {
        * Cleanup after test
        */
       void tearDown();
+      
+      /**
+       * Test that there copy constructor works correctly
+       */
+      void testCopyConstructor();
+      
+      /**
+       * Test that operator equal works correctly
+       */
+      void testOperatorEqual();
       
       /**
        * Test that elapsed time is working correctly

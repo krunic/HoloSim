@@ -58,6 +58,17 @@ void GPUInterpolatedModel::initializeToCleanState()
    timeSlice_ = 0;
 }
 
+bool GPUInterpolatedModel::isModelCalculated() const
+{
+   return model_.isModelCalculated();
+}
+
+void GPUInterpolatedModel::forceModelCalculation() const
+{
+   model_.forceModelCalculation();
+}
+
+
 bool GPUInterpolatedModel::readFromFile(const std::string &fileName)
 {
    string line; 

@@ -88,6 +88,8 @@ void GPUGeometryModelTest::testCopyConstructor()
    original.setRenderedArea(MIN_X, MIN_Y, MIN_Z, MAX_X, MAX_Y, MAX_Z);
    
    GPUGeometryModel constructorCopy(original);
+   
+   CPPUNIT_ASSERT_MESSAGE("Operator == doesn't work correctly", constructorCopy == original);
 
    CPPUNIT_ASSERT_MESSAGE("Rendered area incorrectly copied in min X", areEqual(constructorCopy.getRenderedAreaMinX(), MIN_X));
    CPPUNIT_ASSERT_MESSAGE("Rendered area incorrectly copied in max X", areEqual(constructorCopy.getRenderedAreaMaxX(), MAX_X));
@@ -111,6 +113,8 @@ void GPUGeometryModelTest::testCopyConstructor()
 	original.addPoint(createPoint(0, 0, 0));
 	original.addPoint(createPoint(0, 0, 0));
    original.addTriangle(createTriangle(0, 1, 2));
+   
+   CPPUNIT_ASSERT_MESSAGE("Operator != doesn't work correctly", constructorCopy != original);
    
    CPPUNIT_ASSERT_MESSAGE("Aliasing happened", constructorCopy.getNumPoints() == 0  &&  constructorCopy.getNumTriangles() == 0);
 }
@@ -136,7 +140,10 @@ void GPUGeometryModelTest::testOperatorEqual()
    original.setSizeX(SIZE_X);
    original.setSizeY(SIZE_Y);
    
-   GPUGeometryModel operatorEqualCopy = original; 
+   GPUGeometryModel operatorEqualCopy;
+   operatorEqualCopy = original; 
+   
+   CPPUNIT_ASSERT_MESSAGE("Operator == doesn't work correctly", operatorEqualCopy == original);
    
    CPPUNIT_ASSERT_MESSAGE("Rendered area incorrectly copied in min X for operator =", areEqual(operatorEqualCopy.getRenderedAreaMinX(), MIN_X));
    CPPUNIT_ASSERT_MESSAGE("Rendered area incorrectly copied in max X for operator =", areEqual(operatorEqualCopy.getRenderedAreaMaxX(), MAX_X));
@@ -161,6 +168,21 @@ void GPUGeometryModelTest::testOperatorEqual()
 	original.addPoint(createPoint(0, 0, 0));
    original.addTriangle(createTriangle(0, 1, 2));
    CPPUNIT_ASSERT_MESSAGE("Aliasing happened for operator =", operatorEqualCopy.getNumPoints() == 0  &&  operatorEqualCopy.getNumTriangles() == 0);
+   
+   CPPUNIT_ASSERT_MESSAGE("Operator != doesn't work correctly", operatorEqualCopy != original);
+}
+
+void GPUGeometryModelTest::testPrecalculationStatus()
+{
+   GPUGeometryModel testFixture;
+   testFixture.setSizeX(100);
+   testFixture.setSizeY(100);
+   
+   testFixture.addPoint(createPoint(0, 0, 0));
+   CPPUNIT_ASSERT_MESSAGE("Model shouldn't be calculated at this point", !testFixture.isModelCalculated());
+   
+	testFixture.forceModelCalculation();
+   CPPUNIT_ASSERT_MESSAGE("Model should be calculated at this point", testFixture.isModelCalculated());
 }
 
 void GPUGeometryModelTest::testEqual()

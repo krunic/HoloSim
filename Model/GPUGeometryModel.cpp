@@ -110,12 +110,22 @@ AbstractModel *GPUGeometryModel::cloneOrphan() const
    return new GPUGeometryModel(*this);
 }
 
+bool GPUGeometryModel::isModelCalculated() const
+{
+   return !changedSinceLastRecalc_;
+}
+
+void GPUGeometryModel::forceModelCalculation() const
+{
+   calculationEngine_->calculateEngine(this);
+   changedSinceLastRecalc_ = false;
+}
+
 double GPUGeometryModel::getAt(int x, int y) const
 {
-   if (changedSinceLastRecalc_)
+   if (!isModelCalculated())
    {
-		calculationEngine_->calculateEngine(this);
-      changedSinceLastRecalc_ = false;
+      forceModelCalculation();
    }
    
    double value = calculationEngine_->getAt(x, y);

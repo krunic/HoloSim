@@ -136,3 +136,9 @@ void GPUInterpolatedModelTest::testGetFileNameInSameDir()
    
    CPPUNIT_ASSERT_MESSAGE("Relative filenames not working correctly", getFileNameInSameDirAsOriginalFile("/abc/de.xxx", "../fg.xxx") == "/abc/../fg.xxx");
 }
+
+void GPUInterpolatedModelTest::testPrecalculationStatus()
+{   
+   GPUInterpolatedModel testFixture;
+   CPPUNIT_ASSERT_MESSAGE("Model shouldn't be calculated at this point", !testFixture.isModelCalculated());
+}

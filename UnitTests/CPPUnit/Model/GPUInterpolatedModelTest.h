@@ -25,6 +25,7 @@ namespace hdsim {
 	      CPPUNIT_TEST(testEqual);
 	      CPPUNIT_TEST(testNonEqual);
 	      CPPUNIT_TEST(testGetFileNameInSameDir);
+	      CPPUNIT_TEST(testPrecalculationStatus);
       CPPUNIT_TEST_SUITE_END();
       
    public:
@@ -88,6 +89,11 @@ namespace hdsim {
        * Test that file substitution is working correctly
        */
       void testGetFileNameInSameDir();
+      
+      /**
+       * Test status of precalculation
+       */
+      void testPrecalculationStatus();
       
    private:
       

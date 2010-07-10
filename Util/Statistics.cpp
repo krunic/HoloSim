@@ -16,10 +16,32 @@ Statistics::Statistics() : timerActive_(false), aggregateTimeElapsed_(0), aggreg
 {
 
 }
+
+Statistics::Statistics(const Statistics &rhs) : timerActive_(false), aggregateTimeElapsed_(0), aggregateStatistics_(0)
+{
+	copyFrom(rhs);
+}
+
+Statistics & Statistics::operator=(const Statistics &rhs) 
+{
+   if (&rhs == this)
+      return *this;
+   
+   copyFrom(rhs);
+   return *this;
+}
       
 Statistics::~Statistics()
 {
    
+}
+
+void Statistics::copyFrom(const Statistics &rhs) 
+{
+   aggregateStatistics_ = rhs.getAggregateStatistics();
+   timerActive_ = rhs.isTimerRunning();
+   aggregateTimeElapsed_ = rhs.aggregateTimeElapsed_;
+   startTime_ = rhs.startTime_;
 }
       
 void Statistics::addAggregateStatistics(double value)

@@ -97,9 +97,11 @@ int drawTriangleAndMeasureTimeInMicroSeconds(int sizeX, int sizeY)
       
       testFixture.addTriangle(createTriangle(0, 1, 2));
    	testFixture.getAt(0, 0);
+   
+   long drawTime = stopTimerAndGetTimeInMicroSeconds();
 
-   // Used to make sure that previous test was working correctly and that we were not measuring phantom result, but disabled after that was manually verified
-#if 0
+   // Used to make sure that previous test was working correctly and that we were not measuring phantom result
+   
    // We would do scanline - there should be two levels in each scanline, and second level should be continious
    // until exit. If we are outside of the polygon, z buffer value should be zero
    const double Z_INFINITY = 1;
@@ -142,9 +144,7 @@ int drawTriangleAndMeasureTimeInMicroSeconds(int sizeX, int sizeY)
    CPPUNIT_ASSERT_MESSAGE("Quad was not detected", quadDetected);
    CPPUNIT_ASSERT_MESSAGE("Quad was never entered or detected", quadDetected);
    
-#endif
-   
-   return stopTimerAndGetTimeInMicroSeconds(); 
+   return drawTime; 
 }
 
 PerformanceTest::PerformanceTest()

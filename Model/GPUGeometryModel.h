@@ -397,6 +397,18 @@ namespace hdsim {
        */
       virtual bool getUseBundledShaders() const;
       
+      /**
+       * Get is model calculated or there are still calculations to perform that are pending
+       *
+       * @return Is model calculated
+       */
+      virtual bool isModelCalculated() const;
+      
+      /**
+       * Perform all calculations on the model
+       */
+      virtual void forceModelCalculation() const;
+      
    private:
       
       /**

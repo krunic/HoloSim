@@ -364,6 +364,12 @@ void OpenGLDrawingCode::draw(const AbstractModel *m)
    
    drawModelBase(BASE_SIZE);
    
+   // Make sure that model is not precalculated at this point (otherwise, our measurement is not correct)
+   CHECK(!model->isModelCalculated(), "Model must not be calculated at this point");
+   
+   // Force calculation. This is where moxel related operations would happen
+   model->forceModelCalculation();
+   
    // and draw all the rods
    for (int indexX = 0; indexX < model->getSizeX(); indexX++)
       for (int indexY = 0; indexY < model->getSizeY(); indexY++)

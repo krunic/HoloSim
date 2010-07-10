@@ -30,6 +30,7 @@ namespace hdsim {
       	CPPUNIT_TEST(testCopyConstructor);
 	      CPPUNIT_TEST(testCallingTwice);
       	CPPUNIT_TEST(testOperatorEqual);
+	      CPPUNIT_TEST(testPrecalculationStatus);
       CPPUNIT_TEST_SUITE_END();
       
    public:
@@ -133,6 +134,11 @@ namespace hdsim {
        * Test of the quad parallel to Z plane, which is smaller then rendering area
        */
       void testTriangleCoveringPartOfTheArea();
+
+      /**
+       * Test status of precalculation
+       */
+      void testPrecalculationStatus();
       
    private:
       // define

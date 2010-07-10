@@ -42,6 +42,81 @@ void StatisticsTest::tearDown()
    
 }
 
+void StatisticsTest::testCopyConstructor()
+{
+   static const double STATISTICS_VALUE = 0.1;
+   
+   Statistics original;
+   original.addAggregateStatistics(STATISTICS_VALUE);
+   
+   Statistics constructorCopy(original);
+   
+   CPPUNIT_ASSERT_MESSAGE("Operator == doesn't work correctly", constructorCopy == original);
+   
+   // Check that both original and copy are in the same state as prior to copy
+   CPPUNIT_ASSERT_MESSAGE("Original statistics value is wrong", areEqual(original.getAggregateStatistics(), STATISTICS_VALUE));
+   CPPUNIT_ASSERT_MESSAGE("Original shouldn't have timer started", !original.isTimerRunning());
+   
+   CPPUNIT_ASSERT_MESSAGE("Constructor copy statistics value is wrong", areEqual(constructorCopy.getAggregateStatistics(), STATISTICS_VALUE));
+   CPPUNIT_ASSERT_MESSAGE("Constructor copy shouldn't have timer started", !constructorCopy.isTimerRunning());
+   
+   long timeValueOfConstructorCopy = constructorCopy.getElapsedTimeInMicroSeconds();
+
+   // Modify original by adding statistics and starting its timer
+   original.startTimer();
+   busyWaitDelay(100);
+   original.addAggregateStatistics(STATISTICS_VALUE);
+   
+   // Check that original changed as we think it should
+   CPPUNIT_ASSERT_MESSAGE("Original statistics value is wrong", areEqual(original.getAggregateStatistics(), 2*STATISTICS_VALUE));
+   CPPUNIT_ASSERT_MESSAGE("Original timer shoud be started", original.isTimerRunning());
+   
+   // Make sure that copy didn't change
+   CPPUNIT_ASSERT_MESSAGE("Constructor copy statistics value is wrong", areEqual(constructorCopy.getAggregateStatistics(), STATISTICS_VALUE));
+   CPPUNIT_ASSERT_MESSAGE("Constructor copy shouldn't have timer started", !constructorCopy.isTimerRunning());
+   CPPUNIT_ASSERT_MESSAGE("Constructor copy aggregate time shouldn't change", constructorCopy.getElapsedTimeInMicroSeconds() == timeValueOfConstructorCopy);
+   
+   CPPUNIT_ASSERT_MESSAGE("Operator != doesn't work correctly", constructorCopy != original);
+}
+
+void StatisticsTest::testOperatorEqual()
+{
+   static const double STATISTICS_VALUE = 0.1;
+   
+   Statistics original;
+   original.addAggregateStatistics(STATISTICS_VALUE);
+   
+   Statistics operatorEqualCopy;
+   operatorEqualCopy = original;
+   
+   CPPUNIT_ASSERT_MESSAGE("Operator == doesn't work correctly", operatorEqualCopy == original);
+   
+   // Check that both original and copy are in the same state as prior to copy
+   CPPUNIT_ASSERT_MESSAGE("Original statistics value is wrong", areEqual(original.getAggregateStatistics(), STATISTICS_VALUE));
+   CPPUNIT_ASSERT_MESSAGE("Original shouldn't have timer started", !original.isTimerRunning());
+   
+   CPPUNIT_ASSERT_MESSAGE("Copy statistics value is wrong", areEqual(operatorEqualCopy.getAggregateStatistics(), STATISTICS_VALUE));
+   CPPUNIT_ASSERT_MESSAGE("Copy shouldn't have timer started", !operatorEqualCopy.isTimerRunning());
+   
+   long timeValueOfCopy = operatorEqualCopy.getElapsedTimeInMicroSeconds();
+   
+   // Modify original by adding statistics and starting its timer
+   original.startTimer();
+   busyWaitDelay(100);
+   original.addAggregateStatistics(STATISTICS_VALUE);
+   
+   // Check that original changed as we think it should
+   CPPUNIT_ASSERT_MESSAGE("Original statistics value is wrong", areEqual(original.getAggregateStatistics(), 2*STATISTICS_VALUE));
+   CPPUNIT_ASSERT_MESSAGE("Original timer shoud be started", original.isTimerRunning());
+   
+   // Make sure that copy didn't change
+   CPPUNIT_ASSERT_MESSAGE("Copy statistics value is wrong", areEqual(operatorEqualCopy.getAggregateStatistics(), STATISTICS_VALUE));
+   CPPUNIT_ASSERT_MESSAGE("Copy statistics shouldn't have timer started", !operatorEqualCopy.isTimerRunning());
+   CPPUNIT_ASSERT_MESSAGE("Copy statistics aggregate time shouldn't change", operatorEqualCopy.getElapsedTimeInMicroSeconds() == timeValueOfCopy);
+   
+   CPPUNIT_ASSERT_MESSAGE("Operator != doesn't work correctly", operatorEqualCopy != original);
+}
+
 void StatisticsTest::testElapsedTime()
 {
    static const long TIME_TO_SLEEP = 100000;

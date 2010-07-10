@@ -77,6 +77,11 @@ namespace hdsim {
       double aspectRatio_;   
       
       /**
+       * Was model drawn at least once
+       */
+      bool wasModelDrawn_;
+      
+      /**
        * Statistics related to moxel calculation
        */
       Statistics moxelCalculationStatistics_;

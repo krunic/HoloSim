@@ -35,7 +35,7 @@ static const double Z_OFFSET = 0.01;
 // Max rod height in comparasion with base
 static const double MAX_ROD_HEIGHT = 10;
 
-OpenGLDrawingCode::OpenGLDrawingCode() : AbstractDrawingCode(), aspectRatio_(0), fov_(0)
+OpenGLDrawingCode::OpenGLDrawingCode() : AbstractDrawingCode(), aspectRatio_(0), fov_(0), wasModelDrawn_(false)
 {
    fov_ = INITIAL_FOV;
    aspectRatio_ = INITIAL_ASPECT_RATIO;   
@@ -331,7 +331,13 @@ void OpenGLDrawingCode::draw(const AbstractModel *m)
    // This service knows at the moment only how to draw interpolated models
    const GPUInterpolatedModel *model = dynamic_cast<const GPUInterpolatedModel*>(m);
    
-   model->getAt(0, 0);
+   // Make sure that model is not precalculated at this point (otherwise, our measurement is not correct)
+   if (!wasModelDrawn_)
+   {
+   	CHECK(!model->isModelCalculated(), "Model must not be calculated at this point");
+      model->forceModelCalculation();
+      wasModelDrawn_ = true;
+   }
    
    CHECK(model, "Model must be of the type GPUInterpolatedModel");
    CHECK(model->getSizeX() == model->getSizeY(), "Model sizes must be equal in X and Y for this drawer to work");
@@ -373,10 +379,7 @@ void OpenGLDrawingCode::draw(const AbstractModel *m)
    double maxRodSize = BASE_SIZE * (model->getRenderedAreaMaxZ() - model->getRenderedAreaMinZ())/max(xRenderSize, yRenderSize);
    
    drawModelBase(BASE_SIZE);
-   
-   // Make sure that model is not precalculated at this point (otherwise, our measurement is not correct)
-   CHECK(!model->isModelCalculated(), "Model must not be calculated at this point");
-   
+     
    // Force calculation. This is where moxel related operations would happen
    model->forceModelCalculation();
    

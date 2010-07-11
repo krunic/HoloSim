@@ -395,9 +395,6 @@ void OpenGLDrawingCode::draw(const AbstractModel *m)
       for (int indexY = 0; indexY < model->getSizeY(); indexY++)
       {
          // Transform from [0, 1] in Z buffer to the maxZ coordinate
-         
-         //THIS IS A PROBLEM - A LOT OF DRAWING HAPPENED ON INITIALIZED BUFFER THAT GETS UNINITIALIZED. HOW TO FIX? E.G. ENSURE PRECALC?
-         
          double zValue = maxRodSize*(1-model->getAt(indexX, indexY));
          drawRodAt(BASE_SIZE, model->getSizeX(), ROD_COVERAGE_PERCENTAGE, indexX, indexY, zValue);
       }

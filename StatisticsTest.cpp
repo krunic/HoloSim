@@ -22,6 +22,8 @@ using namespace std;
 
 CPPUNIT_TEST_SUITE_REGISTRATION(StatisticsTest);
 
+static const double MAX_RELATIVE_ERROR = 0.005;
+
 StatisticsTest::StatisticsTest()
 {
    
@@ -120,7 +122,6 @@ void StatisticsTest::testOperatorEqual()
 void StatisticsTest::testElapsedTime()
 {
    static const long TIME_TO_SLEEP = 100000;
-   static const double MAX_RELATIVE_ERROR = 0.01;
    static const int NUM_REPEAT = 4;
    static const int MAX_NUM_VIOLATIONS = NUM_REPEAT / 4;
    
@@ -158,7 +159,6 @@ void StatisticsTest::testAggregateElapsedTime()
    static const long TEST_INTERVAL = MICROSECONDS_IN_SECOND / 20;
    static const int NUM_INTERVALS_RUNNING = 3;
    static const double STATISTICS_VALUE_IN_PERIOD = 0.1;
-   static const double MAX_RELATIVE_ERROR = 0.001;
    
    Statistics testFixture;
    

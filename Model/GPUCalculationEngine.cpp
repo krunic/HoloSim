@@ -161,9 +161,10 @@ void GPUCalculationEngine::calculateEngine(const AbstractModel *model)
    glBindFramebufferEXT(GL_FRAMEBUFFER_EXT, frameBufferID_);
    CHECK(!getAndResetGLErrorStatus(), "Error binding frameBuffer");
 
+   CHECK(shader_.setShaderActive(true), "Can't set shader");
+
    if (getUseBundledShaders()) 
    {
-      CHECK(shader_.setShaderActive(true), "Can't set shader");
       CHECK(shader_.setShaderVariable(TIMESLICE_NAME, getTimeSlice()), "Can't reset shader");
    }
    
@@ -255,10 +256,7 @@ void GPUCalculationEngine::calculateEngine(const AbstractModel *model)
    glReadPixels(0, 0, width_, height_, GL_DEPTH_COMPONENT, GL_FLOAT, renderedDepth_);   
    CHECK(!getAndResetGLErrorStatus(), "Error in glReadPixels");
    
-   if (getUseBundledShaders()) 
-   {
-	   CHECK(shader_.setShaderActive(false), "Can't reset shader");
-   }
+   CHECK(shader_.setShaderActive(false), "Can't reset shader");
    
    // Unbind frame buffer so that we could do rendering to different windows
    glBindFramebufferEXT(GL_FRAMEBUFFER_EXT, 0);

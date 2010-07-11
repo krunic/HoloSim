@@ -77,7 +77,7 @@ long int Statistics::getElapsedTimeSinceLastTimerStartInMicroSeconds() const
    return endSecondsInMicro - startSecondsInMicro + endTime.tv_usec - startTime_.tv_usec;
 }
 
-long int Statistics::getElapsedTimeInMicroSeconds() const
+double Statistics::getElapsedTimeInMicroSeconds() const
 {
    long currentPart = isTimerRunning() ? getElapsedTimeSinceLastTimerStartInMicroSeconds() : 0;
    

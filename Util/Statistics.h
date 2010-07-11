@@ -95,7 +95,7 @@ namespace hdsim {
        *
        * @return time elapsed in microseconds
        */
-      virtual long int getElapsedTimeInMicroSeconds() const;
+      virtual double getElapsedTimeInMicroSeconds() const;
       
       /**
        * Reset the timer to zero. Aggregate statistics are zeroed too
@@ -127,7 +127,7 @@ namespace hdsim {
       /**
        * Aggregate time we were running up until now
        */
-      long aggregateTimeElapsed_;
+      double aggregateTimeElapsed_;
       
       /**
        * Value of the aggregate statistics
@@ -157,7 +157,7 @@ namespace hdsim {
       if (lhs.timerActive_ != rhs.timerActive_)
          return false;
       
-      if (lhs.aggregateTimeElapsed_ != rhs.aggregateTimeElapsed_)
+      if (!areEqual(lhs.aggregateTimeElapsed_, rhs.aggregateTimeElapsed_))
          return false;
       
       if (!areEqual(lhs.aggregateStatistics_, rhs.aggregateStatistics_))

@@ -101,6 +101,18 @@
 		7AE6412810FBAC9B00C0AE45 /* GPUGeometryModel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7AE6412610FBAC9B00C0AE45 /* GPUGeometryModel.cpp */; };
 		7AE6412D10FBACC800C0AE45 /* GPUCalculationEngine.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7AE6412C10FBACC800C0AE45 /* GPUCalculationEngine.cpp */; };
 		7AE6412E10FBACC800C0AE45 /* GPUCalculationEngine.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7AE6412C10FBACC800C0AE45 /* GPUCalculationEngine.cpp */; };
+		7AF7337911E9AAEB00ABE3D3 /* ChairDemo.dae in Resources */ = {isa = PBXBuildFile; fileRef = 7AF7337311E9AAEB00ABE3D3 /* ChairDemo.dae */; };
+		7AF7337A11E9AAEB00ABE3D3 /* chairDemo.gpuGeometryModel in Resources */ = {isa = PBXBuildFile; fileRef = 7AF7337411E9AAEB00ABE3D3 /* chairDemo.gpuGeometryModel */; };
+		7AF7337B11E9AAEB00ABE3D3 /* chairDemo.GPUHoloSim in Resources */ = {isa = PBXBuildFile; fileRef = 7AF7337511E9AAEB00ABE3D3 /* chairDemo.GPUHoloSim */; };
+		7AF7337C11E9AAEB00ABE3D3 /* singleQuadDemo.gpuGeometryModel in Resources */ = {isa = PBXBuildFile; fileRef = 7AF7337611E9AAEB00ABE3D3 /* singleQuadDemo.gpuGeometryModel */; };
+		7AF7337D11E9AAEB00ABE3D3 /* singleQuadDemo.GPUHoloSim in Resources */ = {isa = PBXBuildFile; fileRef = 7AF7337711E9AAEB00ABE3D3 /* singleQuadDemo.GPUHoloSim */; };
+		7AF7337E11E9AAEB00ABE3D3 /* TestQuadDemo.dae in Resources */ = {isa = PBXBuildFile; fileRef = 7AF7337811E9AAEB00ABE3D3 /* TestQuadDemo.dae */; };
+		7AF7337F11E9AAEB00ABE3D3 /* ChairDemo.dae in Resources */ = {isa = PBXBuildFile; fileRef = 7AF7337311E9AAEB00ABE3D3 /* ChairDemo.dae */; };
+		7AF7338011E9AAEB00ABE3D3 /* chairDemo.gpuGeometryModel in Resources */ = {isa = PBXBuildFile; fileRef = 7AF7337411E9AAEB00ABE3D3 /* chairDemo.gpuGeometryModel */; };
+		7AF7338111E9AAEB00ABE3D3 /* chairDemo.GPUHoloSim in Resources */ = {isa = PBXBuildFile; fileRef = 7AF7337511E9AAEB00ABE3D3 /* chairDemo.GPUHoloSim */; };
+		7AF7338211E9AAEB00ABE3D3 /* singleQuadDemo.gpuGeometryModel in Resources */ = {isa = PBXBuildFile; fileRef = 7AF7337611E9AAEB00ABE3D3 /* singleQuadDemo.gpuGeometryModel */; };
+		7AF7338311E9AAEB00ABE3D3 /* singleQuadDemo.GPUHoloSim in Resources */ = {isa = PBXBuildFile; fileRef = 7AF7337711E9AAEB00ABE3D3 /* singleQuadDemo.GPUHoloSim */; };
+		7AF7338411E9AAEB00ABE3D3 /* TestQuadDemo.dae in Resources */ = {isa = PBXBuildFile; fileRef = 7AF7337811E9AAEB00ABE3D3 /* TestQuadDemo.dae */; };
 		7AFE409411E448E300875CB7 /* PerformanceTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7AFE409311E448E300875CB7 /* PerformanceTest.cpp */; };
 		8D15AC2C0486D014006FF6A4 /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 2A37F4B9FDCFA73011CA2CEA /* Credits.rtf */; };
 		8D15AC2D0486D014006FF6A4 /* MainMenu.nib in Resources */ = {isa = PBXBuildFile; fileRef = 2A37F4B6FDCFA73011CA2CEA /* MainMenu.nib */; };
@@ -243,6 +255,12 @@
 		7AE6411E10FBA78A00C0AE45 /* Point.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Point.h; path = Model/Point.h; sourceTree = "<group>"; };
 		7AE6412610FBAC9B00C0AE45 /* GPUGeometryModel.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GPUGeometryModel.cpp; path = Model/GPUGeometryModel.cpp; sourceTree = "<group>"; };
 		7AE6412C10FBACC800C0AE45 /* GPUCalculationEngine.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GPUCalculationEngine.cpp; path = Model/GPUCalculationEngine.cpp; sourceTree = "<group>"; };
+		7AF7337311E9AAEB00ABE3D3 /* ChairDemo.dae */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = ChairDemo.dae; path = ModelFiles/ChairDemo.dae; sourceTree = "<group>"; };
+		7AF7337411E9AAEB00ABE3D3 /* chairDemo.gpuGeometryModel */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = chairDemo.gpuGeometryModel; path = ModelFiles/chairDemo.gpuGeometryModel; sourceTree = "<group>"; };
+		7AF7337511E9AAEB00ABE3D3 /* chairDemo.GPUHoloSim */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = chairDemo.GPUHoloSim; path = ModelFiles/chairDemo.GPUHoloSim; sourceTree = "<group>"; };
+		7AF7337611E9AAEB00ABE3D3 /* singleQuadDemo.gpuGeometryModel */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = singleQuadDemo.gpuGeometryModel; path = ModelFiles/singleQuadDemo.gpuGeometryModel; sourceTree = "<group>"; };
+		7AF7337711E9AAEB00ABE3D3 /* singleQuadDemo.GPUHoloSim */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = singleQuadDemo.GPUHoloSim; path = ModelFiles/singleQuadDemo.GPUHoloSim; sourceTree = "<group>"; };
+		7AF7337811E9AAEB00ABE3D3 /* TestQuadDemo.dae */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = TestQuadDemo.dae; path = ModelFiles/TestQuadDemo.dae; sourceTree = "<group>"; };
 		7AFE409211E448E300875CB7 /* PerformanceTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PerformanceTest.h; path = UnitTests/Perf/PerformanceTest.h; sourceTree = "<group>"; };
 		7AFE409311E448E300875CB7 /* PerformanceTest.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = PerformanceTest.cpp; path = UnitTests/Perf/PerformanceTest.cpp; sourceTree = "<group>"; };
 		8D15AC360486D014006FF6A4 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
@@ -332,12 +350,13 @@
 		2A37F4AAFDCFA73011CA2CEA /* HoloSim */ = {
 			isa = PBXGroup;
 			children = (
-				7A4348DC10F3488300E4F3C9 /* IO */,
 				2A37F4ABFDCFA73011CA2CEA /* Cocoa */,
 				7A5B32C70C51B41E00833B6F /* Control */,
 				7A5B32CA0C51B45A00833B6F /* Graphics */,
+				7A4348DC10F3488300E4F3C9 /* IO */,
 				7A19B9350C54323E008FD0EE /* Math */,
 				7A47C2720C51B7DC005A42B7 /* Model */,
+				7AF7337211E9AAB700ABE3D3 /* ModelFiles */,
 				2A37F4AFFDCFA73011CA2CEA /* Other Sources */,
 				7A4743A40C5D20FC006FEF68 /* Util */,
 				7ABEAFA90BFF66A300C71586 /* UnitTests */,
@@ -651,6 +670,19 @@
 			name = UnitTests;
 			sourceTree = "<group>";
 		};
+		7AF7337211E9AAB700ABE3D3 /* ModelFiles */ = {
+			isa = PBXGroup;
+			children = (
+				7AF7337311E9AAEB00ABE3D3 /* ChairDemo.dae */,
+				7AF7337411E9AAEB00ABE3D3 /* chairDemo.gpuGeometryModel */,
+				7AF7337511E9AAEB00ABE3D3 /* chairDemo.GPUHoloSim */,
+				7AF7337611E9AAEB00ABE3D3 /* singleQuadDemo.gpuGeometryModel */,
+				7AF7337711E9AAEB00ABE3D3 /* singleQuadDemo.GPUHoloSim */,
+				7AF7337811E9AAEB00ABE3D3 /* TestQuadDemo.dae */,
+			);
+			name = ModelFiles;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -735,6 +767,12 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7AF7337911E9AAEB00ABE3D3 /* ChairDemo.dae in Resources */,
+				7AF7337A11E9AAEB00ABE3D3 /* chairDemo.gpuGeometryModel in Resources */,
+				7AF7337B11E9AAEB00ABE3D3 /* chairDemo.GPUHoloSim in Resources */,
+				7AF7337C11E9AAEB00ABE3D3 /* singleQuadDemo.gpuGeometryModel in Resources */,
+				7AF7337D11E9AAEB00ABE3D3 /* singleQuadDemo.GPUHoloSim in Resources */,
+				7AF7337E11E9AAEB00ABE3D3 /* TestQuadDemo.dae in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -747,6 +785,12 @@
 				8D15AC2E0486D014006FF6A4 /* HoloSimDocument.nib in Resources */,
 				7A3E25510C598C2200326103 /* HoloSimIcon.icns in Resources */,
 				7A72E3C81132C92700B4D338 /* SlowInSlowOut.fs in Resources */,
+				7AF7337F11E9AAEB00ABE3D3 /* ChairDemo.dae in Resources */,
+				7AF7338011E9AAEB00ABE3D3 /* chairDemo.gpuGeometryModel in Resources */,
+				7AF7338111E9AAEB00ABE3D3 /* chairDemo.GPUHoloSim in Resources */,
+				7AF7338211E9AAEB00ABE3D3 /* singleQuadDemo.gpuGeometryModel in Resources */,
+				7AF7338311E9AAEB00ABE3D3 /* singleQuadDemo.GPUHoloSim in Resources */,
+				7AF7338411E9AAEB00ABE3D3 /* TestQuadDemo.dae in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

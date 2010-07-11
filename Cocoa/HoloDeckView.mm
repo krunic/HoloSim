@@ -625,12 +625,19 @@ void normalizeBounds(double *minX, double *maxX, double *minY, double *maxY, dou
    Statistics fpsStatistics = drawer->getFrameRenderingStatistics();
    Statistics moxelCalculationStatistics = drawer->getMoxelCalculationStatistics();
    
-   long timeRendering = fpsStatistics.getElapsedTimeInMicroSeconds();
-   long timeCalulatingMoxels = moxelCalculationStatistics.getElapsedTimeInMicroSeconds();
+   double timeRendering = fpsStatistics.getElapsedTimeInMicroSeconds();
+   double timeCalulatingMoxels = moxelCalculationStatistics.getElapsedTimeInMicroSeconds();
    
    double fps = fpsStatistics.getTimeAveragedStatistics();
-   double moxelsPerSeconds = moxelCalculationStatistics.getTimeAveragedStatistics();
-   double ratioInRendering = timeCalulatingMoxels / (double)timeRendering;
+   
+   double moxelsPerSecond = moxelCalculationStatistics.getTimeAveragedStatistics();
+   double ratioInRendering = timeCalulatingMoxels / timeRendering;
+
+   // To protect versus overflow
+   CHECK(fps >= 0, "FPS overflow");
+   CHECK(timeRendering >= 0, "timeRendering overflow");
+   CHECK(timeCalulatingMoxels >= 0, "timeCalulatingMoxels overflow");
+   CHECK(moxelsPerSecond >= 0, "moxelsPerSecond overflow");
    
    // And update UI
    [xSlider setFloatValue:drawer->getRotationAngleX()];
@@ -639,7 +646,7 @@ void normalizeBounds(double *minX, double *maxX, double *minY, double *maxY, dou
    [fovSlider setFloatValue:[self recalcFOVToSlider:drawer->getFOV()]];
    [percentageLabel setFloatValue:ratioInRendering];
    [framesPerSecondCounterLabel setFloatValue:fps];
-   [moxelsPerSecondCounterLabel setFloatValue:moxelsPerSeconds];
+   [moxelsPerSecondCounterLabel setFloatValue:moxelsPerSecond];
      
    [context flushBuffer];
 }

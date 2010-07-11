@@ -28,7 +28,7 @@ CPPUNIT_TEST_SUITE_REGISTRATION(PerformanceTest);
 /**
  * max error for the time measurement
  */
-static const long MAX_ABSOLUTE_ERROR_IN_MICROSECONDS = 100;
+static const long MAX_ABSOLUTE_ERROR_IN_MICROSECONDS = 150;
 
 static struct timeval startTime_;
 static bool timerStated_ = false;
@@ -192,7 +192,7 @@ void PerformanceTest::testTimerGenerallyWorks()
    static const long TIME_TO_WAIT_IN_MICROSECONDS = 500000;
    
    // max relative error is 1% for timer resolution at TIME_TO_WAIT to be considered generally acceptable
-   static const double MAX_RELATIVE_ERROR = 0.001;
+   static const double MAX_RELATIVE_ERROR = 0.005;
    
    startTimer();
    busyWaitDelay(TIME_TO_WAIT_IN_MICROSECONDS);

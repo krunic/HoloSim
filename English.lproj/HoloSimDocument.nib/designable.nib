@@ -11,8 +11,9 @@
 			<string key="NS.object.0">788</string>
 		</object>
 		<array class="NSMutableArray" key="IBDocument.EditedObjectIDs">
-			<integer value="105"/>
 			<integer value="305"/>
+			<integer value="21"/>
+			<integer value="105"/>
 		</array>
 		<array key="IBDocument.PluginDependencies">
 			<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -29,9 +30,10 @@
 				<string key="NSClassName">NSApplication</string>
 			</object>
 			<object class="NSCustomView" id="157320687">
-				<nil key="NSNextResponder"/>
+				<reference key="NSNextResponder"/>
 				<int key="NSvFlags">256</int>
 				<string key="NSFrameSize">{431, 426}</string>
+				<reference key="NSSuperview"/>
 				<string key="NSClassName">RoomView</string>
 			</object>
 			<object class="NSWindowTemplate" id="273431737">
@@ -280,8 +282,7 @@
 						<bool key="NSEnabled">YES</bool>
 						<object class="NSTextFieldCell" key="NSCell" id="472978318">
 							<int key="NSCellFlags">-1804468671</int>
-							<int key="NSCellFlags2">-1874852864</int>
-							<string key="NSContents">percent</string>
+							<int key="NSCellFlags2">272630848</int>
 							<reference key="NSSupport" ref="207718587"/>
 							<object class="NSNumberFormatter" key="NSFormatter" id="535365188">
 								<dictionary class="NSMutableDictionary" key="NS.attributes">
@@ -290,13 +291,15 @@
 									<object class="NSLocale" key="locale" id="449743988">
 										<string key="NS.identifier"/>
 									</object>
+									<integer value="4" key="maximumFractionDigits"/>
+									<integer value="4" key="minimumFractionDigits"/>
 									<string key="negativeInfinitySymbol">-∞</string>
 									<string key="nilSymbol"/>
 									<integer value="3" key="numberStyle"/>
 									<string key="positiveInfinitySymbol">+∞</string>
 								</dictionary>
-								<string key="NS.positiveformat">#,##0%</string>
-								<string key="NS.negativeformat">#,##0%</string>
+								<string key="NS.positiveformat">#,##0.0000%</string>
+								<string key="NS.negativeformat">#,##0.0000%</string>
 								<nil key="NS.positiveattrs"/>
 								<nil key="NS.negativeattrs"/>
 								<nil key="NS.zero"/>
@@ -355,8 +358,7 @@
 						<bool key="NSEnabled">YES</bool>
 						<object class="NSTextFieldCell" key="NSCell" id="204056429">
 							<int key="NSCellFlags">-1804468671</int>
-							<int key="NSCellFlags2">-1874852864</int>
-							<string key="NSContents">moxels</string>
+							<int key="NSCellFlags2">272630848</int>
 							<reference key="NSSupport" ref="207718587"/>
 							<object class="NSNumberFormatter" key="NSFormatter" id="314463033">
 								<dictionary class="NSMutableDictionary" key="NS.attributes">
@@ -408,8 +410,7 @@
 						<bool key="NSEnabled">YES</bool>
 						<object class="NSTextFieldCell" key="NSCell" id="129286880">
 							<int key="NSCellFlags">-1804468671</int>
-							<int key="NSCellFlags2">-1874852864</int>
-							<string key="NSContents">fps</string>
+							<int key="NSCellFlags2">272630848</int>
 							<reference key="NSSupport" ref="207718587"/>
 							<object class="NSNumberFormatter" key="NSFormatter" id="984271458">
 								<dictionary class="NSMutableDictionary" key="NS.attributes">
@@ -804,14 +805,6 @@
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBOutletConnection" key="connection">
-						<string key="label">xSlider</string>
-						<reference key="source" ref="12899723"/>
-						<reference key="destination" ref="1041142660"/>
-					</object>
-					<int key="connectionID">310</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBOutletConnection" key="connection">
 						<string key="label">ySlider</string>
 						<reference key="source" ref="12899723"/>
 						<reference key="destination" ref="227080404"/>
@@ -897,6 +890,38 @@
 						<reference key="destination" ref="94957020"/>
 					</object>
 					<int key="connectionID">325</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">framesPerSecondCounterLabel</string>
+						<reference key="source" ref="12899723"/>
+						<reference key="destination" ref="589356711"/>
+					</object>
+					<int key="connectionID">366</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">moxelsPerSecondCounterLabel</string>
+						<reference key="source" ref="12899723"/>
+						<reference key="destination" ref="120970894"/>
+					</object>
+					<int key="connectionID">367</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">percentageLabel</string>
+						<reference key="source" ref="12899723"/>
+						<reference key="destination" ref="305895732"/>
+					</object>
+					<int key="connectionID">368</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">xSlider</string>
+						<reference key="source" ref="12899723"/>
+						<reference key="destination" ref="1041142660"/>
+					</object>
+					<int key="connectionID">369</int>
 				</object>
 			</array>
 			<object class="IBMutableOrderedSet" key="objectRecords">
@@ -1047,9 +1072,9 @@
 							<reference ref="340730114"/>
 							<reference ref="895301685"/>
 							<reference ref="347749930"/>
-							<reference ref="589356711"/>
 							<reference ref="120970894"/>
 							<reference ref="305895732"/>
+							<reference ref="589356711"/>
 						</array>
 						<reference key="parent" ref="0"/>
 						<string key="objectName">DrawContentView</string>
@@ -1332,15 +1357,15 @@
 				<boolean value="YES" key="101.ImportedFromIB2"/>
 				<string key="102.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<boolean value="YES" key="102.ImportedFromIB2"/>
-				<string key="103.IBEditorWindowLastContentRect">{{570, 403}, {758, 488}}</string>
+				<string key="103.IBEditorWindowLastContentRect">{{375, 305}, {758, 488}}</string>
 				<string key="103.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
-				<string key="103.IBWindowTemplateEditedContentRect">{{570, 403}, {758, 488}}</string>
+				<string key="103.IBWindowTemplateEditedContentRect">{{375, 305}, {758, 488}}</string>
 				<boolean value="YES" key="103.ImportedFromIB2"/>
 				<boolean value="YES" key="103.windowTemplate.hasMinSize"/>
 				<string key="103.windowTemplate.minSize">{535, 339}</string>
 				<string key="104.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<boolean value="YES" key="104.ImportedFromIB2"/>
-				<string key="105.IBEditorWindowLastContentRect">{{971, 352}, {211, 422}}</string>
+				<string key="105.IBEditorWindowLastContentRect">{{1135, 330}, {211, 422}}</string>
 				<string key="105.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<boolean value="YES" key="105.ImportedFromIB2"/>
 				<string key="119.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -1351,7 +1376,7 @@
 				<boolean value="YES" key="143.ImportedFromIB2"/>
 				<string key="185.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<boolean value="YES" key="185.ImportedFromIB2"/>
-				<string key="21.IBEditorWindowLastContentRect">{{674, 398}, {431, 426}}</string>
+				<string key="21.IBEditorWindowLastContentRect">{{378, 360}, {431, 426}}</string>
 				<string key="21.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<boolean value="YES" key="21.ImportedFromIB2"/>
 				<string key="258.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -1408,7 +1433,7 @@
 				<string key="341.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="342.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="343.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
-				<integer value="1041" key="344.IBNumberFormatterBehaviorMetadataKey"/>
+				<integer value="1040" key="344.IBNumberFormatterBehaviorMetadataKey"/>
 				<boolean value="YES" key="344.IBNumberFormatterLocalizesFormatMetadataKey"/>
 				<string key="344.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="86.IBEditorWindowLastContentRect">{{412, 589}, {480, 360}}</string>
@@ -1426,7 +1451,7 @@
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">344</int>
+			<int key="maxID">369</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -1477,7 +1502,10 @@
 					</dictionary>
 					<dictionary class="NSMutableDictionary" key="outlets">
 						<string key="fovSlider">id</string>
+						<string key="framesPerSecondCounterLabel">id</string>
 						<string key="model">HoloSimDocument</string>
+						<string key="moxelsPerSecondCounterLabel">id</string>
+						<string key="percentageLabel">id</string>
 						<string key="playPauseButton">id</string>
 						<string key="timeSliceSlider">id</string>
 						<string key="xSlider">id</string>
@@ -1489,9 +1517,21 @@
 							<string key="name">fovSlider</string>
 							<string key="candidateClassName">id</string>
 						</object>
+						<object class="IBToOneOutletInfo" key="framesPerSecondCounterLabel">
+							<string key="name">framesPerSecondCounterLabel</string>
+							<string key="candidateClassName">id</string>
+						</object>
 						<object class="IBToOneOutletInfo" key="model">
 							<string key="name">model</string>
 							<string key="candidateClassName">HoloSimDocument</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="moxelsPerSecondCounterLabel">
+							<string key="name">moxelsPerSecondCounterLabel</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="percentageLabel">
+							<string key="name">percentageLabel</string>
+							<string key="candidateClassName">id</string>
 						</object>
 						<object class="IBToOneOutletInfo" key="playPauseButton">
 							<string key="name">playPauseButton</string>

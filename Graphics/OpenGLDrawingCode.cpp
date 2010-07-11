@@ -334,9 +334,9 @@ void OpenGLDrawingCode::draw(const AbstractModel *m)
    frameRenderingStatistics_.startTimer();
    
    // Make sure that model is not precalculated at this point (otherwise, our measurement is not correct)
-   if (!wasModelDrawn_)
+   if (!wasModelDrawn_  ||  !model->isModelCalculated())
    {
-   	CHECK(!model->isModelCalculated(), "Model must not be calculated at this point");
+   	CHECK(!model->isModelCalculated(), "Model must not be calculated while we are measuring performance");
       moxelCalculationStatistics_.startTimer();
       model->forceModelCalculation();
       

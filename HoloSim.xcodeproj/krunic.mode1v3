@@ -227,6 +227,8 @@
 			<key>Layout</key>
 			<array>
 				<dict>
+					<key>BecomeActive</key>
+					<true/>
 					<key>ContentConfiguration</key>
 					<dict>
 						<key>PBXBottomSmartGroupGIDs</key>
@@ -288,7 +290,7 @@
 								</array>
 							</array>
 							<key>PBXSmartGroupTreeModuleOutlineStateVisibleRectKey</key>
-							<string>{{0, 789}, {216, 910}}</string>
+							<string>{{0, 614}, {216, 910}}</string>
 						</dict>
 						<key>PBXTopSmartGroupGIDs</key>
 						<array/>
@@ -318,8 +320,6 @@
 					<key>Dock</key>
 					<array>
 						<dict>
-							<key>BecomeActive</key>
-							<true/>
 							<key>ContentConfiguration</key>
 							<dict>
 								<key>PBXProjectModuleGUID</key>
@@ -337,7 +337,7 @@
 										<key>_historyCapacity</key>
 										<integer>0</integer>
 										<key>bookmark</key>
-										<string>7A6E6F2311E8FF3D006A6C95</string>
+										<string>7A55B48411E960D500563A3D</string>
 										<key>history</key>
 										<array>
 											<string>7A0A767A0D24982A004DBE99</string>
@@ -407,7 +407,6 @@
 											<string>7AFE414011E456FE00875CB7</string>
 											<string>7AFE414111E456FE00875CB7</string>
 											<string>7AFE414211E456FE00875CB7</string>
-											<string>7AFE414411E456FE00875CB7</string>
 											<string>7AFE414711E456FE00875CB7</string>
 											<string>7A2A27F611E585F30037C0F3</string>
 											<string>7A2A281211E5B2890037C0F3</string>
@@ -424,12 +423,9 @@
 											<string>7A3A545611E80E4400D6BB77</string>
 											<string>7A6E6EB711E8ECE7006A6C95</string>
 											<string>7A6E6EB811E8ECE7006A6C95</string>
-											<string>7A6E6EB911E8ECE7006A6C95</string>
 											<string>7A6E6EBA11E8ECE7006A6C95</string>
 											<string>7A6E6EBC11E8ECE7006A6C95</string>
 											<string>7A6E6EBD11E8ECE7006A6C95</string>
-											<string>7A6E6EBE11E8ECE7006A6C95</string>
-											<string>7A6E6EBF11E8ECE7006A6C95</string>
 											<string>7A6E6EC111E8ECE7006A6C95</string>
 											<string>7A6E6EC211E8ECE7006A6C95</string>
 											<string>7A6E6EC311E8ECE7006A6C95</string>
@@ -439,12 +435,16 @@
 											<string>7A6E6EC711E8ECE7006A6C95</string>
 											<string>7A6E6EE211E8EE92006A6C95</string>
 											<string>7A6E6EE311E8EE92006A6C95</string>
-											<string>7A6E6EE411E8EE92006A6C95</string>
 											<string>7A6E6EE511E8EE92006A6C95</string>
 											<string>7A6E6EEE11E8F22B006A6C95</string>
 											<string>7A6E6EEF11E8F22B006A6C95</string>
-											<string>7A6E6F0A11E8F2E3006A6C95</string>
-											<string>7A6E6F0B11E8F2E3006A6C95</string>
+											<string>7A6E6F3011E903BF006A6C95</string>
+											<string>7A6E6F3411E90521006A6C95</string>
+											<string>7A6E6F8511E94251006A6C95</string>
+											<string>7A6E6F8611E94251006A6C95</string>
+											<string>7A6E6F8711E94251006A6C95</string>
+											<string>7A75744A11E94E55007A6A90</string>
+											<string>7A75744E11E94FDD007A6A90</string>
 										</array>
 									</dict>
 									<key>SplitCount</key>
@@ -502,9 +502,9 @@
 			</array>
 			<key>TableOfContents</key>
 			<array>
-				<string>7A6E6E4C11E84A5C006A6C95</string>
+				<string>7A55B48511E960D500563A3D</string>
 				<string>1CE0B1FE06471DED0097A5F4</string>
-				<string>7A6E6E4D11E84A5C006A6C95</string>
+				<string>7A55B48611E960D500563A3D</string>
 				<string>1CE0B20306471E060097A5F4</string>
 				<string>1CE0B20506471E060097A5F4</string>
 			</array>
@@ -638,11 +638,10 @@
 	<integer>5</integer>
 	<key>WindowOrderList</key>
 	<array>
-		<string>7A6E6EFB11E8F22B006A6C95</string>
-		<string>7A6E6EFC11E8F22B006A6C95</string>
+		<string>7A55B48E11E960D500563A3D</string>
+		<string>7A55B48F11E960D500563A3D</string>
 		<string>1C78EAAD065D492600B07095</string>
 		<string>1CD10A99069EF8BA00B06720</string>
-		<string>1C530D57069F1CE1000CFCEE</string>
 		<string>7AB81FC80CFD15870073748B</string>
 		<string>/Users/krunic/Documents/Projects/School/PhD/CS/Holodeck/XCode/HoloSim/HoloSim.xcodeproj</string>
 	</array>
@@ -668,7 +667,7 @@
 								<key>PBXProjectModuleGUID</key>
 								<string>1CD0528F0623707200166675</string>
 								<key>PBXProjectModuleLabel</key>
-								<string>OpenGLDrawingCode.h</string>
+								<string></string>
 								<key>StatusBarVisibility</key>
 								<true/>
 							</dict>
@@ -726,7 +725,7 @@
 			<key>TableOfContents</key>
 			<array>
 				<string>7AB81FC80CFD15870073748B</string>
-				<string>7A6E6E4E11E84A5C006A6C95</string>
+				<string>7A55B48011E9602200563A3D</string>
 				<string>1CD0528F0623707200166675</string>
 				<string>XCMainBuildResultsModuleGUID</string>
 			</array>
@@ -846,13 +845,13 @@
 			<key>TableOfContents</key>
 			<array>
 				<string>1CD10A99069EF8BA00B06720</string>
-				<string>7A6E6EF311E8F22B006A6C95</string>
+				<string>7A55B48711E960D500563A3D</string>
 				<string>1C162984064C10D400B95A72</string>
-				<string>7A6E6EF411E8F22B006A6C95</string>
-				<string>7A6E6EF511E8F22B006A6C95</string>
-				<string>7A6E6EF611E8F22B006A6C95</string>
-				<string>7A6E6EF711E8F22B006A6C95</string>
-				<string>7A6E6EF811E8F22B006A6C95</string>
+				<string>7A55B48811E960D500563A3D</string>
+				<string>7A55B48911E960D500563A3D</string>
+				<string>7A55B48A11E960D500563A3D</string>
+				<string>7A55B48B11E960D500563A3D</string>
+				<string>7A55B48C11E960D500563A3D</string>
 			</array>
 			<key>ToolbarConfiguration</key>
 			<string>xcode.toolbar.config.debugV3</string>
@@ -985,7 +984,7 @@
 								<key>Frame</key>
 								<string>{{0, 0}, {824, 574}}</string>
 								<key>RubberWindowFrame</key>
-								<string>471 504 824 615 0 0 1680 1028 </string>
+								<string>1817 260 824 615 1680 0 1440 900 </string>
 							</dict>
 							<key>Module</key>
 							<string>PBXDebugCLIModule</string>
@@ -1008,13 +1007,13 @@
 			<key>TableOfContents</key>
 			<array>
 				<string>1C78EAAD065D492600B07095</string>
-				<string>7A6E6EF911E8F22B006A6C95</string>
+				<string>7A55B48D11E960D500563A3D</string>
 				<string>1C78EAAC065D492600B07095</string>
 			</array>
 			<key>ToolbarConfiguration</key>
 			<string>xcode.toolbar.config.consoleV3</string>
 			<key>WindowString</key>
-			<string>471 504 824 615 0 0 1680 1028 </string>
+			<string>1817 260 824 615 1680 0 1440 900 </string>
 			<key>WindowToolGUID</key>
 			<string>1C78EAAD065D492600B07095</string>
 			<key>WindowToolIsVisible</key>
@@ -1304,8 +1303,8 @@
 			<true/>
 			<key>TableOfContents</key>
 			<array>
-				<string>7A92CB5411E67B6600571A00</string>
-				<string>7A92CB5511E67B6600571A00</string>
+				<string>7A75744811E94E52007A6A90</string>
+				<string>7A75744911E94E52007A6A90</string>
 				<string>1CE0B1FE06471DED0097A5F4</string>
 				<string>1CA1AED706398EBD00589147</string>
 			</array>
@@ -1314,7 +1313,7 @@
 			<key>WindowString</key>
 			<string>742 547 904 379 0 0 1680 1028 </string>
 			<key>WindowToolGUID</key>
-			<string>7A92CB5411E67B6600571A00</string>
+			<string>7A75744811E94E52007A6A90</string>
 			<key>WindowToolIsVisible</key>
 			<false/>
 		</dict>

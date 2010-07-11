@@ -621,11 +621,26 @@ void normalizeBounds(double *minX, double *maxX, double *minY, double *maxY, dou
    m->setRenderedArea(renderMinX, renderMinY, renderMinZ, renderMaxX, renderMaxY, renderMaxZ);
    drawer->draw(m);
    
+   // Get statistics
+   Statistics fpsStatistics = drawer->getFrameRenderingStatistics();
+   Statistics moxelCalculationStatistics = drawer->getMoxelCalculationStatistics();
+   
+   long timeRendering = fpsStatistics.getElapsedTimeInMicroSeconds();
+   long timeCalulatingMoxels = moxelCalculationStatistics.getElapsedTimeInMicroSeconds();
+   
+   double fps = fpsStatistics.getTimeAveragedStatistics();
+   double moxelsPerSeconds = moxelCalculationStatistics.getTimeAveragedStatistics();
+   double ratioInRendering = timeCalulatingMoxels / (double)timeRendering;
+   
    // And update UI
    [xSlider setFloatValue:drawer->getRotationAngleX()];
    [ySlider setFloatValue:drawer->getRotationAngleY()];
    [zSlider setFloatValue:drawer->getRotationAngleZ()];
    [fovSlider setFloatValue:[self recalcFOVToSlider:drawer->getFOV()]];
+   [percentageLabel setFloatValue:ratioInRendering];
+   [framesPerSecondCounterLabel setFloatValue:fps];
+   [moxelsPerSecondCounterLabel setFloatValue:moxelsPerSeconds];
+     
    [context flushBuffer];
 }
 

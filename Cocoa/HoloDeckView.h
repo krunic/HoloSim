@@ -50,6 +50,21 @@ using namespace hdsim;
    IBOutlet id playPauseButton;
    
    /**
+    * Label that is showing frames per second
+    */
+   IBOutlet id framesPerSecondCounterLabel;
+   
+   /**
+    * Moxel per second counter label
+    */
+   IBOutlet id moxelsPerSecondCounterLabel;
+   
+   /**
+    * Percentage of time spent in moxel rendering label
+    */
+   IBOutlet id percentageLabel;
+   
+   /**
     * Tracking rectangle for mouse view
     */
    NSTrackingRectTag trackingRectangle;

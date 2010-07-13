@@ -26,9 +26,9 @@ using namespace std;
 CPPUNIT_TEST_SUITE_REGISTRATION(PerformanceTest);
 
 /**
- * max error for the time measurement
+ * max error for the time measurement must be below 1ms
  */
-static const long MAX_ABSOLUTE_ERROR_IN_MICROSECONDS = 150;
+static const long MAX_ABSOLUTE_ERROR_IN_MICROSECONDS = 1000;
 
 static struct timeval startTime_;
 static bool timerStated_ = false;
@@ -86,10 +86,7 @@ int drawTriangleAndMeasureTimeInMicroSeconds(int sizeX, int sizeY)
    startTimer(); 
       // Set a quad that covers the whole area
       GPUGeometryModel testFixture(sizeX, sizeY);
-      
-      // We are not running as bundle in content of unit test, so don't use bundled file
-      testFixture.setUseBundledShaders(false);   
-
+ 
       testFixture.setRenderedArea(-2*QUAD_SIZE, -2*QUAD_SIZE, -2*QUAD_SIZE, 2*QUAD_SIZE, 2*QUAD_SIZE, 2*QUAD_SIZE);
       testFixture.addPoint(createPoint(-QUAD_SIZE, -QUAD_SIZE, Z_OFFSET));
       testFixture.addPoint(createPoint(-QUAD_SIZE, QUAD_SIZE, Z_OFFSET));

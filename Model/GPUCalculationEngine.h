@@ -67,26 +67,6 @@ namespace hdsim {
             return renderedDepth_[y*width_ + x];
          }
       
-      	/**
-          * Should we load shader from bundle
-          *
-          * @param shouldYou Should we load from bundle
-          */
-      	virtual void setUseBundledShaders(bool shouldYou)
-         {
-				useBundledShaders_ = shouldYou;            
-         }
-      
-         /**
-          * Should we load shader from bundle
-          *
-          * @return Is shader used
-          */
-         virtual bool getUseBundledShaders() const
-         {
-            return useBundledShaders_;
-         }
-      
          /**
           * Should we load shader from bundle
           *
@@ -109,30 +89,16 @@ namespace hdsim {
       
          /**
           * Get path to shader file
-          *
+			 * 
+          * @param model model to use for getting the path
           * @param path (OUT) Path to the filename using UNIX file convention
           *
           * @return Was conversion success
           */
-	      virtual bool getPathToShaderFileAdopt(std::string *path) const;
-      
+      virtual bool getPathToShaderFileAdopt(const GPUGeometryModel *model, std::string *path) const;
+
    	private:
-      
-         /**
-          * Name of the uniform variable holding current timeslice
-          */
-         static const char *TIMESLICE_NAME;
-         
-         /**
-          * Name of the bundled shader we would use
-          */
-         static const char *BUNDLED_SHADER_NAME;
-      
-      	/**
-          * Name of the non-bundled shader we would use
-          */
-         static const char *UNBUNDLED_SHADER_NAME;
-      
+               
       	// copying is not supported for now
 	      GPUCalculationEngine(const GPUCalculationEngine &rhs);
    	   GPUCalculationEngine &operator=(const GPUCalculationEngine &rhs);
@@ -170,12 +136,7 @@ namespace hdsim {
           * Dimensions
           */
 	      int width_, height_;
-      
-      	/**
-          * Should we load shader from bundle
-          */
-	      bool useBundledShaders_;
-      
+            
       	/**
           * Off screen context used for drawing
           */

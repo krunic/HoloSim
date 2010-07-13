@@ -88,11 +88,18 @@ namespace hdsim {
       virtual Statistics getMoxelCalculationStatistics() const = 0;
 
       /**
-       * Get statistics related to frame rendering
+       * Get statistics related to frame rendering for all frames rendered so far
        *
        * @return Statistics related to frame rendering
        */
-      virtual Statistics getFrameRenderingStatistics() const = 0;
+      virtual Statistics getAllFrameRenderingStatistics() const = 0;
+      
+      /**
+       * Get statistics related to frame rendering for last rendered frame only
+       *
+       * @return Statistics related to frame rendering
+       */
+      virtual Statistics getLastFrameRenderingStatistics() const = 0;
       
       /**
        * Set what are initial rotation angles for the view. Angles are given in degrees, and view is rotated around center of the view for that many degrees before drawing.

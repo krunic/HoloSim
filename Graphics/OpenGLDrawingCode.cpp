@@ -321,9 +321,14 @@ Statistics OpenGLDrawingCode::getMoxelCalculationStatistics() const
 	return moxelCalculationStatistics_;   
 }
 
-Statistics OpenGLDrawingCode::getFrameRenderingStatistics() const
+Statistics OpenGLDrawingCode::getAllFrameRenderingStatistics() const
 {
-   return frameRenderingStatistics_;
+	return allFrameRenderingStatistics_;   
+}
+
+Statistics OpenGLDrawingCode::getLastFrameRenderingStatistics() const
+{
+   return lastFrameRenderingStatistics_;
 }
 
 void OpenGLDrawingCode::draw(const AbstractModel *m)
@@ -331,7 +336,9 @@ void OpenGLDrawingCode::draw(const AbstractModel *m)
    // This service knows at the moment only how to draw interpolated models
    const GPUInterpolatedModel *model = dynamic_cast<const GPUInterpolatedModel*>(m);
    
-   frameRenderingStatistics_.startTimer();
+   lastFrameRenderingStatistics_.resetStatistics();
+   lastFrameRenderingStatistics_.startTimer();
+   allFrameRenderingStatistics_.startTimer();
    
    // Make sure that model is not precalculated at this point (otherwise, our measurement is not correct)
    if (!wasModelDrawn_  ||  !model->isModelCalculated())
@@ -340,9 +347,15 @@ void OpenGLDrawingCode::draw(const AbstractModel *m)
       moxelCalculationStatistics_.startTimer();
       model->forceModelCalculation();
       
+      long numMoxelsRendered = model->getSizeX() * model->getSizeY();
+      
       // Update statistics for the model calculation
       moxelCalculationStatistics_.stopTimer();
-      moxelCalculationStatistics_.addAggregateStatistics(model->getSizeX() * model->getSizeY());
+      moxelCalculationStatistics_.addAggregateStatistics(numMoxelsRendered);
+      
+      lastFrameRenderingStatistics_.stopTimer();
+      lastFrameRenderingStatistics_.addAggregateStatistics(numMoxelsRendered);
+      
       wasModelDrawn_ = true;
    }
    
@@ -402,6 +415,6 @@ void OpenGLDrawingCode::draw(const AbstractModel *m)
    swapBuffers();
    
    // Update statistics for one more frame rendered
-   frameRenderingStatistics_.stopTimer();
-   frameRenderingStatistics_.addAggregateStatistics(1.0);
+   allFrameRenderingStatistics_.stopTimer();
+   allFrameRenderingStatistics_.addAggregateStatistics(1.0);
 }

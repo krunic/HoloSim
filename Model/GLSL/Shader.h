@@ -139,13 +139,18 @@ public:
    {
       return shaderActive_;
    }
+   
+   /**
+    * Name of the uniform variable holding current timeslice
+    */
+   static const char *TIMESLICE_NAME;
   
 private:
    
    // Prevent copy
    Shader(const Shader &rhs);
    Shader & operator=(const Shader &rhs);
-   
+      
    /**
     * Create and link program object associated with this two shaders
     *

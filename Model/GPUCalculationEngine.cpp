@@ -74,11 +74,10 @@
 using namespace hdsim;
 using namespace std;
 
-const char *GPUCalculationEngine::TIMESLICE_NAME = "timeSlice";
-const char *GPUCalculationEngine::BUNDLED_SHADER_NAME = "SlowInSlowOut.fs";
-const char *GPUCalculationEngine::UNBUNDLED_SHADER_NAME = "NullOpFragmentShader.fs";
+// Default shader to use if no other is available. It must exist in current working directory
+static const char *NULL_SHADER_NAME = "./NullOpFragmentShader.fs";
 
-GPUCalculationEngine::GPUCalculationEngine() : wasInitialized_(false), width_(0), height_(0), renderedDepth_(0), useBundledShaders_(true), timeSlice_(0)
+GPUCalculationEngine::GPUCalculationEngine() : wasInitialized_(false), width_(0), height_(0), renderedDepth_(0), timeSlice_(0)
 {
 }
 
@@ -90,40 +89,25 @@ GPUCalculationEngine::~GPUCalculationEngine()
    }
 }
 
-bool GPUCalculationEngine::getPathToShaderFileAdopt(std::string *path) const
+bool GPUCalculationEngine::getPathToShaderFileAdopt(const GPUGeometryModel *model, std::string *path) const
 {
    const int MAX_PATH_SIZE = 1024;
    char pathToFile[MAX_PATH_SIZE];
+
+   if (strlen(model->getPathToShaderSource()) > MAX_PATH_SIZE - 1)
+		return false;
    
-   if (getUseBundledShaders())
+   // If shader is not set, then use shader in the same directory
+   if (strlen(model->getPathToShaderSource()) == 0)
    {
-      CFURLRef fileURL;
-
-      CFBundleRef applicationBundle = CFBundleGetMainBundle();
-      
-      // Look for the resource in the main bundle by name and type.
-      fileURL = CFBundleCopyResourceURL(applicationBundle,
-                                        CFStringCreateWithCString(0, BUNDLED_SHADER_NAME, kCFStringEncodingASCII),
-                                        0, 0);
-      
-      if (!fileURL)
-      {
-         return false;
-      }
-      
-      if (!CFURLGetFileSystemRepresentation(fileURL, true, (UInt8 *)pathToFile, MAX_PATH_SIZE))
-      {
-         return false;
-      }
-
-      *path = pathToFile;
+		strcpy(pathToFile, NULL_SHADER_NAME);
    }
-   else 
+   else
    {
-      // Unbundled file must be in the current working directory
-		sprintf(pathToFile, "./%s", UNBUNDLED_SHADER_NAME);      
-      *path = pathToFile;
+      strcpy(pathToFile, model->getPathToShaderSource());      
    }
+   
+   *path = pathToFile;
    
    return true;
 }
@@ -162,11 +146,7 @@ void GPUCalculationEngine::calculateEngine(const AbstractModel *model)
    CHECK(!getAndResetGLErrorStatus(), "Error binding frameBuffer");
 
    CHECK(shader_.setShaderActive(true), "Can't set shader");
-
-   if (getUseBundledShaders()) 
-   {
-      CHECK(shader_.setShaderVariable(TIMESLICE_NAME, getTimeSlice()), "Can't reset shader");
-   }
+	CHECK(shader_.setShaderVariable(Shader::TIMESLICE_NAME, getTimeSlice()), "Can't reset shader");
    
    GLuint status = glCheckFramebufferStatusEXT(GL_FRAMEBUFFER_EXT);
    if (status != GL_FRAMEBUFFER_COMPLETE_EXT)
@@ -310,9 +290,9 @@ void GPUCalculationEngine::initialize(const AbstractModel *model)
    CHECK(status, "Can't initialize frame buffer");
 
    string pathToShaderSource;
-            
-   status = getPathToShaderFileAdopt(&pathToShaderSource);
-   CHECK(status, "Can't find file in bundle");
+
+   status = getPathToShaderFileAdopt(geometryModel, &pathToShaderSource);
+   CHECK(status, "Can't find shader source");
       
    status = shader_.initializeWithFragmentShaderOnly(pathToShaderSource.c_str());
    CHECK(status, "Can't initilize shader");

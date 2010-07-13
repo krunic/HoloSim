@@ -148,6 +148,7 @@
    }
    
    contextInitalized = NO;
+   
    [self prepare];
    return self;
 }
@@ -318,7 +319,9 @@
    drawer->setRotationAngles([xSlider floatValue], [ySlider floatValue], [zSlider floatValue]);
    mouseAdapter->setMinFOV([fovSlider minValue]);
    mouseAdapter->setMaxFOV([fovSlider maxValue]);
-   animationRunning = NO;
+	animationRunning = NO;
+   minMoxelsPerSecond = -1;
+   maxMoxelsPerSecond = -1;
 
    openGLAnimationTimer = nil;   
    [self setupAnimation];
@@ -622,16 +625,36 @@ void normalizeBounds(double *minX, double *maxX, double *minY, double *maxY, dou
    drawer->draw(m);
    
    // Get statistics
-   Statistics fpsStatistics = drawer->getFrameRenderingStatistics();
+   Statistics fpsStatistics = drawer->getAllFrameRenderingStatistics();
    Statistics moxelCalculationStatistics = drawer->getMoxelCalculationStatistics();
+   Statistics lastFrameStatistics = drawer->getLastFrameRenderingStatistics();
    
    double timeRendering = fpsStatistics.getElapsedTimeInMicroSeconds();
    double timeCalulatingMoxels = moxelCalculationStatistics.getElapsedTimeInMicroSeconds();
    
    double fps = fpsStatistics.getTimeAveragedStatistics();
    
-   double moxelsPerSecond = moxelCalculationStatistics.getTimeAveragedStatistics();
+   double averageMoxelsPerSecond = moxelCalculationStatistics.getTimeAveragedStatistics();
+   double moxelsPerSecond = lastFrameStatistics.getTimeAveragedStatistics();
+   
    double ratioInRendering = timeCalulatingMoxels / timeRendering;
+   
+   long numMoxels = m->getSizeX() * m->getSizeY();
+   
+   // First time performance is initial min (and we know it is first time because min is < 0)
+   CHECK(!(minMoxelsPerSecond >= 0  &&  maxMoxelsPerSecond < 0), "Initialization not performed correctly");
+   CHECK(!(minMoxelsPerSecond < 0  &&  maxMoxelsPerSecond >= 0), "Initialization not performed correctly");
+   
+   if (minMoxelsPerSecond < 0  &&  maxMoxelsPerSecond < 0)
+   {
+      minMoxelsPerSecond = moxelsPerSecond;
+      maxMoxelsPerSecond = moxelsPerSecond;
+   }
+   else 
+   {
+      minMoxelsPerSecond = moxelsPerSecond < minMoxelsPerSecond ? moxelsPerSecond : minMoxelsPerSecond;
+      maxMoxelsPerSecond = moxelsPerSecond > maxMoxelsPerSecond ? moxelsPerSecond : maxMoxelsPerSecond;
+   }
 
    // To protect versus overflow
    CHECK(fps >= 0, "FPS overflow");
@@ -646,7 +669,11 @@ void normalizeBounds(double *minX, double *maxX, double *minY, double *maxY, dou
    [fovSlider setFloatValue:[self recalcFOVToSlider:drawer->getFOV()]];
    [percentageLabel setFloatValue:ratioInRendering];
    [framesPerSecondCounterLabel setFloatValue:fps];
-   [moxelsPerSecondCounterLabel setFloatValue:moxelsPerSecond];
+   [meanMoxelsPerSecondCounterLabel setFloatValue:averageMoxelsPerSecond];
+   [minMoxelsPerSecondAchievedCounterLabel setFloatValue:minMoxelsPerSecond];
+   [maxMoxelsPerSecondAchievedCounterLabel setFloatValue:maxMoxelsPerSecond];
+   [lastFrameMoxelsPerSecondCounterLabel setFloatValue:moxelsPerSecond];
+   [numMoxelsLabel setIntValue:numMoxels];
      
    [context flushBuffer];
 }

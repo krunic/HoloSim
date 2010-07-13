@@ -18,6 +18,13 @@
 using namespace hdsim;
 using namespace std;
 
+static void printErorrMessage(const string &fileName, const string &line)
+{
+   stringstream message;
+   message << "Error encountered in file " << fileName << " in line " << line;
+   LOG(message.str().c_str());
+}
+
 GPUGeometryModel::GPUGeometryModel() : sizeX_(0), sizeY_(0), boundMinX_(0), boundMaxX_(0), 
 													boundMinY_(0), boundMaxY_(0), boundMinZ_(0), boundMaxZ_(0),
 												   renderedAreaMinX_(0), renderedAreaMinY_(0), renderedAreaMaxX_(0), 
@@ -142,11 +149,13 @@ bool GPUGeometryModel::readFromFile(const std::string &fileName)
    
    if (!getline(inputStream, line))
    {
+      printErorrMessage(fileName, line);
       return false;
    }
    
    if (line != getModelName())
    {
+      printErorrMessage(fileName, line);
       return false;
    }
    
@@ -155,21 +164,25 @@ bool GPUGeometryModel::readFromFile(const std::string &fileName)
    
    if (!getline(inputStream, line))
    {
+      printErorrMessage(fileName, line);
       return false;
    }
    
    if (!stringToNumber(line, &x))
    {
+      printErorrMessage(fileName, line);
       return false;
    }
    
    if (!getline(inputStream, line))
    {
+      printErorrMessage(fileName, line);
       return false;
    }
    
    if (!stringToNumber(line, &y))
    {
+      printErorrMessage(fileName, line);
       return false;
    }
 
@@ -179,11 +192,40 @@ bool GPUGeometryModel::readFromFile(const std::string &fileName)
    // Next line is collada filename
    if (!getline(inputStream, line))
    {
+      printErorrMessage(fileName, line);
       return false;
    }
    
    // That filename is relative to the file we are reading from
-   return loadCollada(getFileNameInSameDirAsOriginalFile(fileName, line).c_str(), *this);
+   if (!loadCollada(getFileNameInSameDirAsOriginalFile(fileName, line).c_str(), *this))
+   {
+      printErorrMessage(fileName, line);
+      return false;
+   }
+   
+   // Next line is name of the shader to use
+   if (!getline(inputStream, line))
+   {
+      printErorrMessage(fileName, line);
+      return false;
+   }
+   
+   string pathToShader;
+   
+   setPathToShaderSource(getFileNameInSameDirAsOriginalFile(pathToShader, line).c_str());
+   
+   // And this one is name of the 1D texture to use
+   if (!getline(inputStream, line))
+   {
+      printErorrMessage(fileName, line);
+      return false;
+   }
+   
+   string pathTo1DTexture;
+
+   setPathTo1DTexture(getFileNameInSameDirAsOriginalFile(pathTo1DTexture, line).c_str());
+   
+   return true;
 }
 
 void GPUGeometryModel::setTimeSlice(double timeSlice)
@@ -199,17 +241,3 @@ double GPUGeometryModel::getTimeSlice() const
    PRECONDITION(calculationEngine_);
    return calculationEngine_->getTimeSlice();
 }
-
-void GPUGeometryModel::setUseBundledShaders(bool useShaders)
-{
-   PRECONDITION(calculationEngine_);
-   calculationEngine_->setUseBundledShaders(useShaders);
-}
-
-bool GPUGeometryModel::getUseBundledShaders() const
-{
-   PRECONDITION(calculationEngine_);
-   
-   return calculationEngine_->getUseBundledShaders();
-}
-

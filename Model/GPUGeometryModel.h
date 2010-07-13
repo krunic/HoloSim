@@ -384,20 +384,6 @@ namespace hdsim {
       }
       
       /**
-       * Set should shaders bundled with app be used when geometry model is calculated
-       * 
-       * @param useShaders - should shaders be used
-       */
-      virtual void setUseBundledShaders(bool useShaders);
-      
-      /**
-       * Get should shaders be used when geometry model is calculated
-       * 
-       * @return are shaders used
-       */
-      virtual bool getUseBundledShaders() const;
-      
-      /**
        * Get is model calculated or there are still calculations to perform that are pending
        *
        * @return Is model calculated
@@ -408,6 +394,46 @@ namespace hdsim {
        * Perform all calculations on the model
        */
       virtual void forceModelCalculation() const;
+      
+      /**
+       * Get the path to the shader source
+       *
+       * @return Path to shader source
+       */
+      virtual const char *getPathToShaderSource() const
+      {
+         return pathToShaderSource_.c_str();
+      }
+      
+      /**
+       * Set the path to the shader source
+       *
+       * @param path Path to the source
+       */
+      virtual void setPathToShaderSource(const char *path)
+      {
+         pathToShaderSource_ = path;
+      }
+      
+      /**
+       * Get the path to 1D texture
+       *
+       * @return Path to shader source
+       */
+      virtual const char *getPathTo1DTexture() const
+      {
+         return pathTo1DTexture_.c_str();
+      }
+      
+      /**
+       * Set the path to the 1D texture
+       *
+       * @param path Path to the source
+       */
+      virtual void setPathTo1DTexture(const char *path)
+      {
+         pathTo1DTexture_ = path;
+      }
       
    private:
       
@@ -431,6 +457,16 @@ namespace hdsim {
        * caching, not to the model state (model state for cached and non-cached object is considered the same)
        */
       mutable bool changedSinceLastRecalc_;
+      
+      /**
+       * Path to the shader source
+       */
+      std::string pathToShaderSource_;
+      
+      /**
+       * Path to 1D texture
+       */
+      std::string pathTo1DTexture_;
       
       /**
        * Copy value from rhs to this object

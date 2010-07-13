@@ -68,6 +68,9 @@
 using namespace std;
 using namespace hdsim;
 
+const char *Shader::TIMESLICE_NAME = "timeSlice";
+
+
 /**
  * Load shader
  *
@@ -265,14 +268,20 @@ static GLhandleARB loadShader(GLenum shaderType, const char *shaderSourceFileNam
 static GLint getUniformLocation(const char *uniformName, GLhandleARB programObject, GLint *uniformLocation)
 {
 	GLint location = glGetUniformLocationARB(programObject, uniformName);
-	
+
+	// GLSL spec allows compiler to optimize away variables that are not used. As a result, not all of the -1 returns on 
+   // location are result of the errors. As it is in the spec, it is not subject to discussion is this sane behavior - we 
+   // have to live with it.
 	if (location == -1) 
 	{
-      stringstream message;
-      message << "No such uniform named " << uniformName;
-      LOG(message.str().c_str());
-      return false;
-	}
+      if (getAndResetGLErrorStatus())
+      {
+         stringstream message;
+         message << "No such uniform named " << uniformName;
+         LOG(message.str().c_str());
+         return false;    
+      }
+ 	}
    
    *uniformLocation = location;
 	
@@ -450,9 +459,15 @@ bool Shader::initializeWithFragmentShaderOnly(const char *fragmentShaderFileName
    }
    
    // Create a program object and link both shaders
-   wasInitialized_ = prepareFragmentShaderOnly(fragmentShader);
+   if (!prepareFragmentShaderOnly(fragmentShader))
+   {
+      return false;
+   }
+   
    glDeleteObjectARB(fragmentShader);
-   return wasInitialized_;
+   
+   wasInitialized_ = true;
+   return true;
 }
 
 bool Shader::setShaderVariable(const char *uniformName, double value)
@@ -460,15 +475,14 @@ bool Shader::setShaderVariable(const char *uniformName, double value)
    PRECONDITION(wasInitialized_);
    
    GLint uniformLocation;
-   if (!getUniformLocation(uniformName, programObject_, &uniformLocation))
+   
+   // As compiler is free to optimize any uniform location that doesn't affect program output, the fact that getUniformLocation returned false is 
+   // not an error
+   if (getUniformLocation(uniformName, programObject_, &uniformLocation))
    {
-      stringstream message;
-      message << "Getting uniform location faild for " << uniformName;
-      LOG(message.str().c_str());
-      return false;
+      glUniform1fARB(uniformLocation, value);
    }
    
-   glUniform1fARB(uniformLocation, value);
    return !getAndResetGLErrorStatus();
 }
 
@@ -477,29 +491,31 @@ bool Shader::getShaderVariable(const char *name, double *value)
    PRECONDITION(wasInitialized_);
    
    GLint uniformLocation;
-   if (!getUniformLocation(name, programObject_, &uniformLocation))
-   {
-      stringstream message;
-      message << "Getting uniform location failed for " << name;
-      LOG(message.str().c_str());
-      return false;
-   }
-
-   GLfloat uniformValue;
-   glGetUniformfvARB(programObject_, uniformLocation, &uniformValue);
    
-   bool status = getAndResetGLErrorStatus();
-   
-   if (!status)
+   // As compiler is free to optimize any uniform location that doesn't affect program output, the fact that getUniformLocation returned false is 
+   // not an error
+   if (getUniformLocation(name, programObject_, &uniformLocation))
    {
-      *value = uniformValue;
-   }
+      GLfloat uniformValue;
+      glGetUniformfvARB(programObject_, uniformLocation, &uniformValue);
 
-   return status;
+      bool status = getAndResetGLErrorStatus();
+      
+      if (!status)
+      {
+         *value = uniformValue;
+      }
+
+      return status;
+	}
+
+	return true;
 }
 
 bool Shader::setShaderActive(bool shaderActive)
 {
+   PRECONDITION(wasInitialized_);
+   
    GLhandleARB handleToUse = shaderActive ? programObject_ : 0;
    
    glUseProgramObjectARB(handleToUse);

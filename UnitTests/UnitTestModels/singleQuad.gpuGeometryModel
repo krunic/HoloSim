@@ -2,3 +2,5 @@ GPUGeometryModel
 30
 30
 TestQuad.dae
+NullOpFragmentShader.fs
+Simple1Dtexture.tim

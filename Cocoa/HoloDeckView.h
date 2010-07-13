@@ -57,12 +57,32 @@ using namespace hdsim;
    /**
     * Moxel per second counter label
     */
-   IBOutlet id moxelsPerSecondCounterLabel;
+   IBOutlet id meanMoxelsPerSecondCounterLabel;
+   
+   /**
+    * Minimum number of moxels per second ever achieved
+    */
+   IBOutlet id minMoxelsPerSecondAchievedCounterLabel;
    
    /**
     * Percentage of time spent in moxel rendering label
     */
    IBOutlet id percentageLabel;
+   
+   /**
+    * Number of moxels in the model
+    */
+   IBOutlet id numMoxelsLabel;
+   
+   /**
+    * Max number of moxels per second achieved
+    */
+   IBOutlet id maxMoxelsPerSecondAchievedCounterLabel;
+   
+   /**
+    * Last frame rendering statistics
+    */
+   IBOutlet id lastFrameMoxelsPerSecondCounterLabel;
    
    /**
     * Tracking rectangle for mouse view
@@ -120,6 +140,16 @@ using namespace hdsim;
     * Pixel format when we are inited with separate pixel format
     */
    NSOpenGLPixelFormat *pixelFormat;
+   
+   /**
+    * Minimal number of moxels per second achieved
+    */
+   double minMoxelsPerSecond;
+   
+   /**
+    * Maximum number of moxels per second achieved
+    */
+   double maxMoxelsPerSecond;
 }
 
 /**

@@ -43,7 +43,8 @@ namespace hdsim {
       virtual void setFOV(double);
       virtual double getFOV() const;
       virtual Statistics getMoxelCalculationStatistics() const;
-      virtual Statistics getFrameRenderingStatistics() const;
+      virtual Statistics getAllFrameRenderingStatistics() const;
+      virtual Statistics getLastFrameRenderingStatistics() const;
       
    protected:
 
@@ -89,7 +90,12 @@ namespace hdsim {
       /**
        * Statistics related to frame rendering calculation
        */
-      Statistics frameRenderingStatistics_;
+      Statistics allFrameRenderingStatistics_;
+
+      /**
+       * Statistics related to frame rendering calculation
+       */
+      Statistics lastFrameRenderingStatistics_;
    };
    
 } // namespace

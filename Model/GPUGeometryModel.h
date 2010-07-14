@@ -1,10 +1,19 @@
 /*
- *  GPUGeometryModel.h
- *  HoloSim
+ * HoloSim, visualization and control of the moxel based environment.
  *
- *  Created by Veljko Krunic on 1/11/10.
- *  Copyright 2010 Veljko Krunic. All rights reserved.
+ * Copyright (C) 2010 Veljko Krunic
  *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Affero General Public License version 3 as
+ * published by the Free Software Foundation.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Affero General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
 #ifndef GPU_GEOMETRY_MODEL_H_
@@ -134,6 +143,16 @@ namespace hdsim {
        * @return Was read success
        */
       virtual bool readFromFile(const std::string &fileName);
+      
+      /**
+       * Get fileName from which model was loaded
+       *
+       * @return file name from which model was loaded
+       */
+      virtual const char *getFileName() const 
+      {
+         return fileName_.c_str();
+      }
       
       /**
        * Add new point to the model
@@ -391,6 +410,11 @@ namespace hdsim {
       virtual bool isModelCalculated() const;
       
       /**
+       * Set does model need recalculation
+       */
+      virtual void setNeedsRecalc();
+ 
+      /**
        * Perform all calculations on the model
        */
       virtual void forceModelCalculation() const;
@@ -464,9 +488,14 @@ namespace hdsim {
       std::string pathToShaderSource_;
       
       /**
-       * Path to 1D texture
+       * Path to 1D texture. This is for future use only and not currently passed to the fragment shader
        */
       std::string pathTo1DTexture_;
+      
+      /**
+       * Filename from which model was loaded
+       */
+      std::string fileName_;
       
       /**
        * Copy value from rhs to this object

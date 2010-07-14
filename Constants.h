@@ -1,10 +1,19 @@
 /*
- *  Constants.h
- *  HoloSim
+ * HoloSim, visualization and control of the moxel based environment.
  *
- *  Created by Veljko Krunic on 8/7/07 .
- *  Copyright © 2007-2010 Veljko Krunic. All rights reserved.
+ * Copyright (C) 2010 Veljko Krunic
  *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Affero General Public License version 3 as
+ * published by the Free Software Foundation.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Affero General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
 #ifndef CONSTANTS_H_
@@ -72,6 +81,26 @@ static const NSString *LOOP_ANIMATION_KEY = @"loopAnimation";
  * Preference key for animation duration control
  */
 static const NSString *ANIMATION_SPEED_KEY = @"animationSpeed";
+
+/**
+ * Preference key for drawing optimization
+ */
+static const NSString *OPTIMIZE_DRAWING_KEY = @"optimizeDrawing";
+
+/**
+ * Preference key for threshold for drawing optimization
+ */
+static const NSString *OPTIMIZE_THRESHOLD_KEY = @"optimizeThreshold";
+
+/**
+ * Preference key for log performances to file
+ */
+static const NSString *LOG_PERFORMANCE_KEY = @"logPerformance";
+
+/**
+ * Minimum value for optimizing threshold
+ */
+static const int MIN_OPTIMIZE_THRESHOLD = 4;
 
 /**
  * Min value for animation duration on scale

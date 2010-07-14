@@ -1,0 +1,15 @@
+Tested on the Mac OS X Leopard.
+
+To compile, you will need following libraries installed and compiled on your system:
+
+1. Colada-DOM 2.2 (Needed for Collada loading)
+2. CppUnit 1.12.1 (needed for unit testing)
+3. xerces-c-3.0.1-x86-macosx-gcc-4.0.tar (Needed for XML parsing)
+4. Zlib 1.2.3 (needed for some aspects of ColladaDOM)
+5. Doxygen++ (used for automated doc generation, currently uses hardcoded project path)
+
+Later versions might work, but have not been tested.
+
+Furthermore, you would need to change Doxygen file so that it points to the path in your home directory.
+
+Will get to cleaning this build process at some point in the future. 

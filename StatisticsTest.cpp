@@ -1,10 +1,19 @@
 /*
- *  StatisticsTest.cpp
- *  HoloSim
+ * HoloSim, visualization and control of the moxel based environment.
  *
- *  Created by Veljko Krunic on 7/9/10.
- *  Copyright 2010 Veljko Krunic. All rights reserved.
+ * Copyright (C) 2010 Veljko Krunic
  *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Affero General Public License version 3 as
+ * published by the Free Software Foundation.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Affero General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
 #include <cppunit/extensions/HelperMacros.h>
@@ -22,7 +31,8 @@ using namespace std;
 
 CPPUNIT_TEST_SUITE_REGISTRATION(StatisticsTest);
 
-static const double MAX_RELATIVE_ERROR = 0.005;
+static const double MAX_RELATIVE_ERROR = 0.005;   
+static const double MICROSECONDS_IN_SECOND = 1000000;
 
 StatisticsTest::StatisticsTest()
 {
@@ -155,7 +165,6 @@ void StatisticsTest::testElapsedTime()
 
 void StatisticsTest::testAggregateElapsedTime()
 {
-   static const double MICROSECONDS_IN_SECOND = 1000000;
    static const long TEST_INTERVAL = MICROSECONDS_IN_SECOND / 20;
    static const int NUM_INTERVALS_RUNNING = 3;
    static const double STATISTICS_VALUE_IN_PERIOD = 0.1;
@@ -195,4 +204,50 @@ void StatisticsTest::testAggregation()
    testFixture.addAggregateStatistics(1.0);
    
    CPPUNIT_ASSERT_MESSAGE("Aggregation doesn't work properly", areEqual(testFixture.getAggregateStatistics(), 2.0));
+}
+
+void StatisticsTest::testRateIsCorrect()
+{
+   static const long CALC_DURATION = (long) floor(0.1 * MICROSECONDS_IN_SECOND);
+   static const long SAMPLES_IN_INTERVAL = 100;
+   
+   static const double EXPECTED_RESULT = 0.5;
+   
+   Statistics firstIntervalTimer;
+   Statistics secondIntervalTimer;
+   
+   firstIntervalTimer.startTimer();
+   secondIntervalTimer.startTimer();
+
+   	busyWaitDelay(CALC_DURATION);
+
+   firstIntervalTimer.stopTimer();
+   secondIntervalTimer.stopTimer();
+   
+   secondIntervalTimer.startTimer();
+   	busyWaitDelay(CALC_DURATION);
+   secondIntervalTimer.stopTimer();
+   
+   firstIntervalTimer.addAggregateStatistics(SAMPLES_IN_INTERVAL);
+   secondIntervalTimer.addAggregateStatistics(SAMPLES_IN_INTERVAL);
+   
+   double firstIntervalResult = firstIntervalTimer.getTimeAveragedStatistics();
+   double secondIntervalResult = secondIntervalTimer.getTimeAveragedStatistics();
+   
+   double ratio = secondIntervalResult / firstIntervalResult;
+   
+   double relativeError = fabs(ratio - EXPECTED_RESULT) / EXPECTED_RESULT;
+   
+   stringstream message;
+   message << "Timers are not averaging correctly, relative error is " << relativeError * 100 << "%";
+   CPPUNIT_ASSERT_MESSAGE(message.str().c_str(), relativeError <= MAX_RELATIVE_ERROR);
+
+   message.clear();
+   
+   ratio = firstIntervalTimer.getElapsedTimeInMicroSeconds() / (double) secondIntervalTimer.getElapsedTimeInMicroSeconds();
+   
+   relativeError = fabs(ratio - EXPECTED_RESULT) / EXPECTED_RESULT;
+
+   message << "Timers are not averaging correctly, relative error is " << relativeError * 100 << "%";
+   CPPUNIT_ASSERT_MESSAGE(message.str().c_str(), relativeError <= MAX_RELATIVE_ERROR);
 }

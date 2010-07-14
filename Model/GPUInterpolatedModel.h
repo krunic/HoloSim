@@ -1,17 +1,27 @@
 /*
- *  GPUInterpolatedModel.h
- *  HoloSim
+ * HoloSim, visualization and control of the moxel based environment.
  *
- *  Created by Veljko Krunic on 2/4/10.
- *  Copyright 2010 Veljko Krunic. All rights reserved.
+ * Copyright (C) 2010 Veljko Krunic
  *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Affero General Public License version 3 as
+ * published by the Free Software Foundation.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Affero General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
 #ifndef GPU_INTERPOLATED_MODEL_H_
-#define GPU_INTERPOLATED_MODLE_H_
+#define GPU_INTERPOLATED_MODEL_H_
 
 #include "GPUGeometryModel.h"
 #include "SimpleDesignByContract.h"
+#include "Statistics.h"
 
 #include <string>
 
@@ -71,26 +81,20 @@ namespace hdsim {
       
       virtual double getAt(int x, int y) const;
       virtual AbstractModel *cloneOrphan() const;
+      virtual int getSizeX() const;
+      virtual int getSizeY() const;
       
       /**
-       * Get model size in X direction
+       * Get model that is reduced on xSize, ySize dimensions. It would apply box filter on all the cells in the model, with the rightmost and bottom part holding 
+       * any "extra" cells if m->getSizeX() is not exactly divisible with xSize (and respective for ySize
        *
-       * @return Model size at X direction
+       * @param m Model to use
+       * @param xSize X size of the decimated model
+       * @param ySize Y size of the decimated model       
+       * 
+       * @return Pointer to the 1D array of doubles holding decimated size, stored so that [x][y] corresponds to [y * ySize + x]. Caller is responsible for invoking delete [] on this pointer
        */
-      virtual int getSizeX() const
-      {
-         return model_.getSizeX();
-      }
-      
-      /**
-       * Get model size in Y direction
-       *
-       * @return Model size at Y direction
-       */
-      virtual int getSizeY() const
-      {
-         return model_.getSizeY();
-      }
+      static double *getDecimatedModelAdopt(const AbstractModel *m, int xSize, int ySize);
       
       /**
        * Set current value of timeslice. This is opportunity to do internal caching, if subclass wants to do it
@@ -247,6 +251,113 @@ namespace hdsim {
        */
       virtual void forceModelCalculation() const;
       
+      /**
+       * Get fileName from which model was loaded
+       *
+       * @return file name from which model was loaded
+       */
+      virtual const char *getFileName() const 
+      {
+         return fileName_.c_str();
+      }
+      
+      /**
+       * Set should we optimize drawing if the number of moxels exceeds threshold
+       */
+      virtual void setOptimizeDrawing(bool optimize)
+      {
+         if (optimizeDrawing_ != optimize)
+         {
+         	model_.setNeedsRecalc();
+            optimizeDrawing_ = optimize;   
+         }
+      }
+      
+      /**
+       * Get should we optimize drawing if the number of moxels exceeds threshold
+       *
+       * @return Should we optimize drawing
+       */
+      virtual bool getOptimizeDrawing() const
+      {
+         return optimizeDrawing_;
+      }
+      
+      /**
+       * Set moxel optimization threshold. If we optimize drawing, resulting model drawn would have this many moxels
+       *
+       * @param threshold Max number of moxels in optimized model
+       */
+      virtual void setMoxelThreshold(int threshold)
+      {
+         if (threshold != optimizeDrawingThreshold_)
+         {
+            model_.setNeedsRecalc();
+            optimizeDrawingThreshold_ = threshold;
+         }
+      }
+      
+      /**
+       * Get moxel optimization threshold. If we optimize drawing, resulting model drawn would have this many moxels
+       *
+       * @return Max number of moxels in optimized model
+       */
+      virtual int getMoxelThreshold() const
+      {
+         return optimizeDrawingThreshold_;
+      }
+      
+      /**
+       * Get recommended model size for optimized drawing
+       *
+       * PRECONDITION Optimized drawing must be enabled
+       *
+       * @return Recommended model size for drawing in X direction
+       */
+      virtual int getModelSizeForOptimizedDrawingX() const;
+      
+      /**
+       * Get recommended model size for optimized drawing
+       *
+       * PRECONDITION Optimized drawing must be enabled
+       *
+       * @return Recommended model size for drawing in Y direction
+       */
+      virtual int getModelSizeForOptimizedDrawingY() const;
+   
+      /**
+       * Is this model currently optimizing content
+       */
+      virtual bool isDrawingOptimizationActive() const;
+      
+      /**
+       * Get total num moxels in the model. This doesn't depend on is model optimizing drawing or not
+       * 
+       * @return Total number of moxels
+       */
+      virtual int getTotalNumMoxels() const
+      {
+         return model_.getSizeX() * model_.getSizeY();
+      }
+      
+      /**
+       * Get moxel rendering statistics for the last frame in which moxels were rendered
+       */
+      virtual Statistics getLastRenderedFrameMoxelStatistics() const
+      {
+         return lastMoxelRenderingStatistics_;
+   	}
+      
+      /**
+       * Get statistics related to moxel calculation
+       *
+       * @return Statistics related to moxel calculation
+       */
+      virtual Statistics getMoxelCalculationStatistics() const 
+      {
+         return moxelCalculationStatistics_;
+      }
+      
    private:
       
       /**
@@ -274,6 +385,46 @@ namespace hdsim {
        * Timeslice at which we should be
        */
       double timeSlice_;
+      
+      /**
+       * Filename from which model was loaded
+       */
+      std::string fileName_;
+      
+      /**
+       * Should we optimize drawing
+       */
+      bool optimizeDrawing_;
+      
+      /**
+       * Threshold for number of moxels in model that, if exceeded, cuases us to optimize drawing
+       */
+      int optimizeDrawingThreshold_;
+      
+      /**
+       * Statistics for rendering last frame of moxels
+       */
+      mutable Statistics lastMoxelRenderingStatistics_;
+      
+      /**
+       * Statistics related to moxel calculation
+       */
+      mutable Statistics moxelCalculationStatistics_;
+      
+      /**
+       * Optimized model size in X
+       */
+      mutable int optimizedModelSizeX_;
+      
+      /**
+       * Optimized model size in Y
+       */
+      mutable int optimizedModelSizeY_;
+      
+      /**
+       * Simplified model
+       */
+      mutable double *decimatedModel_;
    };
    
    /** 

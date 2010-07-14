@@ -1,10 +1,19 @@
 /*
- *  drawingCode.h
- *  HoloSim
+ * HoloSim, visualization and control of the moxel based environment.
  *
- *  Created by Veljko Krunic on 4/14/07.
- *  Copyright © 2007-2010 Veljko Krunic. All rights reserved.
+ * Copyright (C) 2010 Veljko Krunic
  *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Affero General Public License version 3 as
+ * published by the Free Software Foundation.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Affero General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
 #ifndef OPENGL_DRAWING_CODE_H_ 
@@ -16,7 +25,10 @@
 
 #include "AbstractDrawingCode.h"
 
+
 namespace hdsim {
+
+   class GPUGeometryModel;
 
    /**
     * This is OpenGL based renderer. See DrawingCode for the contract of its methods
@@ -42,10 +54,8 @@ namespace hdsim {
       virtual double getAspectRatio() const;
       virtual void setFOV(double);
       virtual double getFOV() const;
-      virtual Statistics getMoxelCalculationStatistics() const;
       virtual Statistics getAllFrameRenderingStatistics() const;
-      virtual Statistics getLastFrameRenderingStatistics() const;
-      
+            
    protected:
 
       /**
@@ -81,21 +91,11 @@ namespace hdsim {
        * Was model drawn at least once
        */
       bool wasModelDrawn_;
-      
-      /**
-       * Statistics related to moxel calculation
-       */
-      Statistics moxelCalculationStatistics_;
-      
+            
       /**
        * Statistics related to frame rendering calculation
        */
       Statistics allFrameRenderingStatistics_;
-
-      /**
-       * Statistics related to frame rendering calculation
-       */
-      Statistics lastFrameRenderingStatistics_;
    };
    
 } // namespace

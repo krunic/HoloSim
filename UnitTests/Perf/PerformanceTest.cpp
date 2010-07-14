@@ -1,10 +1,19 @@
 /*
- *  PerformanceTest.cpp
- *  HoloSim
+ * HoloSim, visualization and control of the moxel based environment.
  *
- *  Created by Veljko Krunic on 7/6/10.
- *  Copyright 2010 Veljko Krunic. All rights reserved.
+ * Copyright (C) 2010 Veljko Krunic
  *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Affero General Public License version 3 as
+ * published by the Free Software Foundation.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Affero General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
 #include <cppunit/extensions/HelperMacros.h>
@@ -167,17 +176,16 @@ void PerformanceTest::tearDown()
 void PerformanceTest::testStatedPerforance()
 {
    // Lets do single triangle on square
-   static const int X_DIMENSION = 500;
-   static const int Y_DIMENSION = 500;
+   static const int X_DIMENSION = 100;
+   static const int Y_DIMENSION = 100;
    static const int NUM_MOXELS = X_DIMENSION * Y_DIMENSION;
    
    long timeElapsed = drawTriangleAndMeasureTimeInMicroSeconds(X_DIMENSION, Y_DIMENSION);
    
    double achievedMoxelsPerSecond = 1000000 * ((double)NUM_MOXELS)/timeElapsed;
    
-   // This was agreed as min performance for my PhD thesis. Actually, we are using 10M as opposed to 100,000 that were negotiated, to show that we have much faster computation
-   // then min required
-   static const double STATED_MOXELS_PER_SECOND = 10000000.0;
+   // This was agreed as min performance for my PhD thesis
+   static const double STATED_MOXELS_PER_SECOND = 500000.0;
    
    char message[1024];
    sprintf(message, "We are achieving only %lf instead of the stated %lf moxels per second", achievedMoxelsPerSecond, STATED_MOXELS_PER_SECOND);
@@ -186,7 +194,7 @@ void PerformanceTest::testStatedPerforance()
 
 void PerformanceTest::testTimerGenerallyWorks()
 {
-   static const long TIME_TO_WAIT_IN_MICROSECONDS = 500000;
+   static const long TIME_TO_WAIT_IN_MICROSECONDS = 50000;
    
    // max relative error is 1% for timer resolution at TIME_TO_WAIT to be considered generally acceptable
    static const double MAX_RELATIVE_ERROR = 0.005;

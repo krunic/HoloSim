@@ -1,10 +1,19 @@
 /*
- *  AbstractDrawingCode.h
- *  HoloSim
+ * HoloSim, visualization and control of the moxel based environment.
  *
- *  Created by Veljko Krunic on 7/27/07.
- *  Copyright © 2007-2010 Veljko Krunic. All rights reserved.
+ * Copyright (C) 2010 Veljko Krunic
  *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Affero General Public License version 3 as
+ * published by the Free Software Foundation.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Affero General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
 #ifndef ABSRACT_DRAWING_CODE_H_
@@ -81,25 +90,11 @@ namespace hdsim {
       virtual double getFOV() const = 0;
       
       /**
-       * Get statistics related to moxel calculation
-       *
-       * @return Statistics related to moxel calculation
-       */
-      virtual Statistics getMoxelCalculationStatistics() const = 0;
-
-      /**
        * Get statistics related to frame rendering for all frames rendered so far
        *
        * @return Statistics related to frame rendering
        */
       virtual Statistics getAllFrameRenderingStatistics() const = 0;
-      
-      /**
-       * Get statistics related to frame rendering for last rendered frame only
-       *
-       * @return Statistics related to frame rendering
-       */
-      virtual Statistics getLastFrameRenderingStatistics() const = 0;
       
       /**
        * Set what are initial rotation angles for the view. Angles are given in degrees, and view is rotated around center of the view for that many degrees before drawing.

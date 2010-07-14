@@ -1,10 +1,19 @@
 /*
- *  GPUGeometryModelTest.cpp
- *  HoloSim
+ * HoloSim, visualization and control of the moxel based environment.
  *
- *  Created by Veljko Krunic on 1/12/10.
- *  Copyright 2010 Veljko Krunic. All rights reserved.
+ * Copyright (C) 2010 Veljko Krunic
  *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Affero General Public License version 3 as
+ * published by the Free Software Foundation.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Affero General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
 #include <cppunit/extensions/HelperMacros.h>
@@ -220,8 +229,11 @@ void GPUGeometryModelTest::testDiferentDimsAreNonEqual()
 void GPUGeometryModelTest::testLoadModel()
 {
    GPUGeometryModel testFixture;
+   static const char *FILE_NAME = "singleQuad.gpuGeometryModel";
 
-   CPPUNIT_ASSERT_MESSAGE("Model load failed", testFixture.readFromFile("singleQuad.gpuGeometryModel"));
+   CPPUNIT_ASSERT_MESSAGE("Model load failed", testFixture.readFromFile(FILE_NAME));
+   
+   CPPUNIT_ASSERT_MESSAGE("Invalid file name", !strcmp(testFixture.getFileName(), FILE_NAME));
    
    // 30 times 30 model of quad with 4 points and 2 triangles
    CPPUNIT_ASSERT_MESSAGE("Invalid dimensions read", testFixture.getSizeX() == 30  &&  testFixture.getSizeY() == 30);

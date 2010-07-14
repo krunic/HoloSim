@@ -1,10 +1,19 @@
 /*
- *  StatisticsTest.h
- *  HoloSim
+ * HoloSim, visualization and control of the moxel based environment.
  *
- *  Created by Veljko Krunic on 7/9/10.
- *  Copyright 2010 Veljko Krunic. All rights reserved.
+ * Copyright (C) 2010 Veljko Krunic
  *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Affero General Public License version 3 as
+ * published by the Free Software Foundation.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Affero General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
 #ifndef STATISTICS_TEST_H_
@@ -22,6 +31,7 @@ namespace hdsim {
       	CPPUNIT_TEST(testElapsedTime);
       	CPPUNIT_TEST(testAggregation);
       	CPPUNIT_TEST(testAggregateElapsedTime);
+      	CPPUNIT_TEST(testRateIsCorrect);
       CPPUNIT_TEST_SUITE_END();
       
    public:
@@ -70,7 +80,12 @@ namespace hdsim {
        * Test that when we have multiple starts and stops, we are still getting correct statistics
        */
       void testAggregateElapsedTime();
-            
+         
+      /**
+       * Test that slower time to finish translates in slower rate
+       */
+      void testRateIsCorrect();
+      
    private:
       // define
       StatisticsTest(const StatisticsTest &rhs);   

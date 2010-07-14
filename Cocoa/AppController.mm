@@ -1,10 +1,20 @@
-//
-//  AppController.m
-//  HoloSim
-//
-//  Created by Veljko Krunic on 8/6/07.
-//  Copyright © 2007-2010 Veljko Krunic. All rights reserved.
-//
+/*
+ * HoloSim, visualization and control of the moxel based environment.
+ *
+ * Copyright (C) 2010 Veljko Krunic
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Affero General Public License version 3 as
+ * published by the Free Software Foundation.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Affero General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
 
 #import "AppController.h"
 #import "HoloSimDocument.h"
@@ -89,8 +99,38 @@
       [document setLoopAnimation:loopAnimation];
 }
 
+- (IBAction)optimizeDrawingChanged:(id)sender
+{
+   NSEnumerator *e = [[[NSApplication sharedApplication] orderedDocuments] objectEnumerator];
+   optimizeDrawing = [sender state] == NSOnState;
+   
+   HoloSimDocument *document;
+   while (document = [e nextObject]) 
+      [document setOptimizeDrawing:optimizeDrawing];
+}
+
+- (IBAction)optimizeDrawingThresholdChanged:(id)sender
+{
+   NSEnumerator *e = [[[NSApplication sharedApplication] orderedDocuments] objectEnumerator];
+   optimizeDrawingThreshold = [sender intValue];
+   
+   HoloSimDocument *document;
+   while (document = [e nextObject]) 
+      [document setOptimizeDrawingThreshold:optimizeDrawingThreshold];
+}
+
+- (IBAction)logPerformanceChanged:(id)sender
+{
+   NSEnumerator *e = [[[NSApplication sharedApplication] orderedDocuments] objectEnumerator];
+   logPerformance = [sender state] == NSOnState;
+   
+   HoloSimDocument *document;
+   while (document = [e nextObject]) 
+      [document setLogPerformance:logPerformance];
+}
+
 /**
-* Prepare document with all parameters in the view
+ * Prepare document with all parameters in the view
  *
  * @param document Document to use
  */
@@ -100,6 +140,9 @@
    [document setMouseZoomSpeed:zoomRatio];
    [document setMouseRotationSpeed:rotationRatio];
    [document setInterframeDistance:interframeDistance];
+   [document setOptimizeDrawing:optimizeDrawing];
+   [document setOptimizeDrawingThreshold:optimizeDrawingThreshold];
+   [document setLogPerformance:logPerformance];
 }
 
 /**
@@ -130,6 +173,17 @@
       [[NSUserDefaults standardUserDefaults] setFloat:MIN_ANIMATION_DURATION_ON_SCALE forKey:ANIMATION_SPEED_KEY];
       animationDurationOnScale = MIN_ANIMATION_DURATION_ON_SCALE;
    }
+   
+   optimizeDrawing = [[NSUserDefaults standardUserDefaults] integerForKey:OPTIMIZE_DRAWING_KEY];
+   
+   optimizeDrawingThreshold = [[NSUserDefaults standardUserDefaults] integerForKey:OPTIMIZE_THRESHOLD_KEY];
+   if (optimizeDrawingThreshold < MIN_OPTIMIZE_THRESHOLD)
+   {
+      [[NSUserDefaults standardUserDefaults] setFloat:MIN_OPTIMIZE_THRESHOLD forKey:OPTIMIZE_THRESHOLD_KEY];
+      optimizeDrawingThreshold = MIN_OPTIMIZE_THRESHOLD;
+   }
+   
+   logPerformance = [[NSUserDefaults standardUserDefaults] integerForKey:LOG_PERFORMANCE_KEY];
    
    // Renormalize between 0 and 1
    double normalizedValue = (MAX_ANIMATION_DURATION_ON_SCALE - animationDurationOnScale + MIN_ANIMATION_DURATION_ON_SCALE)/(MAX_ANIMATION_DURATION_ON_SCALE - MIN_ANIMATION_DURATION_ON_SCALE);
@@ -171,10 +225,14 @@
 {
 	NSError *error = nil;
    NSDocumentController *dc = [NSDocumentController sharedDocumentController];
-   HoloSimDocument *doc = [dc openDocumentWithContentsOfURL:[NSURL fileURLWithPath:fileName] display:YES error:&error];
+   HoloSimDocument *doc = [dc openDocumentWithContentsOfURL:[NSURL fileURLWithPath:fileName] display:NO error:&error];
    
    // Set parameters for document opened
    [self prepareDocumentParameters:doc];
+   
+   // Now when all parameters are setup correctly, show document
+   [doc makeWindowControllers];
+   [doc showWindows];
    
    return doc != nil;
 }

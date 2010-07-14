@@ -1,16 +1,26 @@
 /*
- *  OpenGLDrawingCode.cpp
- *  HoloSim
+ * HoloSim, visualization and control of the moxel based environment.
  *
- *  Create portability layer, so that we isolate actual drawing code from the GUI code
+ * Copyright (C) 2010 Veljko Krunic
  *
- *  Created by Veljko Krunic on 4/14/07.
- *  Copyright © 2007-2010 Veljko Krunic. All rights reserved.
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Affero General Public License version 3 as
+ * published by the Free Software Foundation.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Affero General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
 #include "OpenGLDrawingCode.h"
 
 #include <cstdio>
+#include <string>
+#include <sstream>
 
 #include <OpenGL/gl.h>
 #include <OpenGL/glu.h>
@@ -35,6 +45,27 @@ static const double Z_OFFSET = 0.01;
 // Max rod height in comparasion with base
 static const double MAX_ROD_HEIGHT = 10;
 
+static void writeToCSVFile(const char *fileName, double *what, int sizeX, int sizeY)
+{
+   // Write debug output
+   FILE *myfile;
+   myfile = fopen(fileName, "w");
+   
+   for (int indexY = 0; indexY < sizeY; indexY++)
+   {
+      for (int indexX = 0; indexX < sizeX; indexX++)
+      {
+         fprintf(myfile, "%lf", what[sizeX * indexY + indexX]);
+         if (indexX < sizeX - 1)
+            fprintf(myfile, ",");
+      }
+      
+      fprintf(myfile, "\n");
+   }
+   
+   fclose(myfile);
+}
+
 OpenGLDrawingCode::OpenGLDrawingCode() : AbstractDrawingCode(), aspectRatio_(0), fov_(0), wasModelDrawn_(false)
 {
    fov_ = INITIAL_FOV;
@@ -43,7 +74,6 @@ OpenGLDrawingCode::OpenGLDrawingCode() : AbstractDrawingCode(), aspectRatio_(0),
 
 OpenGLDrawingCode::~OpenGLDrawingCode()
 {
-   
 }
 
 void OpenGLDrawingCode::setAspectRatio(double ratio)
@@ -316,19 +346,9 @@ void OpenGLDrawingCode::setupProjectionAndCoordinateSystem()
    glRotated(getRotationAngleZ(), 0, 0, 1);
 }
 
-Statistics OpenGLDrawingCode::getMoxelCalculationStatistics() const
-{
-	return moxelCalculationStatistics_;   
-}
-
 Statistics OpenGLDrawingCode::getAllFrameRenderingStatistics() const
 {
 	return allFrameRenderingStatistics_;   
-}
-
-Statistics OpenGLDrawingCode::getLastFrameRenderingStatistics() const
-{
-   return lastFrameRenderingStatistics_;
 }
 
 void OpenGLDrawingCode::draw(const AbstractModel *m)
@@ -336,26 +356,12 @@ void OpenGLDrawingCode::draw(const AbstractModel *m)
    // This service knows at the moment only how to draw interpolated models
    const GPUInterpolatedModel *model = dynamic_cast<const GPUInterpolatedModel*>(m);
    
-   lastFrameRenderingStatistics_.resetStatistics();
-   lastFrameRenderingStatistics_.startTimer();
    allFrameRenderingStatistics_.startTimer();
    
    // Make sure that model is not precalculated at this point (otherwise, our measurement is not correct)
    if (!wasModelDrawn_  ||  !model->isModelCalculated())
    {
-   	CHECK(!model->isModelCalculated(), "Model must not be calculated while we are measuring performance");
-      moxelCalculationStatistics_.startTimer();
-      model->forceModelCalculation();
-      
-      long numMoxelsRendered = model->getSizeX() * model->getSizeY();
-      
-      // Update statistics for the model calculation
-      moxelCalculationStatistics_.stopTimer();
-      moxelCalculationStatistics_.addAggregateStatistics(numMoxelsRendered);
-      
-      lastFrameRenderingStatistics_.stopTimer();
-      lastFrameRenderingStatistics_.addAggregateStatistics(numMoxelsRendered);
-      
+   	model->forceModelCalculation();
       wasModelDrawn_ = true;
    }
    
@@ -399,16 +405,13 @@ void OpenGLDrawingCode::draw(const AbstractModel *m)
    double maxRodSize = BASE_SIZE * (model->getRenderedAreaMaxZ() - model->getRenderedAreaMinZ())/max(xRenderSize, yRenderSize);
    
    drawModelBase(BASE_SIZE);
-     
-   // Force calculation. This is where moxel related operations would happen
-   model->forceModelCalculation();
    
    // and draw all the rods
    for (int indexX = 0; indexX < model->getSizeX(); indexX++)
       for (int indexY = 0; indexY < model->getSizeY(); indexY++)
       {
          // Transform from [0, 1] in Z buffer to the maxZ coordinate
-         double zValue = maxRodSize*(1-model->getAt(indexX, indexY));
+         double zValue = maxRodSize * (1 - model->getAt(indexX, indexY));
          drawRodAt(BASE_SIZE, model->getSizeX(), ROD_COVERAGE_PERCENTAGE, indexX, indexY, zValue);
       }
    

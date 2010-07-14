@@ -1,3 +1,21 @@
+/*
+ * HoloSim, visualization and control of the moxel based environment.
+ *
+ * Copyright (C) 2010 Veljko Krunic
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Affero General Public License version 3 as
+ * published by the Free Software Foundation.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Affero General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
 #import <OpenGL/gl.h>
 
 #import "HoloDeckView.h"
@@ -48,6 +66,58 @@
    [pixFmt release];  
    return myContext;
 }  
+
+/**
+ * Get last part of the filename prior to leading slash
+ *
+ * @param model Model to use
+ * @param moxelCalcMicroSeconds How many microseconds did last moxel calculation took
+ * @param numMoxelsRendered And how many moxels did it ultimately render
+ * 
+ * @return last part of the filename (basename in UNIX parlance)
+ */
+static void logPerformance(const AbstractModel *model, double moxelCalcMicroSeconds, long numMoxelsRendered)
+{
+	static bool firstCall = true;
+   static FILE *fp;
+
+
+#ifdef FINAL_RELEASE
+   if (firstCall)
+   {
+      fp = fopen("perf_log.dat", "w");
+      CHECK(fp, "Error opening performance log");
+      firstCall = false;
+      fprintf(fp, "Model, Rendering_Microseconds, Num_Moxels_Rendered, Rate\n");
+   }
+   
+   fprintf(fp, "%s, %lf, %ld, %lf\n", model->getFileName(), moxelCalcMicroSeconds, numMoxelsRendered, numMoxelsRendered/(moxelCalcMicroSeconds/1000000.0));
+   fflush(fp);
+   
+#else
+   
+	// Do fast logging that leads itself to data analysis
+   static int numCalls = 0;
+   
+   if (firstCall)
+   {
+      fp = fopen("perf_log.dat", "w");
+      CHECK(fp, "Error opening performance log");
+      firstCall = false;
+      fprintf(fp, "Rendering_Microseconds, Num_Moxels, Rate\n");
+   }
+   
+   fprintf(fp, "%lf, %ld, %lf\n", moxelCalcMicroSeconds, numMoxelsRendered, numMoxelsRendered/(moxelCalcMicroSeconds/1000000));
+   
+   numCalls++;
+   
+   if (numCalls%100 == 0) {
+   	fflush(fp);
+   }
+   
+#endif
+}
+
 
 /**
  * Set tracking rectangle for mouse tracking
@@ -307,6 +377,11 @@
    
 	// Run loop for dialogs and menus
 	[[NSRunLoop currentRunLoop] addTimer:openGLAnimationTimer forMode:NSModalPanelRunLoopMode];
+   
+   // Used for benchmarking - if you are logging output, then start animation immediately (benchmark mode).
+   if ([model logPerformance]) {
+   	animationRunning = YES;
+   }
 }
 
 /**
@@ -319,11 +394,11 @@
    drawer->setRotationAngles([xSlider floatValue], [ySlider floatValue], [zSlider floatValue]);
    mouseAdapter->setMinFOV([fovSlider minValue]);
    mouseAdapter->setMaxFOV([fovSlider maxValue]);
-	animationRunning = NO;
    minMoxelsPerSecond = -1;
    maxMoxelsPerSecond = -1;
-
-   openGLAnimationTimer = nil;   
+   animationRunning = NO;
+   openGLAnimationTimer = nil;
+   
    [self setupAnimation];
 }
 
@@ -622,12 +697,16 @@ void normalizeBounds(double *minX, double *maxX, double *minY, double *maxY, dou
                    &renderMinZ, &renderMaxZ);
    
    m->setRenderedArea(renderMinX, renderMinY, renderMinZ, renderMaxX, renderMaxY, renderMaxZ);
+   
+   m->setOptimizeDrawing([model optimizeDrawing]);
+   m->setMoxelThreshold([model optimizeDrawingThreshold]);
+   
    drawer->draw(m);
    
    // Get statistics
    Statistics fpsStatistics = drawer->getAllFrameRenderingStatistics();
-   Statistics moxelCalculationStatistics = drawer->getMoxelCalculationStatistics();
-   Statistics lastFrameStatistics = drawer->getLastFrameRenderingStatistics();
+   Statistics moxelCalculationStatistics = m->getMoxelCalculationStatistics();
+   Statistics lastRenderedFrameMoxelStatistics = m->getLastRenderedFrameMoxelStatistics();
    
    double timeRendering = fpsStatistics.getElapsedTimeInMicroSeconds();
    double timeCalulatingMoxels = moxelCalculationStatistics.getElapsedTimeInMicroSeconds();
@@ -635,17 +714,18 @@ void normalizeBounds(double *minX, double *maxX, double *minY, double *maxY, dou
    double fps = fpsStatistics.getTimeAveragedStatistics();
    
    double averageMoxelsPerSecond = moxelCalculationStatistics.getTimeAveragedStatistics();
-   double moxelsPerSecond = lastFrameStatistics.getTimeAveragedStatistics();
+   double moxelsPerSecond = lastRenderedFrameMoxelStatistics.getTimeAveragedStatistics();
    
    double ratioInRendering = timeCalulatingMoxels / timeRendering;
    
-   long numMoxels = m->getSizeX() * m->getSizeY();
+   long numMoxels = m->getTotalNumMoxels();
    
    // First time performance is initial min (and we know it is first time because min is < 0)
    CHECK(!(minMoxelsPerSecond >= 0  &&  maxMoxelsPerSecond < 0), "Initialization not performed correctly");
    CHECK(!(minMoxelsPerSecond < 0  &&  maxMoxelsPerSecond >= 0), "Initialization not performed correctly");
+   CHECK(moxelsPerSecond > 0, "Moxels per second can't be 0");
    
-   if (minMoxelsPerSecond < 0  &&  maxMoxelsPerSecond < 0)
+   if (minMoxelsPerSecond < 0  ||  maxMoxelsPerSecond < 0)
    {
       minMoxelsPerSecond = moxelsPerSecond;
       maxMoxelsPerSecond = moxelsPerSecond;
@@ -661,7 +741,10 @@ void normalizeBounds(double *minX, double *maxX, double *minY, double *maxY, dou
    CHECK(timeRendering >= 0, "timeRendering overflow");
    CHECK(timeCalulatingMoxels >= 0, "timeCalulatingMoxels overflow");
    CHECK(moxelsPerSecond >= 0, "moxelsPerSecond overflow");
-   
+
+   CHECK(areEqualInLowPrecision(numMoxels/(lastRenderedFrameMoxelStatistics.getElapsedTimeInMicroSeconds()/(double)1000000), lastRenderedFrameMoxelStatistics.getTimeAveragedStatistics()),
+         "Didn't correctly calculated statistics");
+
    // And update UI
    [xSlider setFloatValue:drawer->getRotationAngleX()];
    [ySlider setFloatValue:drawer->getRotationAngleY()];
@@ -676,6 +759,11 @@ void normalizeBounds(double *minX, double *maxX, double *minY, double *maxY, dou
    [numMoxelsLabel setIntValue:numMoxels];
      
    [context flushBuffer];
+
+	if ([model logPerformance])
+   {
+	   logPerformance(m, lastRenderedFrameMoxelStatistics.getElapsedTimeInMicroSeconds(), numMoxels);      
+   }
 }
 
 /**

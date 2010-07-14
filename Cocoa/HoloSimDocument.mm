@@ -1,10 +1,20 @@
-//
-//  MyDocument.m
-//  HoloSim
-//
-//  Created by Veljko Krunic on 4/8/07.
-//  Copyright © Veljko Krunic 2007-2010. All rights reserved.
-//
+/*
+ * HoloSim, visualization and control of the moxel based environment.
+ *
+ * Copyright (C) 2010 Veljko Krunic
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Affero General Public License version 3 as
+ * published by the Free Software Foundation.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Affero General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
 
 #import "HoloSimDocument.h"
 #import "HoloDeckView.h"
@@ -58,6 +68,26 @@
 }
 
 /**
+ * Get associated app controller
+ * 
+ * @return Application controller
+ */
+- (AppController *)appController
+{
+   return appController;
+}
+
+/**
+ * Set associated app controller
+ *
+ * @param controller Associated app controller
+ */
+- (void)setAppController:(AppController *)controller
+{
+   appController = controller;
+}
+
+/**
  * Read from given file
  *
  * @param absoluteURL Name of the file
@@ -74,10 +104,10 @@
    BOOL result = model->readFromFile([name UTF8String]);
    if (!result)
    {
-      *outError = [NSError errorWithDomain:@"Not implemented yet" code:0 userInfo:[NSDictionary dictionaryWithObject:@"Test" forKey:@"key"]];
+      *outError = [NSError errorWithDomain:@"Error opening file" code:0 userInfo:[NSDictionary dictionaryWithObject:@"Test" forKey:@"key"]];
       return NO;
    }
-   
+
    return YES;
 }
 
@@ -155,6 +185,16 @@
    return mouseRotationSpeed;
 }
 
+- (void)setOptimizeDrawingThreshold:(int)threshold
+{
+   optimizeDrawingThreshold = threshold;
+}
+
+- (int)optimizeDrawingThreshold
+{
+   return optimizeDrawingThreshold;
+}
+
 - (void)setLoopAnimation:(BOOL)loop
 {
    loopAnimation = loop;
@@ -163,6 +203,16 @@
 - (BOOL)loopAnimation
 {
    return loopAnimation;
+}
+
+- (void)setOptimizeDrawing:(BOOL)optimize
+{
+   optimizeDrawing = optimize;
+}
+
+- (BOOL)optimizeDrawing
+{
+   return optimizeDrawing;
 }
 
 - (IBAction)mouseZoomSpeedChanged:(id)sender
@@ -178,6 +228,16 @@
 - (IBAction)loopAnimationChanged:(id)sender
 {
    [self setLoopAnimation:[sender boolValue]];
+}
+
+- (void)setLogPerformance:(BOOL)log
+{
+   logPerformance = log;
+}
+
+- (BOOL)logPerformance
+{
+   return logPerformance;
 }
 
 @end

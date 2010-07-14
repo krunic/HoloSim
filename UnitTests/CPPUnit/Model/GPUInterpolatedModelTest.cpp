@@ -1,14 +1,24 @@
 /*
- *  GPUInterpolatedModelTest.cpp
- *  HoloSim
+ * HoloSim, visualization and control of the moxel based environment.
  *
- *  Created by Veljko Krunic on 2/4/10.
- *  Copyright 2010 Veljko Krunic. All rights reserved.
+ * Copyright (C) 2010 Veljko Krunic
  *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Affero General Public License version 3 as
+ * published by the Free Software Foundation.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Affero General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
 #include <cppunit/extensions/HelperMacros.h>
 
+#include "CheckBoard.h"
 #include "GPUInterpolatedModel.h"
 #include "GPUInterpolatedModelTest.h"
 #include "MathHelper.h"
@@ -55,8 +65,13 @@ void GPUInterpolatedModelTest::testCopyConstructor()
 	GPUInterpolatedModel constructorCopy(original);
    
    original.setTimeSlice(valueToChange);
-   CPPUNIT_ASSERT_MESSAGE("Setter failed", areEqual(constructorCopy.getTimeSlice(), valueToSet));
-   CPPUNIT_ASSERT_MESSAGE("Aliasing happened", areEqual(original.getTimeSlice(), valueToChange));
+   original.setMoxelThreshold(valueToChange);
+   
+   CPPUNIT_ASSERT_MESSAGE("Time setter failed", areEqual(constructorCopy.getTimeSlice(), valueToSet));
+   CPPUNIT_ASSERT_MESSAGE("Aliasing happened on time", areEqual(original.getTimeSlice(), valueToChange));
+   
+   CPPUNIT_ASSERT_MESSAGE("Moxel setter failed", areEqual(constructorCopy.getMoxelThreshold(), valueToSet));
+   CPPUNIT_ASSERT_MESSAGE("Aliasing happened on moxels", areEqual(original.getMoxelThreshold(), valueToChange));
 }
 
 void GPUInterpolatedModelTest::testOperatorEqual()
@@ -66,12 +81,19 @@ void GPUInterpolatedModelTest::testOperatorEqual()
    
    GPUInterpolatedModel original;
    original.setTimeSlice(valueToSet);
+   original.setMoxelThreshold(valueToSet);
    
-	GPUInterpolatedModel constructorCopy = original;
+	GPUInterpolatedModel operatorEqualCopy;
+   operatorEqualCopy = original;
    
    original.setTimeSlice(valueToChange);
-   CPPUNIT_ASSERT_MESSAGE("Setter failed", areEqual(constructorCopy.getTimeSlice(), valueToSet));
-   CPPUNIT_ASSERT_MESSAGE("Aliasing happened", areEqual(original.getTimeSlice(), valueToChange));
+   original.setMoxelThreshold(valueToChange);
+   
+   CPPUNIT_ASSERT_MESSAGE("Time setter failed", areEqual(operatorEqualCopy.getTimeSlice(), valueToSet));
+   CPPUNIT_ASSERT_MESSAGE("Aliasing happened on time", areEqual(original.getTimeSlice(), valueToChange));
+
+   CPPUNIT_ASSERT_MESSAGE("Moxel setter failed", areEqual(operatorEqualCopy.getMoxelThreshold(), valueToSet));
+   CPPUNIT_ASSERT_MESSAGE("Aliasing happened on moxels", areEqual(original.getMoxelThreshold(), valueToChange));
 }
 
 void GPUInterpolatedModelTest::testSerialization()
@@ -82,7 +104,7 @@ void GPUInterpolatedModelTest::testSerialization()
    
    // And assert that values in the file were correctly read. This coordinates are from file
    CPPUNIT_ASSERT_MESSAGE("Incorrect dimensions in X", testFixture.getSizeX() == 30);
-   CPPUNIT_ASSERT_MESSAGE("Incorrect dimensions in Y", testFixture.getSizeX() == 30);
+   CPPUNIT_ASSERT_MESSAGE("Incorrect dimensions in Y", testFixture.getSizeY() == 30);
    CPPUNIT_ASSERT_MESSAGE("Timeslice was not correctly read", areEqual(testFixture.getTimeSlice(), 0.31415927));
 }
 
@@ -142,3 +164,144 @@ void GPUInterpolatedModelTest::testPrecalculationStatus()
    GPUInterpolatedModel testFixture;
    CPPUNIT_ASSERT_MESSAGE("Model shouldn't be calculated at this point", !testFixture.isModelCalculated());
 }
+
+void GPUInterpolatedModelTest::testOptimizeDrawing()
+{
+   GPUInterpolatedModel testFixture;
+   CPPUNIT_ASSERT_MESSAGE("Model shouldn't request optimized drawing unless explicitely setup in that way", !testFixture.getOptimizeDrawing());
+   
+   CPPUNIT_ASSERT_MESSAGE("Reading from file failed", testFixture.readFromFile("singleQuad.GPUHoloSim"));
+   
+   // And assert that values in the file were correctly read. This coordinates are from file
+   CPPUNIT_ASSERT_MESSAGE("Incorrect dimensions in X", testFixture.getSizeX() == 30);
+   CPPUNIT_ASSERT_MESSAGE("Incorrect dimensions in Y", testFixture.getSizeY() == 30);
+   
+   testFixture.setRenderedArea(-10, -10, -10, 10, 10, 10);
+   
+   testFixture.setOptimizeDrawing(true);
+   testFixture.setMoxelThreshold(100);
+   
+   // Lets do max 100, which should translate in 10 on each side
+   CPPUNIT_ASSERT_MESSAGE("Incorrect optimized drawing recommendation in X", testFixture.getSizeX() == 10);
+   CPPUNIT_ASSERT_MESSAGE("Incorrect optimized drawing recommendation in Y", testFixture.getSizeY() == 10);   
+}
+
+
+void GPUInterpolatedModelTest::testDecimation()
+{
+   static const int SIZE_X = 1023;
+   static const int SIZE_Y = 1021;
+   
+   // Expected offset of Z buffer. We would set quad at the half of the viewing frustum so Z buffer should be 1/2
+   static const double Z_BUFFER_VALUE = 0.5;
+   
+   // Set a quad that covers the whole area
+   GPUGeometryModel gpuGeometryModel(SIZE_X, SIZE_Y);
+   
+   static const double QUAD_SIZE = 1;
+   static const double Z_OFFSET = 0;
+   
+   gpuGeometryModel.setRenderedArea(-QUAD_SIZE/2, -QUAD_SIZE/2, -QUAD_SIZE/2, QUAD_SIZE/2, QUAD_SIZE/2, QUAD_SIZE/2);
+   
+   gpuGeometryModel.addPoint(createPoint(-QUAD_SIZE, -QUAD_SIZE, Z_OFFSET));
+   gpuGeometryModel.addPoint(createPoint(-QUAD_SIZE, QUAD_SIZE, Z_OFFSET));
+   gpuGeometryModel.addPoint(createPoint(QUAD_SIZE, -QUAD_SIZE, Z_OFFSET));
+   gpuGeometryModel.addPoint(createPoint(QUAD_SIZE, QUAD_SIZE, Z_OFFSET));
+   
+   gpuGeometryModel.addTriangle(createTriangle(0, 1, 3));
+   gpuGeometryModel.addTriangle(createTriangle(0, 2, 3));
+   
+   for (int indexY = 0; indexY < SIZE_Y; indexY++)
+      for (int indexX = 0; indexX < SIZE_X; indexX++)
+      {
+         double value = gpuGeometryModel.getAt(indexX, indexY);
+         if (!areEqualInLowPrecision(value, Z_BUFFER_VALUE))
+         {           
+            stringstream message;
+            message << "Error at the coordinates X = " << indexX << " Y = " << indexY << " got " << value << " instead of " << Z_BUFFER_VALUE;
+            CPPUNIT_ASSERT_MESSAGE(message.str().c_str(), false);
+         }
+      }
+   
+   // Perform decimation
+   static const int DECIMATED_SIZE_X = 99;
+   static const int DECIMATED_SIZE_Y = 99;
+   
+   double *decimated = GPUInterpolatedModel::getDecimatedModelAdopt(&gpuGeometryModel, DECIMATED_SIZE_X, DECIMATED_SIZE_Y);
+   CPPUNIT_ASSERT_MESSAGE("Result of decimation is NULL!", decimated);
+   
+   for (int indexY = 0; indexY < DECIMATED_SIZE_Y; indexY++)
+      for (int indexX = 0; indexX < DECIMATED_SIZE_X; indexX++)
+      {
+         double value = decimated[indexY * DECIMATED_SIZE_Y + indexX];
+         
+         if (!areEqualInLowPrecision(value, Z_BUFFER_VALUE))
+         {           
+            stringstream message;
+            message << "Decimation error at the coordinates X = " << indexX << " Y = " << indexY << " got " << value << " instead of " << Z_BUFFER_VALUE;
+            CPPUNIT_ASSERT_MESSAGE(message.str().c_str(), false);
+         }
+      }
+   
+   delete [] decimated;
+   
+}
+
+void GPUInterpolatedModelTest::testIdentityDecimation()
+{
+   // Set a quad that covers the whole area
+   CheckBoard checkBoard(3, 3);
+   
+   static const double Z_OFFSET = 1;
+   
+   // Make middle four items in checkboard offset, and all other 0
+   checkBoard.setAt(1, 1, Z_OFFSET);
+   
+   double *decimated = GPUInterpolatedModel::getDecimatedModelAdopt(&checkBoard, 3, 3);
+   CPPUNIT_ASSERT_MESSAGE("Result of decimation is NULL!", decimated);
+   
+   for (int indexY = 0; indexY < 3; indexY++)
+      for (int indexX = 0; indexX < 3; indexX++)
+      {
+         double value = decimated[indexY * 3 + indexX];
+         
+         // Only middle point (1, 1) should be > 0
+			double expectedValue = (indexX == 1  &&  indexY == 1) ? Z_OFFSET : 0;
+         stringstream message;
+         message << "Decimation error at the coordinates X = " << indexX << " Y = " << indexY << " got " << value << " instead of " << expectedValue;
+         
+		   CPPUNIT_ASSERT_MESSAGE(message.str().c_str(), areEqualInLowPrecision(value, expectedValue));
+      }
+}
+
+void GPUInterpolatedModelTest::testNoShiftsAfterDecimation()
+{
+   // Set a quad that covers the whole area
+   CheckBoard checkBoard(6, 6);
+   
+   static const double Z_OFFSET = 1;
+   
+   // Make middle four items in checkboard offset, and all other 0
+   checkBoard.setAt(2, 2, Z_OFFSET);
+   checkBoard.setAt(2, 3, Z_OFFSET);   
+   checkBoard.setAt(3, 2, Z_OFFSET);   
+   checkBoard.setAt(3, 3, Z_OFFSET);   
+   
+   double *decimated = GPUInterpolatedModel::getDecimatedModelAdopt(&checkBoard, 3, 3);
+   CPPUNIT_ASSERT_MESSAGE("Result of decimation is NULL!", decimated);
+   
+   for (int indexY = 0; indexY < 3; indexY++)
+      for (int indexX = 0; indexX < 3; indexX++)
+      {
+         double value = decimated[indexY * 3 + indexX];
+         
+         // Only middle point (1, 1) should be > 0
+			double expectedValue = (indexX == 1  &&  indexY == 1) ? Z_OFFSET : 0;
+         stringstream message;
+         message << "Decimation error at the coordinates X = " << indexX << " Y = " << indexY << " got " << value << " instead of " << expectedValue;
+         
+		   CPPUNIT_ASSERT_MESSAGE(message.str().c_str(), areEqualInLowPrecision(value, expectedValue));
+      }
+}
+
+

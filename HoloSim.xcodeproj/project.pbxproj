@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7A01AAE111EF7DD100D590DD /* CheckBoard.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7A01AADF11EF7DD100D590DD /* CheckBoard.cpp */; };
+		7A01AAEA11EF7F4B00D590DD /* CheckBoardTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7A01AAE811EF7F4B00D590DD /* CheckBoardTest.cpp */; };
 		7A0F8A420C5CA8650018DD1F /* ControllerAdapter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7A0F8A3E0C5CA8650018DD1F /* ControllerAdapter.cpp */; };
 		7A0F8A430C5CA8650018DD1F /* MouseAdapter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7A0F8A400C5CA8650018DD1F /* MouseAdapter.cpp */; };
 		7A0F8A440C5CA8650018DD1F /* ControllerAdapter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7A0F8A3E0C5CA8650018DD1F /* ControllerAdapter.cpp */; };
@@ -30,6 +32,9 @@
 		7A2F41C50C75784900FB3B69 /* MathHelperTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7A2F41C20C75784900FB3B69 /* MathHelperTest.cpp */; };
 		7A2F41D40C75787C00FB3B69 /* ProjectConfigTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7A2F41CE0C75787C00FB3B69 /* ProjectConfigTest.cpp */; };
 		7A2F41D50C75787C00FB3B69 /* UnitTests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7A2F41D00C75787C00FB3B69 /* UnitTests.cpp */; };
+		7A348172128B5BAE00C85F0E /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 7A348171128B5BAE00C85F0E /* README.md */; };
+		7A348176128B5C1700C85F0E /* BUILDING.TXT in Resources */ = {isa = PBXBuildFile; fileRef = 7A348174128B5C1700C85F0E /* BUILDING.TXT */; };
+		7A348177128B5C1700C85F0E /* LICENSE.TXT in Resources */ = {isa = PBXBuildFile; fileRef = 7A348175128B5C1700C85F0E /* LICENSE.TXT */; };
 		7A3A537311E7E51200D6BB77 /* Statistics.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7A3A537211E7E51200D6BB77 /* Statistics.cpp */; };
 		7A3A537411E7E51200D6BB77 /* Statistics.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7A3A537211E7E51200D6BB77 /* Statistics.cpp */; };
 		7A3A537511E7E51200D6BB77 /* Statistics.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7A3A537211E7E51200D6BB77 /* Statistics.cpp */; };
@@ -155,6 +160,10 @@
 		2A37F4C4FDCFA73011CA2CEA /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
 		2A37F4C5FDCFA73011CA2CEA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
 		32DBCF750370BD2300C91783 /* HoloSim_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HoloSim_Prefix.pch; sourceTree = "<group>"; };
+		7A01AADF11EF7DD100D590DD /* CheckBoard.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CheckBoard.cpp; path = UnitTests/CPPUnit/Model/CheckBoard.cpp; sourceTree = "<group>"; };
+		7A01AAE011EF7DD100D590DD /* CheckBoard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CheckBoard.h; path = UnitTests/CPPUnit/Model/CheckBoard.h; sourceTree = "<group>"; };
+		7A01AAE811EF7F4B00D590DD /* CheckBoardTest.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CheckBoardTest.cpp; path = UnitTests/CPPUnit/Model/CheckBoardTest.cpp; sourceTree = "<group>"; };
+		7A01AAE911EF7F4B00D590DD /* CheckBoardTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CheckBoardTest.h; path = UnitTests/CPPUnit/Model/CheckBoardTest.h; sourceTree = "<group>"; };
 		7A02C2A50C68C021007BD910 /* Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
 		7A0F8A3E0C5CA8650018DD1F /* ControllerAdapter.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; name = ControllerAdapter.cpp; path = Control/ControllerAdapter.cpp; sourceTree = "<group>"; };
 		7A0F8A3F0C5CA8650018DD1F /* ControllerAdapter.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = ControllerAdapter.h; path = Control/ControllerAdapter.h; sourceTree = "<group>"; };
@@ -187,6 +196,9 @@
 		7A2F41CF0C75787C00FB3B69 /* ProjectConfigTest.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = ProjectConfigTest.h; path = UnitTests/CPPUnit/ProjectConfigTest.h; sourceTree = "<group>"; };
 		7A2F41D00C75787C00FB3B69 /* UnitTests.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; name = UnitTests.cpp; path = UnitTests/CPPUnit/UnitTests.cpp; sourceTree = "<group>"; };
 		7A2F41D10C75787C00FB3B69 /* UnitTests.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = UnitTests.h; path = UnitTests/CPPUnit/UnitTests.h; sourceTree = "<group>"; };
+		7A348171128B5BAE00C85F0E /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.md; sourceTree = "<group>"; };
+		7A348174128B5C1700C85F0E /* BUILDING.TXT */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = BUILDING.TXT; sourceTree = "<group>"; };
+		7A348175128B5C1700C85F0E /* LICENSE.TXT */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE.TXT; sourceTree = "<group>"; };
 		7A3A537111E7E51200D6BB77 /* Statistics.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Statistics.h; path = Util/Statistics.h; sourceTree = "<group>"; };
 		7A3A537211E7E51200D6BB77 /* Statistics.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Statistics.cpp; path = Util/Statistics.cpp; sourceTree = "<group>"; };
 		7A3A537911E7EF7B00D6BB77 /* StatisticsTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StatisticsTest.h; sourceTree = "<group>"; };
@@ -209,7 +221,6 @@
 		7A4744550C5D3DDF006FEF68 /* libmockpp_cxxtest.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libmockpp_cxxtest.a; path = /usr/local/lib/libmockpp_cxxtest.a; sourceTree = "<absolute>"; };
 		7A4BD2AF0BCA0DD5004E8E67 /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = /System/Library/Frameworks/OpenGL.framework; sourceTree = "<absolute>"; };
 		7A4BD2B30BCA0DF8004E8E67 /* GLUT.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLUT.framework; path = /System/Library/Frameworks/GLUT.framework; sourceTree = "<absolute>"; };
-		7A63FB790BF9492000A52909 /* index.html */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.html; name = index.html; path = html/index.html; sourceTree = "<group>"; };
 		7A70605710F4B20700816D3E /* libcppunit.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libcppunit.a; path = /usr/local/lib/libcppunit.a; sourceTree = "<absolute>"; };
 		7A70618610F4B61000816D3E /* Collada14Dom.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Collada14Dom.framework; path = /Library/Frameworks/Collada14Dom.framework; sourceTree = "<absolute>"; };
 		7A70627810F4BCB800816D3E /* libboost_filesystem.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libboost_filesystem.a; path = /usr/local/lib/libboost_filesystem.a; sourceTree = "<absolute>"; };
@@ -242,6 +253,7 @@
 		7ABEAF550BFF633900C71586 /* blitz.html */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.html; name = blitz.html; path = "/usr/local/share/doc/blitz-0.9/blitz.html"; sourceTree = "<absolute>"; };
 		7ABEAF5C0BFF63AC00C71586 /* index.html */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.html; name = index.html; path = /usr/local/share/cppunit/html/index.html; sourceTree = "<absolute>"; };
 		7ABEAFBA0BFF672A00C71586 /* HoloSim_UnitTests */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = HoloSim_UnitTests; sourceTree = BUILT_PRODUCTS_DIR; };
+		7AC97D20121B04D3008F0855 /* index.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; name = index.html; path = Doc/AutoGenerated/HTML/html/index.html; sourceTree = "<group>"; };
 		7ACE34F711122FA600EC758D /* GPUCalculationEngineTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GPUCalculationEngineTest.h; path = UnitTests/CPPUnit/Model/GPUCalculationEngineTest.h; sourceTree = "<group>"; };
 		7ACE34F811122FA600EC758D /* GPUCalculationEngineTest.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GPUCalculationEngineTest.cpp; path = UnitTests/CPPUnit/Model/GPUCalculationEngineTest.cpp; sourceTree = "<group>"; };
 		7AE63EB610FBA45E00C0AE45 /* GPUGeometryModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GPUGeometryModel.h; path = Model/GPUGeometryModel.h; sourceTree = "<group>"; };
@@ -255,6 +267,12 @@
 		7AF7337611E9AAEB00ABE3D3 /* singleQuadDemo.gpuGeometryModel */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = singleQuadDemo.gpuGeometryModel; path = ModelFiles/singleQuadDemo.gpuGeometryModel; sourceTree = "<group>"; };
 		7AF7337711E9AAEB00ABE3D3 /* singleQuadDemo.GPUHoloSim */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = singleQuadDemo.GPUHoloSim; path = ModelFiles/singleQuadDemo.GPUHoloSim; sourceTree = "<group>"; };
 		7AF7337811E9AAEB00ABE3D3 /* TestQuadDemo.dae */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = TestQuadDemo.dae; path = ModelFiles/TestQuadDemo.dae; sourceTree = "<group>"; };
+		7AFC2DCB11ED3D7D004ED493 /* chairDemoHigh.gpuGeometryModel */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = chairDemoHigh.gpuGeometryModel; path = ModelFiles/chairDemoHigh.gpuGeometryModel; sourceTree = "<group>"; };
+		7AFC2DCC11ED3D7D004ED493 /* chairDemoHigh.GPUHoloSim */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = chairDemoHigh.GPUHoloSim; path = ModelFiles/chairDemoHigh.GPUHoloSim; sourceTree = "<group>"; };
+		7AFC2DCD11ED3D7D004ED493 /* chairDemoHuge.gpuGeometryModel */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = chairDemoHuge.gpuGeometryModel; path = ModelFiles/chairDemoHuge.gpuGeometryModel; sourceTree = "<group>"; };
+		7AFC2DCE11ED3D7D004ED493 /* chairDemoHuge.GPUHoloSim */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = chairDemoHuge.GPUHoloSim; path = ModelFiles/chairDemoHuge.GPUHoloSim; sourceTree = "<group>"; };
+		7AFC2DCF11ED3D7D004ED493 /* chairDemoLow.gpuGeometryModel */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = chairDemoLow.gpuGeometryModel; path = ModelFiles/chairDemoLow.gpuGeometryModel; sourceTree = "<group>"; };
+		7AFC2DD011ED3D7D004ED493 /* chairDemoLow.GPUHoloSim */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = chairDemoLow.GPUHoloSim; path = ModelFiles/chairDemoLow.GPUHoloSim; sourceTree = "<group>"; };
 		7AFE409211E448E300875CB7 /* PerformanceTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PerformanceTest.h; path = UnitTests/Perf/PerformanceTest.h; sourceTree = "<group>"; };
 		7AFE409311E448E300875CB7 /* PerformanceTest.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = PerformanceTest.cpp; path = UnitTests/Perf/PerformanceTest.cpp; sourceTree = "<group>"; };
 		8D15AC360486D014006FF6A4 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
@@ -423,6 +441,10 @@
 			isa = PBXGroup;
 			children = (
 				7A40780D1131C62700D47E62 /* GLSL */,
+				7A01AAE011EF7DD100D590DD /* CheckBoard.h */,
+				7A01AADF11EF7DD100D590DD /* CheckBoard.cpp */,
+				7A01AAE911EF7F4B00D590DD /* CheckBoardTest.h */,
+				7A01AAE811EF7F4B00D590DD /* CheckBoardTest.cpp */,
 				7ABA8C0010FDA599000EB032 /* GPUGeometryModelTest.h */,
 				7ABA8C0110FDA599000EB032 /* GPUGeometryModelTest.cpp */,
 				7AA6D9921101A5A10069471B /* ColladaTest.h */,
@@ -553,7 +575,7 @@
 		7A63FB760BF948E300A52909 /* HoloSim Doc */ = {
 			isa = PBXGroup;
 			children = (
-				7A63FB790BF9492000A52909 /* index.html */,
+				7AC97D20121B04D3008F0855 /* index.html */,
 			);
 			name = "HoloSim Doc";
 			sourceTree = "<group>";
@@ -631,6 +653,9 @@
 		7ABEAF4E0BFF603100C71586 /* Documentation */ = {
 			isa = PBXGroup;
 			children = (
+				7A348174128B5C1700C85F0E /* BUILDING.TXT */,
+				7A348175128B5C1700C85F0E /* LICENSE.TXT */,
+				7A348171128B5BAE00C85F0E /* README.md */,
 				7ABEAF500BFF605900C71586 /* blitz Doc */,
 				7ABEAF4F0BFF604500C71586 /* CppUnit Doc */,
 				7A63FB760BF948E300A52909 /* HoloSim Doc */,
@@ -667,6 +692,12 @@
 		7AF7337211E9AAB700ABE3D3 /* ModelFiles */ = {
 			isa = PBXGroup;
 			children = (
+				7AFC2DCB11ED3D7D004ED493 /* chairDemoHigh.gpuGeometryModel */,
+				7AFC2DCC11ED3D7D004ED493 /* chairDemoHigh.GPUHoloSim */,
+				7AFC2DCD11ED3D7D004ED493 /* chairDemoHuge.gpuGeometryModel */,
+				7AFC2DCE11ED3D7D004ED493 /* chairDemoHuge.GPUHoloSim */,
+				7AFC2DCF11ED3D7D004ED493 /* chairDemoLow.gpuGeometryModel */,
+				7AFC2DD011ED3D7D004ED493 /* chairDemoLow.GPUHoloSim */,
 				7AADC7E611EBDE01003771A4 /* SlowInSlowOut.fs */,
 				7AF7337311E9AAEB00ABE3D3 /* ChairDemo.dae */,
 				7AF7337411E9AAEB00ABE3D3 /* chairDemo.gpuGeometryModel */,
@@ -779,6 +810,9 @@
 				8D15AC2D0486D014006FF6A4 /* MainMenu.nib in Resources */,
 				8D15AC2E0486D014006FF6A4 /* HoloSimDocument.nib in Resources */,
 				7A3E25510C598C2200326103 /* HoloSimIcon.icns in Resources */,
+				7A348172128B5BAE00C85F0E /* README.md in Resources */,
+				7A348176128B5C1700C85F0E /* BUILDING.TXT in Resources */,
+				7A348177128B5C1700C85F0E /* LICENSE.TXT in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -883,6 +917,8 @@
 				7A3A537311E7E51200D6BB77 /* Statistics.cpp in Sources */,
 				7A3A537B11E7EF7B00D6BB77 /* StatisticsTest.cpp in Sources */,
 				7A3A53F411E8041700D6BB77 /* PreciseDelay.cpp in Sources */,
+				7A01AAE111EF7DD100D590DD /* CheckBoard.cpp in Sources */,
+				7A01AAEA11EF7F4B00D590DD /* CheckBoardTest.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
